@@ -1,3 +1,9 @@
+import { Login } from '../components/Login';
+
 export const Home = () => {
-  return <div>Home</div>;
+  return (
+    <div>
+      <Login />
+    </div>
+  );
 };
