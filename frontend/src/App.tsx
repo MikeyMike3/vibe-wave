@@ -6,6 +6,7 @@ import {
   Route,
   RouterProvider,
 } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
 import { RootLayout } from './layouts/RootLayout';
 import { Home } from './pages/Home';
 import { PartyMode } from './pages/PartyMode';
@@ -25,7 +26,11 @@ const router = createBrowserRouter(
 );
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  );
 }
 
 export default App;
