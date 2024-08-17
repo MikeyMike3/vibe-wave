@@ -5,7 +5,7 @@ import { useHeaders } from '../useHeaders';
 export const useFetchUserPlaylists = () => {
   const [userPlaylists, setUserPlaylists] = useState<CurrentUserPlaylist>();
   const [isUserPlaylistsLoading, setIsUserPlaylistsLoading] = useState(true);
-  const [isUserPlaylistError, setIsUserPlaylistError] = useState(false);
+  const [isUserPlaylistsError, setIsUserPlaylistsError] = useState(false);
   const accessToken = sessionStorage.getItem('accessToken');
   const apiHeaders = useHeaders(accessToken);
 
@@ -17,11 +17,11 @@ export const useFetchUserPlaylists = () => {
           const data: CurrentUserPlaylist = await response.json();
           setUserPlaylists(data);
         } else {
-          setIsUserPlaylistError(true);
+          setIsUserPlaylistsError(true);
           throw new Error();
         }
       } catch {
-        setIsUserPlaylistError(true);
+        setIsUserPlaylistsError(true);
         throw new Error();
       } finally {
         setIsUserPlaylistsLoading(false);
@@ -32,5 +32,5 @@ export const useFetchUserPlaylists = () => {
       fetchUserPlaylists();
     }
   }, [accessToken, apiHeaders]);
-  return { userPlaylists, isUserPlaylistsLoading, isUserPlaylistError };
+  return { userPlaylists, isUserPlaylistsLoading, isUserPlaylistsError };
 };

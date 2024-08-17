@@ -2,7 +2,6 @@ import './App.css';
 import {
   createBrowserRouter,
   createRoutesFromElements,
-  Navigate,
   Route,
   RouterProvider,
 } from 'react-router-dom';
@@ -23,12 +22,10 @@ const router = createBrowserRouter(
           <Route index element={<Home />}></Route>
 
           <Route path="party-mode" element={<PartyModeLayout />}>
-            <Route index element={<Navigate to="party-mode-main" replace />}></Route>
-            <Route path="party-mode-main" element={<PartyMode />}></Route>
+            <Route index element={<PartyMode />}></Route>
           </Route>
         </Route>
       </Route>
-      ,
     </>,
   ),
 );

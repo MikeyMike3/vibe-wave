@@ -1,13 +1,13 @@
 import { useFetchUserPlaylists } from '../hooks/apis/fetch/useFetchUserPlaylists';
 
 export const Home = () => {
-  const { userPlaylists, isUserPlaylistsLoading, isUserPlaylistError } = useFetchUserPlaylists();
+  const { userPlaylists, isUserPlaylistsLoading, isUserPlaylistsError } = useFetchUserPlaylists();
 
   if (isUserPlaylistsLoading) {
     return <p>loading...</p>;
   }
 
-  if (isUserPlaylistError) {
+  if (isUserPlaylistsError) {
     return <p>An error occurred. Please refresh to try again</p>;
   }
 
