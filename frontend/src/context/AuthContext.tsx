@@ -96,7 +96,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         const response = await axios.post('http://localhost:3000/refresh', { refreshToken });
   
         if (response.status === 200) {
-          console.log("success")
 
           const newAccessToken = response.data.accessToken;
           const newExpiresIn = response.data.expiresIn;
