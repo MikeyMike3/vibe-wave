@@ -1,15 +1,9 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useHeaders } from '../hooks/useHeaders';
 import { CurrentUserPlaylist } from '../types/playlists/currentUserPlaylist';
-import { AuthContext } from '../context/AuthContext';
 
 export const Home = () => {
-  const authContext = useContext(AuthContext);
   const [userPlaylists, setUserPlaylists] = useState<CurrentUserPlaylist>();
-
-  if (!authContext) {
-    throw new Error('Profile must be used within an AuthProvider');
-  }
 
   const accessToken = sessionStorage.getItem('accessToken');
 
