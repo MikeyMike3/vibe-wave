@@ -12,17 +12,19 @@ import { PartyMode } from './pages/PartyMode';
 import { PartyModeLayout } from './layouts/PartyModeLayout';
 import PrivateRoutes from './utils/PrivateRoutes';
 import { Login } from './pages/Login';
+import { PartyModeSearch } from './pages/PartyModeSearch';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path="/login" element={<Login />}></Route>
+      <Route path="login" element={<Login />} />
       <Route element={<PrivateRoutes />}>
         <Route path="/" element={<RootLayout />}>
-          <Route index element={<Home />}></Route>
+          <Route index element={<Home />} />
 
           <Route path="party-mode" element={<PartyModeLayout />}>
-            <Route index element={<PartyMode />}></Route>
+            <Route index element={<PartyMode />} />
+            <Route path="search" element={<PartyModeSearch />} />
           </Route>
         </Route>
       </Route>
