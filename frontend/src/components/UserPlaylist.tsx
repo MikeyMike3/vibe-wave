@@ -1,5 +1,3 @@
-import React from 'react';
-
 type UserPlaylistProps = {
   name: string;
 };
