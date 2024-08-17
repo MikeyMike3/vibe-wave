@@ -8,7 +8,7 @@ export const Home = () => {
   }
 
   if (isUserPlaylistError) {
-    return <p>An Error occurred. Please Refresh to try again</p>;
+    return <p>An error occurred. Please refresh to try again</p>;
   }
 
   return <div>{userPlaylists?.items.map(item => <p key={item.id}>{item.name}</p>)}</div>;
