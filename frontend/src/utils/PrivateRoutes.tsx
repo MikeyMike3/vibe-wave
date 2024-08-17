@@ -11,7 +11,7 @@ const PrivateRoutes = () => {
 
   const { isUserLoggedIn } = authContext;
 
-  return isUserLoggedIn ? <Outlet /> : <Navigate to="/login" />;
+  return isUserLoggedIn ? <Outlet /> : <Navigate to="/login" replace={true} />;
 };
 
 export default PrivateRoutes;

@@ -75,7 +75,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           sessionStorage.setItem("userId", res.data.id);
         
         });
-        // window.location.href = '/party-mode';
       })
       .catch(err => {
         console.error('Failed to login:', err);

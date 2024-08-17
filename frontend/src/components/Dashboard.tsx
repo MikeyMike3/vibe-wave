@@ -14,10 +14,9 @@ export const Dashboard = ({ code }: DashboardProps) => {
   if (!authContext) {
     throw new Error('Profile must be used within an AuthProvider');
   }
+
   const { login, isUserLoggedIn, isUserPremiumMember } = authContext;
-
   const accessToken = sessionStorage.getItem('accessToken');
-
   const apiHeaders = headers(accessToken);
 
   if (!isUserLoggedIn) {
