@@ -15,6 +15,10 @@ export const Home = () => {
   }
 
   return (
-    <div>{userPlaylists?.items.map(item => <UserPlaylist key={item.id} name={item.name} />)}</div>
+    <div>
+      {userPlaylists?.items.map(item => (
+        <UserPlaylist key={item.id} name={item.name} images={item.images} />
+      ))}
+    </div>
   );
 };

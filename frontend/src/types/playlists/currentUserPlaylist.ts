@@ -47,3 +47,9 @@ export type CurrentUserPlaylist = {
     },
   ];
 };
+
+export type CurrentUserPlaylistImage = {
+  url: string;
+  height: number | null;
+  width: number | null;
+};
