@@ -16,7 +16,7 @@ export const UserPlaylist = ({ name, images }: UserPlaylistProps) => {
   return (
     <div>
       <img src={image} />
-      {name}
+      <p>{name}</p>
     </div>
   );
 };
