@@ -1,24 +1,15 @@
-import { useEffect, useState } from 'react';
-import { useHeaders } from '../hooks/useHeaders';
-import { CurrentUserPlaylist } from '../types/playlists/currentUserPlaylist';
+import { useFetchUserPlaylists } from '../hooks/useFetchUserPlaylists';
 
 export const Home = () => {
-  const [userPlaylists, setUserPlaylists] = useState<CurrentUserPlaylist>();
+  const { userPlaylists, isUserPlaylistsLoading, isUserPlaylistError } = useFetchUserPlaylists();
 
-  const accessToken = sessionStorage.getItem('accessToken');
+  if (isUserPlaylistsLoading) {
+    return <p>loading...</p>;
+  }
 
-  const apiHeaders = useHeaders(accessToken);
+  if (isUserPlaylistError) {
+    return <p>An Error occurred. Please Refresh to try again</p>;
+  }
 
-  useEffect(() => {
-    const fetchUserPlaylists = async () => {
-      const response = await fetch('https://api.spotify.com/v1/me/playlists', apiHeaders);
-      const data: CurrentUserPlaylist = await response.json();
-      setUserPlaylists(data);
-    };
-
-    if (accessToken) {
-      fetchUserPlaylists();
-    }
-  }, [accessToken, apiHeaders]);
-  return <div>{userPlaylists?.items.map(item => <p>{item.name}</p>)}</div>;
+  return <div>{userPlaylists?.items.map(item => <p key={item.id}>{item.name}</p>)}</div>;
 };
