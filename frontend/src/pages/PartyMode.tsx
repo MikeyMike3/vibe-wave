@@ -16,7 +16,13 @@ export const PartyMode = () => {
   return (
     <div>
       {userPlaylists?.items.map(item => (
-        <UserPlaylist key={item.id} name={item.name} images={item.images} />
+        <UserPlaylist
+          key={item.id}
+          name={item.name}
+          images={item.images}
+          type={item.type}
+          owner={item.owner.display_name}
+        />
       ))}
     </div>
   );
