@@ -36,7 +36,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     return Math.abs(expiresInNum - refreshBufferInSeconds)
   }
 
-  const REFRESH_BUFFER_IN_MINUTES = .25;
+  const REFRESH_BUFFER_IN_MINUTES = 10;
   const REFRESH_BUFFER_IN_SECONDS = useMemo(() => {
     return minutesToSeconds(REFRESH_BUFFER_IN_MINUTES);
   },[])

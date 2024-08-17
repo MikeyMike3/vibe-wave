@@ -1,63 +1,12 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 
-export const UseAuth = (code: string) => {
-  const [accessToken, setAccessToken] = useState<string>('');
-  const [refreshToken, setRefreshToken] = useState<string>('');
-  const [expiresIn, setExpiresIn] = useState<number | undefined>(
-    parseInt(sessionStorage.getItem('expiresIn') || '0') || undefined,
-  );
+export const UseAuth = () => {
+  const authContext = useContext(AuthContext);
 
-  console.log(`code ${code}`);
-  console.log(`accessToken ${accessToken}`);
+  if (!authContext) {
+    throw new Error('Profile must be used within an AuthProvider');
+  }
 
-  useEffect(() => {
-    axios
-      .post('http://localhost:3000/login', {
-        code,
-      })
-      .then(res => {
-        setAccessToken(res.data.accessToken);
-        sessionStorage.setItem('accessToken', res.data.accessToken);
-
-        setRefreshToken(res.data.refreshToken);
-        sessionStorage.setItem('refreshToken', res.data.refreshToken);
-
-        setExpiresIn(res.data.expiresIn);
-        sessionStorage.setItem('expiresIn', res.data.expiresIn.toString());
-
-        window.location.href = '/party-mode';
-      })
-      .catch(() => {
-        // window.location.href = '/';
-      });
-  }, [code]);
-
-  useEffect(() => {
-    if (!refreshToken || !expiresIn) return;
-
-    const interval = setInterval(
-      () => {
-        axios
-          .post('http://localhost:3000/refresh', {
-            refreshToken,
-          })
-          .then(res => {
-            setAccessToken(res.data.accessToken);
-            sessionStorage.setItem('accessToken', res.data.accessToken);
-
-            setExpiresIn(res.data.expiresIn);
-            sessionStorage.setItem('expiresIn', res.data.expiresIn.toString());
-          })
-          .catch(() => {
-            window.location.href = '/';
-          });
-      },
-      (expiresIn - 60) * 1000,
-    );
-
-    return () => clearInterval(interval);
-  }, [refreshToken, expiresIn]);
-
-  return accessToken;
+  return authContext;
 };
