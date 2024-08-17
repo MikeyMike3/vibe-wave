@@ -25,7 +25,7 @@ export const PartyModeSearch = () => {
         <input onChange={handleChange} placeholder="Search"></input>
         <button onClick={handleSubmit}>Search</button>
       </form>
-      {searchResults?.tracks.items.map(item => <p key={item.id}>{item.name}</p>)}
+      {searchResults?.tracks?.items.map(item => <p key={item.id}>{item.name}</p>)}
     </div>
   );
 };

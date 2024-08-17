@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useHeaders } from '../useHeaders';
 
 export const useFetchSearchResults = (query: string) => {
-  const [searchResults, setSearchResults] = useState();
+  const [searchResults, setSearchResults] = useState<SpotifyApi.SearchResponse>();
   const accessToken = sessionStorage.getItem('accessToken');
   const apiHeaders = useHeaders(accessToken);
 
