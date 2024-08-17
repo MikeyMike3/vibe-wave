@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useState, useEffect, useMemo } from 'react';
+import { ReactNode, createContext, useState, useEffect, useMemo, useCallback } from 'react';
 import axios from 'axios';
 import { headers } from '../apis/headers';
 
@@ -36,12 +36,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     return Math.abs(expiresInNum - refreshBufferInSeconds)
   }
 
-  const REFRESH_BUFFER_IN_MINUTES = 10;
-  const REFRESH_BUFFER_IN_SECONDS = minutesToSeconds(REFRESH_BUFFER_IN_MINUTES);
+  const REFRESH_BUFFER_IN_MINUTES = .25;
+  const REFRESH_BUFFER_IN_SECONDS = useMemo(() => {
+    return minutesToSeconds(REFRESH_BUFFER_IN_MINUTES);
+  },[])
  
   const REFRESH_INTERVAL_BUFFER_TIME = useMemo(() => {
     return getRefreshIntervalBuffer(REFRESH_BUFFER_IN_SECONDS, expiresIn);
   }, [REFRESH_BUFFER_IN_SECONDS, expiresIn]);
+
 
   const login = (code: string) => {
     return (
@@ -83,29 +86,41 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     );
   };
 
-  const refreshAccessToken = () => {
+  const refreshAccessToken = useCallback(async () => {
     const refreshToken = sessionStorage.getItem('refreshToken');
+    const REFRESH_TOKEN_RETRY_DELAY_In_MILLISECONDS = 10000;
+    const retryCount = Math.floor((REFRESH_BUFFER_IN_SECONDS * 1000) / REFRESH_TOKEN_RETRY_DELAY_In_MILLISECONDS);
+  
+    for (let i = 0; i < retryCount; i++) {
+      try {
+        const response = await axios.post('http://localhost:3000/refresh', { refreshToken });
+  
+        if (response.status === 200) {
+          console.log("success")
 
-    axios
-      .post('http://localhost:3000/refresh', { refreshToken })
-      .then(response => {
-       
-        const newAccessToken = response.data.accessToken;
-        const newExpiresIn = response.data.expiresIn;
-
-        setAccessToken(newAccessToken);
-        setExpiresIn(newExpiresIn);
-        sessionStorage.setItem('accessToken', newAccessToken);
-        sessionStorage.setItem('expiresIn', newExpiresIn.toString());
-
-        sessionStorage.setItem('lastRefreshTime', Date.now().toString());
-      })
-      .catch(err => {
-        console.error('Failed to refresh token:', err);
-       
-      });
-  };
-
+          const newAccessToken = response.data.accessToken;
+          const newExpiresIn = response.data.expiresIn;
+  
+          setAccessToken(newAccessToken);
+          setExpiresIn(newExpiresIn);
+          sessionStorage.setItem('accessToken', newAccessToken);
+          sessionStorage.setItem('expiresIn', newExpiresIn.toString());
+          sessionStorage.setItem('lastRefreshTime', Date.now().toString());
+  
+          return; 
+        } else {
+          console.error(`Failed to refresh token, status ${response.status}`);
+        }
+      } catch (err) {
+        console.error(`Failed to refresh token, attempt ${i + 1}:`, err);
+      }
+  
+      if (i < retryCount - 1) {
+        await new Promise(res => setTimeout(res, REFRESH_TOKEN_RETRY_DELAY_In_MILLISECONDS));
+      }
+    }
+  }, [REFRESH_BUFFER_IN_SECONDS, setAccessToken, setExpiresIn]);
+  
   useEffect(() => {
   
     if (!refreshToken || !expiresIn) return;
@@ -113,11 +128,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const lastRefreshTime = parseInt(sessionStorage.getItem('lastRefreshTime') || '0', 10);
     const tokenExpiresIn = parseInt(sessionStorage.getItem('expiresIn') || '0', 10) * 1000;
     const currentTime = Date.now();
+    
     const timeElapsed = currentTime - lastRefreshTime;
 
     const remainingTime = tokenExpiresIn - timeElapsed;
     
-    let initialIntervalTime = remainingTime ; 
+    let initialIntervalTime = remainingTime - REFRESH_BUFFER_IN_SECONDS * 1000 ; 
 
     if (initialIntervalTime <= 0) {
       initialIntervalTime = 0;
@@ -130,18 +146,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       refreshAccessToken();
       clearInterval(interval);
       
-      // after the initial token refresh instead refresh the token after 50 minutes
-      
+      // after the initial token refresh instead refresh the token after REFRESH_INTERVAL_BUFFER_TIME
         secondInterval = setInterval(refreshAccessToken, REFRESH_INTERVAL_BUFFER_TIME * 1000);
        
     }, initialIntervalTime);
-
 
     return () => {
       clearInterval(interval); 
       if (secondInterval) clearInterval(secondInterval);
     };
-  }, [refreshToken, expiresIn, REFRESH_INTERVAL_BUFFER_TIME]);
+  }, [refreshToken, expiresIn, REFRESH_INTERVAL_BUFFER_TIME, refreshAccessToken ,REFRESH_BUFFER_IN_SECONDS]);
 
   return <AuthContext.Provider value={{ accessToken, login, userId, isUserLoggedIn, isUserPremiumMember }}>{children}</AuthContext.Provider>;
 };
