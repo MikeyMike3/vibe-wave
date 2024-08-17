@@ -109,7 +109,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   
           return; 
         } else {
-          console.error(`Failed to refresh token, status ${response.status}`);
+          console.error(`Failed to refresh token, attempt ${i + 1}: status ${response.status}`);
         }
       } catch (err) {
         console.error(`Failed to refresh token, attempt ${i + 1}:`, err);
