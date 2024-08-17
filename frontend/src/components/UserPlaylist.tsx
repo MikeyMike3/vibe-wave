@@ -1,11 +1,10 @@
 import { Link } from 'react-router-dom';
-import { CurrentUserPlaylistImage } from '../types/playlists/currentUserPlaylist';
 
 type UserPlaylistProps = {
   name: string;
-  owner: string;
+  owner: string | undefined;
   type: string;
-  images: CurrentUserPlaylistImage[] | null;
+  images: SpotifyApi.ImageObject[];
 };
 
 export const UserPlaylist = ({ name, images, owner, type }: UserPlaylistProps) => {

@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { CurrentUserPlaylist } from '../../../types/playlists/currentUserPlaylist';
 import { useHeaders } from '../useHeaders';
 
 export const useFetchUserPlaylists = () => {
-  const [userPlaylists, setUserPlaylists] = useState<CurrentUserPlaylist>();
+  //prettier-ignore
+  const [userPlaylists, setUserPlaylists] = useState<SpotifyApi.PagingObject<SpotifyApi.PlaylistObjectSimplified>>();
   const [isUserPlaylistsLoading, setIsUserPlaylistsLoading] = useState(true);
   const [isUserPlaylistsError, setIsUserPlaylistsError] = useState(false);
   const accessToken = sessionStorage.getItem('accessToken');
@@ -14,7 +14,8 @@ export const useFetchUserPlaylists = () => {
       try {
         const response = await fetch('https://api.spotify.com/v1/me/playlists', apiHeaders);
         if (response.status === 200) {
-          const data: CurrentUserPlaylist = await response.json();
+          //prettier-ignore
+          const data: SpotifyApi.PagingObject<SpotifyApi.PlaylistObjectSimplified> = await response.json();
           setUserPlaylists(data);
         } else {
           setIsUserPlaylistsError(true);
