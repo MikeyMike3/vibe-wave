@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useState, useEffect } from 'react';
+import { ReactNode, createContext, useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import { headers } from '../apis/headers';
 
@@ -28,17 +28,20 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(sessionStorage.getItem('isUserLoggedIn') === "true" || false)
   const [isUserPremiumMember, setIsUserPremiumMember] = useState(sessionStorage.getItem('isUserPremiumMember') === "true" || false)
 
-  const minutesToSeconds= (minutes: number) => {
+  const minutesToSeconds= (minutes: number):number => {
     return minutes * 60;
   }
-  const getRefreshIntervalBuffer = (refreshBufferInSeconds: number, expiresIn: number | undefined) => {
+  const getRefreshIntervalBuffer = (refreshBufferInSeconds: number, expiresIn: number | undefined):number => {
     const expiresInNum = Number(expiresIn);
     return Math.abs(expiresInNum - refreshBufferInSeconds)
   }
 
   const REFRESH_BUFFER_IN_MINUTES = 10;
   const REFRESH_BUFFER_IN_SECONDS = minutesToSeconds(REFRESH_BUFFER_IN_MINUTES);
-  const REFRESH_INTERVAL_BUFFER_TIME = getRefreshIntervalBuffer(REFRESH_BUFFER_IN_SECONDS, expiresIn);
+ 
+  const REFRESH_INTERVAL_BUFFER_TIME = useMemo(() => {
+    return getRefreshIntervalBuffer(REFRESH_BUFFER_IN_SECONDS, expiresIn);
+  }, [REFRESH_BUFFER_IN_SECONDS, expiresIn]);
 
   const login = (code: string) => {
     return (
@@ -129,7 +132,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       clearInterval(interval);
       
       // after the initial token refresh instead refresh the token after 50 minutes
-      secondInterval = setInterval(refreshAccessToken,REFRESH_INTERVAL_BUFFER_TIME  * 1000); 
+      
+        secondInterval = setInterval(refreshAccessToken, REFRESH_INTERVAL_BUFFER_TIME * 1000);
+       
     }, initialIntervalTime);
 
 
@@ -137,7 +142,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       clearInterval(interval); 
       if (secondInterval) clearInterval(secondInterval);
     };
-  }, [refreshToken, expiresIn]);
+  }, [refreshToken, expiresIn, REFRESH_INTERVAL_BUFFER_TIME]);
 
   return <AuthContext.Provider value={{ accessToken, login, userId, isUserLoggedIn, isUserPremiumMember }}>{children}</AuthContext.Provider>;
 };
