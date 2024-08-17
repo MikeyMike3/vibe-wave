@@ -1,4 +1,4 @@
-import { useFetchUserPlaylists } from '../hooks/useFetchUserPlaylists';
+import { useFetchUserPlaylists } from '../hooks/apis/fetch/useFetchUserPlaylists';
 
 export const Home = () => {
   const { userPlaylists, isUserPlaylistsLoading, isUserPlaylistError } = useFetchUserPlaylists();

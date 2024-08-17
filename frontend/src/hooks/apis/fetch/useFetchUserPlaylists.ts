@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { CurrentUserPlaylist } from '../types/playlists/currentUserPlaylist';
-import { useHeaders } from './useHeaders';
+import { CurrentUserPlaylist } from '../../../types/playlists/currentUserPlaylist';
+import { useHeaders } from '../useHeaders';
 
 export const useFetchUserPlaylists = () => {
   const [userPlaylists, setUserPlaylists] = useState<CurrentUserPlaylist>();
