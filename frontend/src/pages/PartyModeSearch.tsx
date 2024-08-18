@@ -1,28 +1,34 @@
-import { useEffect, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useFetchSearchResults } from '../hooks/apis/fetch/useFetchSearchResults';
 
 export const PartyModeSearch = () => {
   const [query, setQuery] = useState<string>('');
-  const { searchResults } = useFetchSearchResults(query);
-
-  let value: string;
+  const inputRef = useRef<HTMLInputElement>(null);
+  const { searchResults, setSearchResults } = useFetchSearchResults(query);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setQuery(value);
+    console.log(inputRef.current?.value);
+    if (inputRef.current?.value) {
+      setQuery(inputRef.current?.value);
+    }
   };
   // prettier-ignore
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    value = e.target.value;
+    if (inputRef.current?.value) {
+      inputRef.current.value = e.target.value;
+    }
+
+    if (inputRef.current?.value.length === 0) {
+      setSearchResults({})
+    }
+    
   };
 
-  useEffect(() => {
-    console.log(searchResults);
-  }, [searchResults]);
   return (
     <div>
       <form onSubmit={handleSubmit} className="flex">
-        <input onChange={handleChange} placeholder="Search"></input>
+        <input ref={inputRef} onChange={handleChange} placeholder="Search"></input>
         <button onClick={handleSubmit}>Search</button>
       </form>
       {searchResults?.tracks?.items.map(item => <p key={item.id}>{item.name}</p>)}

@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import { useHeaders } from '../useHeaders';
 
 export const useFetchSearchResults = (query: string) => {
-  const [searchResults, setSearchResults] = useState<SpotifyApi.SearchResponse>();
+  const [searchResults, setSearchResults] = useState<SpotifyApi.SearchResponse>({});
   const accessToken = sessionStorage.getItem('accessToken');
   const apiHeaders = useHeaders(accessToken);
 
   useEffect(() => {
-    if (query !== '') {
+    if (query) {
       const fetchSearchResults = async (query: string) => {
         const type = ['track', 'album', 'artist'];
         try {
@@ -30,5 +30,5 @@ export const useFetchSearchResults = (query: string) => {
     }
   }, [apiHeaders, query]);
 
-  return { searchResults };
+  return { searchResults, setSearchResults };
 };
