@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { useFetchSearchResults } from '../hooks/apis/fetch/useFetchSearchResults';
+import { SearchResultTrackItem } from '../components/SearchResultTrackItem';
 
 export const PartyModeSearch = () => {
   const [query, setQuery] = useState<string>('');
@@ -32,9 +33,12 @@ export const PartyModeSearch = () => {
         <button onClick={handleSubmit}>Search</button>
       </form>
       {searchResults?.tracks?.items.map(item => (
-        <>
-          <p key={item.id}>{item.name}</p> <img src={item.album.images[0].url} />
-        </>
+        <SearchResultTrackItem
+          key={item.id}
+          name={item.name}
+          artists={item.artists}
+          images={item.album.images}
+        />
       ))}
     </div>
   );
