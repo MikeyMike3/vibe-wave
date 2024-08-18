@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { getImageUrl } from '../functions/getImageUrl';
 
 type UserPlaylistProps = {
   name: string;
@@ -8,13 +9,7 @@ type UserPlaylistProps = {
 };
 
 export const UserPlaylist = ({ name, images, owner, type }: UserPlaylistProps) => {
-  let image: string;
-
-  if (images) {
-    image = images[0].url;
-  } else {
-    image = 'wasdw';
-  }
+  const image = getImageUrl(images);
 
   return (
     <Link to={'/party-mode/search'}>

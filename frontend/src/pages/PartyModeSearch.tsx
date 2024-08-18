@@ -31,7 +31,11 @@ export const PartyModeSearch = () => {
         <input ref={inputRef} onChange={handleChange} placeholder="Search"></input>
         <button onClick={handleSubmit}>Search</button>
       </form>
-      {searchResults?.tracks?.items.map(item => <p key={item.id}>{item.name}</p>)}
+      {searchResults?.tracks?.items.map(item => (
+        <>
+          <p key={item.id}>{item.name}</p> <img src={item.album.images[0].url} />
+        </>
+      ))}
     </div>
   );
 };
