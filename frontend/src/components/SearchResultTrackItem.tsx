@@ -8,8 +8,6 @@ type SearchResultTrackItemProps = {
 
 export const SearchResultTrackItem = ({ name, images, artists }: SearchResultTrackItemProps) => {
   const image = getImageUrl(images);
-  console.log(artists);
-
   return (
     <div className="flex w-full items-center gap-2 py-2 hover:bg-blue-50">
       <img className="h-20 w-20" src={image} />

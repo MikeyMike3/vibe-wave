@@ -9,7 +9,6 @@ export const PartyModeSearch = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(inputRef.current?.value);
     if (inputRef.current?.value) {
       setQuery(inputRef.current?.value);
     }
