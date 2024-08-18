@@ -9,9 +9,13 @@ const PrivateRoutes = () => {
     throw new Error('Profile must be used within an AuthProvider');
   }
 
-  const { isUserLoggedIn } = authContext;
+  const { isUserLoggedIn, isUserPremiumMember } = authContext;
 
-  return isUserLoggedIn ? <Outlet /> : <Navigate to="/login" replace={true} />;
+  return isUserLoggedIn && isUserPremiumMember ? (
+    <Outlet />
+  ) : (
+    <Navigate to="/login" replace={true} />
+  );
 };
 
 export default PrivateRoutes;
