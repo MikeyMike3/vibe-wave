@@ -23,33 +23,32 @@ export const SpotifyPlayerProvider = ({ children }: SpotifyProviderProps) => {
   }, []);
 
   useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://sdk.scdn.co/spotify-player.js';
-    script.async = true;
-
-    document.body.appendChild(script);
-
     if (accessToken) {
       window.onSpotifyWebPlaybackSDKReady = () => {
-        const spotifyPlayer = new window.Spotify.Player({
-          name: 'VibeWave Player',
-          getOAuthToken: cb => {
-            cb(accessToken);
-          },
-          volume: 0.5,
-        });
+        if (!player) {
+          const spotifyPlayer = new window.Spotify.Player({
+            name: 'VibeWave Player',
+            getOAuthToken: cb => cb(accessToken),
+            volume: 0.5,
+          });
 
-        setPlayer(spotifyPlayer);
+          spotifyPlayer.addListener('ready', ({ device_id }) => {
+            console.log('Ready with Device ID', device_id);
+          });
 
-        player?.addListener('ready', ({ device_id }) => {
-          console.log('Ready with Device ID', device_id);
-        });
+          spotifyPlayer.addListener('not_ready', ({ device_id }) => {
+            console.log('Device ID has gone offline', device_id);
+          });
 
-        player?.addListener('not_ready', ({ device_id }) => {
-          console.log('Device ID has gone offline', device_id);
-        });
-
-        player?.connect();
+          spotifyPlayer.connect().then(success => {
+            if (success) {
+              console.log('The Web Playback SDK successfully connected to Spotify!');
+              setPlayer(spotifyPlayer);
+            } else {
+              console.error('Failed to connect to Spotify');
+            }
+          });
+        }
       };
     }
   }, [accessToken, player]);

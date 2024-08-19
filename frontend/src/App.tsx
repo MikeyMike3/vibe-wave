@@ -13,6 +13,7 @@ import { PartyModeLayout } from './layouts/PartyModeLayout';
 import PrivateRoutes from './utils/PrivateRoutes';
 import { Login } from './pages/Login';
 import { PartyModeSearch } from './pages/PartyModeSearch';
+import { SpotifyPlayerProvider } from './context/SpotifyPlayerContext';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -35,7 +36,9 @@ const router = createBrowserRouter(
 function App() {
   return (
     <AuthProvider>
-      <RouterProvider router={router} />
+      <SpotifyPlayerProvider>
+        <RouterProvider router={router} />
+      </SpotifyPlayerProvider>
     </AuthProvider>
   );
 }
