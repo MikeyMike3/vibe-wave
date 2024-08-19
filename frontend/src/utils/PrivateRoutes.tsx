@@ -1,15 +1,8 @@
-import { useContext } from 'react';
 import { Outlet, Navigate } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
+import { UseAuth } from '../hooks/context/useAuth';
 
 const PrivateRoutes = () => {
-  const authContext = useContext(AuthContext);
-
-  if (!authContext) {
-    throw new Error('Profile must be used within an AuthProvider');
-  }
-
-  const { isUserLoggedIn, isUserPremiumMember } = authContext;
+  const { isUserLoggedIn, isUserPremiumMember } = UseAuth();
 
   return isUserLoggedIn && isUserPremiumMember ? (
     <Outlet />

@@ -18,7 +18,7 @@ type AuthContext = {
 const AuthContext = createContext<AuthContext | undefined>(undefined);
 
 // prettier-ignore
-export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [accessToken, setAccessToken] = useState(sessionStorage.getItem('accessToken') || '');
   const [refreshToken, setRefreshToken] = useState(sessionStorage.getItem('refreshToken') || '');
   const [expiresIn, setExpiresIn] = useState<number | undefined>(
