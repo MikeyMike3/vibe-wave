@@ -67,8 +67,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
         const apiHeaders = headers(sessionStorage.getItem('accessToken'))
 
-        console.log(apiHeaders)
-
         axios.get('https://api.spotify.com/v1/me',apiHeaders).then( res => {
 
           console.log(res.data.product)
