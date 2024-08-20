@@ -27,8 +27,8 @@ export const SpotifyPlayerProvider = ({ children }: SpotifyProviderProps) => {
 
   useEffect(() => {
     if (accessToken) {
-      window.onSpotifyWebPlaybackSDKReady = () => {
-        if (!player) {
+      if (!player) {
+        window.onSpotifyWebPlaybackSDKReady = () => {
           const spotifyPlayer = new window.Spotify.Player({
             name: 'VibeWave Player',
             getOAuthToken: cb => cb(accessToken),
@@ -53,11 +53,10 @@ export const SpotifyPlayerProvider = ({ children }: SpotifyProviderProps) => {
               console.error('Failed to connect to Spotify');
             }
           });
-        } else {
-          player._options.getOAuthToken = cb => cb(accessToken);
-          console.log('hey');
-        }
-      };
+        };
+      } else {
+        player._options.getOAuthToken = cb => cb(accessToken);
+      }
     }
   }, [accessToken, player, deviceId]);
 
