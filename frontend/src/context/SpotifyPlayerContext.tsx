@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useEffect, useState } from 'react';
+import { createContext, ReactNode, useEffect, useRef, useState } from 'react';
 import { UseAuth } from '../hooks/context/useAuth';
 
 declare global {
@@ -12,13 +12,16 @@ type SpotifyProviderProps = {
 };
 
 type SpotifyContext = {
-  nextTrack: () => void;
+  player: Spotify.Player | undefined;
+  deviceId: string | undefined;
 };
 
 const SpotifyPlayerContext = createContext<SpotifyContext | undefined>(undefined);
 
 export const SpotifyPlayerProvider = ({ children }: SpotifyProviderProps) => {
   const [player, setPlayer] = useState<Spotify.Player>();
+
+  const deviceIdRef = useRef<string | undefined>(undefined);
 
   const { accessToken } = UseAuth();
 
@@ -33,6 +36,7 @@ export const SpotifyPlayerProvider = ({ children }: SpotifyProviderProps) => {
           });
 
           spotifyPlayer.addListener('ready', ({ device_id }) => {
+            deviceIdRef.current = device_id;
             console.log('Ready with Device ID', device_id);
           });
 
@@ -56,5 +60,9 @@ export const SpotifyPlayerProvider = ({ children }: SpotifyProviderProps) => {
     }
   }, [accessToken, player]);
 
-  return <SpotifyPlayerContext.Provider value={player}>{children}</SpotifyPlayerContext.Provider>;
+  return (
+    <SpotifyPlayerContext.Provider value={{ player, deviceId: deviceIdRef.current }}>
+      {children}
+    </SpotifyPlayerContext.Provider>
+  );
 };
