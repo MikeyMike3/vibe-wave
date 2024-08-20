@@ -1,4 +1,5 @@
-import { createContext, ReactNode, useEffect, useMemo, useState } from 'react';
+import { createContext, ReactNode, useEffect, useState } from 'react';
+import { UseAuth } from '../hooks/context/useAuth';
 
 declare global {
   interface Window {
@@ -18,9 +19,8 @@ const SpotifyPlayerContext = createContext<SpotifyContext | undefined>(undefined
 
 export const SpotifyPlayerProvider = ({ children }: SpotifyProviderProps) => {
   const [player, setPlayer] = useState<Spotify.Player>();
-  const accessToken = useMemo(() => {
-    return sessionStorage.getItem('accessToken');
-  }, []);
+
+  const { accessToken } = UseAuth();
 
   useEffect(() => {
     if (accessToken) {
@@ -48,6 +48,9 @@ export const SpotifyPlayerProvider = ({ children }: SpotifyProviderProps) => {
               console.error('Failed to connect to Spotify');
             }
           });
+        } else {
+          player._options.getOAuthToken = cb => cb(accessToken);
+          console.log('hey');
         }
       };
     }

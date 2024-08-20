@@ -4,9 +4,15 @@ type SearchResultTrackItemProps = {
   name: string;
   images: SpotifyApi.ImageObject[];
   artists: SpotifyApi.ArtistObjectSimplified[];
+  uri: string;
 };
 
-export const SearchResultTrackItem = ({ name, images, artists }: SearchResultTrackItemProps) => {
+export const SearchResultTrackItem = ({
+  name,
+  images,
+  artists,
+  uri,
+}: SearchResultTrackItemProps) => {
   const image = getImageUrl(images);
   return (
     <div className="flex w-full items-center gap-2 py-2 hover:bg-blue-50">
@@ -14,6 +20,7 @@ export const SearchResultTrackItem = ({ name, images, artists }: SearchResultTra
       <div className="flex flex-col">
         <p>{name}</p>
         <p>{artists.map(item => item.name).join(', ')}</p>
+        <p>{uri} </p>
       </div>
     </div>
   );

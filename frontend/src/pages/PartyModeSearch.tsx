@@ -37,6 +37,7 @@ export const PartyModeSearch = () => {
           name={item.name}
           artists={item.artists}
           images={item.album.images}
+          uri={item.uri}
         />
       ))}
     </div>
