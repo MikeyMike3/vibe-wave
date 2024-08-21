@@ -27,6 +27,8 @@ export const SpotifyPlayerProvider = ({ children }: SpotifyProviderProps) => {
 
   useEffect(() => {
     if (accessToken) {
+      console.log(player);
+      console.log(accessToken);
       if (!player) {
         window.onSpotifyWebPlaybackSDKReady = () => {
           const spotifyPlayer = new window.Spotify.Player({
