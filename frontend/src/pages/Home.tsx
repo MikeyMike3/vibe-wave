@@ -28,6 +28,7 @@ export const Home = () => {
 
         if (response.ok) {
           console.log('Playback started');
+          console.log(response);
         } else {
           console.error('Failed to start playback', await response.json());
         }

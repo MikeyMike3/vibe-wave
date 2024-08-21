@@ -46,6 +46,15 @@ export const SpotifyPlayerProvider = ({ children }: SpotifyProviderProps) => {
             console.log('Device ID has gone offline', device_id);
           });
 
+          spotifyPlayer.addListener('initialization_error', ({ message }) =>
+            console.error(message),
+          );
+          spotifyPlayer.addListener('authentication_error', ({ message }) =>
+            console.error(message),
+          );
+          spotifyPlayer.addListener('account_error', ({ message }) => console.error(message));
+          spotifyPlayer.addListener('playback_error', ({ message }) => console.error(message));
+
           spotifyPlayer.connect().then(success => {
             if (success) {
               console.log('The Web Playback SDK successfully connected to Spotify!');
