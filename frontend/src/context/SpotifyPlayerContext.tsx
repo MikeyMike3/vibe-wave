@@ -21,7 +21,7 @@ const SpotifyPlayerContext = createContext<SpotifyContext | undefined>(undefined
 export const SpotifyPlayerProvider = ({ children }: SpotifyProviderProps) => {
   const [player, setPlayer] = useState<Spotify.Player>();
 
-  const [deviceId, setDeviceId] = useState(sessionStorage.getItem('deviceId') || '');
+  const [deviceId, setDeviceId] = useState('');
 
   const { accessToken } = UseAuth();
 
@@ -37,7 +37,6 @@ export const SpotifyPlayerProvider = ({ children }: SpotifyProviderProps) => {
 
           spotifyPlayer.addListener('ready', ({ device_id }) => {
             setDeviceId(device_id);
-            sessionStorage.setItem('deviceId', deviceId);
             console.log('Ready with Device ID', device_id);
           });
 
@@ -54,6 +53,11 @@ export const SpotifyPlayerProvider = ({ children }: SpotifyProviderProps) => {
             }
           });
         };
+        const script = document.createElement('script');
+        script.id = 'spotify-sdk';
+        script.src = 'https://sdk.scdn.co/spotify-player.js';
+        script.async = true;
+        document.head.appendChild(script);
       } else {
         player._options.getOAuthToken = cb => cb(accessToken);
       }
