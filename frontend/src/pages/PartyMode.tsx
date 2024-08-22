@@ -1,7 +1,7 @@
 import { ErrorMessage } from '../components/ErrorMessage';
 import { MainLoading } from '../components/MainLoading';
 import { UserPlaylist } from '../components/UserPlaylist';
-import { useFetchUserPlaylists } from '../hooks/apis/fetch/useFetchUserPlaylists';
+import { useFetchUserPlaylists } from '../apis/hooks/useFetchUserPlaylists';
 
 export const PartyMode = () => {
   const { userPlaylists, isUserPlaylistsError, isUserPlaylistsLoading } = useFetchUserPlaylists();

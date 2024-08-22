@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useHeaders } from '../useHeaders';
+import { useHeaders } from '../../hooks/apis/useHeaders';
 
 export const useFetchSearchResults = (query: string) => {
   const [searchResults, setSearchResults] = useState<SpotifyApi.SearchResponse>({});
