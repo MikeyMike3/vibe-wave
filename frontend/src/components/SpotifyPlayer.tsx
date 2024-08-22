@@ -4,10 +4,14 @@ import { useSpotifyPlayerContext } from '../hooks/context/useSpotifyPlayerContex
 export const SpotifyPlayer = () => {
   const { player } = useSpotifyPlayerContext();
   return (
-    <footer className="mt-auto bg-black text-white">
-      <button onClick={() => togglePlay(player)}>Play Pause</button>
-      <p>pause</p>
-      <p>next</p>
+    <footer className="mt-auto grid grid-cols-[25%_50%_25%] bg-black p-10 text-white">
+      <div>Image</div>
+      <div className="mx-auto flex gap-10">
+        <p>Previous</p>
+        <button onClick={() => togglePlay(player)}>Play Pause</button>
+        <p>next</p>
+      </div>
+      <div className="ml-auto">Volume</div>
     </footer>
   );
 };
