@@ -14,16 +14,39 @@ export const useFetchUserPlaylists = () => {
       try {
         const response = await fetch('https://api.spotify.com/v1/me/playlists', apiHeaders);
         if (response.status === 200) {
-          //prettier-ignore
+          // prettier-ignore
           const data: SpotifyApi.PagingObject<SpotifyApi.PlaylistObjectSimplified> = await response.json();
-          setUserPlaylists(data);
+
+          let allPlaylists = [...data.items];
+          const playlistsMissing: number = data.total - data.items.length;
+          const loopsRequired: number = Math.ceil(playlistsMissing / data.limit);
+
+          for (let i = 1; i <= loopsRequired; i++) {
+            const nextPageResponse = await fetch(
+              `https://api.spotify.com/v1/me/playlists?offset=${i * data.limit}`,
+              apiHeaders,
+            );
+
+            if (nextPageResponse.status === 200) {
+              // prettier-ignore
+              const nextPageData: SpotifyApi.PagingObject<SpotifyApi.PlaylistObjectSimplified> = await nextPageResponse.json();
+              allPlaylists = allPlaylists.concat(nextPageData.items);
+            } else {
+              throw new Error('Error fetching additional playlists');
+            }
+          }
+
+          setUserPlaylists({
+            ...data,
+            items: allPlaylists,
+          });
         } else {
           setIsUserPlaylistsError(true);
-          throw new Error();
+          throw new Error('Error fetching playlists');
         }
-      } catch {
+      } catch (error) {
         setIsUserPlaylistsError(true);
-        throw new Error();
+        console.error(error);
       } finally {
         setIsUserPlaylistsLoading(false);
       }

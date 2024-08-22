@@ -55,9 +55,17 @@ export const SpotifyPlayerProvider = ({ children }: SpotifyProviderProps) => {
           spotifyPlayer.addListener('account_error', ({ message }) => console.error(message));
           spotifyPlayer.addListener('playback_error', ({ message }) => console.error(message));
 
+          spotifyPlayer.addListener('player_state_changed', state => {
+            console.log('Player state changed:', state);
+            if (state) {
+              // Handle state changes here, e.g., updating UI or local state
+            }
+          });
+
           spotifyPlayer.connect().then(success => {
             if (success) {
               console.log('The Web Playback SDK successfully connected to Spotify!');
+
               setPlayer(spotifyPlayer);
             } else {
               console.error('Failed to connect to Spotify');
