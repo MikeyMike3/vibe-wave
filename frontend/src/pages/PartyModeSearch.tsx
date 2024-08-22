@@ -29,7 +29,7 @@ export const PartyModeSearch = () => {
   };
 
   return (
-    <div>
+    <div className="flex-1 overflow-y-scroll">
       <button onClick={() => togglePlay(player)}>Pause Play</button>
       <form onSubmit={handleSubmit} className="flex">
         <input ref={inputRef} onChange={handleChange} placeholder="Search"></input>

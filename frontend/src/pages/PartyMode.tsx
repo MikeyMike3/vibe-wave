@@ -14,7 +14,7 @@ export const PartyMode = () => {
     return <ErrorMessage />;
   }
   return (
-    <div>
+    <div className="flex-1 overflow-y-scroll">
       {userPlaylists?.items.map(item => (
         <UserPlaylist
           key={item.id}

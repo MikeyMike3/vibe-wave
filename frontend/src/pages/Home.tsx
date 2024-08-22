@@ -15,7 +15,7 @@ export const Home = () => {
   }
 
   return (
-    <div>
+    <div className="flex-1 overflow-y-scroll">
       {userPlaylists?.items.map(item => (
         <UserPlaylist
           key={item.id}
