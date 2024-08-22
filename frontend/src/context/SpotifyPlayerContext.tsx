@@ -14,12 +14,14 @@ type SpotifyProviderProps = {
 type SpotifyContext = {
   player: Spotify.Player | undefined;
   deviceId: string;
+  playerState: Spotify.PlaybackState | undefined;
 };
 
 const SpotifyPlayerContext = createContext<SpotifyContext | undefined>(undefined);
 
 export const SpotifyPlayerProvider = ({ children }: SpotifyProviderProps) => {
   const [player, setPlayer] = useState<Spotify.Player>();
+  const [playerState, setPlayerState] = useState<Spotify.PlaybackState>();
 
   const [deviceId, setDeviceId] = useState('');
 
@@ -56,7 +58,7 @@ export const SpotifyPlayerProvider = ({ children }: SpotifyProviderProps) => {
           spotifyPlayer.addListener('player_state_changed', state => {
             console.log('Player state changed:', state);
             if (state) {
-              // Handle state changes here, e.g., updating UI or local state
+              setPlayerState(state);
             }
           });
 
@@ -82,7 +84,7 @@ export const SpotifyPlayerProvider = ({ children }: SpotifyProviderProps) => {
   }, [accessToken, player, deviceId]);
 
   return (
-    <SpotifyPlayerContext.Provider value={{ player, deviceId }}>
+    <SpotifyPlayerContext.Provider value={{ player, deviceId, playerState }}>
       {children}
     </SpotifyPlayerContext.Provider>
   );
