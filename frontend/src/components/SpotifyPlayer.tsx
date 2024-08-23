@@ -8,7 +8,7 @@ export const SpotifyPlayer = () => {
   const image = getImageUrl(playerState?.track_window?.current_track?.album?.images);
 
   return (
-    <footer className="mt-auto grid grid-cols-[25%_50%_25%] bg-black p-3 text-white">
+    <footer className="mt-auto grid grid-cols-[25%_50%_25%] items-center bg-black p-3 text-white">
       <div className="flex gap-2">
         <img className="h-20 w-20" src={image}></img>
         <div className="flex flex-col justify-center gap-1">
