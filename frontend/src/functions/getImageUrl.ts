@@ -1,4 +1,4 @@
-export const getImageUrl = (images: SpotifyApi.ImageObject[]) => {
+export const getImageUrl = (images: Spotify.Image[] | undefined) => {
   if (images) {
     return images[0].url;
   } else {

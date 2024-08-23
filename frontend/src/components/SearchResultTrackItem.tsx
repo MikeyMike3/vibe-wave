@@ -27,7 +27,10 @@ export const SearchResultTrackItem = ({
           <p>{artists.map(item => item.name).join(', ')}</p>
         </div>
       </div>
-      <button onClick={() => playSong(player, deviceId, uri)}>Play</button>
+      <div className="flex gap-3">
+        <button>Add to Queue</button>
+        <button onClick={() => playSong(player, deviceId, uri)}>Play</button>
+      </div>
     </div>
   );
 };

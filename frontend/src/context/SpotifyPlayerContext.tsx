@@ -1,4 +1,5 @@
-import { createContext, ReactNode, useEffect, useState } from 'react';
+import { createContext, ReactNode, useEffect, useRef, useState } from 'react';
+import { playSong } from '../apis/spotifyPlayer/playSong';
 import { UseAuth } from '../hooks/context/useAuth';
 
 declare global {
@@ -22,8 +23,9 @@ const SpotifyPlayerContext = createContext<SpotifyContext | undefined>(undefined
 export const SpotifyPlayerProvider = ({ children }: SpotifyProviderProps) => {
   const [player, setPlayer] = useState<Spotify.Player>();
   const [playerState, setPlayerState] = useState<Spotify.PlaybackState>();
-
   const [deviceId, setDeviceId] = useState('');
+
+  const deviceIdRef = useRef<string>('');
 
   const { accessToken } = UseAuth();
 
@@ -39,6 +41,7 @@ export const SpotifyPlayerProvider = ({ children }: SpotifyProviderProps) => {
 
           spotifyPlayer.addListener('ready', ({ device_id }) => {
             setDeviceId(device_id);
+            deviceIdRef.current = device_id;
             console.log('Ready with Device ID', device_id);
           });
 
@@ -57,9 +60,15 @@ export const SpotifyPlayerProvider = ({ children }: SpotifyProviderProps) => {
 
           spotifyPlayer.addListener('player_state_changed', state => {
             console.log('Player state changed:', state);
-            if (state) {
-              setPlayerState(state);
+
+            if (
+              state.track_window.current_track?.id === state.track_window.previous_tracks[0]?.id
+            ) {
+              console.log('play next');
+              playSong(spotifyPlayer, deviceIdRef.current, 'spotify:track:4XvcHTUfIlWfyJTRG0aqlo');
             }
+
+            setPlayerState(state);
           });
 
           spotifyPlayer.connect().then(success => {
