@@ -4,6 +4,7 @@ import { togglePlay } from '../apis/spotifyPlayer/togglePlay';
 import { getImageUrl } from '../functions/getImageUrl';
 import { useSpotifyPlayerContext } from '../hooks/context/useSpotifyPlayerContext';
 import { useQueueContext } from '../hooks/context/useQueueContext';
+import { NextTrackButton } from './NextTrackButton';
 
 export const SpotifyPlayer = () => {
   const { player } = useSpotifyPlayerContext();
@@ -59,7 +60,7 @@ export const SpotifyPlayer = () => {
         ) : (
           <button onClick={() => togglePlay(player)}>Pause</button>
         )}
-        <p>next</p>
+        <NextTrackButton />
       </div>
       <div className="ml-auto">Volume</div>
     </footer>
