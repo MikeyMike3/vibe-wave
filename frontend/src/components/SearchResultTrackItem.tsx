@@ -1,7 +1,6 @@
 import { getImageUrl } from '../functions/getImageUrl';
-import { useSpotifyPlayerContext } from '../hooks/context/useSpotifyPlayerContext';
-import { playSong } from '../apis/spotifyPlayer/playSong';
 import { AddToQueueButton } from './AddToQueueButton';
+import PlaySongButton from './PlaySongButton';
 
 type SearchResultTrackItemProps = {
   name: string;
@@ -17,7 +16,6 @@ export const SearchResultTrackItem = ({
   uri,
 }: SearchResultTrackItemProps) => {
   const image = getImageUrl(images);
-  const { player, deviceId } = useSpotifyPlayerContext();
 
   return (
     <div className="flex w-full items-center justify-between py-2 hover:bg-blue-50">
@@ -30,7 +28,7 @@ export const SearchResultTrackItem = ({
       </div>
       <div className="flex gap-3">
         <AddToQueueButton />
-        <button onClick={() => playSong(player, deviceId, uri)}>Play</button>
+        <PlaySongButton uri={uri} />
       </div>
     </div>
   );
