@@ -1,24 +1,45 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { playSong } from '../apis/spotifyPlayer/playSong';
 import { togglePlay } from '../apis/spotifyPlayer/togglePlay';
 import { getImageUrl } from '../functions/getImageUrl';
 import { useSpotifyPlayerContext } from '../hooks/context/useSpotifyPlayerContext';
+import { useQueueContext } from '../hooks/context/useQueueContext';
 
 export const SpotifyPlayer = () => {
-  const [playerState, setPlayerState] = useState<Spotify.PlaybackState>();
   const { player } = useSpotifyPlayerContext();
   const { deviceId } = useSpotifyPlayerContext();
+  const { priorityQueue, setPriorityQueue } = useQueueContext();
 
-  player?.addListener('player_state_changed', state => {
-    console.log('Player state changed:', state);
+  const [playerState, setPlayerState] = useState<Spotify.PlaybackState>();
 
-    if (state.track_window.current_track?.id === state.track_window.previous_tracks[0]?.id) {
-      console.log('play next');
-      playSong(player, deviceId, 'spotify:track:4XvcHTUfIlWfyJTRG0aqlo');
-    }
+  useEffect(() => {
+    const onPlayerStateChanged = (state: Spotify.PlaybackState) => {
+      // remove priorityQueue index 0 if its currently playing
+      if (state.track_window.current_track?.id === priorityQueue[0]?.id) {
+        setPriorityQueue(prevQueue => {
+          if (prevQueue.length > 0 && state.track_window.current_track?.id === prevQueue[0].id) {
+            return prevQueue.slice(1);
+          }
+          return prevQueue;
+        });
+      }
 
-    setPlayerState(state);
-  });
+      // play the next song in the queue if either queues have items in them
+      if (state.track_window.current_track?.id === state.track_window.previous_tracks[0]?.id) {
+        if (priorityQueue.length > 0) {
+          playSong(player, deviceId, priorityQueue[0]?.uri);
+        }
+      }
+
+      setPlayerState(state);
+    };
+
+    player?.addListener('player_state_changed', onPlayerStateChanged);
+
+    return () => {
+      player?.removeListener('player_state_changed', onPlayerStateChanged);
+    };
+  }, [deviceId, player, setPriorityQueue, priorityQueue]);
 
   const image = getImageUrl(playerState?.track_window?.current_track?.album?.images);
 

@@ -18,6 +18,7 @@ const QueueContext = createContext<QueueContext | undefined>(undefined);
 export const QueueProvider = ({ children }: QueueProviderProps) => {
   const [priorityQueue, setPriorityQueue] = useState<SpotifyApi.TrackObjectFull[]>([]);
   const [playlistQueue, setPlaylistQueue] = useState<SpotifyApi.TrackObjectFull[]>([]);
+
   return (
     <QueueContext.Provider
       value={{ priorityQueue, setPriorityQueue, setPlaylistQueue, playlistQueue }}

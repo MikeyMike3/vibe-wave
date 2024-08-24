@@ -36,9 +36,7 @@ export const playSong = async (
       }
     } catch (error) {
       if (error instanceof Error) {
-        if (error.name === 'AbortError') {
-          console.log('Fetch aborted due to spammed calls');
-        } else {
+        if (error.name !== 'AbortError') {
           console.error('Fetch error', error.message);
         }
       } else {

@@ -33,7 +33,7 @@ export const SpotifyPlayerProvider = ({ children }: SpotifyProviderProps) => {
           const spotifyPlayer = new window.Spotify.Player({
             name: 'VibeWave Player',
             getOAuthToken: cb => cb(accessToken),
-            volume: 0.5,
+            volume: 0.1,
           });
 
           spotifyPlayer.addListener('ready', ({ device_id }) => {

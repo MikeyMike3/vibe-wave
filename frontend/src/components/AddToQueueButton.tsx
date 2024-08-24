@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { addToPriorityQueue } from '../apis/spotifyPlayer/addToPriorityQueue';
 import { useQueueContext } from '../hooks/context/useQueueContext';
 
@@ -7,11 +6,7 @@ type AddToQueueButtonProps = {
 };
 
 export const AddToQueueButton = ({ track }: AddToQueueButtonProps) => {
-  const { setPriorityQueue, priorityQueue } = useQueueContext();
-
-  useEffect(() => {
-    console.log(priorityQueue);
-  }, [priorityQueue]);
+  const { setPriorityQueue } = useQueueContext();
 
   return <button onClick={() => addToPriorityQueue(setPriorityQueue, track)}>Add to Queue</button>;
 };
