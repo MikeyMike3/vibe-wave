@@ -147,7 +147,7 @@ export const AuthProvider  = ({ children }: AuthProviderProps) => {
       refreshAccessToken();
       clearInterval(interval);
       
-      // after the initial token refresh instead refresh the token after REFRESH_INTERVAL_BUFFER_TIME
+      // after the initial token refresh, instead refresh the token after REFRESH_INTERVAL_BUFFER_TIME
         secondInterval = setInterval(refreshAccessToken, REFRESH_INTERVAL_BUFFER_TIME * 1000);
        
     }, initialIntervalTime);
