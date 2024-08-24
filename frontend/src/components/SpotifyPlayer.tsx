@@ -1,9 +1,24 @@
+import { useState } from 'react';
+import { playSong } from '../apis/spotifyPlayer/playSong';
 import { togglePlay } from '../apis/spotifyPlayer/togglePlay';
 import { getImageUrl } from '../functions/getImageUrl';
 import { useSpotifyPlayerContext } from '../hooks/context/useSpotifyPlayerContext';
 
 export const SpotifyPlayer = () => {
-  const { player, playerState } = useSpotifyPlayerContext();
+  const [playerState, setPlayerState] = useState<Spotify.PlaybackState>();
+  const { player } = useSpotifyPlayerContext();
+  const { deviceId } = useSpotifyPlayerContext();
+
+  player?.addListener('player_state_changed', state => {
+    console.log('Player state changed:', state);
+
+    if (state.track_window.current_track?.id === state.track_window.previous_tracks[0]?.id) {
+      console.log('play next');
+      playSong(player, deviceId, 'spotify:track:4XvcHTUfIlWfyJTRG0aqlo');
+    }
+
+    setPlayerState(state);
+  });
 
   const image = getImageUrl(playerState?.track_window?.current_track?.album?.images);
 
