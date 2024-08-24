@@ -162,4 +162,3 @@ export const AuthProvider  = ({ children }: AuthProviderProps) => {
 };
 
 export { AuthContext };
-// export const useAuth = () => React.useContext(AuthContext);
