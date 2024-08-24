@@ -1,6 +1,7 @@
 import { getImageUrl } from '../functions/getImageUrl';
 import { useSpotifyPlayerContext } from '../hooks/context/useSpotifyPlayerContext';
 import { playSong } from '../apis/spotifyPlayer/playSong';
+import { AddToQueueButton } from './AddToQueueButton';
 
 type SearchResultTrackItemProps = {
   name: string;
@@ -28,7 +29,7 @@ export const SearchResultTrackItem = ({
         </div>
       </div>
       <div className="flex gap-3">
-        <button>Add to Queue</button>
+        <AddToQueueButton />
         <button onClick={() => playSong(player, deviceId, uri)}>Play</button>
       </div>
     </div>
