@@ -49,8 +49,10 @@ export const SpotifyPlayer = () => {
       <div className="flex gap-2">
         <img className="h-20 w-20" src={image}></img>
         <div className="flex flex-col justify-center gap-1">
-          <p>{playerState?.track_window.current_track.name}</p>
-          <p>{playerState?.track_window.current_track.artists.map(item => item.name).join(', ')}</p>
+          <p>{playerState?.track_window?.current_track?.name}</p>
+          <p>
+            {playerState?.track_window?.current_track?.artists.map(item => item.name).join(', ')}
+          </p>
         </div>
       </div>
       <div className="mx-auto flex gap-10">
