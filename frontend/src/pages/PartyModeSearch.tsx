@@ -36,13 +36,7 @@ export const PartyModeSearch = () => {
         <button onClick={handleSubmit}>Search</button>
       </form>
       {searchResults?.tracks?.items.map(item => (
-        <SearchResultTrackItem
-          key={item.id}
-          name={item.name}
-          artists={item.artists}
-          images={item.album.images}
-          uri={item.uri}
-        />
+        <SearchResultTrackItem key={item.id} track={item} />
       ))}
     </div>
   );
