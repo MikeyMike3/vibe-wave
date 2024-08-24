@@ -1,8 +1,8 @@
 import { Outlet, Navigate } from 'react-router-dom';
-import { UseAuth } from '../hooks/context/useAuth';
+import { UseAuthContext } from '../hooks/context/useAuthContext';
 
 const PrivateRoutes = () => {
-  const { isUserLoggedIn, isUserPremiumMember } = UseAuth();
+  const { isUserLoggedIn, isUserPremiumMember } = UseAuthContext();
 
   return isUserLoggedIn && isUserPremiumMember ? (
     <Outlet />

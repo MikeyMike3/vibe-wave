@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useEffect, useRef, useState } from 'react';
 import { playSong } from '../apis/spotifyPlayer/playSong';
-import { UseAuth } from '../hooks/context/useAuth';
+import { UseAuthContext } from '../hooks/context/useAuthContext';
 
 declare global {
   interface Window {
@@ -27,7 +27,7 @@ export const SpotifyPlayerProvider = ({ children }: SpotifyProviderProps) => {
 
   const deviceIdRef = useRef<string>('');
 
-  const { accessToken } = UseAuth();
+  const { accessToken } = UseAuthContext();
 
   useEffect(() => {
     if (accessToken) {
