@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { playSong } from '../functions/spotifyPlayer/playSong';
+import { usePlaySong } from '../hooks/spotifyPlayer/usePlaySong';
 import { useTogglePlay } from '../hooks/spotifyPlayer/useTogglePlay';
 import { getImageUrl } from '../functions/getImageUrl';
 import { useSpotifyPlayerContext } from '../hooks/context/useSpotifyPlayerContext';
@@ -18,6 +18,7 @@ export const SpotifyPlayer = () => {
   } = useQueueContext();
 
   const togglePlay = useTogglePlay();
+  const playSong = usePlaySong();
 
   const [playerState, setPlayerState] = useState<Spotify.PlaybackState>();
 
@@ -43,10 +44,10 @@ export const SpotifyPlayer = () => {
       // play the next song in the queue if either queues have items in them
       if (state.track_window.current_track?.name === state.track_window.previous_tracks[0]?.name) {
         if (priorityQueue.length > 0) {
-          playSong(player, deviceId, priorityQueue[0]?.uri);
+          playSong(priorityQueue[0]?.uri);
         } else if (playlistQueue.length > 0) {
           console.log(playlistQueueIndexRef.current);
-          playSong(player, deviceId, playlistQueue[playlistQueueIndexRef.current].track?.uri);
+          playSong(playlistQueue[playlistQueueIndexRef.current].track?.uri);
         }
       }
       setPlayerState(state);
@@ -65,6 +66,7 @@ export const SpotifyPlayer = () => {
     playlistQueue,
     setPlaylistQueue,
     playlistQueueIndexRef,
+    playSong,
   ]);
 
   const image = getImageUrl(playerState?.track_window?.current_track?.album?.images);

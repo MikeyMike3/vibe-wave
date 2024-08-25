@@ -1,13 +1,12 @@
-import { playSong } from '../functions/spotifyPlayer/playSong';
-import { useSpotifyPlayerContext } from '../hooks/context/useSpotifyPlayerContext';
+import { usePlaySong } from '../hooks/spotifyPlayer/usePlaySong';
 
 type PlaySongButtonProps = {
   uri: string;
 };
 
 const PlaySongButton = ({ uri }: PlaySongButtonProps) => {
-  const { player, deviceId } = useSpotifyPlayerContext();
-  return <button onClick={() => playSong(player, deviceId, uri)}>Play</button>;
+  const playSong = usePlaySong();
+  return <button onClick={() => playSong(uri)}>Play</button>;
 };
 
 export default PlaySongButton;
