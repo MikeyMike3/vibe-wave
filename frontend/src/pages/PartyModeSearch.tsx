@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react';
-import { useFetchSearchResults } from '../apis/hooks/useFetchSearchResults';
+import { useFetchSearchResults } from '../hooks/apis/useFetchSearchResults';
 import { SearchResultTrackItem } from '../components/SearchResultTrackItem';
 import { useSpotifyPlayerContext } from '../hooks/context/useSpotifyPlayerContext';
-import { togglePlay } from '../apis/spotifyPlayer/togglePlay';
+import { togglePlay } from '../functions/spotifyPlayer/togglePlay';
 
 export const PartyModeSearch = () => {
   const [query, setQuery] = useState<string>('');

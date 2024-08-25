@@ -1,4 +1,4 @@
-import { addToPriorityQueue } from '../apis/spotifyPlayer/addToPriorityQueue';
+import { addToPriorityQueue } from '../functions/spotifyPlayer/addToPriorityQueue';
 import { useQueueContext } from '../hooks/context/useQueueContext';
 
 type AddToQueueButtonProps = {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { playSong } from '../apis/spotifyPlayer/playSong';
-import { togglePlay } from '../apis/spotifyPlayer/togglePlay';
+import { playSong } from '../functions/spotifyPlayer/playSong';
+import { togglePlay } from '../functions/spotifyPlayer/togglePlay';
 import { getImageUrl } from '../functions/getImageUrl';
 import { useSpotifyPlayerContext } from '../hooks/context/useSpotifyPlayerContext';
 import { useQueueContext } from '../hooks/context/useQueueContext';

@@ -1,7 +1,7 @@
 import { ErrorMessage } from '../components/ErrorMessage';
 import { MainLoading } from '../components/MainLoading';
 import { UserPlaylist } from '../components/UserPlaylist';
-import { useFetchUserPlaylists } from '../apis/hooks/useFetchUserPlaylists';
+import { useFetchUserPlaylists } from '../hooks/apis/useFetchUserPlaylists';
 
 export const Home = () => {
   const { userPlaylists, isUserPlaylistsLoading, isUserPlaylistsError } = useFetchUserPlaylists();

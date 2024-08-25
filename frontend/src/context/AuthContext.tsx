@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useState, useEffect, useMemo, useCallback } from 'react';
 import axios from 'axios';
-import { headers } from '../apis/headers';
+import { headers } from '../functions/headers';
 
 type AuthProviderProps = {
   children: ReactNode;

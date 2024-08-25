@@ -1,4 +1,4 @@
-import { useNextTrack } from '../apis/hooks/useNextTrack';
+import { useNextTrack } from '../hooks/apis/useNextTrack';
 
 export const NextTrackButton = () => {
   const nextTrack = useNextTrack();

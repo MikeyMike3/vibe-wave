@@ -1,4 +1,4 @@
-import { playSong } from '../apis/spotifyPlayer/playSong';
+import { playSong } from '../functions/spotifyPlayer/playSong';
 import { useSpotifyPlayerContext } from '../hooks/context/useSpotifyPlayerContext';
 
 type PlaySongButtonProps = {

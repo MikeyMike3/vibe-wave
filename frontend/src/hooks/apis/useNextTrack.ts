@@ -1,6 +1,6 @@
 import { useQueueContext } from '../../hooks/context/useQueueContext';
 import { useSpotifyPlayerContext } from '../../hooks/context/useSpotifyPlayerContext';
-import { playSong } from '../spotifyPlayer/playSong';
+import { playSong } from '../../functions/spotifyPlayer/playSong';
 
 export const useNextTrack = () => {
   const { priorityQueue, setPriorityQueue } = useQueueContext();
