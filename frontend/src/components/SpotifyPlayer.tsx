@@ -18,27 +18,29 @@ export const SpotifyPlayer = () => {
   useEffect(() => {
     const onPlayerStateChanged = (state: Spotify.PlaybackState) => {
       // remove priorityQueue index 0 if its currently playing
-      if (state.track_window.current_track?.id === priorityQueue[0]?.id) {
+      if (state.track_window.current_track?.name === priorityQueue[0]?.name) {
         setPriorityQueue(prevQueue => {
-          if (prevQueue.length > 0 && state.track_window.current_track?.id === prevQueue[0].id) {
+          if (
+            prevQueue.length > 0 &&
+            state.track_window.current_track?.name === prevQueue[0].name
+          ) {
             return prevQueue.slice(1);
           }
           return prevQueue;
         });
-      } else if (state.track_window.current_track?.id === playlistQueue[0].track?.id) {
+      } else if (state.track_window.current_track?.name === playlistQueue[0].track?.name) {
         setPlaylistQueue(prevQueue => {
           if (
             prevQueue.length > 0 &&
-            state.track_window.current_track?.id === prevQueue[0].track?.id
+            state.track_window.current_track?.name === prevQueue[0].track?.name
           ) {
             return prevQueue.slice(1);
           }
           return prevQueue;
         });
       }
-
       // play the next song in the queue if either queues have items in them
-      if (state.track_window.current_track?.id === state.track_window.previous_tracks[0]?.id) {
+      if (state.track_window.current_track?.name === state.track_window.previous_tracks[0]?.name) {
         if (priorityQueue.length > 0) {
           playSong(player, deviceId, priorityQueue[0]?.uri);
         } else if (playlistQueue.length > 0) {
