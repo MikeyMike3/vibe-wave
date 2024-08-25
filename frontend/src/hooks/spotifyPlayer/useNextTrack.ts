@@ -1,5 +1,5 @@
-import { useQueueContext } from '../../hooks/context/useQueueContext';
-import { useSpotifyPlayerContext } from '../../hooks/context/useSpotifyPlayerContext';
+import { useQueueContext } from '../context/useQueueContext';
+import { useSpotifyPlayerContext } from '../context/useSpotifyPlayerContext';
 import { playSong } from '../../functions/spotifyPlayer/playSong';
 
 export const useNextTrack = () => {

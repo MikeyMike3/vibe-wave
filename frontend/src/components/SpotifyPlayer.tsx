@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { playSong } from '../functions/spotifyPlayer/playSong';
-import { togglePlay } from '../functions/spotifyPlayer/togglePlay';
+import { useTogglePlay } from '../hooks/spotifyPlayer/useTogglePlay';
 import { getImageUrl } from '../functions/getImageUrl';
 import { useSpotifyPlayerContext } from '../hooks/context/useSpotifyPlayerContext';
 import { useQueueContext } from '../hooks/context/useQueueContext';
@@ -10,6 +10,8 @@ export const SpotifyPlayer = () => {
   const { player } = useSpotifyPlayerContext();
   const { deviceId } = useSpotifyPlayerContext();
   const { priorityQueue, setPriorityQueue } = useQueueContext();
+
+  const togglePlay = useTogglePlay();
 
   const [playerState, setPlayerState] = useState<Spotify.PlaybackState>();
 
@@ -58,9 +60,9 @@ export const SpotifyPlayer = () => {
       <div className="mx-auto flex gap-10">
         <p>Previous</p>
         {playerState?.paused ? (
-          <button onClick={() => togglePlay(player)}>Play</button>
+          <button onClick={togglePlay}>Play</button>
         ) : (
-          <button onClick={() => togglePlay(player)}>Pause</button>
+          <button onClick={togglePlay}>Pause</button>
         )}
         <NextTrackButton />
       </div>

@@ -1,4 +1,4 @@
-import { useNextTrack } from '../hooks/apis/useNextTrack';
+import { useNextTrack } from '../hooks/spotifyPlayer/useNextTrack';
 
 export const NextTrackButton = () => {
   const nextTrack = useNextTrack();

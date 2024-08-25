@@ -1,14 +1,14 @@
 import { useRef, useState } from 'react';
 import { useFetchSearchResults } from '../hooks/apis/useFetchSearchResults';
 import { SearchResultTrackItem } from '../components/SearchResultTrackItem';
-import { useSpotifyPlayerContext } from '../hooks/context/useSpotifyPlayerContext';
-import { togglePlay } from '../functions/spotifyPlayer/togglePlay';
+import { useTogglePlay } from '../hooks/spotifyPlayer/useTogglePlay';
 
 export const PartyModeSearch = () => {
   const [query, setQuery] = useState<string>('');
   const inputRef = useRef<HTMLInputElement>(null);
   const { searchResults, setSearchResults } = useFetchSearchResults(query);
-  const { player } = useSpotifyPlayerContext();
+
+  const togglePlay = useTogglePlay();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,7 +30,7 @@ export const PartyModeSearch = () => {
 
   return (
     <div className="flex-1 overflow-y-scroll">
-      <button onClick={() => togglePlay(player)}>Pause Play</button>
+      <button onClick={togglePlay}>Pause Play</button>
       <form onSubmit={handleSubmit} className="flex">
         <input ref={inputRef} onChange={handleChange} placeholder="Search"></input>
         <button onClick={handleSubmit}>Search</button>
