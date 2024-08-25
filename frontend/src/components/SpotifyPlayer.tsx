@@ -9,7 +9,7 @@ import { NextTrackButton } from './NextTrackButton';
 export const SpotifyPlayer = () => {
   const { player } = useSpotifyPlayerContext();
   const { deviceId } = useSpotifyPlayerContext();
-  const { priorityQueue, setPriorityQueue } = useQueueContext();
+  const { priorityQueue, setPriorityQueue, playlistQueue, setPlaylistQueue } = useQueueContext();
 
   const togglePlay = useTogglePlay();
 
@@ -25,12 +25,24 @@ export const SpotifyPlayer = () => {
           }
           return prevQueue;
         });
+      } else if (state.track_window.current_track?.id === playlistQueue[0].track?.id) {
+        setPlaylistQueue(prevQueue => {
+          if (
+            prevQueue.length > 0 &&
+            state.track_window.current_track?.id === prevQueue[0].track?.id
+          ) {
+            return prevQueue.slice(1);
+          }
+          return prevQueue;
+        });
       }
 
       // play the next song in the queue if either queues have items in them
       if (state.track_window.current_track?.id === state.track_window.previous_tracks[0]?.id) {
         if (priorityQueue.length > 0) {
           playSong(player, deviceId, priorityQueue[0]?.uri);
+        } else if (playlistQueue.length > 0) {
+          playSong(player, deviceId, playlistQueue[0].track?.uri);
         }
       }
 
@@ -42,7 +54,7 @@ export const SpotifyPlayer = () => {
     return () => {
       player?.removeListener('player_state_changed', onPlayerStateChanged);
     };
-  }, [deviceId, player, setPriorityQueue, priorityQueue]);
+  }, [deviceId, player, setPriorityQueue, priorityQueue, playlistQueue, setPlaylistQueue]);
 
   const image = getImageUrl(playerState?.track_window?.current_track?.album?.images);
 

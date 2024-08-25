@@ -3,7 +3,7 @@ let controller: AbortController | null = null;
 export const playSong = async (
   player: Spotify.Player | undefined,
   deviceId: string,
-  uri: string,
+  uri: string | undefined,
 ) => {
   if (!player || !deviceId) {
     return;

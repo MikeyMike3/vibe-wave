@@ -8,9 +8,9 @@ type QueueContext = {
   priorityQueue: SpotifyApi.TrackObjectFull[];
   //prettier-ignore
   setPriorityQueue: React.Dispatch<React.SetStateAction<SpotifyApi.TrackObjectFull[]>>;
-  playlistQueue: SpotifyApi.TrackObjectFull[];
+  playlistQueue: SpotifyApi.PlaylistTrackObject[];
   //prettier-ignore
-  setPlaylistQueue: React.Dispatch<React.SetStateAction<SpotifyApi.TrackObjectFull[]>>;
+  setPlaylistQueue: React.Dispatch<React.SetStateAction<SpotifyApi.PlaylistTrackObject[]>>;
 };
 
 const QueueContext = createContext<QueueContext | undefined>(undefined);
