@@ -15,8 +15,6 @@ export const useGetPlaylistItems = (playlistId: string) => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
-
         setPlaylistQueue(data);
       }
     } catch (error) {
