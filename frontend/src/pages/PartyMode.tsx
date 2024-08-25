@@ -22,6 +22,7 @@ export const PartyMode = () => {
           images={item.images}
           type={item.type}
           owner={item.owner.display_name}
+          playlistId={item.id}
         />
       ))}
     </div>
