@@ -9,7 +9,13 @@ import { NextTrackButton } from './NextTrackButton';
 export const SpotifyPlayer = () => {
   const { player } = useSpotifyPlayerContext();
   const { deviceId } = useSpotifyPlayerContext();
-  const { priorityQueue, setPriorityQueue, playlistQueue, setPlaylistQueue } = useQueueContext();
+  const {
+    priorityQueue,
+    setPriorityQueue,
+    playlistQueue,
+    setPlaylistQueue,
+    playlistQueueIndexRef,
+  } = useQueueContext();
 
   const togglePlay = useTogglePlay();
 
@@ -28,26 +34,21 @@ export const SpotifyPlayer = () => {
           }
           return prevQueue;
         });
-      } else if (state.track_window.current_track?.name === playlistQueue[0].track?.name) {
-        setPlaylistQueue(prevQueue => {
-          if (
-            prevQueue.length > 0 &&
-            state.track_window.current_track?.name === prevQueue[0].track?.name
-          ) {
-            return prevQueue.slice(1);
-          }
-          return prevQueue;
-        });
+      } else if (
+        state.track_window.current_track?.name ===
+        playlistQueue[playlistQueueIndexRef.current]?.track?.name
+      ) {
+        playlistQueueIndexRef.current++;
       }
       // play the next song in the queue if either queues have items in them
       if (state.track_window.current_track?.name === state.track_window.previous_tracks[0]?.name) {
         if (priorityQueue.length > 0) {
           playSong(player, deviceId, priorityQueue[0]?.uri);
         } else if (playlistQueue.length > 0) {
-          playSong(player, deviceId, playlistQueue[0].track?.uri);
+          console.log(playlistQueueIndexRef.current);
+          playSong(player, deviceId, playlistQueue[playlistQueueIndexRef.current].track?.uri);
         }
       }
-
       setPlayerState(state);
     };
 
@@ -56,7 +57,15 @@ export const SpotifyPlayer = () => {
     return () => {
       player?.removeListener('player_state_changed', onPlayerStateChanged);
     };
-  }, [deviceId, player, setPriorityQueue, priorityQueue, playlistQueue, setPlaylistQueue]);
+  }, [
+    deviceId,
+    player,
+    setPriorityQueue,
+    priorityQueue,
+    playlistQueue,
+    setPlaylistQueue,
+    playlistQueueIndexRef,
+  ]);
 
   const image = getImageUrl(playerState?.track_window?.current_track?.album?.images);
 
