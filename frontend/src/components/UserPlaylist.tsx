@@ -1,14 +1,18 @@
 import { Link } from 'react-router-dom';
 import { getImageUrl } from '../functions/getImageUrl';
+import { useGetPlaylistItems } from '../hooks/apis/useGetPlaylistItems';
 
 type UserPlaylistProps = {
   name: string;
   owner: string | undefined;
   type: string;
   images: SpotifyApi.ImageObject[];
+  playlistId: string;
 };
 
-export const UserPlaylist = ({ name, images, owner, type }: UserPlaylistProps) => {
+export const UserPlaylist = ({ name, images, owner, type, playlistId }: UserPlaylistProps) => {
+  const getPlaylistItems = useGetPlaylistItems(playlistId);
+
   const image = getImageUrl(images);
 
   return (
@@ -20,8 +24,10 @@ export const UserPlaylist = ({ name, images, owner, type }: UserPlaylistProps) =
           <p>
             {type} + {owner}
           </p>
+          <button onClick={getPlaylistItems}>Play</button>
         </div>
       </div>
+      //
     </Link>
   );
 };
