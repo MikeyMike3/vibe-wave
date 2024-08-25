@@ -27,7 +27,6 @@ export const UserPlaylist = ({ name, images, owner, type, playlistId }: UserPlay
           <button onClick={getPlaylistItems}>Play</button>
         </div>
       </div>
-      //
     </Link>
   );
 };
