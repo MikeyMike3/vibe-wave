@@ -5,6 +5,7 @@ import { getImageUrl } from '../functions/getImageUrl';
 import { useSpotifyPlayerContext } from '../hooks/context/useSpotifyPlayerContext';
 import { useQueueContext } from '../hooks/context/useQueueContext';
 import { NextTrackButton } from './NextTrackButton';
+import { PreviousTrackButton } from './PreviousTrackButton';
 
 export const SpotifyPlayer = () => {
   const { player } = useSpotifyPlayerContext();
@@ -83,7 +84,7 @@ export const SpotifyPlayer = () => {
         </div>
       </div>
       <div className="mx-auto flex gap-10">
-        <p>Previous</p>
+        <PreviousTrackButton />
         {playerState?.paused ? (
           <button onClick={togglePlay}>Play</button>
         ) : (

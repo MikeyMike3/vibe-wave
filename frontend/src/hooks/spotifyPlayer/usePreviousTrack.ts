@@ -1,17 +1,15 @@
 import { usePlaySong } from './usePlaySong';
 import { useQueueContext } from '../context/useQueueContext';
 
-type usePreviousTrackProps = {
-  uri: string | undefined;
-};
-
-export const usePreviousTrack = ({ uri }: usePreviousTrackProps) => {
+export const usePreviousTrack = () => {
   const { playlistQueue, playlistQueueIndexRef } = useQueueContext();
   const playSong = usePlaySong();
   const previousTrack = () => {
-    if (playlistQueue.length > 0) {
-      playlistQueueIndexRef.current--;
-      playSong(uri);
+    if (playlistQueue.length > 0 && playlistQueueIndexRef.current > 1) {
+      // playlistQueueIndexRef.current must be subtracted by 2
+      playlistQueueIndexRef.current -= 2;
+      console.log(playlistQueueIndexRef.current);
+      playSong(playlistQueue[playlistQueueIndexRef.current].track?.uri);
     }
   };
 
