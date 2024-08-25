@@ -9,16 +9,13 @@ export const usePlaySong = () => {
       return;
     }
 
-    // Abort any ongoing fetch request
     if (controller) {
       controller.abort();
     }
 
-    // Create a new AbortController for the new fetch request
     controller = new AbortController();
     const { signal } = controller;
 
-    // Get OAuth token from the player
     player._options.getOAuthToken(async accessToken => {
       try {
         const response = await fetch(
@@ -30,7 +27,7 @@ export const usePlaySong = () => {
               'Content-Type': 'application/json',
               Authorization: `Bearer ${accessToken}`,
             },
-            signal, // Use the AbortController signal here
+            signal,
           },
         );
 
