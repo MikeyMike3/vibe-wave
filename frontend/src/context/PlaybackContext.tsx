@@ -24,3 +24,4 @@ export const PlaybackProvider = ({ children }: PlaybackProvider) => {
     </PlaybackContext.Provider>
   );
 };
+export { PlaybackContext };

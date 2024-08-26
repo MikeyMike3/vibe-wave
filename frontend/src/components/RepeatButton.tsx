@@ -1,9 +1,12 @@
-import { useState } from 'react'
+import { usePlaybackContext } from '../hooks/context/usePlaybackContext';
 
 export const RepeatButton = () => {
-    const [repeat, setRepeat] = useState(0);
+  const { repeat, setRepeat, repeatRef } = usePlaybackContext();
 
-  return (
-    <button>{repeat}</button>
-  )
-}
+  const handleClick = () => {
+    setRepeat(repeat => repeat + 1);
+    repeatRef.current++;
+  };
+
+  return <button onClick={handleClick}>{repeat}</button>;
+};
