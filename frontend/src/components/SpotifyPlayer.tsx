@@ -34,7 +34,6 @@ export const SpotifyPlayer = () => {
 
       // moves the queues along when the song ends
       if (repeatRef.current !== 2) {
-        // console.log('hey');
         if (state.track_window.current_track?.name === priorityQueue[0]?.name) {
           setPriorityQueue(prevQueue => {
             if (

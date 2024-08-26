@@ -27,7 +27,9 @@ export const useNextTrack = () => {
       // this pauses the first song of the queue if the queue has finished playing
       if (playlistQueueIndexRef.current === playlistQueue.length) {
         playlistQueueIndexRef.current = 0;
-        isPausedRef.current = true;
+        if (repeatRef.current !== 1) {
+          isPausedRef.current = true;
+        }
       }
       // the index logic is handled within the SpotifyPlayer Component in the 'player_state_changed' listener
       // the index gets 1 added to it whenever the song changes
