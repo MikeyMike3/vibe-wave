@@ -4,7 +4,15 @@ let controller: AbortController | null = null;
 
 export const usePlaySong = () => {
   const { player, deviceId } = useSpotifyPlayerContext();
-  const playSong = async (uri: string | undefined) => {
+  const { isPausedRef } = useSpotifyPlayerContext();
+
+  // shouldUnpause tells this function to override the isPausedRef so that the song will play
+  // if the song plays then quickly pauses then you need to set shouldUnpause to true
+  const playSong = async (uri: string | undefined, shouldUnpause?: boolean) => {
+    if (shouldUnpause) {
+      isPausedRef.current = false;
+    }
+
     if (!player || !deviceId || !uri) {
       return;
     }

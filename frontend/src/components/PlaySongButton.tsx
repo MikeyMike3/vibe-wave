@@ -6,7 +6,7 @@ type PlaySongButtonProps = {
 
 const PlaySongButton = ({ uri }: PlaySongButtonProps) => {
   const playSong = usePlaySong();
-  return <button onClick={() => playSong(uri)}>Play</button>;
+  return <button onClick={() => playSong(uri, true)}>Play</button>;
 };
 
 export default PlaySongButton;
