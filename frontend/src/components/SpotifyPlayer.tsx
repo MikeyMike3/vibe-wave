@@ -31,41 +31,48 @@ export const SpotifyPlayer = () => {
       if (isPausedRef.current) {
         player?.pause();
       }
-      // remove priorityQueue index 0 if its currently playing
-      if (state.track_window.current_track?.name === priorityQueue[0]?.name) {
-        setPriorityQueue(prevQueue => {
-          if (
-            prevQueue.length > 0 &&
-            state.track_window.current_track?.name === prevQueue[0].name
-          ) {
-            return prevQueue.slice(1);
-          }
-          return prevQueue;
-        });
-      } else if (
-        state.track_window.current_track?.name ===
-        playlistQueue[playlistQueueIndexRef.current]?.track?.name
-      ) {
-        playlistQueueIndexRef.current++;
+
+      // moves the queues along when the song ends
+      if (repeatRef.current !== 2) {
+        // console.log('hey');
+        if (state.track_window.current_track?.name === priorityQueue[0]?.name) {
+          setPriorityQueue(prevQueue => {
+            if (
+              prevQueue.length > 0 &&
+              state.track_window.current_track?.name === prevQueue[0].name
+            ) {
+              return prevQueue.slice(1);
+            }
+            return prevQueue;
+          });
+        } else if (
+          state.track_window.current_track?.name ===
+          playlistQueue[playlistQueueIndexRef.current]?.track?.name
+        ) {
+          playlistQueueIndexRef.current++;
+        }
       }
+
       // play the next song in the queue if either queues have items in them
       if (state.track_window.current_track?.name === state.track_window.previous_tracks[0]?.name) {
-        if (priorityQueue.length > 0) {
+        // play the song that the user wants to have on repeat
+        if (repeatRef.current === 2) {
+          playSong(state.track_window.current_track.uri);
+        } else if (priorityQueue.length > 0) {
           playSong(priorityQueue[0]?.uri);
         } else if (playlistQueue.length > 0) {
           if (playlistQueueIndexRef.current === playlistQueue.length) {
-            // plays the playlistQueue from the start once the last song ends
+            // plays the first song of the playlistQueue once the last song ends
             if (repeatRef.current === 1) {
               playlistQueueIndexRef.current = 0;
               playSong(playlistQueue[0].track?.uri);
             } else {
-              // plays pauses the first song of the playlistQueue once the last song ends
+              // pauses the first song of the playlistQueue once the last song ends
               playlistQueueIndexRef.current = 0;
               playSong(playlistQueue[0].track?.uri);
               isPausedRef.current = true;
             }
           }
-          console.log(playlistQueueIndexRef.current);
           playSong(playlistQueue[playlistQueueIndexRef.current].track?.uri);
         }
       }
