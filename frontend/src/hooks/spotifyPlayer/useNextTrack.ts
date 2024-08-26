@@ -10,6 +10,7 @@ export const useNextTrack = () => {
   const playSong = usePlaySong();
 
   const nextTrack = () => {
+    isPausedRef.current = false;
     if (priorityQueue.length > 0) {
       setPriorityQueue(prevQueue => prevQueue.slice(1));
       playSong(priorityQueue[0].uri);
