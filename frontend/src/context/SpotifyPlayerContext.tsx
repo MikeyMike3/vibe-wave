@@ -14,6 +14,8 @@ type SpotifyProviderProps = {
 type SpotifyContext = {
   player: Spotify.Player | undefined;
   deviceId: string;
+  //prettier-ignore
+  isPausedRef:  React.MutableRefObject<boolean>;
 };
 
 const SpotifyPlayerContext = createContext<SpotifyContext | undefined>(undefined);
@@ -23,6 +25,7 @@ export const SpotifyPlayerProvider = ({ children }: SpotifyProviderProps) => {
   const [deviceId, setDeviceId] = useState('');
 
   const deviceIdRef = useRef<string>('');
+  const isPausedRef = useRef<boolean>(false);
 
   const { accessToken } = UseAuthContext();
 
@@ -90,7 +93,7 @@ export const SpotifyPlayerProvider = ({ children }: SpotifyProviderProps) => {
   }, [accessToken, player, deviceId]);
 
   return (
-    <SpotifyPlayerContext.Provider value={{ player, deviceId }}>
+    <SpotifyPlayerContext.Provider value={{ player, deviceId, isPausedRef }}>
       {children}
     </SpotifyPlayerContext.Provider>
   );

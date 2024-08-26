@@ -9,7 +9,7 @@ import { PreviousTrackButton } from './PreviousTrackButton';
 
 export const SpotifyPlayer = () => {
   const { player } = useSpotifyPlayerContext();
-  const { deviceId } = useSpotifyPlayerContext();
+  const { deviceId, isPausedRef } = useSpotifyPlayerContext();
   const {
     priorityQueue,
     setPriorityQueue,
@@ -25,6 +25,9 @@ export const SpotifyPlayer = () => {
 
   useEffect(() => {
     const onPlayerStateChanged = (state: Spotify.PlaybackState) => {
+      if (isPausedRef.current) {
+        player?.pause();
+      }
       // remove priorityQueue index 0 if its currently playing
       if (state.track_window.current_track?.name === priorityQueue[0]?.name) {
         setPriorityQueue(prevQueue => {
@@ -47,6 +50,12 @@ export const SpotifyPlayer = () => {
         if (priorityQueue.length > 0) {
           playSong(priorityQueue[0]?.uri);
         } else if (playlistQueue.length > 0) {
+          if (playlistQueueIndexRef.current === playlistQueue.length) {
+            playlistQueueIndexRef.current = 0;
+            playSong(playlistQueue[0].track?.uri);
+            isPausedRef.current = true;
+            console.log('hey');
+          }
           console.log(playlistQueueIndexRef.current);
           playSong(playlistQueue[playlistQueueIndexRef.current].track?.uri);
         }
@@ -68,6 +77,7 @@ export const SpotifyPlayer = () => {
     setPlaylistQueue,
     playlistQueueIndexRef,
     playSong,
+    isPausedRef,
   ]);
 
   const image = getImageUrl(playerState?.track_window?.current_track?.album?.images);
