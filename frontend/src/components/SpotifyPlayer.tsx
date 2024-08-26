@@ -6,6 +6,7 @@ import { useSpotifyPlayerContext } from '../hooks/context/useSpotifyPlayerContex
 import { useQueueContext } from '../hooks/context/useQueueContext';
 import { NextTrackButton } from './NextTrackButton';
 import { PreviousTrackButton } from './PreviousTrackButton';
+import { RepeatButton } from './RepeatButton';
 
 export const SpotifyPlayer = () => {
   const { player } = useSpotifyPlayerContext();
@@ -101,6 +102,7 @@ export const SpotifyPlayer = () => {
           <button onClick={togglePlay}>Pause</button>
         )}
         <NextTrackButton />
+        <RepeatButton />
       </div>
       <div className="ml-auto">Volume</div>
     </footer>
