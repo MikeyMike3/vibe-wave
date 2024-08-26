@@ -7,10 +7,12 @@ import { useQueueContext } from '../hooks/context/useQueueContext';
 import { NextTrackButton } from './NextTrackButton';
 import { PreviousTrackButton } from './PreviousTrackButton';
 import { RepeatButton } from './RepeatButton';
+import { usePlaybackContext } from '../hooks/context/usePlaybackContext';
 
 export const SpotifyPlayer = () => {
   const { player } = useSpotifyPlayerContext();
   const { deviceId, isPausedRef } = useSpotifyPlayerContext();
+  const { repeatRef } = usePlaybackContext();
   const {
     priorityQueue,
     setPriorityQueue,
@@ -52,10 +54,16 @@ export const SpotifyPlayer = () => {
           playSong(priorityQueue[0]?.uri);
         } else if (playlistQueue.length > 0) {
           if (playlistQueueIndexRef.current === playlistQueue.length) {
-            playlistQueueIndexRef.current = 0;
-            playSong(playlistQueue[0].track?.uri);
-            isPausedRef.current = true;
-            console.log('hey');
+            // plays the playlistQueue from the start once the last song ends
+            if (repeatRef.current === 1) {
+              playlistQueueIndexRef.current = 0;
+              playSong(playlistQueue[0].track?.uri);
+            } else {
+              // plays pauses the first song of the playlistQueue once the last song ends
+              playlistQueueIndexRef.current = 0;
+              playSong(playlistQueue[0].track?.uri);
+              isPausedRef.current = true;
+            }
           }
           console.log(playlistQueueIndexRef.current);
           playSong(playlistQueue[playlistQueueIndexRef.current].track?.uri);
@@ -79,6 +87,7 @@ export const SpotifyPlayer = () => {
     playlistQueueIndexRef,
     playSong,
     isPausedRef,
+    repeatRef,
   ]);
 
   const image = getImageUrl(playerState?.track_window?.current_track?.album?.images);
