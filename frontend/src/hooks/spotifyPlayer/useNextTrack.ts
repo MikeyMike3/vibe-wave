@@ -8,11 +8,12 @@ export const useNextTrack = () => {
   const { priorityQueue, setPriorityQueue, playlistQueue, playlistQueueIndexRef } =
     useQueueContext();
   const { isPausedRef } = useSpotifyPlayerContext();
-  const { repeatRef, setRepeat } = usePlaybackContext();
+  const { repeatRef, setRepeat, userSkippedTrackRef } = usePlaybackContext();
   const playSong = usePlaySong();
 
   const nextTrack = () => {
     isPausedRef.current = false;
+    userSkippedTrackRef.current = true;
 
     if (repeatRef.current === 2) {
       repeatRef.current = 1;

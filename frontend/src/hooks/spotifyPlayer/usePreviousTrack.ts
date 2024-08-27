@@ -4,9 +4,11 @@ import { usePlaybackContext } from '../context/usePlaybackContext';
 
 export const usePreviousTrack = () => {
   const { playlistQueue, playlistQueueIndexRef } = useQueueContext();
-  const { repeatRef, setRepeat } = usePlaybackContext();
+  const { repeatRef, setRepeat, userPreviousTrackRef } = usePlaybackContext();
   const playSong = usePlaySong();
   const previousTrack = () => {
+    userPreviousTrackRef.current = true;
+
     if (repeatRef.current === 2) {
       repeatRef.current = 1;
       setRepeat(1);

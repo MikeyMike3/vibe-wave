@@ -1,10 +1,13 @@
+import { usePlaybackContext } from '../context/usePlaybackContext';
+import { useQueueContext } from '../context/useQueueContext';
 import { useSpotifyPlayerContext } from '../context/useSpotifyPlayerContext';
 
 let controller: AbortController | null = null;
 
 export const usePlaySong = () => {
-  const { player, deviceId } = useSpotifyPlayerContext();
-  const { isPausedRef } = useSpotifyPlayerContext();
+  const { player, deviceId, isPausedRef } = useSpotifyPlayerContext();
+  const { playlistQueueIndexRef, playlistQueue } = useQueueContext();
+  const { userPreviousTrackRef, userSkippedTrackRef, repeatRef } = usePlaybackContext();
 
   // shouldUnpause tells this function to override the isPausedRef so that the song will play
   // if the song plays then quickly pauses then you need to set shouldUnpause to true
@@ -41,6 +44,26 @@ export const usePlaySong = () => {
 
         if (!response.ok) {
           console.error('Failed to start playback', await response.json());
+          if (response.status === 403) {
+            if (userSkippedTrackRef.current) {
+              playlistQueueIndexRef.current++;
+              playSong(playlistQueue[playlistQueueIndexRef.current].track?.uri);
+            } else if (userPreviousTrackRef.current) {
+              if (repeatRef.current === 1 && playlistQueueIndexRef.current <= 1) {
+                playlistQueueIndexRef.current = playlistQueue.length + 1;
+              }
+
+              if (playlistQueue.length > 0 && playlistQueueIndexRef.current > 1) {
+                // playlistQueueIndexRef.current must be subtracted by 2 to be able to play the previous song
+                playlistQueueIndexRef.current -= 2;
+                playSong(playlistQueue[playlistQueueIndexRef.current].track?.uri);
+              }
+            }
+          }
+        }
+        if (response.ok) {
+          userSkippedTrackRef.current = false;
+          userPreviousTrackRef.current = false;
         }
       } catch (error) {
         if (error instanceof Error) {
