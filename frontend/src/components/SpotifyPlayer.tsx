@@ -8,6 +8,7 @@ import { NextTrackButton } from './NextTrackButton';
 import { PreviousTrackButton } from './PreviousTrackButton';
 import { RepeatButton } from './RepeatButton';
 import { usePlaybackContext } from '../hooks/context/usePlaybackContext';
+import { ShuffleTracksButton } from './ShuffleTracksButton';
 
 export const SpotifyPlayer = () => {
   const { player } = useSpotifyPlayerContext();
@@ -110,6 +111,7 @@ export const SpotifyPlayer = () => {
         </div>
       </div>
       <div className="mx-auto flex gap-10">
+        <ShuffleTracksButton />
         <PreviousTrackButton />
         {playerState?.paused ? (
           <button onClick={togglePlay}>Play</button>
