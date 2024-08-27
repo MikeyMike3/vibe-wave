@@ -14,6 +14,8 @@ type PlaybackContext = {
   userSkippedTrackRef: React.MutableRefObject<boolean>;
   // prettier-ignore
   userPreviousTrackRef: React.MutableRefObject<boolean>;
+  // prettier-ignore
+  shuffleTracksRef: React.MutableRefObject<boolean>;
 };
 
 const PlaybackContext = createContext<PlaybackContext | undefined>(undefined);
@@ -23,10 +25,18 @@ export const PlaybackProvider = ({ children }: PlaybackProvider) => {
   const repeatRef = useRef(0);
   const userSkippedTrackRef = useRef(false);
   const userPreviousTrackRef = useRef(false);
+  const shuffleTracksRef = useRef(false);
 
   return (
     <PlaybackContext.Provider
-      value={{ repeat, setRepeat, repeatRef, userSkippedTrackRef, userPreviousTrackRef }}
+      value={{
+        repeat,
+        setRepeat,
+        repeatRef,
+        userSkippedTrackRef,
+        userPreviousTrackRef,
+        shuffleTracksRef,
+      }}
     >
       {children}
     </PlaybackContext.Provider>
