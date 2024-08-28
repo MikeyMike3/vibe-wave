@@ -5,12 +5,15 @@ import { shuffleArray } from '../functions/shuffleArray';
 
 export const ShuffleTracksButton = () => {
   const { shuffleTracksRef, playerState } = usePlaybackContext();
-  const { setPlaylistQueue, unShuffledQueueRef, playlistQueueIndexRef } = useQueueContext();
+  const { playlistQueue, setPlaylistQueue, unShuffledQueueRef, playlistQueueIndexRef } =
+    useQueueContext();
   const [shuffleTracks, setShuffleTracks] = useState(false);
 
   const handleClick = () => {
-    shuffleTracksRef.current = !shuffleTracksRef.current;
-    setShuffleTracks(shuffle => !shuffle);
+    if (playlistQueue.length > 0) {
+      shuffleTracksRef.current = !shuffleTracksRef.current;
+      setShuffleTracks(shuffle => !shuffle);
+    }
 
     if (shuffleTracksRef.current) {
       // creates deep copies of the playlistQueue
