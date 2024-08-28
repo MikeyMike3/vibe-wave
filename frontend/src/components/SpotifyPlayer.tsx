@@ -12,8 +12,8 @@ import { ShuffleTracksButton } from './ShuffleTracksButton';
 
 export const SpotifyPlayer = () => {
   const { player } = useSpotifyPlayerContext();
-  const { deviceId, isPausedRef } = useSpotifyPlayerContext();
-  const { repeatRef, playerState, setPlayerState } = usePlaybackContext();
+  const { deviceId } = useSpotifyPlayerContext();
+  const { repeatRef, playerState, setPlayerState, isPausedRef } = usePlaybackContext();
   const {
     priorityQueue,
     setPriorityQueue,

@@ -1,13 +1,11 @@
 import { usePlaybackContext } from '../context/usePlaybackContext';
 import { useQueueContext } from '../context/useQueueContext';
-import { useSpotifyPlayerContext } from '../context/useSpotifyPlayerContext';
 import { usePlaySong } from './usePlaySong';
 
 export const useNextTrack = () => {
   const { priorityQueue, setPriorityQueue, playlistQueue, playlistQueueIndexRef } =
     useQueueContext();
-  const { isPausedRef } = useSpotifyPlayerContext();
-  const { repeatRef, setRepeat, userSkippedTrackRef } = usePlaybackContext();
+  const { repeatRef, setRepeat, userSkippedTrackRef, isPausedRef } = usePlaybackContext();
   const playSong = usePlaySong();
 
   const nextTrack = () => {

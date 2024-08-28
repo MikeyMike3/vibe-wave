@@ -5,9 +5,10 @@ import { useSpotifyPlayerContext } from '../context/useSpotifyPlayerContext';
 let controller: AbortController | null = null;
 
 export const usePlaySong = () => {
-  const { player, deviceId, isPausedRef } = useSpotifyPlayerContext();
+  const { player, deviceId } = useSpotifyPlayerContext();
   const { playlistQueueIndexRef, playlistQueue } = useQueueContext();
-  const { userPreviousTrackRef, userSkippedTrackRef, repeatRef } = usePlaybackContext();
+  const { userPreviousTrackRef, userSkippedTrackRef, repeatRef, isPausedRef } =
+    usePlaybackContext();
 
   // shouldUnpause tells this function to override the isPausedRef so that the song will play
   // if the song plays then quickly pauses then you need to set shouldUnpause to true

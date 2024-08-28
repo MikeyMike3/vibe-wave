@@ -16,6 +16,8 @@ type PlaybackContext = {
   userPreviousTrackRef: React.MutableRefObject<boolean>;
   // prettier-ignore
   shuffleTracksRef: React.MutableRefObject<boolean>;
+  //prettier-ignore
+  isPausedRef:  React.MutableRefObject<boolean>;
   // prettier-ignore
   playerState: Spotify.PlaybackState | undefined;
   // prettier-ignore
@@ -31,6 +33,7 @@ export const PlaybackProvider = ({ children }: PlaybackProvider) => {
   const userSkippedTrackRef = useRef(false);
   const userPreviousTrackRef = useRef(false);
   const shuffleTracksRef = useRef(false);
+  const isPausedRef = useRef<boolean>(false);
 
   return (
     <PlaybackContext.Provider
@@ -41,6 +44,7 @@ export const PlaybackProvider = ({ children }: PlaybackProvider) => {
         userSkippedTrackRef,
         userPreviousTrackRef,
         shuffleTracksRef,
+        isPausedRef,
         playerState,
         setPlayerState,
       }}
