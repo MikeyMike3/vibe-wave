@@ -5,14 +5,12 @@ import { shuffleArray } from '../functions/shuffleArray';
 
 export const ShuffleTracksButton = () => {
   const { shuffleTracksRef, playerState } = usePlaybackContext();
-  const { playlistQueue, setPlaylistQueue, unShuffledQueueRef, playlistQueueIndexRef } =
-    useQueueContext();
+  const { setPlaylistQueue, unShuffledQueueRef, playlistQueueIndexRef } = useQueueContext();
   const [shuffleTracks, setShuffleTracks] = useState(false);
 
   const handleClick = () => {
     shuffleTracksRef.current = !shuffleTracksRef.current;
     setShuffleTracks(shuffle => !shuffle);
-    console.log(playlistQueueIndexRef.current);
 
     if (shuffleTracksRef.current) {
       // creates deep copies of the playlistQueue
@@ -24,18 +22,16 @@ export const ShuffleTracksButton = () => {
       playlistQueueIndexRef.current = 0;
       setPlaylistQueue(shuffledQueue);
     } else {
+      const currentTrack = playerState?.track_window.current_track.name;
       // Resumes the playlist from the current song when the user turns off shuffle mode.
       if (unShuffledQueueRef.current) {
         if (playlistQueueIndexRef.current > 0) {
-          const currentTrack = playlistQueue[playlistQueueIndexRef.current - 1].track;
-
           let index = unShuffledQueueRef.current.findIndex(
-            item => item.track?.name === currentTrack?.name,
+            item => item.track?.name === currentTrack,
           );
           index++;
           playlistQueueIndexRef.current = index;
         } else {
-          const currentTrack = playerState?.track_window.current_track.name;
           let index = unShuffledQueueRef.current.findIndex(
             item => item.track?.name === currentTrack,
           );
@@ -43,7 +39,6 @@ export const ShuffleTracksButton = () => {
           playlistQueueIndexRef.current = index;
         }
 
-        // Find the index in unShuffledQueueRef.current where the track matches currentTrack
         setPlaylistQueue(unShuffledQueueRef.current);
       }
     }
