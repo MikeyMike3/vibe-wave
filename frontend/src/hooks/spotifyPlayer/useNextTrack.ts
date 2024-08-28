@@ -2,7 +2,6 @@ import { usePlaybackContext } from '../context/usePlaybackContext';
 import { useQueueContext } from '../context/useQueueContext';
 import { useSpotifyPlayerContext } from '../context/useSpotifyPlayerContext';
 import { usePlaySong } from './usePlaySong';
-import { useEffect } from 'react';
 
 export const useNextTrack = () => {
   const { priorityQueue, setPriorityQueue, playlistQueue, playlistQueueIndexRef } =
@@ -37,8 +36,5 @@ export const useNextTrack = () => {
       playSong(playlistQueue[playlistQueueIndexRef.current]?.track?.uri);
     }
   };
-  useEffect(() => {
-    console.log(playlistQueue);
-  }, [playlistQueue]);
   return nextTrack;
 };

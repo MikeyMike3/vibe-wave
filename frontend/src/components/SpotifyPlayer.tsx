@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { usePlaySong } from '../hooks/spotifyPlayer/usePlaySong';
 import { useTogglePlay } from '../hooks/spotifyPlayer/useTogglePlay';
 import { getImageUrl } from '../functions/getImageUrl';
@@ -13,7 +13,7 @@ import { ShuffleTracksButton } from './ShuffleTracksButton';
 export const SpotifyPlayer = () => {
   const { player } = useSpotifyPlayerContext();
   const { deviceId, isPausedRef } = useSpotifyPlayerContext();
-  const { repeatRef } = usePlaybackContext();
+  const { repeatRef, playerState, setPlayerState } = usePlaybackContext();
   const {
     priorityQueue,
     setPriorityQueue,
@@ -24,8 +24,6 @@ export const SpotifyPlayer = () => {
 
   const togglePlay = useTogglePlay();
   const playSong = usePlaySong();
-
-  const [playerState, setPlayerState] = useState<Spotify.PlaybackState>();
 
   useEffect(() => {
     const onPlayerStateChanged = (state: Spotify.PlaybackState) => {
@@ -95,6 +93,7 @@ export const SpotifyPlayer = () => {
     playSong,
     isPausedRef,
     repeatRef,
+    setPlayerState,
   ]);
 
   const image = getImageUrl(playerState?.track_window?.current_track?.album?.images);

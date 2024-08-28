@@ -16,12 +16,17 @@ type PlaybackContext = {
   userPreviousTrackRef: React.MutableRefObject<boolean>;
   // prettier-ignore
   shuffleTracksRef: React.MutableRefObject<boolean>;
+  // prettier-ignore
+  playerState: Spotify.PlaybackState | undefined;
+  // prettier-ignore
+  setPlayerState: React.Dispatch<React.SetStateAction<Spotify.PlaybackState | undefined>>
 };
 
 const PlaybackContext = createContext<PlaybackContext | undefined>(undefined);
 
 export const PlaybackProvider = ({ children }: PlaybackProvider) => {
   const [repeat, setRepeat] = useState(0);
+  const [playerState, setPlayerState] = useState<Spotify.PlaybackState>();
   const repeatRef = useRef(0);
   const userSkippedTrackRef = useRef(false);
   const userPreviousTrackRef = useRef(false);
@@ -36,6 +41,8 @@ export const PlaybackProvider = ({ children }: PlaybackProvider) => {
         userSkippedTrackRef,
         userPreviousTrackRef,
         shuffleTracksRef,
+        playerState,
+        setPlayerState,
       }}
     >
       {children}
