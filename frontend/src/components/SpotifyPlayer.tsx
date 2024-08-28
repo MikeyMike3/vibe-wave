@@ -9,11 +9,19 @@ import { PreviousTrackButton } from './PreviousTrackButton';
 import { RepeatButton } from './RepeatButton';
 import { usePlaybackContext } from '../hooks/context/usePlaybackContext';
 import { ShuffleTracksButton } from './ShuffleTracksButton';
+import { ProgressTracker } from './ProgressTracker';
 
 export const SpotifyPlayer = () => {
   const { player } = useSpotifyPlayerContext();
   const { deviceId } = useSpotifyPlayerContext();
-  const { repeatRef, playerState, setPlayerState, isPausedRef } = usePlaybackContext();
+  const {
+    repeatRef,
+    playerState,
+    setPlayerState,
+    isPausedRef,
+    setPlayerDuration,
+    setPlayerPosition,
+  } = usePlaybackContext();
   const {
     priorityQueue,
     setPriorityQueue,
@@ -27,6 +35,8 @@ export const SpotifyPlayer = () => {
 
   useEffect(() => {
     const onPlayerStateChanged = (state: Spotify.PlaybackState) => {
+      setPlayerDuration(state.duration);
+      setPlayerPosition(state.position);
       if (isPausedRef.current) {
         player?.pause();
       }
@@ -77,10 +87,22 @@ export const SpotifyPlayer = () => {
       setPlayerState(state);
     };
 
+    const interval = setInterval(async () => {
+      try {
+        const state = await player?.getCurrentState();
+        if (state && !state.paused) {
+          setPlayerPosition(state.position);
+        }
+      } catch (error) {
+        console.error('Error fetching player state:', error);
+      }
+    }, 1000);
+
     player?.addListener('player_state_changed', onPlayerStateChanged);
 
     return () => {
       player?.removeListener('player_state_changed', onPlayerStateChanged);
+      clearInterval(interval);
     };
   }, [
     deviceId,
@@ -94,6 +116,9 @@ export const SpotifyPlayer = () => {
     isPausedRef,
     repeatRef,
     setPlayerState,
+    setPlayerDuration,
+    setPlayerPosition,
+    playerState,
   ]);
 
   const image = getImageUrl(playerState?.track_window?.current_track?.album?.images);
@@ -109,16 +134,19 @@ export const SpotifyPlayer = () => {
           </p>
         </div>
       </div>
-      <div className="mx-auto flex gap-10">
-        <ShuffleTracksButton />
-        <PreviousTrackButton />
-        {playerState?.paused ? (
-          <button onClick={togglePlay}>Play</button>
-        ) : (
-          <button onClick={togglePlay}>Pause</button>
-        )}
-        <NextTrackButton />
-        <RepeatButton />
+      <div className="mx-auto flex flex-col items-center gap-4">
+        <div className="flex gap-10">
+          <ShuffleTracksButton />
+          <PreviousTrackButton />
+          {playerState?.paused ? (
+            <button onClick={togglePlay}>Play</button>
+          ) : (
+            <button onClick={togglePlay}>Pause</button>
+          )}
+          <NextTrackButton />
+          <RepeatButton />
+        </div>
+        <ProgressTracker />
       </div>
       <div className="ml-auto">Volume</div>
     </footer>
