@@ -24,26 +24,14 @@ export const ShuffleTracksButton = () => {
       const shuffledQueue = shuffleArray(toBeShuffledQueue);
       playlistQueueIndexRef.current = 0;
       setPlaylistQueue(shuffledQueue);
-    } else {
-      const currentTrack = playerState?.track_window.current_track.name;
+    } else if (unShuffledQueueRef.current) {
       // Resumes the playlist from the current song when the user turns off shuffle mode.
-      if (unShuffledQueueRef.current) {
-        if (playlistQueueIndexRef.current > 0) {
-          let index = unShuffledQueueRef.current.findIndex(
-            item => item.track?.name === currentTrack,
-          );
-          index++;
-          playlistQueueIndexRef.current = index;
-        } else {
-          let index = unShuffledQueueRef.current.findIndex(
-            item => item.track?.name === currentTrack,
-          );
-          index++;
-          playlistQueueIndexRef.current = index;
-        }
+      const currentTrack = playerState?.track_window.current_track.name;
+      let index = unShuffledQueueRef.current.findIndex(item => item.track?.name === currentTrack);
+      index++;
+      playlistQueueIndexRef.current = index;
 
-        setPlaylistQueue(unShuffledQueueRef.current);
-      }
+      setPlaylistQueue(unShuffledQueueRef.current);
     }
   };
 
