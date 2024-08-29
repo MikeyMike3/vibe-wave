@@ -20,7 +20,7 @@ const SpotifyPlayerContext = createContext<SpotifyContext | undefined>(undefined
 
 export const SpotifyPlayerProvider = ({ children }: SpotifyProviderProps) => {
   const [player, setPlayer] = useState<Spotify.Player>();
-  const [deviceId, setDeviceId] = useState('');
+  const [deviceId, setDeviceId] = useState<string>('');
 
   const deviceIdRef = useRef<string>('');
 
