@@ -22,7 +22,7 @@ export const ProgressTracker = () => {
         sliderRef.current.style.setProperty('--value', `${percentage}%`);
       }
     },
-    [playerDuration], // Dependency array: this function will be recreated if duration changes
+    [playerDuration],
   );
   useEffect(() => {
     updateSliderBackground(sliderValue);
