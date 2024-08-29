@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { usePlaybackContext } from '../hooks/context/usePlaybackContext';
 import { formatTime } from '../functions/formatTime';
 import { useSpotifyPlayerContext } from '../hooks/context/useSpotifyPlayerContext';
@@ -12,9 +12,27 @@ export const ProgressTracker = () => {
   const [seekPosition, setSeekPosition] = useState<number>(0);
   const currentlySeekingRef = useRef<boolean>(false);
 
+  const [sliderValue, setSliderValue] = useState(0);
+  const sliderRef = useRef<HTMLInputElement>(null);
+
+  const updateSliderBackground = useCallback(
+    (value: number | string) => {
+      const percentage = (Number(value) / Number(playerDuration)) * 100;
+      if (sliderRef.current) {
+        sliderRef.current.style.setProperty('--value', `${percentage}%`);
+      }
+    },
+    [playerDuration], // Dependency array: this function will be recreated if duration changes
+  );
+  useEffect(() => {
+    updateSliderBackground(sliderValue);
+  }, [playerDuration, updateSliderBackground, sliderValue]);
+
   useEffect(() => {
     setDisplayPosition(formatTime(playerPosition));
-  }, [playerPosition]);
+    setSliderValue(Number(playerPosition));
+    updateSliderBackground(playerPosition);
+  }, [playerPosition, updateSliderBackground]);
 
   useEffect(() => {
     setDisplayDuration(formatTime(playerDuration));
@@ -27,6 +45,8 @@ export const ProgressTracker = () => {
     setPlayerPosition(value);
     setTempDisplayPosition(formatTime(value));
     setSeekPosition(Number(value));
+    setSliderValue(Number(value));
+    updateSliderBackground(value);
   };
   //prettier-ignore
   const handleMouseUp = () => {
@@ -35,9 +55,10 @@ export const ProgressTracker = () => {
   }
 
   return (
-    <div className="flex w-[500px] gap-3">
+    <div className="flex w-[500px] items-center gap-3">
       {currentlySeekingRef.current ? tempDisplayPosition : displayPosition}
       <input
+        ref={sliderRef}
         className="w-full"
         type="range"
         min="0"
