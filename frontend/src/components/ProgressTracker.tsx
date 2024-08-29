@@ -24,14 +24,14 @@ export const ProgressTracker = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     currentlySeekingRef.current = true;
     const value = e.target.value;
-    setPlayerPosition(value)
-    setTempDisplayPosition(formatTime(value))
-    setSeekPosition(Number(value))
+    setPlayerPosition(value);
+    setTempDisplayPosition(formatTime(value));
+    setSeekPosition(Number(value));
   };
   //prettier-ignore
   const handleMouseUp = () => {
     currentlySeekingRef.current = false;
-    player?.seek(seekPosition)
+    player?.seek(seekPosition);
   }
 
   return (
@@ -42,7 +42,7 @@ export const ProgressTracker = () => {
         type="range"
         min="0"
         max={playerDuration}
-        value={playerPosition}
+        value={currentlySeekingRef.current ? seekPosition : playerPosition}
         onChange={handleChange}
         onMouseUp={handleMouseUp}
       />
