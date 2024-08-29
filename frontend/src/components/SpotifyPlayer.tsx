@@ -90,7 +90,7 @@ export const SpotifyPlayer = () => {
     const interval = setInterval(async () => {
       try {
         const state = await player?.getCurrentState();
-        if (state && !state.paused) {
+        if (state && !state.paused && state.position! > state.duration) {
           setPlayerPosition(state.position);
         }
       } catch (error) {
