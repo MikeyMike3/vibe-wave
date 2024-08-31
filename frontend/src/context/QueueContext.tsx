@@ -11,6 +11,9 @@ type QueueContext = {
   playlistQueue: SpotifyApi.PlaylistTrackObject[];
   //prettier-ignore
   setPlaylistQueue: React.Dispatch<React.SetStateAction<SpotifyApi.PlaylistTrackObject[]>>;
+  playlistQueueIndex: number;
+  //prettier-ignore
+  setPlaylistQueueIndex: React.Dispatch<React.SetStateAction<number>>
   //prettier-ignore
   playlistQueueIndexRef: React.MutableRefObject<number>;
   //prettier-ignore
@@ -22,6 +25,7 @@ const QueueContext = createContext<QueueContext | undefined>(undefined);
 export const QueueProvider = ({ children }: QueueProviderProps) => {
   const [priorityQueue, setPriorityQueue] = useState<SpotifyApi.TrackObjectFull[]>([]);
   const [playlistQueue, setPlaylistQueue] = useState<SpotifyApi.PlaylistTrackObject[]>([]);
+  const [playlistQueueIndex, setPlaylistQueueIndex] = useState<number>(0);
 
   const playlistQueueIndexRef = useRef(0);
   const unShuffledQueueRef = useRef<SpotifyApi.PlaylistTrackObject[]>();
@@ -33,6 +37,8 @@ export const QueueProvider = ({ children }: QueueProviderProps) => {
         setPriorityQueue,
         setPlaylistQueue,
         playlistQueue,
+        playlistQueueIndex,
+        setPlaylistQueueIndex,
         playlistQueueIndexRef,
         unShuffledQueueRef,
       }}
