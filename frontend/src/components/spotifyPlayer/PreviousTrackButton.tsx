@@ -1,4 +1,4 @@
-import { usePreviousTrack } from '../hooks/spotifyPlayer/usePreviousTrack';
+import { usePreviousTrack } from '../../hooks/spotifyPlayer/usePreviousTrack';
 
 export const PreviousTrackButton = () => {
   const previousTrack = usePreviousTrack();

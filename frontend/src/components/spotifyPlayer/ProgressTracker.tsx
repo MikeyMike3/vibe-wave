@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { usePlaybackContext } from '../hooks/context/usePlaybackContext';
-import { formatTime } from '../functions/formatTime';
-import { useSpotifyPlayerContext } from '../hooks/context/useSpotifyPlayerContext';
+import { usePlaybackContext } from '../../hooks/context/usePlaybackContext';
+import { formatTime } from '../../functions/formatTime';
+import { useSpotifyPlayerContext } from '../../hooks/context/useSpotifyPlayerContext';
 
 export const ProgressTracker = () => {
   const { player } = useSpotifyPlayerContext();

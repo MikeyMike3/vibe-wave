@@ -1,16 +1,16 @@
 import { useEffect } from 'react';
-import { usePlaySong } from '../hooks/spotifyPlayer/usePlaySong';
-import { useTogglePlay } from '../hooks/spotifyPlayer/useTogglePlay';
-import { getImageUrl } from '../functions/getImageUrl';
-import { useSpotifyPlayerContext } from '../hooks/context/useSpotifyPlayerContext';
-import { useQueueContext } from '../hooks/context/useQueueContext';
+import { usePlaySong } from '../../hooks/spotifyPlayer/usePlaySong';
+import { useTogglePlay } from '../../hooks/spotifyPlayer/useTogglePlay';
+import { getImageUrl } from '../../functions/getImageUrl';
+import { useSpotifyPlayerContext } from '../../hooks/context/useSpotifyPlayerContext';
+import { useQueueContext } from '../../hooks/context/useQueueContext';
 import { NextTrackButton } from './NextTrackButton';
 import { PreviousTrackButton } from './PreviousTrackButton';
 import { RepeatButton } from './RepeatButton';
-import { usePlaybackContext } from '../hooks/context/usePlaybackContext';
-import { ShuffleTracksButton } from './ShuffleTracksButton';
+import { usePlaybackContext } from '../../hooks/context/usePlaybackContext';
+import { ShuffleTracksButton } from '../ShuffleTracksButton';
 import { ProgressTracker } from './ProgressTracker';
-import { useIndexPlaylistQueue } from '../hooks/spotifyPlayer/useIndexPlaylistQueue';
+import { useIndexPlaylistQueue } from '../../hooks/spotifyPlayer/useIndexPlaylistQueue';
 
 export const SpotifyPlayer = () => {
   const { player } = useSpotifyPlayerContext();
