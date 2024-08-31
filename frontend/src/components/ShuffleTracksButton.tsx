@@ -37,12 +37,12 @@ export const ShuffleTracksButton = () => {
   };
 
   return (
-    <button>
+    <>
       {shuffleTracks ? (
         <button onClick={handleClick}>Shuffled</button>
       ) : (
         <button onClick={handleClick}>Shuffle</button>
       )}
-    </button>
+    </>
   );
 };
