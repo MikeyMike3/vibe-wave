@@ -11,6 +11,7 @@ import { usePlaybackContext } from '../../hooks/context/usePlaybackContext';
 import { ShuffleTracksButton } from '../ShuffleTracksButton';
 import { ProgressTracker } from './ProgressTracker';
 import { useIndexPlaylistQueue } from '../../hooks/spotifyPlayer/useIndexPlaylistQueue';
+import { Queue } from './Queue';
 
 export const SpotifyPlayer = () => {
   const { player } = useSpotifyPlayerContext();
@@ -137,6 +138,7 @@ export const SpotifyPlayer = () => {
             {playerState?.track_window?.current_track?.artists.map(item => item.name).join(', ')}
           </p>
         </div>
+        <Queue />
       </div>
       <div className="mx-auto flex flex-col items-center gap-4">
         <div className="flex gap-10">
