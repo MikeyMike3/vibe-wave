@@ -1,11 +1,13 @@
 import { usePlaySong } from './usePlaySong';
 import { useQueueContext } from '../context/useQueueContext';
 import { usePlaybackContext } from '../context/usePlaybackContext';
+import { useIndexPlaylistQueue } from './useIndexPlaylistQueue';
 
 export const usePreviousTrack = () => {
   const { playlistQueue, playlistQueueIndexRef } = useQueueContext();
   const { repeatRef, setRepeat, userPreviousTrackRef } = usePlaybackContext();
   const playSong = usePlaySong();
+  const indexPlaylistQueue = useIndexPlaylistQueue();
   const previousTrack = () => {
     userPreviousTrackRef.current = true;
 
@@ -16,12 +18,12 @@ export const usePreviousTrack = () => {
 
     // sets the playlistQueueIndexRef to the last song of the playlist
     if (repeatRef.current === 1 && playlistQueueIndexRef.current <= 1) {
-      playlistQueueIndexRef.current = playlistQueue.length + 1;
+      indexPlaylistQueue(1, '+', playlistQueue.length);
     }
 
     if (playlistQueue.length > 0 && playlistQueueIndexRef.current > 1) {
       // playlistQueueIndexRef.current must be subtracted by 2 to be able to play the previous song
-      playlistQueueIndexRef.current -= 2;
+      indexPlaylistQueue(2, '-');
       playSong(playlistQueue[playlistQueueIndexRef.current].track?.uri);
     }
   };

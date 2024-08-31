@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { usePlaybackContext } from '../hooks/context/usePlaybackContext';
 import { useQueueContext } from '../hooks/context/useQueueContext';
 import { shuffleArray } from '../functions/shuffleArray';
+import { useIndexPlaylistQueue } from '../hooks/spotifyPlayer/useIndexPlaylistQueue';
 
 export const ShuffleTracksButton = () => {
   const { shuffleTracksRef, playerState } = usePlaybackContext();
-  const { playlistQueue, setPlaylistQueue, unShuffledQueueRef, playlistQueueIndexRef } =
-    useQueueContext();
+  const { playlistQueue, setPlaylistQueue, unShuffledQueueRef } = useQueueContext();
+  const indexPlaylistQueue = useIndexPlaylistQueue();
   const [shuffleTracks, setShuffleTracks] = useState(false);
 
   const handleClick = () => {
@@ -22,14 +23,14 @@ export const ShuffleTracksButton = () => {
       );
 
       const shuffledQueue = shuffleArray(toBeShuffledQueue);
-      playlistQueueIndexRef.current = 0;
+      indexPlaylistQueue(0, 'set');
       setPlaylistQueue(shuffledQueue);
     } else if (unShuffledQueueRef.current) {
       // Resumes the playlist from the current song when the user turns off shuffle mode.
       const currentTrack = playerState?.track_window.current_track.name;
       let index = unShuffledQueueRef.current.findIndex(item => item.track?.name === currentTrack);
       index++;
-      playlistQueueIndexRef.current = index;
+      indexPlaylistQueue(index, 'set');
 
       setPlaylistQueue(unShuffledQueueRef.current);
     }

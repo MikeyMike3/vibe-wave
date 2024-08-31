@@ -10,6 +10,7 @@ import { RepeatButton } from './RepeatButton';
 import { usePlaybackContext } from '../hooks/context/usePlaybackContext';
 import { ShuffleTracksButton } from './ShuffleTracksButton';
 import { ProgressTracker } from './ProgressTracker';
+import { useIndexPlaylistQueue } from '../hooks/spotifyPlayer/useIndexPlaylistQueue';
 
 export const SpotifyPlayer = () => {
   const { player } = useSpotifyPlayerContext();
@@ -32,6 +33,7 @@ export const SpotifyPlayer = () => {
 
   const togglePlay = useTogglePlay();
   const playSong = usePlaySong();
+  const indexPlaylistQueue = useIndexPlaylistQueue();
 
   useEffect(() => {
     const onPlayerStateChanged = (state: Spotify.PlaybackState) => {
@@ -57,7 +59,7 @@ export const SpotifyPlayer = () => {
           state.track_window.current_track?.name ===
           playlistQueue[playlistQueueIndexRef.current]?.track?.name
         ) {
-          playlistQueueIndexRef.current++;
+          indexPlaylistQueue(1, '+');
         }
       }
 
@@ -72,11 +74,12 @@ export const SpotifyPlayer = () => {
           if (playlistQueueIndexRef.current === playlistQueue.length) {
             // plays the first song of the playlistQueue once the last song ends
             if (repeatRef.current === 1) {
-              playlistQueueIndexRef.current = 0;
+              indexPlaylistQueue(0, 'set');
+
               playSong(playlistQueue[0].track?.uri);
             } else {
               // pauses the first song of the playlistQueue once the last song ends
-              playlistQueueIndexRef.current = 0;
+              indexPlaylistQueue(0, 'set');
               playSong(playlistQueue[0].track?.uri);
               isPausedRef.current = true;
             }
@@ -119,6 +122,7 @@ export const SpotifyPlayer = () => {
     setPlayerDuration,
     setPlayerPosition,
     playerState,
+    indexPlaylistQueue,
   ]);
 
   const image = getImageUrl(playerState?.track_window?.current_track?.album?.images);

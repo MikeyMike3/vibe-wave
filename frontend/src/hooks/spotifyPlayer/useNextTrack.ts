@@ -1,5 +1,6 @@
 import { usePlaybackContext } from '../context/usePlaybackContext';
 import { useQueueContext } from '../context/useQueueContext';
+import { useIndexPlaylistQueue } from './useIndexPlaylistQueue';
 import { usePlaySong } from './usePlaySong';
 
 export const useNextTrack = () => {
@@ -7,6 +8,7 @@ export const useNextTrack = () => {
     useQueueContext();
   const { repeatRef, setRepeat, userSkippedTrackRef, isPausedRef } = usePlaybackContext();
   const playSong = usePlaySong();
+  const indexPlaylistQueue = useIndexPlaylistQueue();
 
   const nextTrack = () => {
     isPausedRef.current = false;
@@ -24,7 +26,7 @@ export const useNextTrack = () => {
       // this logic is an extension of the 'player_state_changed' listener
       // this pauses the first song of the queue if the queue has finished playing
       if (playlistQueueIndexRef.current === playlistQueue.length) {
-        playlistQueueIndexRef.current = 0;
+        indexPlaylistQueue(0, 'set');
         if (repeatRef.current !== 1) {
           isPausedRef.current = true;
         }
