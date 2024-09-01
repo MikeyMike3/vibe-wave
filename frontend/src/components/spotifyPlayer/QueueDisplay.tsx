@@ -7,7 +7,7 @@ type QueueDisplayProps = {
 };
 
 export const QueueDisplay = ({ queueSegment }: QueueDisplayProps) => {
-  const { priorityQueue } = useQueueContext();
+  const { priorityQueue, playlistQueue } = useQueueContext();
   const { playerState, playlistName } = usePlaybackContext();
 
   return (
@@ -37,15 +37,19 @@ export const QueueDisplay = ({ queueSegment }: QueueDisplayProps) => {
           ))}
         </>
       )}
-      <h2 className="py-2 text-xl">Next Up from {playlistName}</h2>
-      {queueSegment.map(item => (
-        <QueueItem
-          key={item.track?.id}
-          name={item.track?.name}
-          images={item.track?.album.images}
-          artists={item.track?.artists}
-        />
-      ))}
+      {playlistQueue.length > 0 && (
+        <>
+          <h2 className="py-2 text-xl">Next Up from {playlistName}</h2>
+          {queueSegment.map(item => (
+            <QueueItem
+              key={item.track?.id}
+              name={item.track?.name}
+              images={item.track?.album.images}
+              artists={item.track?.artists}
+            />
+          ))}
+        </>
+      )}
     </div>
   );
 };
