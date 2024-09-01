@@ -8,9 +8,9 @@ export const ShuffleTracksButton = () => {
   return (
     <>
       {shuffleTracksState ? (
-        <button onClick={shuffleTracks}>Shuffled</button>
+        <button onClick={() => shuffleTracks({ shouldChangeState: true })}>Shuffled</button>
       ) : (
-        <button onClick={shuffleTracks}>Shuffle</button>
+        <button onClick={() => shuffleTracks({ shouldChangeState: true })}>Shuffle</button>
       )}
     </>
   );
