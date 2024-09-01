@@ -18,7 +18,7 @@ export const usePreviousTrack = () => {
 
     // sets the playlistQueueIndexRef to the last song of the playlist
     if (repeatRef.current === 1 && playlistQueueIndexRef.current <= 1) {
-      indexPlaylistQueue(1, '+', playlistQueue.length);
+      indexPlaylistQueue(playlistQueue.length + 1, 'set');
     }
 
     if (playlistQueue.length > 0 && playlistQueueIndexRef.current > 1) {
