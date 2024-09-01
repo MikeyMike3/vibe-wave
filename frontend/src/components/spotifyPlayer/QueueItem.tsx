@@ -8,7 +8,7 @@ type QueueItemProps = {
 export const QueueItem = ({ name, images, artists }: QueueItemProps) => {
   const image = getImageUrl(images);
   return (
-    <div className="flex gap-7 py-2">
+    <div className="flex gap-3 py-2">
       <img src={image} className="h-20 w-20" />
       <div className="flex flex-col justify-center">
         <p className="">{name}</p>
