@@ -1,14 +1,12 @@
-import { useState } from 'react';
 import { usePlaybackContext } from '../hooks/context/usePlaybackContext';
 import { useQueueContext } from '../hooks/context/useQueueContext';
 import { shuffleArray } from '../functions/shuffleArray';
 import { useIndexPlaylistQueue } from '../hooks/spotifyPlayer/useIndexPlaylistQueue';
 
 export const ShuffleTracksButton = () => {
-  const { shuffleTracksRef, playerState } = usePlaybackContext();
+  const { shuffleTracksRef, playerState, shuffleTracks, setShuffleTracks } = usePlaybackContext();
   const { playlistQueue, setPlaylistQueue, unShuffledQueueRef } = useQueueContext();
   const indexPlaylistQueue = useIndexPlaylistQueue();
-  const [shuffleTracks, setShuffleTracks] = useState(false);
 
   const handleClick = () => {
     if (playlistQueue.length > 0) {

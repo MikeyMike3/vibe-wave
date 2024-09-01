@@ -31,20 +31,25 @@ type PlaybackContext = {
   playlistName: string;
   // prettier-ignore
   setPlaylistName: React.Dispatch<React.SetStateAction<string>>
+  shuffleTracks: boolean;
+  // prettier-ignore
+  setShuffleTracks: React.Dispatch<React.SetStateAction<boolean>>
 };
 
 const PlaybackContext = createContext<PlaybackContext | undefined>(undefined);
 
 export const PlaybackProvider = ({ children }: PlaybackProvider) => {
-  const [repeat, setRepeat] = useState(0);
+  const [repeat, setRepeat] = useState<number>(0);
   const [playerState, setPlayerState] = useState<Spotify.PlaybackState>();
   const [playerDuration, setPlayerDuration] = useState<string | number>('0');
   const [playerPosition, setPlayerPosition] = useState<string | number>('0');
   const [playlistName, setPlaylistName] = useState<string>('');
-  const repeatRef = useRef(0);
-  const userSkippedTrackRef = useRef(false);
-  const userPreviousTrackRef = useRef(false);
-  const shuffleTracksRef = useRef(false);
+  const [shuffleTracks, setShuffleTracks] = useState<boolean>(false);
+
+  const repeatRef = useRef<number>(0);
+  const userSkippedTrackRef = useRef<boolean>(false);
+  const userPreviousTrackRef = useRef<boolean>(false);
+  const shuffleTracksRef = useRef<boolean>(false);
   const isPausedRef = useRef<boolean>(false);
 
   return (
@@ -65,6 +70,8 @@ export const PlaybackProvider = ({ children }: PlaybackProvider) => {
         setPlayerPosition,
         playlistName,
         setPlaylistName,
+        shuffleTracks,
+        setShuffleTracks,
       }}
     >
       {children}
