@@ -13,6 +13,7 @@ export const PartyMode = () => {
   if (isUserPlaylistsError) {
     return <ErrorMessage />;
   }
+
   return (
     <div className="flex-1 overflow-y-scroll">
       {userPlaylists?.items.map(item => (
@@ -23,7 +24,6 @@ export const PartyMode = () => {
           type={item.type}
           owner={item.owner.display_name}
           playlistId={item.id}
-          playlistName={item.name}
         />
       ))}
     </div>

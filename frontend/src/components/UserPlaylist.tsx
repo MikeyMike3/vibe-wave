@@ -8,18 +8,10 @@ type UserPlaylistProps = {
   type: string;
   images: SpotifyApi.ImageObject[];
   playlistId: string;
-  playlistName: string;
 };
 
-export const UserPlaylist = ({
-  name,
-  images,
-  owner,
-  type,
-  playlistId,
-  playlistName,
-}: UserPlaylistProps) => {
-  const getPlaylistItemsAndPlay = useGetPlaylistItemsAndPlay(playlistId, playlistName);
+export const UserPlaylist = ({ name, images, owner, type, playlistId }: UserPlaylistProps) => {
+  const getPlaylistItemsAndPlay = useGetPlaylistItemsAndPlay(playlistId, name);
 
   const image = getImageUrl(images);
 

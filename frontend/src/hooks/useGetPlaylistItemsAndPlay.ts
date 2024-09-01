@@ -12,10 +12,9 @@ export const useGetPlaylistItemsAndPlay = (playlistId: string, playlistName: str
   const playSong = usePlaySong();
 
   const getPlaylistItemsAndPlay = async () => {
-    setPlaylistName(playlistName);
-
     const data = await getPlaylistItems();
     setPlaylistQueue(data.items);
+    setPlaylistName(playlistName);
     setPlaylistQueue(currentQueue => {
       if (currentQueue.length > 0) {
         playSong(currentQueue[0]?.track?.uri);
