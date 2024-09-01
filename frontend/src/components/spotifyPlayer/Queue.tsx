@@ -5,7 +5,7 @@ import { usePlaybackContext } from '../../hooks/context/usePlaybackContext';
 
 export const Queue = () => {
   const { priorityQueue, playlistQueue, playlistQueueIndex } = useQueueContext();
-  const { playerState } = usePlaybackContext();
+  const { playerState, playlistName } = usePlaybackContext();
 
   const [queueSegment, setQueueSegment] = useState<SpotifyApi.PlaylistTrackObject[]>([]);
   const [isQueueSegmentOpen, setIsQueueSegmentOpen] = useState(false);
@@ -49,7 +49,7 @@ export const Queue = () => {
               ))}
             </>
           )}
-          <h2 className="py-2 text-xl">Next Up from playlistName</h2>
+          <h2 className="py-2 text-xl">Next Up from {playlistName}</h2>
           {queueSegment.map(item => (
             <QueueItem
               key={item.track?.id}
