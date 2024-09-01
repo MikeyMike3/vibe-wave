@@ -22,7 +22,6 @@ export const useGetPlaylistItemsAndPlay = (playlistId: string, playlistName: str
         unShuffledQueueRef.current = currentQueue;
         indexPlaylistQueue(0, 'set');
       }
-      console.log(currentQueue);
       return currentQueue;
     });
   };
