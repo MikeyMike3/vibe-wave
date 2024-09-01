@@ -1,9 +1,9 @@
 import { getImageUrl } from '../functions/getImageUrl';
 
 type TrackInfoProps = {
-  images: SpotifyApi.ImageObject[];
-  name: string;
-  artists: SpotifyApi.ArtistObjectSimplified[];
+  images: SpotifyApi.ImageObject[] | Spotify.Image[] | undefined;
+  name: string | undefined;
+  artists: SpotifyApi.ArtistObjectSimplified[] | Spotify.Entity[] | undefined;
 };
 
 export const TrackInfo = ({ images, name, artists }: TrackInfoProps) => {
@@ -15,7 +15,7 @@ export const TrackInfo = ({ images, name, artists }: TrackInfoProps) => {
         <img className="h-20 w-20" src={image} />
         <div className="flex flex-col">
           <p>{name}</p>
-          <p>{artists.map(item => item.name).join(', ')}</p>
+          <p>{artists?.map(item => item.name).join(', ')}</p>
         </div>
       </div>
     </div>
