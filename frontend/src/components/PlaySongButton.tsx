@@ -6,7 +6,11 @@ type PlaySongButtonProps = {
 
 const PlaySongButton = ({ uri }: PlaySongButtonProps) => {
   const playSong = usePlaySong();
-  return <button onClick={() => playSong(uri, { shouldUnpause: true })}>Play</button>;
+  return (
+    <button onClick={() => playSong(uri, { shouldUnpause: true, shouldClearQueue: true })}>
+      Play
+    </button>
+  );
 };
 
 export default PlaySongButton;
