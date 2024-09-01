@@ -5,17 +5,30 @@ import { useIndexPlaylistQueue } from './useIndexPlaylistQueue';
 
 let controller: AbortController | null = null;
 
+type PlaySongOptions = {
+  shouldUnpause?: boolean;
+  shouldClearQueue?: boolean;
+};
+
 export const usePlaySong = () => {
   const { player, deviceId } = useSpotifyPlayerContext();
-  const { playlistQueueIndexRef, playlistQueue } = useQueueContext();
+  const { playlistQueueIndexRef, playlistQueue, setPlaylistQueue, setPriorityQueue } =
+    useQueueContext();
   const { userPreviousTrackRef, userSkippedTrackRef, repeatRef, isPausedRef } =
     usePlaybackContext();
   const indexPlaylistQueue = useIndexPlaylistQueue();
   // shouldUnpause tells this function to override the isPausedRef so that the song will play
   // if the song plays then quickly pauses then you need to set shouldUnpause to true
-  const playSong = async (uri: string | undefined, shouldUnpause?: boolean) => {
+  const playSong = async (uri: string | undefined, options: PlaySongOptions = {}) => {
+    const { shouldUnpause = false, shouldClearQueue = false } = options;
     if (shouldUnpause) {
       isPausedRef.current = false;
+    }
+
+    if (shouldClearQueue) {
+      indexPlaylistQueue(0, 'set');
+      setPlaylistQueue([]);
+      setPriorityQueue([]);
     }
 
     if (!player || !deviceId || !uri) {
