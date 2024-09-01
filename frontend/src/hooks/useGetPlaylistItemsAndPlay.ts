@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import { useGetPlaylistItems } from './apis/useGetPlaylistItems';
 import { usePlaybackContext } from './context/usePlaybackContext';
 import { useQueueContext } from './context/useQueueContext';
@@ -12,7 +11,7 @@ export const useGetPlaylistItemsAndPlay = (playlistId: string, playlistName: str
   const getPlaylistItems = useGetPlaylistItems(playlistId);
   const playSong = usePlaySong();
 
-  const getPlaylistItemsAndPlay = useCallback(async () => {
+  const getPlaylistItemsAndPlay = async () => {
     setPlaylistName(playlistName);
 
     const data = await getPlaylistItems();
@@ -26,15 +25,7 @@ export const useGetPlaylistItemsAndPlay = (playlistId: string, playlistName: str
       console.log(currentQueue);
       return currentQueue;
     });
-  }, [
-    playlistName,
-    setPlaylistName,
-    setPlaylistQueue,
-    playSong,
-    unShuffledQueueRef,
-    indexPlaylistQueue,
-    getPlaylistItems,
-  ]);
+  };
 
   return getPlaylistItemsAndPlay;
 };
