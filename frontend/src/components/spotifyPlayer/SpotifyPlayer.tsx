@@ -138,7 +138,6 @@ export const SpotifyPlayer = () => {
             {playerState?.track_window?.current_track?.artists.map(item => item.name).join(', ')}
           </p>
         </div>
-        <Queue />
       </div>
       <div className="mx-auto flex flex-col items-center gap-4">
         <div className="flex gap-10">
@@ -154,7 +153,9 @@ export const SpotifyPlayer = () => {
         </div>
         <ProgressTracker />
       </div>
-      <div className="ml-auto">Volume</div>
+      <div className="ml-auto flex gap-5">
+        <Queue /> <button>Volume</button>
+      </div>
     </footer>
   );
 };
