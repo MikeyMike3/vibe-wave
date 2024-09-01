@@ -23,6 +23,7 @@ export const PartyMode = () => {
           type={item.type}
           owner={item.owner.display_name}
           playlistId={item.id}
+          playlistName={item.name}
         />
       ))}
     </div>

@@ -11,13 +11,9 @@ export const Queue = () => {
   const [isQueueSegmentOpen, setIsQueueSegmentOpen] = useState(false);
 
   useEffect(() => {
-    const temp = playlistQueue.slice(playlistQueueIndex, playlistQueueIndex + 50);
+    const temp = playlistQueue?.slice(playlistQueueIndex, playlistQueueIndex + 50);
     setQueueSegment(temp);
   }, [playlistQueueIndex, playlistQueue]);
-
-  useEffect(() => {
-    console.log(queueSegment);
-  }, [queueSegment]);
 
   const handleClick = () => {
     setIsQueueSegmentOpen(prev => !prev);
@@ -40,7 +36,7 @@ export const Queue = () => {
             </>
           )}
 
-          {priorityQueue.length > 0 && (
+          {priorityQueue?.length > 0 && (
             <>
               <h2 className="py-2 text-xl">Next in Queue</h2>
               {priorityQueue.map(item => (

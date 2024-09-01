@@ -28,6 +28,9 @@ type PlaybackContext = {
   playerPosition: string | number;
   // prettier-ignore
   setPlayerPosition: React.Dispatch<React.SetStateAction<string | number>>;
+  playlistName: string;
+  // prettier-ignore
+  setPlaylistName: React.Dispatch<React.SetStateAction<string>>
 };
 
 const PlaybackContext = createContext<PlaybackContext | undefined>(undefined);
@@ -37,6 +40,7 @@ export const PlaybackProvider = ({ children }: PlaybackProvider) => {
   const [playerState, setPlayerState] = useState<Spotify.PlaybackState>();
   const [playerDuration, setPlayerDuration] = useState<string | number>('0');
   const [playerPosition, setPlayerPosition] = useState<string | number>('0');
+  const [playlistName, setPlaylistName] = useState<string>('');
   const repeatRef = useRef(0);
   const userSkippedTrackRef = useRef(false);
   const userPreviousTrackRef = useRef(false);
@@ -59,6 +63,8 @@ export const PlaybackProvider = ({ children }: PlaybackProvider) => {
         setPlayerDuration,
         playerPosition,
         setPlayerPosition,
+        playlistName,
+        setPlaylistName,
       }}
     >
       {children}

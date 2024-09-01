@@ -1,8 +1,6 @@
-import { useQueueContext } from '../context/useQueueContext';
 import { useHeaders } from './useHeaders';
 
 export const useGetPlaylistItems = (playlistId: string) => {
-  const { setPlaylistQueue, unShuffledQueueRef } = useQueueContext();
   const accessToken = sessionStorage.getItem('accessToken');
   const apiHeaders = useHeaders(accessToken);
 
@@ -15,8 +13,7 @@ export const useGetPlaylistItems = (playlistId: string) => {
 
       if (response.ok) {
         const data = await response.json();
-        setPlaylistQueue(data.items);
-        unShuffledQueueRef.current = data.items;
+        return data;
       }
     } catch (error) {
       console.error(error);
