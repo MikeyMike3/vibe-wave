@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { getImageUrl } from '../functions/getImageUrl';
 import { useGetPlaylistItemsAndPlay } from '../hooks/useGetPlaylistItemsAndPlay';
+import { useSpotifyPlayerContext } from '../hooks/context/useSpotifyPlayerContext';
 
 type UserPlaylistProps = {
   name: string;
@@ -11,6 +12,7 @@ type UserPlaylistProps = {
 };
 
 export const UserPlaylist = ({ name, images, owner, type, playlistId }: UserPlaylistProps) => {
+  const { isPlayerReady } = useSpotifyPlayerContext();
   const getPlaylistItemsAndPlay = useGetPlaylistItemsAndPlay(playlistId, name);
 
   const image = getImageUrl(images);
@@ -24,7 +26,7 @@ export const UserPlaylist = ({ name, images, owner, type, playlistId }: UserPlay
           <p>
             {type} + {owner}
           </p>
-          <button onClick={getPlaylistItemsAndPlay}>Play</button>
+          {isPlayerReady && <button onClick={getPlaylistItemsAndPlay}>Play</button>}
         </div>
       </div>
     </Link>

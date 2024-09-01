@@ -14,6 +14,7 @@ type SpotifyProviderProps = {
 type SpotifyContext = {
   player: Spotify.Player | undefined;
   deviceId: string;
+  isPlayerReady: boolean;
 };
 
 const SpotifyPlayerContext = createContext<SpotifyContext | undefined>(undefined);
@@ -21,6 +22,7 @@ const SpotifyPlayerContext = createContext<SpotifyContext | undefined>(undefined
 export const SpotifyPlayerProvider = ({ children }: SpotifyProviderProps) => {
   const [player, setPlayer] = useState<Spotify.Player>();
   const [deviceId, setDeviceId] = useState<string>('');
+  const [isPlayerReady, setIsPlayerReady] = useState<boolean>(false);
 
   const deviceIdRef = useRef<string>('');
 
@@ -39,11 +41,13 @@ export const SpotifyPlayerProvider = ({ children }: SpotifyProviderProps) => {
           spotifyPlayer.addListener('ready', ({ device_id }) => {
             setDeviceId(device_id);
             deviceIdRef.current = device_id;
+            setIsPlayerReady(true);
             console.log('Ready with Device ID', device_id);
           });
 
           spotifyPlayer.addListener('not_ready', ({ device_id }) => {
             console.log('Device ID has gone offline', device_id);
+            setIsPlayerReady(false);
           });
 
           spotifyPlayer.addListener('initialization_error', ({ message }) =>
@@ -90,7 +94,7 @@ export const SpotifyPlayerProvider = ({ children }: SpotifyProviderProps) => {
   }, [accessToken, player, deviceId]);
 
   return (
-    <SpotifyPlayerContext.Provider value={{ player, deviceId }}>
+    <SpotifyPlayerContext.Provider value={{ player, deviceId, isPlayerReady }}>
       {children}
     </SpotifyPlayerContext.Provider>
   );
