@@ -9,7 +9,7 @@ export const QueueItem = ({ name, images, artists }: QueueItemProps) => {
   return (
     <>
       {/* Implement queue buttons within this QueueItems component */}
-      <TrackInfo name={name} images={images} artists={artists} />
+      <TrackInfo name={name} images={images} artists={artists} shouldAddPadding={true} />
     </>
   );
 };
