@@ -1,45 +1,16 @@
 import { usePlaybackContext } from '../hooks/context/usePlaybackContext';
-import { useQueueContext } from '../hooks/context/useQueueContext';
-import { shuffleArray } from '../functions/shuffleArray';
-import { useIndexPlaylistQueue } from '../hooks/spotifyPlayer/useIndexPlaylistQueue';
+import { useShuffleTracks } from '../hooks/spotifyPlayer/useShuffleTracks';
 
 export const ShuffleTracksButton = () => {
-  const { shuffleTracksRef, playerState, shuffleTracks, setShuffleTracks } = usePlaybackContext();
-  const { playlistQueue, setPlaylistQueue, unShuffledQueueRef } = useQueueContext();
-  const indexPlaylistQueue = useIndexPlaylistQueue();
-
-  const handleClick = () => {
-    if (playlistQueue.length > 0) {
-      shuffleTracksRef.current = !shuffleTracksRef.current;
-      setShuffleTracks(shuffle => !shuffle);
-    }
-
-    if (shuffleTracksRef.current) {
-      // creates deep copies of the playlistQueue
-      const toBeShuffledQueue: SpotifyApi.PlaylistTrackObject[] = JSON.parse(
-        JSON.stringify(unShuffledQueueRef.current),
-      );
-
-      const shuffledQueue = shuffleArray(toBeShuffledQueue);
-      indexPlaylistQueue(0, 'set');
-      setPlaylistQueue(shuffledQueue);
-    } else if (unShuffledQueueRef.current) {
-      // Resumes the playlist from the current song when the user turns off shuffle mode.
-      const currentTrack = playerState?.track_window.current_track.name;
-      let index = unShuffledQueueRef.current.findIndex(item => item.track?.name === currentTrack);
-      index++;
-      indexPlaylistQueue(index, 'set');
-
-      setPlaylistQueue(unShuffledQueueRef.current);
-    }
-  };
+  const { shuffleTracksState } = usePlaybackContext();
+  const shuffleTracks = useShuffleTracks();
 
   return (
     <>
-      {shuffleTracks ? (
-        <button onClick={handleClick}>Shuffled</button>
+      {shuffleTracksState ? (
+        <button onClick={shuffleTracks}>Shuffled</button>
       ) : (
-        <button onClick={handleClick}>Shuffle</button>
+        <button onClick={shuffleTracks}>Shuffle</button>
       )}
     </>
   );
