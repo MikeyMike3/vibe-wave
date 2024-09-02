@@ -26,7 +26,7 @@ export const useGetPlaylistItemsAndPlay = (playlistId: string, playlistName: str
         unShuffledQueueRef.current = currentQueue;
         shuffleTracks({ prevQueue: [...currentQueue] });
         if (!shuffleTracksRef.current) {
-          playSong(currentQueue[0].track?.uri);
+          playSong(currentQueue[0].track?.uri, { tempQueue: currentQueue });
         }
       }
       return currentQueue;

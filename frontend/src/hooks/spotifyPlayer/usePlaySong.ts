@@ -8,6 +8,7 @@ let controller: AbortController | null = null;
 type PlaySongOptions = {
   shouldUnpause?: boolean;
   shouldClearQueue?: boolean;
+  tempQueue?: SpotifyApi.PlaylistTrackObject[];
 };
 
 export const usePlaySong = () => {
@@ -20,7 +21,7 @@ export const usePlaySong = () => {
   // shouldUnpause tells this function to override the isPausedRef so that the song will play
   // if the song plays then quickly pauses then you need to set shouldUnpause to true
   const playSong = async (uri: string | undefined, options: PlaySongOptions = {}) => {
-    const { shouldUnpause = false, shouldClearQueue = false } = options;
+    const { shouldUnpause = false, shouldClearQueue = false, tempQueue = [] } = options;
     if (shouldUnpause) {
       isPausedRef.current = false;
     }
@@ -58,6 +59,7 @@ export const usePlaySong = () => {
         );
 
         if (!response.ok) {
+          console.log(playlistQueue);
           console.error('Failed to start playback', await response.json());
           if (response.status === 403) {
             if (userSkippedTrackRef.current) {
@@ -65,7 +67,7 @@ export const usePlaySong = () => {
               playSong(playlistQueue[playlistQueueIndexRef.current].track?.uri);
             } else if (userPreviousTrackRef.current) {
               if (repeatRef.current === 1 && playlistQueueIndexRef.current <= 1) {
-                indexPlaylistQueue(1, '+', playlistQueue.length);
+                indexPlaylistQueue(1 + playlistQueue.length, 'set');
                 playlistQueueIndexRef.current = playlistQueue.length + 1;
               }
 
@@ -74,6 +76,9 @@ export const usePlaySong = () => {
                 indexPlaylistQueue(2, '-');
                 playSong(playlistQueue[playlistQueueIndexRef.current].track?.uri);
               }
+            } else if (tempQueue.length > 0) {
+              indexPlaylistQueue(1, '+');
+              playSong(tempQueue[playlistQueueIndexRef.current].track?.uri);
             }
           }
         }
