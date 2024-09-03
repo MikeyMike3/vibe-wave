@@ -20,9 +20,6 @@ export const Queue = () => {
     } else {
       setQueueSegment(temp);
     }
-    if (repeat === 0) {
-      setQueueSegment(temp);
-    }
   }, [playlistQueueIndex, playlistQueue, repeatRef, repeat]);
 
   const handleClick = () => {
