@@ -7,7 +7,7 @@ import { NextTrackButton } from './NextTrackButton';
 import { PreviousTrackButton } from './PreviousTrackButton';
 import { RepeatButton } from './RepeatButton';
 import { usePlaybackContext } from '../../hooks/context/usePlaybackContext';
-import { ShuffleTracksButton } from '../ShuffleTracksButton';
+import { ShuffleTracksButton } from './ShuffleTracksButton';
 import { ProgressTracker } from './ProgressTracker';
 import { useIndexPlaylistQueue } from '../../hooks/spotifyPlayer/useIndexPlaylistQueue';
 import { Queue } from './Queue';

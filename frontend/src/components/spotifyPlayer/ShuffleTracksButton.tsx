@@ -1,5 +1,5 @@
-import { usePlaybackContext } from '../hooks/context/usePlaybackContext';
-import { useShuffleTracks } from '../hooks/spotifyPlayer/useShuffleTracks';
+import { usePlaybackContext } from '../../hooks/context/usePlaybackContext';
+import { useShuffleTracks } from '../../hooks/spotifyPlayer/useShuffleTracks';
 
 export const ShuffleTracksButton = () => {
   const { shuffleTracksState } = usePlaybackContext();
