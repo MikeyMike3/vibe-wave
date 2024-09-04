@@ -1,7 +1,7 @@
 import { usePlaySkip } from '../../hooks/spotifyPlayer/usePlaySkip';
 
 type PlaySkipButtonProps = {
-  name: string;
+  name: string | undefined;
 };
 
 export const PlaySkipButton = ({ name }: PlaySkipButtonProps) => {
