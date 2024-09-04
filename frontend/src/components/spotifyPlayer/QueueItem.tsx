@@ -12,8 +12,10 @@ export const QueueItem = ({ name, images, artists }: QueueItemProps) => {
     <div className="flex justify-between">
       {/* Implement queue buttons within this QueueItems component */}
       <TrackInfo name={name} images={images} artists={artists} shouldAddPadding={true} />
-      <PlaySkipButton name={name} />
-      <RemoveFromQueueButton name={name} />
+      <div className="flex items-center gap-3">
+        <PlaySkipButton name={name} />
+        <RemoveFromQueueButton name={name} />
+      </div>
     </div>
   );
 };
