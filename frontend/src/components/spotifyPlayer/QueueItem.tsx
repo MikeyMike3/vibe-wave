@@ -1,5 +1,6 @@
 import { TrackInfo } from '../TrackInfo';
 import { PlaySkipButton } from './PlaySkipButton';
+import { RemoveFromQueueButton } from './RemoveFromQueueButton';
 type QueueItemProps = {
   name: string | undefined;
   images: SpotifyApi.ImageObject[] | Spotify.Image[] | undefined;
@@ -12,6 +13,7 @@ export const QueueItem = ({ name, images, artists }: QueueItemProps) => {
       {/* Implement queue buttons within this QueueItems component */}
       <TrackInfo name={name} images={images} artists={artists} shouldAddPadding={true} />
       <PlaySkipButton name={name} />
+      <RemoveFromQueueButton name={name} />
     </div>
   );
 };
