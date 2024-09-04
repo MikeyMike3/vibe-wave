@@ -20,6 +20,7 @@ export const QueueDisplay = ({ queueSegment }: QueueDisplayProps) => {
             name={playerState.track_window.current_track.name}
             images={playerState.track_window.current_track.album.images}
             artists={playerState.track_window.current_track.artists}
+            currentlyPlaying={true}
           />
         </>
       )}
