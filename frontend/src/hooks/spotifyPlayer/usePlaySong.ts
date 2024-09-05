@@ -13,8 +13,13 @@ type PlaySongOptions = {
 
 export const usePlaySong = () => {
   const { player, deviceId } = useSpotifyPlayerContext();
-  const { playlistQueueIndexRef, playlistQueue, setPlaylistQueue, setPriorityQueue } =
-    useQueueContext();
+  const {
+    playlistQueueIndexRef,
+    playlistQueue,
+    priorityQueue,
+    setPlaylistQueue,
+    setPriorityQueue,
+  } = useQueueContext();
   const { userPreviousTrackRef, userSkippedTrackRef, repeatRef, isPausedRef } =
     usePlaybackContext();
   const indexPlaylistQueue = useIndexPlaylistQueue();
@@ -59,10 +64,22 @@ export const usePlaySong = () => {
         );
 
         if (!response.ok) {
-          console.log(playlistQueue);
           console.error('Failed to start playback', await response.json());
           if (response.status === 403) {
-            if (userSkippedTrackRef.current) {
+            if (priorityQueue.length > 0) {
+              setPriorityQueue(prevQueue => {
+                const newQueue = prevQueue.filter(track => track.name !== prevQueue[0].name);
+                if (newQueue.length > 0) {
+                  playSong(newQueue[0].uri);
+                }
+                return newQueue;
+              });
+
+              if (playlistQueue.length > 0) {
+                indexPlaylistQueue(1, '+');
+                playSong(playlistQueue[playlistQueueIndexRef.current].track?.uri);
+              }
+            } else if (userSkippedTrackRef.current) {
               indexPlaylistQueue(1, '+');
               playSong(playlistQueue[playlistQueueIndexRef.current].track?.uri);
             } else if (userPreviousTrackRef.current) {
@@ -79,6 +96,9 @@ export const usePlaySong = () => {
             } else if (tempQueue.length > 0) {
               indexPlaylistQueue(1, '+');
               playSong(tempQueue[playlistQueueIndexRef.current].track?.uri);
+            } else if (playlistQueue.length) {
+              indexPlaylistQueue(1, '+');
+              playSong(playlistQueue[playlistQueueIndexRef.current].track?.uri);
             }
           }
         }
