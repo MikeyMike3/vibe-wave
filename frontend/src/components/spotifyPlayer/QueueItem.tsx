@@ -6,9 +6,16 @@ type QueueItemProps = {
   images: SpotifyApi.ImageObject[] | Spotify.Image[] | undefined;
   artists: SpotifyApi.ArtistObjectSimplified[] | Spotify.Entity[] | undefined;
   currentlyPlaying?: boolean;
+  priorityQueue?: boolean;
 };
 
-export const QueueItem = ({ name, images, artists, currentlyPlaying }: QueueItemProps) => {
+export const QueueItem = ({
+  name,
+  images,
+  artists,
+  currentlyPlaying,
+  priorityQueue,
+}: QueueItemProps) => {
   return (
     <div className="flex justify-between">
       {/* Implement queue buttons within this QueueItems component */}
@@ -16,8 +23,8 @@ export const QueueItem = ({ name, images, artists, currentlyPlaying }: QueueItem
       <div className="flex items-center gap-3">
         {!currentlyPlaying && (
           <>
-            <PlaySkipButton name={name} />
-            <RemoveFromQueueButton name={name} />
+            <PlaySkipButton name={name} priorityQueue={priorityQueue} />
+            <RemoveFromQueueButton name={name} priorityQueue={priorityQueue} />
           </>
         )}
       </div>
