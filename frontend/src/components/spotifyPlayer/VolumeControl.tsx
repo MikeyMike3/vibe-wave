@@ -50,8 +50,11 @@ export const VolumeControl = () => {
   };
 
   useEffect(() => {
-    updateSliderBackground(10);
     const getVolumeFunc = async () => {
+      if (!isPlayerReady) {
+        updateSliderBackground(10);
+        return;
+      }
       if (isPlayerReady && player?.getVolume) {
         const getVolume = (await player.getVolume()) * 100;
         setVolume(getVolume);
