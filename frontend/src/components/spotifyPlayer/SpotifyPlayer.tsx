@@ -12,6 +12,7 @@ import { ProgressTracker } from './ProgressTracker';
 import { useIndexPlaylistQueue } from '../../hooks/spotifyPlayer/useIndexPlaylistQueue';
 import { Queue } from './Queue';
 import { TrackInfo } from '../TrackInfo';
+import { VolumeControl } from './VolumeControl';
 
 export const SpotifyPlayer = () => {
   const { player } = useSpotifyPlayerContext();
@@ -40,6 +41,7 @@ export const SpotifyPlayer = () => {
     const onPlayerStateChanged = (state: Spotify.PlaybackState) => {
       setPlayerDuration(state.duration);
       setPlayerPosition(state.position);
+
       if (isPausedRef.current) {
         player?.pause();
       }
@@ -147,8 +149,9 @@ export const SpotifyPlayer = () => {
         </div>
         <ProgressTracker />
       </div>
-      <div className="ml-auto flex gap-5">
-        <Queue /> <button>Volume</button>
+      <div className="ml-auto flex items-center gap-5">
+        <Queue />
+        <VolumeControl />
       </div>
     </footer>
   );
