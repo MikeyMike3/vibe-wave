@@ -18,33 +18,38 @@ export const VolumeControl = () => {
     }
   };
 
+  const setVolumeFunc = (value: number) => {
+    if (value !== 0) {
+      setVolume(value);
+      player?.setVolume(value / 100);
+      updateSliderBackground(value);
+      return;
+    }
+
+    setVolume(0);
+    player?.setVolume(0);
+    updateSliderBackground(0);
+  };
+
   // prettier-ignore
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(e.target.value);
-    setVolume(value)
-    player?.setVolume(value / 100)
-    updateSliderBackground(value)
+    setVolumeFunc(value)
     prevVolumeRef.current = value;
   }
 
   const handleClick = () => {
     if (!hasUserInteractedRef.current) {
       prevVolumeRef.current = 10;
-      setVolume(0);
-      player?.setVolume(0);
-      updateSliderBackground(0);
+      setVolumeFunc(0);
       hasUserInteractedRef.current = true;
       return;
     }
     if (isVolumeIconClickedRef.current) {
-      setVolume(0);
-      player?.setVolume(0);
-      updateSliderBackground(0);
+      setVolumeFunc(0);
       isVolumeIconClickedRef.current = false;
     } else {
-      setVolume(prevVolumeRef.current);
-      player?.setVolume(prevVolumeRef.current / 100);
-      updateSliderBackground(prevVolumeRef.current);
+      setVolumeFunc(prevVolumeRef.current);
       isVolumeIconClickedRef.current = true;
     }
   };
