@@ -34,7 +34,6 @@ export const QueueDisplay = ({ queueSegment }: QueueDisplayProps) => {
               name={item.name}
               images={item.album.images}
               artists={item.artists}
-              track={item}
               priorityQueue={true}
             />
           ))}
