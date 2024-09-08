@@ -25,7 +25,7 @@ export const QueueDisplay = ({ queueSegment }: QueueDisplayProps) => {
         </>
       )}
 
-      {priorityQueue?.length > 0 && (
+      {priorityQueue && priorityQueue?.length > 0 && (
         <>
           <h2 className="py-2 text-xl">Next in Queue</h2>
           {priorityQueue.map((item, index) => (
@@ -34,6 +34,7 @@ export const QueueDisplay = ({ queueSegment }: QueueDisplayProps) => {
               name={item.name}
               images={item.album.images}
               artists={item.artists}
+              track={item}
               priorityQueue={true}
             />
           ))}
@@ -48,6 +49,7 @@ export const QueueDisplay = ({ queueSegment }: QueueDisplayProps) => {
               name={item.track?.name}
               images={item.track?.album.images}
               artists={item.track?.artists}
+              track={item}
             />
           ))}
         </>

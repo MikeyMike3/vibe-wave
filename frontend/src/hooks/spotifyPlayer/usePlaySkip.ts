@@ -9,7 +9,7 @@ export const usePlaySkip = () => {
   const indexPlaylistQueue = useIndexPlaylistQueue();
 
   const playSkip = (name: string | undefined, priorityQueueBool: boolean | undefined) => {
-    if (priorityQueueBool) {
+    if (priorityQueueBool && priorityQueue) {
       const indexToPlayAndRemove = priorityQueue.findIndex(item => item.name === name);
       playSong(priorityQueue[indexToPlayAndRemove].uri);
       setPriorityQueue(prevQueue => {

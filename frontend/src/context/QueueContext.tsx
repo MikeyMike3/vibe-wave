@@ -5,7 +5,7 @@ type QueueProviderProps = {
 };
 
 type QueueContext = {
-  priorityQueue: SpotifyApi.TrackObjectFull[];
+  priorityQueue: SpotifyApi.TrackObjectFull[] | null;
   //prettier-ignore
   setPriorityQueue: React.Dispatch<React.SetStateAction<SpotifyApi.TrackObjectFull[]>>;
   playlistQueue: SpotifyApi.PlaylistTrackObject[];

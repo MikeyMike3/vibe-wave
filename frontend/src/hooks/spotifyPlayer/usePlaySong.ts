@@ -66,7 +66,7 @@ export const usePlaySong = () => {
         if (!response.ok) {
           console.error('Failed to start playback', await response.json());
           if (response.status === 403) {
-            if (priorityQueue.length > 0) {
+            if (priorityQueue && priorityQueue.length > 0) {
               setPriorityQueue(prevQueue => {
                 const newQueue = prevQueue.filter(track => track.name !== prevQueue[0].name);
                 if (newQueue.length > 0) {

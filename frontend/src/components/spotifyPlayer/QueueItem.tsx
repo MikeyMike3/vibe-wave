@@ -1,3 +1,4 @@
+import { AddToQueueButton } from '../AddToQueueButton';
 import { TrackInfo } from '../TrackInfo';
 import { PlaySkipButton } from './PlaySkipButton';
 import { RemoveFromQueueButton } from './RemoveFromQueueButton';
@@ -5,6 +6,7 @@ type QueueItemProps = {
   name: string | undefined;
   images: SpotifyApi.ImageObject[] | Spotify.Image[] | undefined;
   artists: SpotifyApi.ArtistObjectSimplified[] | Spotify.Entity[] | undefined;
+  track?: SpotifyApi.TrackObjectFull | SpotifyApi.PlaylistTrackObject | undefined;
   currentlyPlaying?: boolean;
   priorityQueue?: boolean;
 };
@@ -13,6 +15,7 @@ export const QueueItem = ({
   name,
   images,
   artists,
+  track,
   currentlyPlaying,
   priorityQueue,
 }: QueueItemProps) => {
@@ -25,6 +28,7 @@ export const QueueItem = ({
           <>
             <PlaySkipButton name={name} priorityQueue={priorityQueue} />
             <RemoveFromQueueButton name={name} priorityQueue={priorityQueue} />
+            {track && 'track' in track && <AddToQueueButton track={track} />}
           </>
         )}
       </div>

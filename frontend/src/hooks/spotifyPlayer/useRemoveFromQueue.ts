@@ -3,7 +3,7 @@ import { useQueueContext } from '../../hooks/context/useQueueContext';
 export const useRemoveFromQueue = () => {
   const { setPlaylistQueue, playlistQueue, priorityQueue, setPriorityQueue } = useQueueContext();
   const removeFromQueue = (name: string | undefined, priorityQueueBool: boolean | undefined) => {
-    if (priorityQueueBool) {
+    if (priorityQueueBool && priorityQueue) {
       const indexToRemove = priorityQueue.findIndex(item => item.name === name);
       setPriorityQueue(prevQueue => {
         const tempQueue = prevQueue.filter((_, index) => index !== indexToRemove);

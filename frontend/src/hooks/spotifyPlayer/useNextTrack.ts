@@ -19,7 +19,7 @@ export const useNextTrack = () => {
       setRepeat(1);
     }
 
-    if (priorityQueue.length > 0) {
+    if (priorityQueue && priorityQueue.length > 0) {
       setPriorityQueue(prevQueue => prevQueue.slice(1));
       playSong(priorityQueue[0].uri);
     } else if (playlistQueue.length > 0) {

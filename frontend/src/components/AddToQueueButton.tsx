@@ -1,7 +1,7 @@
 import { useAddToPriorityQueue } from '../hooks/spotifyPlayer/useAddToPriorityQueue';
 
 type AddToQueueButtonProps = {
-  track: SpotifyApi.TrackObjectFull;
+  track: SpotifyApi.TrackObjectFull | SpotifyApi.PlaylistTrackObject;
 };
 
 export const AddToQueueButton = ({ track }: AddToQueueButtonProps) => {

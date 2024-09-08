@@ -48,7 +48,7 @@ export const SpotifyPlayer = () => {
 
       // moves the queues along when the song ends
       if (repeatRef.current !== 2) {
-        if (state.track_window.current_track?.name === priorityQueue[0]?.name) {
+        if (priorityQueue && state.track_window.current_track?.name === priorityQueue[0]?.name) {
           setPriorityQueue(prevQueue => {
             if (
               prevQueue.length > 0 &&
@@ -71,7 +71,7 @@ export const SpotifyPlayer = () => {
         // play the song that the user wants to have on repeat
         if (repeatRef.current === 2) {
           playSong(state.track_window.current_track.uri);
-        } else if (priorityQueue.length > 0) {
+        } else if (priorityQueue && priorityQueue.length > 0) {
           playSong(priorityQueue[0]?.uri);
         } else if (playlistQueue.length > 0) {
           if (playlistQueueIndexRef.current === playlistQueue.length) {
