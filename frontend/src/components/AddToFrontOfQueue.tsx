@@ -9,7 +9,6 @@ export const AddToFrontOfQueue = ({ track }: AddToFrontOfQueueProps) => {
   const handleClick = () => {
     setPriorityQueue(prevQueue => {
       const newQueue = [track, ...prevQueue];
-      console.log(newQueue);
       return newQueue;
     });
   };
