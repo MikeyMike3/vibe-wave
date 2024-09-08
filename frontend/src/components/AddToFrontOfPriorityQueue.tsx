@@ -4,7 +4,7 @@ type AddToFrontOfQueueProps = {
   track: SpotifyApi.TrackObjectFull;
 };
 
-export const AddToFrontOfQueue = ({ track }: AddToFrontOfQueueProps) => {
+export const AddToFrontOfPriorityQueue = ({ track }: AddToFrontOfQueueProps) => {
   const { setPriorityQueue } = useQueueContext();
   const handleClick = () => {
     setPriorityQueue(prevQueue => {
