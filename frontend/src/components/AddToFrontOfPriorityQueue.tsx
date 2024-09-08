@@ -1,16 +1,11 @@
-import { useQueueContext } from '../hooks/context/useQueueContext';
+import { useAddToFrontOfPriorityQueue } from '../hooks/spotifyPlayer/useAddToFrontOfPriorityQueue';
 
 type AddToFrontOfQueueProps = {
   track: SpotifyApi.TrackObjectFull;
 };
 
 export const AddToFrontOfPriorityQueue = ({ track }: AddToFrontOfQueueProps) => {
-  const { setPriorityQueue } = useQueueContext();
-  const handleClick = () => {
-    setPriorityQueue(prevQueue => {
-      const newQueue = [track, ...prevQueue];
-      return newQueue;
-    });
-  };
-  return <button onClick={handleClick}>AddToFrontOfQueue</button>;
+  const addToFrontOfPriorityQueue = useAddToFrontOfPriorityQueue();
+
+  return <button onClick={() => addToFrontOfPriorityQueue(track)}>AddToFrontOfQueue</button>;
 };
