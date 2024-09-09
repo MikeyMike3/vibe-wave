@@ -15,7 +15,7 @@ export const PartyMode = () => {
   }
 
   return (
-    <div className="flex-1 overflow-y-scroll">
+    <div className="grid flex-1 grid-cols-9 gap-7 overflow-y-scroll">
       {userPlaylists?.items.map(item => (
         <UserPlaylist
           key={item.id}
