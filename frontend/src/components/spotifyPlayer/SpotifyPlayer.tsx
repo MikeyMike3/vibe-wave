@@ -24,6 +24,7 @@ export const SpotifyPlayer = () => {
     isPausedRef,
     setPlayerDuration,
     setPlayerPosition,
+    playerDuration,
   } = usePlaybackContext();
   const {
     priorityQueue,
@@ -39,7 +40,10 @@ export const SpotifyPlayer = () => {
 
   useEffect(() => {
     const onPlayerStateChanged = (state: Spotify.PlaybackState) => {
-      setPlayerDuration(state.duration);
+      if (state.duration !== playerDuration) {
+        setPlayerDuration(state.duration);
+      }
+
       setPlayerPosition(state.position);
 
       if (isPausedRef.current) {
@@ -126,6 +130,7 @@ export const SpotifyPlayer = () => {
     setPlayerPosition,
     playerState,
     indexPlaylistQueue,
+    playerDuration,
   ]);
 
   return (
