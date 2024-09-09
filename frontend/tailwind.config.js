@@ -9,6 +9,9 @@ export default {
         textPrimary: '#F3F3F3',
         textAccent: '#A8A8A8',
       },
+      fontSize: {
+        smTitle: '1.063rem',
+      },
     },
   },
   plugins: [],

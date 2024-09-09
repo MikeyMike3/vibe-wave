@@ -26,8 +26,8 @@ export const UserPlaylist = ({ name, images, owner, type, playlistId }: UserPlay
         </div>
 
         <div className="text-textAccent flex flex-col py-2">
-          <p className="text-textPrimary">{name}</p>
-          <p>
+          <p className="text-textPrimary text-smTitle">{name}</p>
+          <p className="text-base">
             {type} &#8226; {owner}
           </p>
         </div>
