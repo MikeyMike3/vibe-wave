@@ -1,5 +1,5 @@
 import { getImageUrl } from '../functions/getImageUrl';
-import { AddToFrontOfPriorityQueue } from './AddToFrontOfPriorityQueue';
+import { AddToFrontOfPriorityQueueButton } from './AddToFrontOfPriorityQueueButton';
 import { AddToQueueButton } from './AddToQueueButton';
 import PlaySongButton from './PlaySongButton';
 
@@ -21,7 +21,7 @@ export const SearchResultTrackItem = ({ track }: SearchResultTrackItemProps) => 
       </div>
       <div className="flex gap-3">
         <AddToQueueButton track={track} />
-        <AddToFrontOfPriorityQueue track={track} />
+        <AddToFrontOfPriorityQueueButton track={track} />
         <PlaySongButton uri={track.uri} />
       </div>
     </div>
