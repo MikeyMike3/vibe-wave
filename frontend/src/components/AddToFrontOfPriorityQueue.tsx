@@ -1,7 +1,7 @@
 import { useAddToFrontOfPriorityQueue } from '../hooks/spotifyPlayer/useAddToFrontOfPriorityQueue';
 
 type AddToFrontOfQueueProps = {
-  track: SpotifyApi.TrackObjectFull;
+  track: SpotifyApi.TrackObjectFull | SpotifyApi.PlaylistTrackObject;
 };
 
 export const AddToFrontOfPriorityQueue = ({ track }: AddToFrontOfQueueProps) => {

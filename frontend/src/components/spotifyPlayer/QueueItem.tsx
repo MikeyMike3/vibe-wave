@@ -1,3 +1,4 @@
+import { AddToFrontOfPriorityQueue } from '../AddToFrontOfPriorityQueue';
 import { AddToQueueButton } from '../AddToQueueButton';
 import { TrackInfo } from '../TrackInfo';
 import { PlaySkipButton } from './PlaySkipButton';
@@ -29,6 +30,7 @@ export const QueueItem = ({
             <PlaySkipButton name={name} priorityQueue={priorityQueue} />
             <RemoveFromQueueButton name={name} priorityQueue={priorityQueue} />
             {track && 'track' in track && <AddToQueueButton track={track} />}
+            {track && 'track' in track && <AddToFrontOfPriorityQueue track={track} />}
           </>
         )}
       </div>
