@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { usePlaySong } from '../../hooks/spotifyPlayer/usePlaySong';
-import { useTogglePlay } from '../../hooks/spotifyPlayer/useTogglePlay';
 import { useSpotifyPlayerContext } from '../../hooks/context/useSpotifyPlayerContext';
 import { useQueueContext } from '../../hooks/context/useQueueContext';
 import { NextTrackButton } from './NextTrackButton';
@@ -14,6 +13,7 @@ import { Queue } from './Queue';
 import { TrackInfo } from '../TrackInfo';
 import { VolumeControl } from './VolumeControl';
 import { TogglePlayButton } from './TogglePlayButton';
+import { TogglePauseButton } from './TogglePauseButton';
 
 export const SpotifyPlayer = () => {
   const { player } = useSpotifyPlayerContext();
@@ -35,7 +35,6 @@ export const SpotifyPlayer = () => {
     playlistQueueIndexRef,
   } = useQueueContext();
 
-  const togglePlay = useTogglePlay();
   const playSong = usePlaySong();
   const indexPlaylistQueue = useIndexPlaylistQueue();
 
@@ -145,7 +144,7 @@ export const SpotifyPlayer = () => {
         <div className="flex gap-10">
           <ShuffleTracksButton />
           <PreviousTrackButton />
-          {playerState?.paused ? <TogglePlayButton /> : <button onClick={togglePlay}>Pause</button>}
+          {playerState?.paused ? <TogglePlayButton /> : <TogglePauseButton />}
           <NextTrackButton />
           <RepeatButton />
         </div>
