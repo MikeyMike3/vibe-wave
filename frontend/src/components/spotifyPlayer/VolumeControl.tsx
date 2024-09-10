@@ -75,22 +75,34 @@ export const VolumeControl = () => {
   return (
     <div className="flex items-center gap-2">
       {volume === 0 && (
-        <button onClick={handleClick}>
+        <button
+          className="text-textAccent duration-150 hover:text-textPrimary"
+          onClick={handleClick}
+        >
           <FontAwesomeIcon className="text-2xl" icon={faVolumeMute} />
         </button>
       )}
       {volume >= 1 && volume <= 40 && (
-        <button onClick={handleClick}>
+        <button
+          className="text-textAccent duration-150 hover:text-textPrimary"
+          onClick={handleClick}
+        >
           <FontAwesomeIcon className="text-2xl" icon={faVolumeLow} />
         </button>
       )}
       {volume >= 41 && volume <= 80 && (
-        <button onClick={handleClick}>
+        <button
+          className="text-textAccent duration-150 hover:text-textPrimary"
+          onClick={handleClick}
+        >
           <FontAwesomeIcon className="text-2xl" icon={faVolume} />
         </button>
       )}
       {volume >= 81 && (
-        <button onClick={handleClick}>
+        <button
+          className="text-textAccent duration-150 hover:text-textPrimary"
+          onClick={handleClick}
+        >
           <FontAwesomeIcon className="text-2xl" icon={faVolumeHigh} />
         </button>
       )}
