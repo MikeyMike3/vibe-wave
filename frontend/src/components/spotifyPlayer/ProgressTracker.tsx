@@ -56,7 +56,10 @@ export const ProgressTracker = () => {
 
   return (
     <div className="flex w-[500px] items-center gap-3">
-      {currentlySeekingRef.current ? tempDisplayPosition : displayPosition}
+      <p className="cursor-default text-textPrimary">
+        {currentlySeekingRef.current ? tempDisplayPosition : displayPosition}
+      </p>
+
       <input
         ref={sliderRef}
         className="w-full"
@@ -67,7 +70,7 @@ export const ProgressTracker = () => {
         onChange={handleChange}
         onMouseUp={handleMouseUp}
       />
-      {displayDuration}
+      <p className="cursor-default text-textPrimary">{displayDuration}</p>
     </div>
   );
 };
