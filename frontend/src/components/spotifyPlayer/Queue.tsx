@@ -3,7 +3,7 @@ import { useQueueContext } from '../../hooks/context/useQueueContext';
 import { QueueDisplay } from './QueueDisplay';
 import { usePlaybackContext } from '../../hooks/context/usePlaybackContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faListMusic } from '@fortawesome/pro-solid-svg-icons';
+import { faListMusic } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
 
 export const Queue = () => {
   const { playlistQueue, playlistQueueIndex } = useQueueContext();
