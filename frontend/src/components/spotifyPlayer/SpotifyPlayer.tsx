@@ -13,6 +13,7 @@ import { useIndexPlaylistQueue } from '../../hooks/spotifyPlayer/useIndexPlaylis
 import { Queue } from './Queue';
 import { TrackInfo } from '../TrackInfo';
 import { VolumeControl } from './VolumeControl';
+import { TogglePlayButton } from './TogglePlayButton';
 
 export const SpotifyPlayer = () => {
   const { player } = useSpotifyPlayerContext();
@@ -144,11 +145,7 @@ export const SpotifyPlayer = () => {
         <div className="flex gap-10">
           <ShuffleTracksButton />
           <PreviousTrackButton />
-          {playerState?.paused ? (
-            <button onClick={togglePlay}>Play</button>
-          ) : (
-            <button onClick={togglePlay}>Pause</button>
-          )}
+          {playerState?.paused ? <TogglePlayButton /> : <button onClick={togglePlay}>Pause</button>}
           <NextTrackButton />
           <RepeatButton />
         </div>
