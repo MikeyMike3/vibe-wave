@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBackwardStep } from '@fortawesome/free-solid-svg-icons';
+import { faBackwardStep } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
 import { usePreviousTrack } from '../../hooks/spotifyPlayer/usePreviousTrack';
 
 export const PreviousTrackButton = () => {
