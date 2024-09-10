@@ -1,7 +1,7 @@
 import { usePlaybackContext } from '../../hooks/context/usePlaybackContext';
 import { useShuffleTracks } from '../../hooks/spotifyPlayer/useShuffleTracks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShuffle } from '@fortawesome/free-solid-svg-icons';
+import { faShuffle } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
 
 export const ShuffleTracksButton = () => {
   const { shuffleTracksState } = usePlaybackContext();
