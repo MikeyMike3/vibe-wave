@@ -5,7 +5,7 @@ import { useTogglePlay } from '../../hooks/spotifyPlayer/useTogglePlay';
 export const TogglePauseButton = () => {
   const togglePlay = useTogglePlay();
   return (
-    <button onClick={togglePlay}>
+    <button className="duration-200 hover:scale-105" onClick={togglePlay}>
       <FontAwesomeIcon icon={faCirclePause} color="aqua" size="3x" />
     </button>
   );
