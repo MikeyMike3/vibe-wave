@@ -1,6 +1,9 @@
 import { useSpotifyPlayerContext } from '../../hooks/context/useSpotifyPlayerContext';
 import { usePlaybackContext } from '../../hooks/context/usePlaybackContext';
 import { useEffect, useRef } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faVolume, faVolumeMute, faVolumeHigh } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
+import { faVolumeLow } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
 
 export const VolumeControl = () => {
   const { player, isPlayerReady } = useSpotifyPlayerContext();
@@ -71,7 +74,27 @@ export const VolumeControl = () => {
 
   return (
     <div className="flex items-center gap-2">
-      <button onClick={handleClick}>Volume</button>
+      {volume === 0 && (
+        <button onClick={handleClick}>
+          <FontAwesomeIcon className="text-2xl" icon={faVolumeMute} />
+        </button>
+      )}
+      {volume >= 1 && volume <= 40 && (
+        <button onClick={handleClick}>
+          <FontAwesomeIcon className="text-2xl" icon={faVolumeLow} />
+        </button>
+      )}
+      {volume >= 41 && volume <= 80 && (
+        <button onClick={handleClick}>
+          <FontAwesomeIcon className="text-2xl" icon={faVolume} />
+        </button>
+      )}
+      {volume >= 81 && (
+        <button onClick={handleClick}>
+          <FontAwesomeIcon className="text-2xl" icon={faVolumeHigh} />
+        </button>
+      )}
+
       <input
         ref={volumeRef}
         type="range"
