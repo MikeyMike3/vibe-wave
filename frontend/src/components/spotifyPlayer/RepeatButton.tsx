@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRepeat } from '@fortawesome/free-solid-svg-icons';
-import { faRepeat1 } from '@fortawesome/pro-solid-svg-icons';
+import { faRepeat } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
+import { faRepeat1 } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
 
 import { usePlaybackContext } from '../../hooks/context/usePlaybackContext';
 
