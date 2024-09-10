@@ -8,6 +8,7 @@ export default {
         bgAccent: '#1E1E1E',
         textPrimary: '#F3F3F3',
         textAccent: '#A8A8A8',
+        aqua: '#00FFFF',
       },
       fontSize: {
         smTitle: '1.063rem',

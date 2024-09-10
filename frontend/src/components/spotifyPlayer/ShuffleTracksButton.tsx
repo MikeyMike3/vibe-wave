@@ -11,14 +11,17 @@ export const ShuffleTracksButton = () => {
     <>
       {shuffleTracksState ? (
         <button
-          className="text- duration-150 hover:text-textPrimary"
+          className="text-aqua duration-150"
           onClick={() => shuffleTracks({ shouldChangeState: true })}
         >
           <FontAwesomeIcon className="text-2xl" icon={faShuffle} />
         </button>
       ) : (
-        <button onClick={() => shuffleTracks({ shouldChangeState: true })}>
-          <FontAwesomeIcon icon={faShuffle} style={{ fontSize: '1.5rem', color: 'gray' }} />
+        <button
+          className="text-textAccent duration-150 hover:text-textPrimary"
+          onClick={() => shuffleTracks({ shouldChangeState: true })}
+        >
+          <FontAwesomeIcon className="text-2xl" icon={faShuffle} />
         </button>
       )}
     </>
