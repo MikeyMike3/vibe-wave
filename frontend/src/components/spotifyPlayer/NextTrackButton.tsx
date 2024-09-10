@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faForwardStep } from '@fortawesome/free-solid-svg-icons';
+import { faForwardStep } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
 import { useNextTrack } from '../../hooks/spotifyPlayer/useNextTrack';
 
 export const NextTrackButton = () => {
