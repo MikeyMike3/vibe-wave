@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCirclePlay } from '@fortawesome/free-solid-svg-icons';
+import { faCirclePlay } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
 import { useTogglePlay } from '../../hooks/spotifyPlayer/useTogglePlay';
 
 export const TogglePlayButton = () => {
