@@ -11,7 +11,10 @@ export const RootLayout = () => {
           <PCNav />
           <MobileNav />
         </div>
-        <Outlet />
+        <div>
+          <p className="text-white">Search</p>
+          <Outlet />
+        </div>
       </div>
 
       <SpotifyPlayer />
