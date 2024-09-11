@@ -10,10 +10,7 @@ export const ShuffleTracksButton = () => {
   return (
     <>
       {shuffleTracksState ? (
-        <button
-          className="text-aqua duration-150"
-          onClick={() => shuffleTracks({ shouldChangeState: true })}
-        >
+        <button className="text-aqua" onClick={() => shuffleTracks({ shouldChangeState: true })}>
           <FontAwesomeIcon className="text-2xl" icon={faShuffle} />
         </button>
       ) : (
