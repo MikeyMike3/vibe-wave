@@ -6,9 +6,14 @@ import { SpotifyPlayer } from '../components/spotifyPlayer/SpotifyPlayer';
 export const RootLayout = () => {
   return (
     <>
-      <PCNav />
-      <MobileNav />
-      <Outlet />
+      <div className="grid h-screen grid-cols-[300px_1fr] overflow-y-scroll">
+        <div>
+          <PCNav />
+          <MobileNav />
+        </div>
+        <Outlet />
+      </div>
+
       <SpotifyPlayer />
     </>
   );

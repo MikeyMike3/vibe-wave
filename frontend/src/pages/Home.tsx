@@ -15,7 +15,7 @@ export const Home = () => {
   }
 
   return (
-    <div className="grid flex-1 grid-cols-9 gap-7 overflow-y-scroll">
+    <div className="grid flex-1 grid-cols-9 gap-7">
       {userPlaylists?.items.map(item => (
         <UserPlaylist
           key={item.id}
