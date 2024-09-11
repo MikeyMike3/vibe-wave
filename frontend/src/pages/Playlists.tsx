@@ -3,7 +3,7 @@ import { MainLoading } from '../components/MainLoading';
 import { UserPlaylist } from '../components/UserPlaylist';
 import { useFetchUserPlaylists } from '../hooks/apis/useFetchUserPlaylists';
 
-export const Home = () => {
+export const Playlists = () => {
   const { userPlaylists, isUserPlaylistsLoading, isUserPlaylistsError } = useFetchUserPlaylists();
 
   if (isUserPlaylistsLoading) {

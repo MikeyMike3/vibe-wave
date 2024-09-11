@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { RootLayout } from './layouts/RootLayout';
-import { Home } from './pages/Home';
+import { Playlists } from './pages/Playlists';
 import { PartyMode } from './pages/PartyMode';
 import { PartyModeLayout } from './layouts/PartyModeLayout';
 import PrivateRoutes from './utils/PrivateRoutes';
@@ -23,7 +23,7 @@ const router = createBrowserRouter(
       <Route path="login" element={<Login />} />
       <Route element={<PrivateRoutes />}>
         <Route path="/" element={<RootLayout />}>
-          <Route index element={<Home />} />
+          <Route index element={<Playlists />} />
 
           <Route path="party-mode" element={<PartyModeLayout />}>
             <Route index element={<PartyMode />} />
