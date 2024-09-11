@@ -16,6 +16,7 @@ import { PartyModeSearch } from './pages/PartyModeSearch';
 import { SpotifyPlayerProvider } from './context/SpotifyPlayerContext';
 import { QueueProvider } from './context/QueueContext';
 import { PlaybackProvider } from './context/PlaybackContext';
+import { Home } from './pages/Home';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,7 +24,8 @@ const router = createBrowserRouter(
       <Route path="login" element={<Login />} />
       <Route element={<PrivateRoutes />}>
         <Route path="/" element={<RootLayout />}>
-          <Route index element={<Playlists />} />
+          <Route index element={<Home />} />
+          <Route path="playlists" element={<Playlists />} />
 
           <Route path="party-mode" element={<PartyModeLayout />}>
             <Route index element={<PartyMode />} />
