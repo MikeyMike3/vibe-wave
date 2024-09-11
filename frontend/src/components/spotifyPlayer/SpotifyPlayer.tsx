@@ -150,7 +150,7 @@ export const SpotifyPlayer = () => {
         </div>
         <ProgressTracker />
       </div>
-      <div className="ml-auto flex items-center gap-5">
+      <div className="ml-auto flex items-center gap-4">
         <Queue />
         <VolumeControl />
       </div>
