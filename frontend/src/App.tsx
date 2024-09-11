@@ -18,6 +18,7 @@ import { QueueProvider } from './context/QueueContext';
 import { PlaybackProvider } from './context/PlaybackContext';
 import { Home } from './pages/Home';
 import { LikedSongs } from './pages/LikedSongs';
+import { FollowedArtists } from './pages/FollowedArtists';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -27,7 +28,8 @@ const router = createBrowserRouter(
         <Route path="/" element={<RootLayout />}>
           <Route index element={<Home />} />
           <Route path="playlists" element={<Playlists />} />
-          <Route path="liked-songs" element={<LikedSongs />}></Route>
+          <Route path="liked-songs" element={<LikedSongs />} />
+          <Route path="followed-artists" element={<FollowedArtists />} />
 
           <Route path="party-mode" element={<PartyModeLayout />}>
             <Route index element={<PartyMode />} />
