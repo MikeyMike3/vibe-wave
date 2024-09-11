@@ -79,9 +79,9 @@ export const VolumeControl = () => {
         onClick={handleClick}
       >
         {volume === 0 && <FontAwesomeIcon className="text-2xl" icon={faVolumeMute} />}
-        {volume >= 1 && volume <= 40 && <FontAwesomeIcon className="text-2xl" icon={faVolumeLow} />}
-        {volume >= 41 && volume <= 80 && <FontAwesomeIcon className="text-2xl" icon={faVolume} />}
-        {volume >= 81 && <FontAwesomeIcon className="text-2xl" icon={faVolumeHigh} />}
+        {volume >= 1 && volume <= 33 && <FontAwesomeIcon className="text-2xl" icon={faVolumeLow} />}
+        {volume >= 34 && volume <= 67 && <FontAwesomeIcon className="text-2xl" icon={faVolume} />}
+        {volume >= 68 && <FontAwesomeIcon className="text-2xl" icon={faVolumeHigh} />}
       </button>
 
       <input
