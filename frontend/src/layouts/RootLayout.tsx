@@ -6,7 +6,7 @@ import { SpotifyPlayer } from '../components/spotifyPlayer/SpotifyPlayer';
 export const RootLayout = () => {
   return (
     <>
-      <div className="fixed top-0 grid h-screen grid-cols-[300px_1fr]">
+      <div className="fixed top-0 grid h-screen w-full grid-cols-[300px_1fr]">
         <div className="bg-black">
           <PCNav />
           <MobileNav />

@@ -17,7 +17,7 @@ export const UserPlaylist = ({ name, images, owner, type, playlistId }: UserPlay
 
   return (
     <Link to={'/party-mode/search'}>
-      <div className="hover:bg-bgAccent group flex h-full w-full flex-col gap-2 rounded-xl p-2 duration-300">
+      <div className="group flex h-full w-full flex-col gap-2 rounded-xl p-2 duration-300 hover:bg-bgAccent">
         <div
           className="relative h-64 w-full rounded-xl bg-cover bg-center"
           style={{
@@ -27,8 +27,8 @@ export const UserPlaylist = ({ name, images, owner, type, playlistId }: UserPlay
           <PlaylistPlayButton name={name} playlistId={playlistId} />
         </div>
 
-        <div className="text-textAccent flex flex-col py-2">
-          <p className="text-textPrimary text-smTitle">{name}</p>
+        <div className="flex flex-col py-2 text-textAccent">
+          <p className="text-smTitle text-textPrimary">{name}</p>
           <p className="text-base">
             {uppercaseType} &#8226; {owner}
           </p>
