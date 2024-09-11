@@ -15,6 +15,9 @@ export const PCNav = () => {
         <NavLink className="text-white" to={'/playlists'}>
           Playlists
         </NavLink>
+        <NavLink className="text-white" to={'/liked-songs'}>
+          Liked Songs
+        </NavLink>
         <NavLink className="text-white" to={'/party-mode'}>
           Party Mode
         </NavLink>
