@@ -12,6 +12,9 @@ export const PCNav = () => {
         <Link className="text-white" to={'/'}>
           Home
         </Link>
+        <Link className="text-white" to={'/playlists'}>
+          Playlists
+        </Link>
         <Link className="text-white" to={'/party-mode'}>
           Party Mode
         </Link>
