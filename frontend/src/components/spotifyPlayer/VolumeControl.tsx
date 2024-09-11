@@ -74,38 +74,15 @@ export const VolumeControl = () => {
 
   return (
     <div className="flex items-center gap-2">
-      {volume === 0 && (
-        <button
-          className="text-textAccent duration-150 hover:text-textPrimary"
-          onClick={handleClick}
-        >
-          <FontAwesomeIcon className="text-2xl" icon={faVolumeMute} />
-        </button>
-      )}
-      {volume >= 1 && volume <= 40 && (
-        <button
-          className="text-textAccent duration-150 hover:text-textPrimary"
-          onClick={handleClick}
-        >
-          <FontAwesomeIcon className="text-2xl" icon={faVolumeLow} />
-        </button>
-      )}
-      {volume >= 41 && volume <= 80 && (
-        <button
-          className="text-textAccent duration-150 hover:text-textPrimary"
-          onClick={handleClick}
-        >
-          <FontAwesomeIcon className="text-2xl" icon={faVolume} />
-        </button>
-      )}
-      {volume >= 81 && (
-        <button
-          className="text-textAccent duration-150 hover:text-textPrimary"
-          onClick={handleClick}
-        >
-          <FontAwesomeIcon className="text-2xl" icon={faVolumeHigh} />
-        </button>
-      )}
+      <button
+        className="h-10 w-10 items-center justify-center text-textAccent duration-150 hover:text-textPrimary"
+        onClick={handleClick}
+      >
+        {volume === 0 && <FontAwesomeIcon className="text-2xl" icon={faVolumeMute} />}
+        {volume >= 1 && volume <= 40 && <FontAwesomeIcon className="text-2xl" icon={faVolumeLow} />}
+        {volume >= 41 && volume <= 80 && <FontAwesomeIcon className="text-2xl" icon={faVolume} />}
+        {volume >= 81 && <FontAwesomeIcon className="text-2xl" icon={faVolumeHigh} />}
+      </button>
 
       <input
         ref={volumeRef}
