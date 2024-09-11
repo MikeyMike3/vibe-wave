@@ -1,6 +1,9 @@
 import { NavLink, Link } from 'react-router-dom';
 import { PCLink } from './PCLink';
 import { faHouse } from '@awesome.me/kit-71c07605c0/icons/sharp/light';
+import { faUserMusic } from '@awesome.me/kit-71c07605c0/icons/sharp/light';
+import { faSquareHeart } from '@awesome.me/kit-71c07605c0/icons/sharp/light';
+import { faAlbum } from '@awesome.me/kit-71c07605c0/icons/sharp/light';
 
 export const PCNav = () => {
   return (
@@ -11,18 +14,14 @@ export const PCNav = () => {
         </Link>
       </div>
       <div className="flex flex-col gap-5">
-        <NavLink className="text-white" to={'/'}>
-          <PCLink icon={faHouse} linkName="Home" />
-        </NavLink>
-        <NavLink className="text-white" to={'/playlists'}>
-          Playlists
-        </NavLink>
-        <NavLink className="text-white" to={'/liked-songs'}>
-          Liked Songs
-        </NavLink>
-        <NavLink className="text-white" to={'followed-artists'}>
-          Followed Artists
-        </NavLink>
+        <PCLink icon={faHouse} linkName="Home" linkTo="/" />
+
+        <PCLink icon={faUserMusic} linkName="Playlists" linkTo="/playlists" />
+
+        <PCLink icon={faSquareHeart} linkName="Liked Songs" linkTo="/liked-songs" />
+
+        <PCLink icon={faAlbum} linkName="Followed Artists" linkTo="followed-artists" />
+
         <NavLink className="text-white" to={'/party-mode'}>
           Party Mode
         </NavLink>
