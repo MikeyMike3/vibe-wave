@@ -20,7 +20,10 @@ export const RepeatButton = () => {
   return (
     <>
       {repeat === 0 && (
-        <button className="text-textAccent hover:text-textPrimary" onClick={handleClick}>
+        <button
+          className="text-textAccent duration-150 hover:text-textPrimary"
+          onClick={handleClick}
+        >
           <FontAwesomeIcon className="text-2xl" icon={faRepeat} />
         </button>
       )}
