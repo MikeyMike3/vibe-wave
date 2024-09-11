@@ -15,56 +15,59 @@ input[type='range']::-webkit-slider-runnable-track {
   height: 8px; /* Same height as the track */
   background: linear-gradient(
     to right,
-    #3b82f6 var(--value, 0%),
-    #e0e0e0 var(--value, 0%)
+    #00ffff var(--value, 0%),
+    #a8a8a8 var(--value, 0%)
   ); /* Dynamic background */
   border-radius: 4px; /* Rounded corners */
   border: none; /* Remove any default border */
 }
 
+/* Hide the thumb initially */
 input[type='range']::-webkit-slider-thumb {
   -webkit-appearance: none; /* Remove default appearance for thumb */
   appearance: none;
   width: 15px; /* Width of the thumb */
   height: 15px; /* Height of the thumb */
-  background: #3b82f6; /* Thumb color */
+  background: #f3f3f3; /* Updated thumb color */
   border-radius: 50%; /* Round thumb */
-  cursor: pointer;
   margin-top: -3.5px; /* Center the thumb on the track */
   position: relative;
   z-index: 1; /* Ensure thumb is above track */
+  opacity: 0; /* Hide thumb initially */
+  transition: opacity 0.3s ease; /* Smooth transition for visibility */
+}
+
+/* Thumb will only appear when hovered */
+input[type='range']:hover::-webkit-slider-thumb {
+  opacity: 1; /* Show thumb on hover */
 }
 
 input[type='range']::-ms-fill-lower {
-  background: #3b82f6; /* Left fill color */
+  background: #00ffff; /* Left fill color */
   border-radius: 4px; /* Rounded corners */
 }
 
 input[type='range']::-ms-fill-upper {
-  background: #e0e0e0; /* Right fill color */
+  background: #a8a8a8; /* Right fill color */
   border-radius: 4px; /* Rounded corners */
 }
 
+/* Hide the thumb initially for non-webkit browsers */
+input[type='range']::-moz-range-thumb,
 input[type='range']::-ms-thumb {
   width: 15px; /* Width of the thumb */
   height: 15px; /* Height of the thumb */
-  background: #3b82f6; /* Thumb color */
+  background: #f3f3f3; /* Updated thumb color */
   border-radius: 50%; /* Round thumb */
-  cursor: pointer;
   margin-top: 0; /* Align the thumb on the track */
   position: relative;
   z-index: 1; /* Ensure thumb is above track */
+  opacity: 0; /* Hide thumb initially */
+  transition: opacity 0.3s ease; /* Smooth transition for visibility */
 }
 
-/* General styles for the range thumb on hover */
-input[type='range']:hover::-webkit-slider-thumb {
-  background: #2563eb; /* Darker color for hover effect */
-}
-
-input[type='range']:hover::-moz-range-thumb {
-  background: #2563eb; /* Darker color for hover effect */
-}
-
+/* Show the thumb on hover for non-webkit browsers */
+input[type='range']:hover::-moz-range-thumb,
 input[type='range']:hover::-ms-thumb {
-  background: #2563eb; /* Darker color for hover effect */
+  opacity: 1; /* Show thumb on hover */
 }
