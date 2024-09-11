@@ -3,12 +3,12 @@ import { NavLink } from 'react-router-dom';
 export const PCNav = () => {
   return (
     <>
-      <div>
+      <div className="w-full text-center">
         <NavLink className="text-white" to={'/'}>
           VibeWave
         </NavLink>
       </div>
-      <div className="flex gap-5">
+      <div className="flex flex-col gap-5">
         <NavLink className="text-white" to={'/'}>
           Home
         </NavLink>
