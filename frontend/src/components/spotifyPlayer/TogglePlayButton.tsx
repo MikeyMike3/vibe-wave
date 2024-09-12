@@ -6,7 +6,7 @@ export const TogglePlayButton = () => {
   const togglePlay = useTogglePlay();
   return (
     <button className="duration-200 hover:scale-105" onClick={togglePlay}>
-      <FontAwesomeIcon className="text-4xl" icon={faCirclePlay} color="aqua" />
+      <FontAwesomeIcon className="text-4xl text-aqua" icon={faCirclePlay} />
     </button>
   );
 };
