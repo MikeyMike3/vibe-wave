@@ -13,7 +13,7 @@ export const PCNav = () => {
   return (
     <>
       <div className="w-full py-5 text-center">
-        <Link className="text-2xl" to={'/'}>
+        <Link className="text-2xl font-semibold" to={'/'}>
           <span className="text-aqua">Vibe</span>
           <span className="text-magenta">Wave</span>
         </Link>
