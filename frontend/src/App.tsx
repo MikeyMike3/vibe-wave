@@ -8,8 +8,6 @@ import {
 import { AuthProvider } from './context/AuthContext';
 import { RootLayout } from './layouts/RootLayout';
 import { Playlists } from './pages/Playlists';
-import { PartyMode } from './pages/PartyMode';
-import { PartyModeLayout } from './layouts/PartyModeLayout';
 import PrivateRoutes from './utils/PrivateRoutes';
 import { Login } from './pages/Login';
 import { SpotifyPlayerProvider } from './context/SpotifyPlayerContext';
@@ -32,10 +30,6 @@ const router = createBrowserRouter(
           <Route path="liked-songs" element={<LikedSongs />} />
           <Route path="followed-artists" element={<FollowedArtists />} />
           <Route path="search" element={<Search />} />
-
-          <Route path="party-mode" element={<PartyModeLayout />}>
-            <Route index element={<PartyMode />} />
-          </Route>
         </Route>
       </Route>
     </>,
