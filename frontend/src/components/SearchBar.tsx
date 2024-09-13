@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import { useSearchContext } from '../hooks/context/useSearchContext';
 import { useFetchSearchResults } from '../hooks/apis/useFetchSearchResults';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
+
 export const SearchBar = () => {
   const { setSearchResults, query, setQuery } = useSearchContext();
   const fetchSearchResults = useFetchSearchResults();
@@ -37,14 +40,20 @@ export const SearchBar = () => {
   return (
     <div className="sticky top-0 z-[9999] flex w-full justify-center bg-black">
       <Link to={'/search'}>
-        <form onSubmit={handleSubmit} className="flex py-5">
-          <input
-            className="w-[500px]"
-            ref={inputRef}
-            onChange={handleChange}
-            placeholder="Search"
-          ></input>
-          <button onClick={handleSubmit}>Search</button>
+        <form onSubmit={handleSubmit} className="flex items-center py-5">
+          <div className="flex items-center gap-2 rounded-xl border-2 border-transparent bg-bgAccent p-2 transition duration-150 focus-within:border-white active:outline-white">
+            <FontAwesomeIcon
+              onSubmit={handleSubmit}
+              className="text-3xl text-textAccent duration-150 hover:text-textPrimary"
+              icon={faMagnifyingGlass}
+            />
+            <input
+              className="w-[500px] rounded-xl bg-bgAccent p-2 text-white outline-none"
+              ref={inputRef}
+              onChange={handleChange}
+              placeholder="Search"
+            />
+          </div>
         </form>
       </Link>
     </div>
