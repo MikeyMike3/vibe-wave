@@ -16,7 +16,7 @@ export const UserPlaylist = ({ name, images, owner, type, playlistId }: UserPlay
   const uppercaseType = capitalizeFirstLetter(type);
 
   return (
-    <Link to={'/party-mode/search'}>
+    <Link to={'/playlists'}>
       <div className="group flex h-full w-full flex-col gap-2 rounded-xl p-2 duration-300 hover:bg-bgAccent">
         <div
           className="relative h-64 w-full rounded-xl bg-cover bg-center"
