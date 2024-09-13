@@ -12,7 +12,6 @@ import { PartyMode } from './pages/PartyMode';
 import { PartyModeLayout } from './layouts/PartyModeLayout';
 import PrivateRoutes from './utils/PrivateRoutes';
 import { Login } from './pages/Login';
-import { PartyModeSearch } from './pages/PartyModeSearch';
 import { SpotifyPlayerProvider } from './context/SpotifyPlayerContext';
 import { QueueProvider } from './context/QueueContext';
 import { PlaybackProvider } from './context/PlaybackContext';
@@ -33,7 +32,6 @@ const router = createBrowserRouter(
 
           <Route path="party-mode" element={<PartyModeLayout />}>
             <Route index element={<PartyMode />} />
-            <Route path="search" element={<PartyModeSearch />} />
           </Route>
         </Route>
       </Route>

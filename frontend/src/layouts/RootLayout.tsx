@@ -2,6 +2,7 @@ import { PCNav } from '../components/nav/PCNav';
 import { MobileNav } from '../components/nav/MobileNav';
 import { Outlet } from 'react-router-dom';
 import { SpotifyPlayer } from '../components/spotifyPlayer/SpotifyPlayer';
+import { Search } from '../pages/Search';
 
 export const RootLayout = () => {
   return (
@@ -12,8 +13,10 @@ export const RootLayout = () => {
           <MobileNav />
         </div>
         <div className="overflow-y-scroll pb-32">
-          <p className="text-white">Search</p>
-          <Outlet />
+          <Search />
+          <div className="pt-7">
+            <Outlet />
+          </div>
         </div>
       </div>
 
