@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useFetchSearchResults } from '../hooks/apis/useFetchSearchResults';
 import { SearchResultTrackItem } from './SearchResultTrackItem';
+import { Link } from 'react-router-dom';
 
 export const SearchBar = () => {
   const [query, setQuery] = useState<string>('');
@@ -27,15 +28,17 @@ export const SearchBar = () => {
 
   return (
     <div className="sticky top-0 z-[9999] flex w-full justify-center bg-black">
-      <form onSubmit={handleSubmit} className="flex py-5">
-        <input
-          className="w-[500px]"
-          ref={inputRef}
-          onChange={handleChange}
-          placeholder="Search"
-        ></input>
-        <button onClick={handleSubmit}>Search</button>
-      </form>
+      <Link to={'/search'}>
+        <form onSubmit={handleSubmit} className="flex py-5">
+          <input
+            className="w-[500px]"
+            ref={inputRef}
+            onChange={handleChange}
+            placeholder="Search"
+          ></input>
+          <button onClick={handleSubmit}>Search</button>
+        </form>
+      </Link>
       {searchResults?.tracks?.items.map(item => (
         <SearchResultTrackItem key={item.id} track={item} />
       ))}
