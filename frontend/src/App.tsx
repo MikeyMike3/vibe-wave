@@ -19,6 +19,7 @@ import { Home } from './pages/Home';
 import { LikedSongs } from './pages/LikedSongs';
 import { FollowedArtists } from './pages/FollowedArtists';
 import { Search } from './pages/Search';
+import { SearchProvider } from './context/SearchContext';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -47,7 +48,9 @@ function App() {
       <SpotifyPlayerProvider>
         <QueueProvider>
           <PlaybackProvider>
-            <RouterProvider router={router} />
+            <SearchProvider>
+              <RouterProvider router={router} />
+            </SearchProvider>
           </PlaybackProvider>
         </QueueProvider>
       </SpotifyPlayerProvider>
