@@ -12,7 +12,7 @@ import { faAlbum as faAlbumSolid } from '@awesome.me/kit-71c07605c0/icons/sharp/
 export const PCNav = () => {
   return (
     <>
-      <div className="w-full py-5 text-center">
+      <div className="w-full py-[34px] text-center">
         <Link className="text-2xl font-semibold" to={'/'}>
           <span className="text-aqua">Vibe</span>
           <span className="text-magenta">Wave</span>
