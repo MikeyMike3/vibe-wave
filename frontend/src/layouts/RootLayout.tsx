@@ -12,13 +12,15 @@ export const RootLayout = () => {
           <PCNav />
           <MobileNav />
         </div>
-        <div className="overflow-y-scroll pb-32">
+        <div className="flex flex-col">
           <SearchBar />
-          <Outlet />
+          {/* the height is very magic numbery */}
+          <div className="mb-32 overflow-y-scroll" style={{ height: 'calc(100vh - 215px)' }}>
+            <Outlet />
+          </div>
+          <SpotifyPlayer />
         </div>
       </div>
-
-      <SpotifyPlayer />
     </>
   );
 };

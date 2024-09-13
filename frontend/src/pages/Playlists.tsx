@@ -15,7 +15,7 @@ export const Playlists = () => {
   }
 
   return (
-    <div className="grid w-full flex-1 grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-7 p-2">
+    <div className="grid h-full w-full flex-1 grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-7 p-2">
       {userPlaylists?.items.map(item => (
         <UserPlaylist
           key={item.id}
