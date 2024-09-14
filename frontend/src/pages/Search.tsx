@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { SearchResultTrackItem } from '../components/SearchResultTrackItem';
 import { useSearchContext } from '../hooks/context/useSearchContext';
+import { SearchResultArtistItem } from '../components/SearchResultArtistItem';
 
 export const Search = () => {
   const { searchResults } = useSearchContext();
@@ -66,10 +67,13 @@ export const Search = () => {
         searchResults?.tracks?.items.map(item => (
           <SearchResultTrackItem key={item.id} track={item} />
         ))}
-      {isArtistsClicked &&
-        searchResults?.artists?.items.map(item => (
-          <SearchResultTrackItem key={item.id} track={item} />
-        ))}
+      {isArtistsClicked && (
+        <div className="grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-7">
+          {searchResults?.artists?.items.map(item => (
+            <SearchResultArtistItem key={item.id} artist={item} />
+          ))}
+        </div>
+      )}
       {isAlbumsClicked &&
         searchResults?.albums?.items.map(item => (
           <SearchResultTrackItem key={item.id} track={item} />
