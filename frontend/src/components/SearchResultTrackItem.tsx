@@ -9,7 +9,7 @@ type SearchResultTrackItemProps = {
 
 export const SearchResultTrackItem = ({ track }: SearchResultTrackItemProps) => {
   return (
-    <div className="flex w-full items-center justify-between p-2 py-2 hover:bg-bgAccent">
+    <div className="flex w-full items-center justify-between py-2 pl-2 hover:bg-bgAccent">
       <TrackInfo images={track.album.images} name={track.name} artists={track.artists} />
       <div className="flex gap-3 text-white">
         <AddToQueueButton track={track} />

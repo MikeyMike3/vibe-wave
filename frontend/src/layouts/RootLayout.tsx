@@ -15,7 +15,7 @@ export const RootLayout = () => {
         <div className="flex flex-col">
           <SearchBar />
           {/* the height is very magic numbery */}
-          <div className="mb-32 overflow-y-scroll" style={{ height: 'calc(100vh - 190px)' }}>
+          <div className="overflow-y-scroll p-2" style={{ height: 'calc(100vh - 189px)' }}>
             <Outlet />
           </div>
           <SpotifyPlayer />

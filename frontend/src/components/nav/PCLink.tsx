@@ -16,8 +16,8 @@ export const PCLink = ({ activeIcon, notActiveIcon, linkName, linkTo }: PCLinkPr
       className={({ isActive }) =>
         `${
           isActive
-            ? 'rounded-custom-border-left text-magenta flex items-center gap-4 bg-bgPrimary p-2'
-            : 'hover:text-magentaLight flex items-center gap-4 p-2 text-textPrimary duration-150'
+            ? 'flex items-center gap-4 bg-bgPrimary p-2 text-magenta rounded-custom-border-left'
+            : 'flex items-center gap-4 p-2 text-textPrimary duration-150 hover:text-magentaLight'
         }`
       }
     >

@@ -14,13 +14,6 @@ export const SearchBar = () => {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (inputRef.current?.value) {
-      fetchSearchResults(query);
-    }
-  };
-
   //prettier-ignore
   const handleChange = (e:  React.ChangeEvent<HTMLInputElement>) => {
     if (inputRef.current?.value) {
@@ -41,14 +34,9 @@ export const SearchBar = () => {
 
   return (
     <div className="sticky top-0 z-[9999] flex w-full justify-center bg-black">
-      <form
-        onClick={() => navigate('/search')}
-        onSubmit={handleSubmit}
-        className="flex items-center py-3"
-      >
+      <form onClick={() => navigate('/search')} className="flex items-center py-3">
         <div className="flex items-center gap-2 rounded-full border-2 border-transparent bg-bgAccent px-6 py-2 transition duration-150 focus-within:border-magenta">
           <FontAwesomeIcon
-            onSubmit={handleSubmit}
             className="text-3xl text-textAccent duration-150 hover:text-textPrimary"
             icon={faMagnifyingGlass}
           />
