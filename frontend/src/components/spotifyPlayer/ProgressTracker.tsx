@@ -55,7 +55,7 @@ export const ProgressTracker = () => {
   }
 
   return (
-    <div className="flex w-[500px] items-center gap-3">
+    <div className="flex w-[590px] items-center gap-3">
       <p className="cursor-default text-textPrimary">
         {currentlySeekingRef.current ? tempDisplayPosition : displayPosition}
       </p>
