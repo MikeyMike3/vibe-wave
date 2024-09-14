@@ -53,7 +53,7 @@ export const SearchBar = () => {
             icon={faMagnifyingGlass}
           />
           <input
-            className="w-[500px] rounded-xl bg-bgAccent p-2 text-white outline-none"
+            className="w-[500px] rounded-xl bg-bgAccent p-2 text-white outline-none placeholder:text-textAccent"
             ref={inputRef}
             onChange={handleChange}
             placeholder="Search"
