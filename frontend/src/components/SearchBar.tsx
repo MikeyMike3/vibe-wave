@@ -44,7 +44,7 @@ export const SearchBar = () => {
       <form
         onClick={() => navigate('/search')}
         onSubmit={handleSubmit}
-        className="flex items-center py-5"
+        className="flex items-center py-3"
       >
         <div className="flex items-center gap-2 rounded-full border-2 border-transparent bg-bgAccent px-6 py-2 transition duration-150 focus-within:border-magenta">
           <FontAwesomeIcon
