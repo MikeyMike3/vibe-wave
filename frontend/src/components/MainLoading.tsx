@@ -1,3 +1,3 @@
 export const MainLoading = () => {
-  return <div>Loading...</div>;
+  return <div className="text-white">Loading...</div>;
 };
