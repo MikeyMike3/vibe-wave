@@ -20,31 +20,28 @@ export const PCNav = () => {
       </div>
       <div className="flex flex-col gap-5">
         <PCLink activeIcon={faHouseSolid} notActiveIcon={faHouseLight} linkName="Home" linkTo="/" />
-
         <PCLink
           activeIcon={faUserMusicSolid}
           notActiveIcon={faUserMusicLight}
           linkName="Playlists"
           linkTo="/playlists"
         />
-
         <PCLink
           activeIcon={faSquareHeartSolid}
           notActiveIcon={faSquareHeartLight}
           linkName="Liked Songs"
           linkTo="/liked-songs"
         />
-
         <PCLink
           activeIcon={faAlbumSolid}
           notActiveIcon={faAlbumLight}
           linkName="Followed Artists"
           linkTo="followed-artists"
         />
-
         <NavLink className="text-white" to={'/party-mode'}>
           Party Mode
         </NavLink>
+        <p className="text-white">Saved Albums</p>
       </div>
     </>
   );
