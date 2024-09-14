@@ -41,7 +41,7 @@ export const SearchBar = () => {
     <div className="sticky top-0 z-[9999] flex w-full justify-center bg-black">
       <Link to={'/search'}>
         <form onSubmit={handleSubmit} className="flex items-center py-5">
-          <div className="flex items-center gap-2 rounded-xl border-2 border-transparent bg-bgAccent p-2 transition duration-150 focus-within:border-white active:outline-white">
+          <div className="flex items-center gap-2 rounded-full border-2 border-transparent bg-bgAccent px-6 py-2 transition duration-150 focus-within:border-magenta">
             <FontAwesomeIcon
               onSubmit={handleSubmit}
               className="text-3xl text-textAccent duration-150 hover:text-textPrimary"
