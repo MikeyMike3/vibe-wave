@@ -10,7 +10,7 @@ export const Search = () => {
   const [isAlbumsClicked, setIsAlbumsClicked] = useState(false);
 
   return (
-    <div>
+    <>
       <div className="flex gap-4 text-white">
         <button
           className={`${isAllClicked && 'bg-white text-black'} rounded-xl p-2 px-4`}
@@ -74,6 +74,6 @@ export const Search = () => {
         searchResults?.albums?.items.map(item => (
           <SearchResultTrackItem key={item.id} track={item} />
         ))}
-    </div>
+    </>
   );
 };
