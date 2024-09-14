@@ -13,7 +13,7 @@ export const Search = () => {
 
   return (
     <>
-      <div className="flex gap-4 text-white">
+      <div className="flex gap-4 py-4 text-white">
         <button
           className={`${isAllClicked && 'bg-white text-black'} rounded-xl p-2 px-4`}
           onClick={() => {
