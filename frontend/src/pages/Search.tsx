@@ -15,7 +15,7 @@ export const Search = () => {
     <>
       <div className="flex gap-4 py-4 text-white">
         <button
-          className={`${isAllClicked && 'bg-white text-black'} rounded-xl p-2 px-4`}
+          className={`${isAllClicked && 'bg-white text-black'} rounded-xl bg-bgAccent p-2 px-4`}
           onClick={() => {
             setIsAllClicked(true);
             setIsTracksClicked(false);
@@ -26,7 +26,7 @@ export const Search = () => {
           All
         </button>
         <button
-          className={`${isTracksClicked && 'bg-white text-black'} rounded-xl p-2 px-4`}
+          className={`${isTracksClicked && 'bg-white text-black'} rounded-xl bg-bgAccent p-2 px-4`}
           onClick={() => {
             setIsAllClicked(false);
             setIsTracksClicked(true);
@@ -37,7 +37,7 @@ export const Search = () => {
           Tracks
         </button>
         <button
-          className={`${isArtistsClicked && 'bg-white text-black'} rounded-xl p-2 px-4`}
+          className={`${isArtistsClicked && 'bg-white text-black'} rounded-xl bg-bgAccent p-2 px-4`}
           onClick={() => {
             setIsAllClicked(false);
             setIsTracksClicked(false);
@@ -48,7 +48,7 @@ export const Search = () => {
           Artists
         </button>
         <button
-          className={`${isAlbumsClicked && 'bg-white text-black'} rounded-xl p-2 px-4`}
+          className={`${isAlbumsClicked && 'bg-white text-black'} rounded-xl bg-bgAccent p-2 px-4`}
           onClick={() => {
             setIsAllClicked(false);
             setIsTracksClicked(false);
@@ -64,6 +64,7 @@ export const Search = () => {
         searchResults?.tracks?.items.map(item => (
           <SearchResultTrackItem key={item.id} track={item} />
         ))}
+
       {isTracksClicked &&
         searchResults?.tracks?.items.map(item => (
           <SearchResultTrackItem key={item.id} track={item} />
