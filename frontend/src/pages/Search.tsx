@@ -69,23 +69,33 @@ export const Search = () => {
         />
       )}
 
-      {isTracksClicked &&
-        searchResults?.tracks?.items.map(item => (
-          <SearchResultTrackItem key={item.id} track={item} />
-        ))}
-      {isArtistsClicked && (
-        <div className="grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-7">
-          {searchResults?.artists?.items.map(item => (
-            <SearchResultArtistItem key={item.id} artist={item} />
+      {isTracksClicked && (
+        <>
+          <h2 className="pb-4 text-3xl text-textPrimary">Tracks</h2>
+          {searchResults?.tracks?.items.map(item => (
+            <SearchResultTrackItem key={item.id} track={item} />
           ))}
-        </div>
+        </>
+      )}
+      {isArtistsClicked && (
+        <>
+          <h2 className="pb-4 text-3xl text-textPrimary">Artists</h2>
+          <div className="grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-7">
+            {searchResults?.artists?.items.map(item => (
+              <SearchResultArtistItem key={item.id} artist={item} />
+            ))}
+          </div>
+        </>
       )}
       {isAlbumsClicked && (
-        <div className="grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-7">
-          {searchResults?.albums?.items.map(item => (
-            <SearchResultAlbumItem key={item.id} album={item} />
-          ))}
-        </div>
+        <>
+          <h2 className="pb-4 text-3xl text-textPrimary">Albums</h2>
+          <div className="grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-7">
+            {searchResults?.albums?.items.map(item => (
+              <SearchResultAlbumItem key={item.id} album={item} />
+            ))}
+          </div>
+        </>
       )}
     </>
   );
