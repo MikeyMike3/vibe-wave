@@ -8,6 +8,8 @@ import { faSquareHeart as faSquareHeartLight } from '@awesome.me/kit-71c07605c0/
 import { faSquareHeart as faSquareHeartSolid } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
 import { faAlbum as faAlbumLight } from '@awesome.me/kit-71c07605c0/icons/sharp/light';
 import { faAlbum as faAlbumSolid } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
+import { faMusic as faMusicLight } from '@awesome.me/kit-71c07605c0/icons/sharp/light';
+import { faMusic as faMusicSolid } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
 
 export const PCNav = () => {
   return (
@@ -21,8 +23,8 @@ export const PCNav = () => {
       <div className="flex flex-col gap-5">
         <PCLink activeIcon={faHouseSolid} notActiveIcon={faHouseLight} linkName="Home" linkTo="/" />
         <PCLink
-          activeIcon={faUserMusicSolid}
-          notActiveIcon={faUserMusicLight}
+          activeIcon={faMusicSolid}
+          notActiveIcon={faMusicLight}
           linkName="Playlists"
           linkTo="/playlists"
         />
@@ -35,13 +37,19 @@ export const PCNav = () => {
         <PCLink
           activeIcon={faAlbumSolid}
           notActiveIcon={faAlbumLight}
+          linkName="Saved Albums"
+          linkTo="saved-albums"
+        />
+        <PCLink
+          activeIcon={faUserMusicSolid}
+          notActiveIcon={faUserMusicLight}
           linkName="Followed Artists"
           linkTo="followed-artists"
         />
+
         <NavLink className="text-white" to={'/party-mode'}>
           Party Mode
         </NavLink>
-        <p className="text-white">Saved Albums</p>
       </div>
     </>
   );
