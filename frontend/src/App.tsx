@@ -20,6 +20,7 @@ import { Search } from './pages/Search';
 import { SearchProvider } from './context/SearchContext';
 import { Artist } from './pages/Artist';
 import { Album } from './pages/Album';
+import { SavedAlbums } from './pages/SavedAlbums';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -30,6 +31,7 @@ const router = createBrowserRouter(
           <Route index element={<Home />} />
           <Route path="playlists" element={<Playlists />} />
           <Route path="liked-songs" element={<LikedSongs />} />
+          <Route path="saved-albums" element={<SavedAlbums />} />
           <Route path="followed-artists" element={<FollowedArtists />} />
           <Route path="search" element={<Search />} />
           <Route path="artist" element={<Artist />} />
