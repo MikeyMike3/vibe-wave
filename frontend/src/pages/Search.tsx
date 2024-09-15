@@ -79,7 +79,7 @@ export const Search = () => {
                   <SearchResultTrackItem key={item.id} track={item} />
                 ))
               ) : (
-                <p className="text-white">No tracks found.</p>
+                <p className="text-textAccent">No tracks found.</p>
               )}
             </>
           )}
@@ -95,7 +95,7 @@ export const Search = () => {
                   ))}
                 </div>
               ) : (
-                <p className="text-textPrimary">No artists found.</p>
+                <p className="text-textAccent">No artists found.</p>
               )}
             </>
           )}
@@ -110,7 +110,7 @@ export const Search = () => {
                   ))}
                 </div>
               ) : (
-                <p className="text-textPrimary">No albums found.</p>
+                <p className="text-textAccent">No albums found.</p>
               )}
             </>
           )}
