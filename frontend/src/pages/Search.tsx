@@ -3,6 +3,7 @@ import { SearchResultTrackItem } from '../components/SearchResultTrackItem';
 import { useSearchContext } from '../hooks/context/useSearchContext';
 import { SearchResultArtistItem } from '../components/SearchResultArtistItem';
 import { SearchResultAlbumItem } from '../components/SearchResultAlbumItem';
+import { AllSearchResults } from '../components/AllSearchResults';
 
 export const Search = () => {
   const { searchResults } = useSearchContext();
@@ -60,10 +61,13 @@ export const Search = () => {
         </button>
       </div>
 
-      {isAllClicked &&
-        searchResults?.tracks?.items.map(item => (
-          <SearchResultTrackItem key={item.id} track={item} />
-        ))}
+      {isAllClicked && (
+        <AllSearchResults
+          albums={searchResults.albums}
+          artists={searchResults.artists}
+          tracks={searchResults.tracks}
+        />
+      )}
 
       {isTracksClicked &&
         searchResults?.tracks?.items.map(item => (
