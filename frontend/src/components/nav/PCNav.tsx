@@ -1,4 +1,4 @@
-import { NavLink, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { PCLink } from './PCLink';
 import { faHouse as faHouseLight } from '@awesome.me/kit-71c07605c0/icons/sharp/light';
 import { faHouse as faHouseSolid } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
@@ -46,10 +46,7 @@ export const PCNav = () => {
           linkName="Followed Artists"
           linkTo="followed-artists"
         />
-
-        <NavLink className="text-white" to={'/party-mode'}>
-          Party Mode
-        </NavLink>
+        <p className="text-white">Party Mode</p>
       </div>
     </>
   );
