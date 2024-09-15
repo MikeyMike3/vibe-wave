@@ -13,10 +13,10 @@ export const TrackInfo = ({ images, name, artists, shouldAddPadding = false }: T
   return (
     <div>
       <div className={`${shouldAddPadding && 'py-2'} flex items-center gap-2`}>
-        <img className="h-20 w-20 rounded-md" src={image} />
+        <img className="h-20 w-20 rounded-md object-cover" src={image} />
         <div className="flex flex-col">
           <p className="text-smTitle text-textPrimary">{name}</p>
-          <p className="text-textAccent text-base">{artists?.map(item => item.name).join(', ')}</p>
+          <p className="text-base text-textAccent">{artists?.map(item => item.name).join(', ')}</p>
         </div>
       </div>
     </div>

@@ -15,7 +15,7 @@ export const SearchResultAlbumItem = ({ album }: SearchResultAlbumItemProps) => 
     >
       {/* Need to add dynamic coloring to the div be below so that the color matches the album cover*/}
       <div className="absolute left-[12%] top-2 -z-[1] mx-auto h-4 w-3/4 rounded-md bg-white" />
-      <img className="w-64 rounded-xl" src={image} />
+      <img className="w-64 rounded-xl object-cover" src={image} />
       <p className="py-3 text-textPrimary">{album?.name}</p>
       <p className="text-textAccent">{album.artists[0].name}</p>
     </Link>
