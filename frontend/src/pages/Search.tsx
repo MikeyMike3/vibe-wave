@@ -18,7 +18,7 @@ export const Search = () => {
         <>
           <div className="flex gap-4 py-4 text-white">
             <button
-              className={`${isAllClicked && 'bg-white text-black'} rounded-xl bg-bgAccent p-2 px-4`}
+              className={`${isAllClicked ? 'bg-white text-black' : 'hover:bg-bgAccentHover'} rounded-xl bg-bgAccent p-2 px-4 duration-150 ${isAllClicked && 'hover:bg-white'}`}
               onClick={() => {
                 setIsAllClicked(true);
                 setIsTracksClicked(false);
@@ -29,7 +29,7 @@ export const Search = () => {
               All
             </button>
             <button
-              className={`${isTracksClicked && 'bg-white text-black'} rounded-xl bg-bgAccent p-2 px-4`}
+              className={`${isTracksClicked ? 'bg-white text-black' : 'hover:bg-bgAccentHover'} rounded-xl bg-bgAccent p-2 px-4 duration-150 ${isTracksClicked && 'hover:bg-white'}`}
               onClick={() => {
                 setIsAllClicked(false);
                 setIsTracksClicked(true);
@@ -40,7 +40,7 @@ export const Search = () => {
               Tracks
             </button>
             <button
-              className={`${isArtistsClicked && 'bg-white text-black'} rounded-xl bg-bgAccent p-2 px-4`}
+              className={`${isArtistsClicked ? 'bg-white text-black' : 'hover:bg-bgAccentHover'} rounded-xl bg-bgAccent p-2 px-4 duration-150 ${isArtistsClicked && 'hover:bg-white'}`}
               onClick={() => {
                 setIsAllClicked(false);
                 setIsTracksClicked(false);
@@ -51,7 +51,7 @@ export const Search = () => {
               Artists
             </button>
             <button
-              className={`${isAlbumsClicked && 'bg-white text-black'} rounded-xl bg-bgAccent p-2 px-4`}
+              className={`${isAlbumsClicked ? 'bg-white text-black' : 'hover:bg-bgAccentHover'} rounded-xl bg-bgAccent p-2 px-4 duration-150 ${isAlbumsClicked && 'hover:bg-white'}`}
               onClick={() => {
                 setIsAllClicked(false);
                 setIsTracksClicked(false);

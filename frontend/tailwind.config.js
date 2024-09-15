@@ -6,6 +6,7 @@ export default {
       colors: {
         bgPrimary: '#121212',
         bgAccent: '#1E1E1E',
+        bgAccentHover: '#292929',
         textPrimary: '#F3F3F3',
         textAccent: '#A8A8A8',
         magenta: '#e102fa',
