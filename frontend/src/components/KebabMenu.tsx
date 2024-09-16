@@ -22,17 +22,23 @@ export const KebabMenu = ({
   const [isKebabMenuClicked, setIsKebabMenuClicked] = useState<boolean>(false);
 
   return (
-    <div>
+    <div className="relative">
       <button onClick={() => setIsKebabMenuClicked(!isKebabMenuClicked)}>
-        <FontAwesomeIcon icon={faEllipsisVerticalSolid} />
+        <FontAwesomeIcon className="text-xl" icon={faEllipsisVerticalSolid} />
       </button>
-      <div className={`${isKebabMenuClicked ? 'block' : 'hidden'} `}>
+      <div
+        className={`${isKebabMenuClicked ? 'block' : 'hidden'} absolute bottom-0 right-4 flex flex-col gap-4 rounded-xl bg-bgPrimary p-4`}
+      >
         <PlaySkipButton name={name} priorityQueue={priorityQueue} />
+        <div className="h-[2px] w-full bg-bgAccent" />
         {shouldIncludeRemoveQueueButton && (
-          <RemoveFromQueueButton name={name} priorityQueue={priorityQueue} />
+          <>
+            <RemoveFromQueueButton name={name} priorityQueue={priorityQueue} />
+            <div className="h-[2px] w-full bg-bgAccent" />
+          </>
         )}
-
         {track && 'track' in track && <AddToQueueButton track={track} />}
+        <div className="h-[2px] w-full bg-bgAccent" />
         {track && 'track' in track && <AddToFrontOfPriorityQueueButton track={track} />}
       </div>
     </div>
