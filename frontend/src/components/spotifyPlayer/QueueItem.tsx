@@ -1,8 +1,6 @@
-import { AddToFrontOfPriorityQueueButton } from '../AddToFrontOfPriorityQueueButton';
-import { AddToQueueButton } from '../AddToQueueButton';
+import { KebabMenu } from '../KebabMenu';
 import { TrackInfo } from '../TrackInfo';
-import { PlaySkipButton } from './PlaySkipButton';
-import { RemoveFromQueueButton } from './RemoveFromQueueButton';
+
 type QueueItemProps = {
   name: string | undefined;
   images: SpotifyApi.ImageObject[] | Spotify.Image[] | undefined;
@@ -27,10 +25,12 @@ export const QueueItem = ({
       <div className="flex items-center gap-3">
         {!currentlyPlaying && (
           <>
-            <PlaySkipButton name={name} priorityQueue={priorityQueue} />
-            <RemoveFromQueueButton name={name} priorityQueue={priorityQueue} />
-            {track && 'track' in track && <AddToQueueButton track={track} />}
-            {track && 'track' in track && <AddToFrontOfPriorityQueueButton track={track} />}
+            <KebabMenu
+              track={track}
+              name={name}
+              priorityQueue={priorityQueue}
+              shouldIncludeRemoveQueueButton={true}
+            />
           </>
         )}
       </div>

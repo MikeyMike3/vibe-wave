@@ -1,22 +1,24 @@
 import { faEllipsisVertical as faEllipsisVerticalSolid } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
-import { useAddToPriorityQueue } from '../hooks/spotifyPlayer/useAddToPriorityQueue';
-import { useAddToFrontOfPriorityQueue } from '../hooks/spotifyPlayer/useAddToFrontOfPriorityQueue';
-import { useRemoveFromQueue } from '../hooks/spotifyPlayer/useRemoveFromQueue';
-import { usePlaySkip } from '../hooks/spotifyPlayer/usePlaySkip';
+import { AddToFrontOfPriorityQueueButton } from './AddToFrontOfPriorityQueueButton';
+import { AddToQueueButton } from './AddToQueueButton';
+import { PlaySkipButton } from './spotifyPlayer/PlaySkipButton';
+import { RemoveFromQueueButton } from './spotifyPlayer/RemoveFromQueueButton';
 
 type KebabMenuProps = {
-  track: SpotifyApi.TrackObjectFull | SpotifyApi.PlaylistTrackObject;
+  track: SpotifyApi.TrackObjectFull | SpotifyApi.PlaylistTrackObject | undefined;
   name: string | undefined;
+  priorityQueue: boolean | undefined;
+  shouldIncludeRemoveQueueButton?: boolean | undefined;
 };
 
-export const KebabMenu = ({ track, name }: KebabMenuProps) => {
-  const addToPriorityQueue = useAddToPriorityQueue();
-  const addToFrontOfPriorityQueue = useAddToFrontOfPriorityQueue();
-  const removeFromQueue = useRemoveFromQueue();
-  const playSkip = usePlaySkip();
-
+export const KebabMenu = ({
+  track,
+  name,
+  priorityQueue,
+  shouldIncludeRemoveQueueButton,
+}: KebabMenuProps) => {
   const [isKebabMenuClicked, setIsKebabMenuClicked] = useState<boolean>(false);
 
   return (
@@ -24,11 +26,14 @@ export const KebabMenu = ({ track, name }: KebabMenuProps) => {
       <button onClick={() => setIsKebabMenuClicked(!isKebabMenuClicked)}>
         <FontAwesomeIcon icon={faEllipsisVerticalSolid} />
       </button>
-      <div className={`${isKebabMenuClicked && 'block'} hidden`}>
-        <button onClick={() => playSkip(name, false)}>PlaySkip</button>
-        <button onClick={() => removeFromQueue(name, false)}>RemoveFromQueue</button>
-        <button onClick={() => addToPriorityQueue(track)}>AddToQueue</button>
-        <button onClick={() => addToFrontOfPriorityQueue(track)}>AddToFrontOfQueue</button>
+      <div className={`${isKebabMenuClicked ? 'block' : 'hidden'} `}>
+        <PlaySkipButton name={name} priorityQueue={priorityQueue} />
+        {shouldIncludeRemoveQueueButton && (
+          <RemoveFromQueueButton name={name} priorityQueue={priorityQueue} />
+        )}
+
+        {track && 'track' in track && <AddToQueueButton track={track} />}
+        {track && 'track' in track && <AddToFrontOfPriorityQueueButton track={track} />}
       </div>
     </div>
   );
