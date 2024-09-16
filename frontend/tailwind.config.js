@@ -9,6 +9,7 @@ export default {
         bgAccentHover: '#292929',
         textPrimary: '#F3F3F3',
         textAccent: '#A8A8A8',
+        textHover: '#cccccc',
         magenta: '#e102fa',
         magentaLight: '#ee68fd',
         aqua: '#00FFFF',

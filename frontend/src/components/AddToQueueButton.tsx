@@ -7,5 +7,12 @@ type AddToQueueButtonProps = {
 export const AddToQueueButton = ({ track }: AddToQueueButtonProps) => {
   const addToPriorityQueue = useAddToPriorityQueue();
 
-  return <button onClick={() => addToPriorityQueue(track)}>Add to Queue</button>;
+  return (
+    <button
+      className="hover:text-textHover text-textPrimary duration-150"
+      onClick={() => addToPriorityQueue(track)}
+    >
+      Add to Queue
+    </button>
+  );
 };

@@ -24,7 +24,10 @@ export const KebabMenu = ({
   return (
     <div className="relative">
       <button onClick={() => setIsKebabMenuClicked(!isKebabMenuClicked)}>
-        <FontAwesomeIcon className="text-xl" icon={faEllipsisVerticalSolid} />
+        <FontAwesomeIcon
+          className="hover:text-textHover text-xl text-textPrimary duration-150"
+          icon={faEllipsisVerticalSolid}
+        />
       </button>
       <div
         className={`${isKebabMenuClicked ? 'block' : 'hidden'} absolute bottom-0 right-4 flex flex-col gap-4 rounded-xl bg-bgPrimary p-4`}

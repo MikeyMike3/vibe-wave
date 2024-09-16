@@ -8,5 +8,12 @@ type RemoveFromQueueButtonProps = {
 export const RemoveFromQueueButton = ({ name, priorityQueue }: RemoveFromQueueButtonProps) => {
   const removeFromQueue = useRemoveFromQueue();
 
-  return <button onClick={() => removeFromQueue(name, priorityQueue)}>RemoveFromQueue</button>;
+  return (
+    <button
+      className="hover:text-textHover text-textPrimary duration-150"
+      onClick={() => removeFromQueue(name, priorityQueue)}
+    >
+      RemoveFromQueue
+    </button>
+  );
 };

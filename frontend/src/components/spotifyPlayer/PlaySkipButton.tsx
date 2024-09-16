@@ -7,5 +7,12 @@ type PlaySkipButtonProps = {
 
 export const PlaySkipButton = ({ name, priorityQueue }: PlaySkipButtonProps) => {
   const playSkip = usePlaySkip();
-  return <button onClick={() => playSkip(name, priorityQueue)}>PlaySkip</button>;
+  return (
+    <button
+      className="hover:text-textHover text-textPrimary duration-150"
+      onClick={() => playSkip(name, priorityQueue)}
+    >
+      PlaySkip
+    </button>
+  );
 };
