@@ -11,7 +11,7 @@ export const QueueDisplay = ({ queueSegment }: QueueDisplayProps) => {
   const { playerState, playlistName } = usePlaybackContext();
 
   return (
-    <div className="absolute bottom-28 right-4 h-[400px] w-[500px] overflow-y-scroll bg-black px-2">
+    <div className="absolute bottom-[105px] right-4 h-[400px] w-[500px] overflow-y-scroll border-2 border-bgAccentHover bg-black px-2">
       {playerState?.track_window.current_track && (
         <>
           <h2 className="py-2 text-xl"> Currently Playing</h2>
