@@ -29,12 +29,12 @@ export const KebabMenu = ({
     <div className="relative">
       <button onClick={() => setIsKebabMenuClicked(!isKebabMenuClicked)}>
         <FontAwesomeIcon
-          className="rounded-full p-2 text-xl text-textPrimary duration-150 hover:bg-bgAccent"
+          className="rounded-full p-2 px-4 text-xl text-textPrimary duration-150 hover:bg-bgAccent"
           icon={faEllipsisVerticalSolid}
         />
       </button>
       <div
-        className={`${isKebabMenuClicked ? 'block' : 'hidden'} absolute bottom-0 right-7 flex flex-col gap-4 rounded-xl bg-bgPrimary p-4`}
+        className={`${isKebabMenuClicked ? 'block' : 'hidden'} absolute bottom-0 right-11 flex flex-col gap-4 rounded-xl bg-bgPrimary p-4`}
       >
         <PlaySkipButton name={name} priorityQueue={priorityQueue} />
         <div className="h-[2px] w-full bg-bgAccent" />
