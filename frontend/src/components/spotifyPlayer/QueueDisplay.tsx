@@ -14,7 +14,7 @@ export const QueueDisplay = ({ queueSegment }: QueueDisplayProps) => {
     <div className="absolute bottom-[105px] right-4 h-[400px] w-[500px] overflow-y-scroll border-2 border-bgAccentHover bg-black px-2">
       {playerState?.track_window.current_track && (
         <>
-          <h2 className="py-2 text-xl"> Currently Playing</h2>
+          <h2 className="py-2 text-xl text-textPrimary"> Currently Playing</h2>
           <QueueItem
             key={playerState.track_window.current_track.id}
             name={playerState.track_window.current_track.name}
@@ -27,7 +27,7 @@ export const QueueDisplay = ({ queueSegment }: QueueDisplayProps) => {
 
       {priorityQueue && priorityQueue?.length > 0 && (
         <>
-          <h2 className="py-2 text-xl">Next in Queue</h2>
+          <h2 className="py-2 text-xl text-textPrimary">Next in Queue</h2>
           {priorityQueue.map((item, index) => (
             <QueueItem
               key={`${item.id}-${index}`}
@@ -44,7 +44,7 @@ export const QueueDisplay = ({ queueSegment }: QueueDisplayProps) => {
       )}
       {playlistQueue.length > 0 && (
         <>
-          <h2 className="py-2 text-xl">Next Up from {playlistName}</h2>
+          <h2 className="py-2 text-xl text-textPrimary">Next Up from: {playlistName}</h2>
           {queueSegment.map((item, index) => (
             <QueueItem
               key={`${item.track?.id}-${index}`}
