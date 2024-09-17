@@ -35,6 +35,9 @@ export const QueueDisplay = ({ queueSegment }: QueueDisplayProps) => {
               images={item.album.images}
               artists={item.artists}
               priorityQueue={true}
+              shouldIncludeAddToQueueButton={false}
+              shouldIncludeAddToFrontOfPriorityQueueButton={false}
+              shouldIncludeRemoveQueueButton={true}
             />
           ))}
         </>
@@ -49,6 +52,9 @@ export const QueueDisplay = ({ queueSegment }: QueueDisplayProps) => {
               images={item.track?.album.images}
               artists={item.track?.artists}
               track={item}
+              shouldIncludeRemoveQueueButton={true}
+              shouldIncludeAddToFrontOfPriorityQueueButton={true}
+              shouldIncludeAddToQueueButton={true}
             />
           ))}
         </>

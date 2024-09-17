@@ -11,6 +11,8 @@ type KebabMenuProps = {
   name: string | undefined;
   priorityQueue: boolean | undefined;
   shouldIncludeRemoveQueueButton?: boolean | undefined;
+  shouldIncludeAddToQueueButton?: boolean | undefined;
+  shouldIncludeAddToFrontOfPriorityQueueButton?: boolean | undefined;
 };
 
 export const KebabMenu = ({
@@ -18,6 +20,8 @@ export const KebabMenu = ({
   name,
   priorityQueue,
   shouldIncludeRemoveQueueButton,
+  shouldIncludeAddToQueueButton,
+  shouldIncludeAddToFrontOfPriorityQueueButton,
 }: KebabMenuProps) => {
   const [isKebabMenuClicked, setIsKebabMenuClicked] = useState<boolean>(false);
 
@@ -40,9 +44,19 @@ export const KebabMenu = ({
             <div className="h-[2px] w-full bg-bgAccent" />
           </>
         )}
-        {track && 'track' in track && <AddToQueueButton track={track} />}
-        <div className="h-[2px] w-full bg-bgAccent" />
-        {track && 'track' in track && <AddToFrontOfPriorityQueueButton track={track} />}
+        {shouldIncludeAddToQueueButton && track && 'track' in track && (
+          <>
+            <AddToQueueButton track={track} />
+            <div className="h-[2px] w-full bg-bgAccent" />
+          </>
+        )}
+
+        {shouldIncludeAddToFrontOfPriorityQueueButton && track && 'track' in track && (
+          <>
+            <AddToFrontOfPriorityQueueButton track={track} />
+            <div className="h-[2px] w-full bg-bgAccent" />
+          </>
+        )}
       </div>
     </div>
   );

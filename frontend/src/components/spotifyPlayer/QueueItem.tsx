@@ -8,6 +8,9 @@ type QueueItemProps = {
   track?: SpotifyApi.TrackObjectFull | SpotifyApi.PlaylistTrackObject | undefined;
   currentlyPlaying?: boolean;
   priorityQueue?: boolean;
+  shouldIncludeRemoveQueueButton?: boolean | undefined;
+  shouldIncludeAddToQueueButton?: boolean | undefined;
+  shouldIncludeAddToFrontOfPriorityQueueButton?: boolean | undefined;
 };
 
 export const QueueItem = ({
@@ -17,6 +20,9 @@ export const QueueItem = ({
   track,
   currentlyPlaying,
   priorityQueue,
+  shouldIncludeRemoveQueueButton,
+  shouldIncludeAddToQueueButton,
+  shouldIncludeAddToFrontOfPriorityQueueButton,
 }: QueueItemProps) => {
   return (
     <div className="flex justify-between">
@@ -29,7 +35,11 @@ export const QueueItem = ({
               track={track}
               name={name}
               priorityQueue={priorityQueue}
-              shouldIncludeRemoveQueueButton={true}
+              shouldIncludeAddToQueueButton={shouldIncludeAddToQueueButton}
+              shouldIncludeAddToFrontOfPriorityQueueButton={
+                shouldIncludeAddToFrontOfPriorityQueueButton
+              }
+              shouldIncludeRemoveQueueButton={shouldIncludeRemoveQueueButton}
             />
           </>
         )}
