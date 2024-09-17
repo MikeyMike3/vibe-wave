@@ -8,8 +8,8 @@ import { RemoveFromQueueButton } from './spotifyPlayer/RemoveFromQueueButton';
 
 type KebabMenuProps = {
   track: SpotifyApi.TrackObjectFull | SpotifyApi.PlaylistTrackObject | undefined;
-  name: string | undefined;
-  priorityQueue: boolean | undefined;
+  name?: string | undefined;
+  priorityQueue?: boolean | undefined;
   shouldIncludeRemoveQueueButton?: boolean | undefined;
   shouldIncludeAddToQueueButton?: boolean | undefined;
   shouldIncludeAddToFrontOfPriorityQueueButton?: boolean | undefined;
@@ -44,17 +44,44 @@ export const KebabMenu = ({
             <div className="h-[2px] w-full bg-bgAccent" />
           </>
         )}
-        {shouldIncludeAddToQueueButton && track && 'track' in track && (
+
+        {shouldIncludeAddToQueueButton && (
           <>
-            <AddToQueueButton track={track} />
-            <div className="h-[2px] w-full bg-bgAccent" />
+            {track && 'track' in track ? (
+              <>
+                <AddToQueueButton track={track} />
+                <div className="h-[2px] w-full bg-bgAccent" />
+              </>
+            ) : (
+              <>
+                {track && (
+                  <>
+                    <AddToQueueButton track={track} />
+                    <div className="h-[2px] w-full bg-bgAccent" />
+                  </>
+                )}
+              </>
+            )}
           </>
         )}
 
-        {shouldIncludeAddToFrontOfPriorityQueueButton && track && 'track' in track && (
+        {shouldIncludeAddToFrontOfPriorityQueueButton && (
           <>
-            <AddToFrontOfPriorityQueueButton track={track} />
-            <div className="h-[2px] w-full bg-bgAccent" />
+            {track && 'track' in track ? (
+              <>
+                <AddToFrontOfPriorityQueueButton track={track} />
+                <div className="h-[2px] w-full bg-bgAccent" />
+              </>
+            ) : (
+              <>
+                {track && (
+                  <>
+                    <AddToFrontOfPriorityQueueButton track={track} />
+                    <div className="h-[2px] w-full bg-bgAccent" />
+                  </>
+                )}
+              </>
+            )}
           </>
         )}
       </div>
