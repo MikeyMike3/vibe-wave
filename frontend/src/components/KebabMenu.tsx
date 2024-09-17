@@ -25,7 +25,7 @@ export const KebabMenu = ({
     <div className="relative">
       <button onClick={() => setIsKebabMenuClicked(!isKebabMenuClicked)}>
         <FontAwesomeIcon
-          className="hover:text-textHover p-2 text-xl text-textPrimary duration-150"
+          className="rounded-full p-2 text-xl text-textPrimary duration-150 hover:bg-bgAccent"
           icon={faEllipsisVerticalSolid}
         />
       </button>
