@@ -35,7 +35,11 @@ export const SearchBar = () => {
 
   return (
     <div className="sticky top-0 z-[9999] flex w-full justify-center bg-black">
-      <form onClick={() => navigate('/search')} className="flex items-center py-3">
+      <form
+        onSubmit={e => e.preventDefault()}
+        onClick={() => navigate('/search')}
+        className="flex items-center py-3"
+      >
         <div
           className={`${location.pathname.includes('/search') && 'border-2 border-magenta border-transparent'}flex items-center gap-2 rounded-full bg-bgAccent px-6 py-2 transition duration-150`}
         >
