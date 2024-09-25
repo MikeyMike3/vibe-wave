@@ -36,7 +36,11 @@ export const KebabMenu = ({
       <div
         className={`${isKebabMenuClicked ? 'block' : 'hidden'} absolute bottom-0 right-11 flex flex-col gap-4 rounded-xl bg-bgPrimary p-4`}
       >
-        <PlaySkipButton name={name} priorityQueue={priorityQueue} />
+        <PlaySkipButton
+          name={name}
+          priorityQueue={priorityQueue}
+          setIsKebabMenuClicked={setIsKebabMenuClicked}
+        />
         <div className="h-[2px] w-full bg-bgAccent" />
         {shouldIncludeRemoveQueueButton && (
           <>
@@ -49,14 +53,14 @@ export const KebabMenu = ({
           <>
             {track && 'track' in track ? (
               <>
-                <AddToQueueButton track={track} />
+                <AddToQueueButton track={track} setIsKebabMenuClicked={setIsKebabMenuClicked} />
                 <div className="h-[2px] w-full bg-bgAccent" />
               </>
             ) : (
               <>
                 {track && (
                   <>
-                    <AddToQueueButton track={track} />
+                    <AddToQueueButton track={track} setIsKebabMenuClicked={setIsKebabMenuClicked} />
                     <div className="h-[2px] w-full bg-bgAccent" />
                   </>
                 )}
@@ -69,14 +73,20 @@ export const KebabMenu = ({
           <>
             {track && 'track' in track ? (
               <>
-                <AddToFrontOfPriorityQueueButton track={track} />
+                <AddToFrontOfPriorityQueueButton
+                  track={track}
+                  setIsKebabMenuClicked={setIsKebabMenuClicked}
+                />
                 <div className="h-[2px] w-full bg-bgAccent" />
               </>
             ) : (
               <>
                 {track && (
                   <>
-                    <AddToFrontOfPriorityQueueButton track={track} />
+                    <AddToFrontOfPriorityQueueButton
+                      track={track}
+                      setIsKebabMenuClicked={setIsKebabMenuClicked}
+                    />
                     <div className="h-[2px] w-full bg-bgAccent" />
                   </>
                 )}

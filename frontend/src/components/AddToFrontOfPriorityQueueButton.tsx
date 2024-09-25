@@ -2,15 +2,23 @@ import { useAddToFrontOfPriorityQueue } from '../hooks/spotifyPlayer/useAddToFro
 
 type AddToFrontOfQueueProps = {
   track: SpotifyApi.TrackObjectFull | SpotifyApi.PlaylistTrackObject;
+  // prettier-ignore
+  setIsKebabMenuClicked: React.Dispatch<React.SetStateAction<boolean>>
 };
 
-export const AddToFrontOfPriorityQueueButton = ({ track }: AddToFrontOfQueueProps) => {
+export const AddToFrontOfPriorityQueueButton = ({
+  track,
+  setIsKebabMenuClicked,
+}: AddToFrontOfQueueProps) => {
   const addToFrontOfPriorityQueue = useAddToFrontOfPriorityQueue();
 
   return (
     <button
-      className="hover:text-textHover text-textPrimary duration-150"
-      onClick={() => addToFrontOfPriorityQueue(track)}
+      className="text-textPrimary duration-150 hover:text-textHover"
+      onClick={() => {
+        setIsKebabMenuClicked(false);
+        addToFrontOfPriorityQueue(track);
+      }}
     >
       AddToFrontOfQueue
     </button>

@@ -23,13 +23,20 @@ export const SearchedTrackKebabMenu = ({ track }: SearchedTrackKebabMenuProps) =
       <div
         className={`${isKebabMenuClicked ? 'block' : 'hidden'} absolute bottom-0 right-11 flex flex-col gap-4 rounded-xl bg-bgPrimary p-4`}
       >
-        <PlaySkipButton name={track.name} priorityQueue={true} />
+        <PlaySkipButton
+          name={track.name}
+          priorityQueue={true}
+          setIsKebabMenuClicked={setIsKebabMenuClicked}
+        />
         <div className="h-[2px] w-full bg-bgAccent" />
 
-        <AddToQueueButton track={track} />
+        <AddToQueueButton track={track} setIsKebabMenuClicked={setIsKebabMenuClicked} />
         <div className="h-[2px] w-full bg-bgAccent" />
 
-        <AddToFrontOfPriorityQueueButton track={track} />
+        <AddToFrontOfPriorityQueueButton
+          track={track}
+          setIsKebabMenuClicked={setIsKebabMenuClicked}
+        />
       </div>
     </div>
   );
