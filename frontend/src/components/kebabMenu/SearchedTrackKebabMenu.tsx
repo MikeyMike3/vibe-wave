@@ -25,8 +25,9 @@ export const SearchedTrackKebabMenu = ({ track }: SearchedTrackKebabMenuProps) =
       >
         <PlaySkipButton
           name={track.name}
-          priorityQueue={true}
+          shouldPlaySong={true}
           setIsKebabMenuClicked={setIsKebabMenuClicked}
+          track={track}
         />
         <div className="h-[2px] w-full bg-bgAccent" />
 

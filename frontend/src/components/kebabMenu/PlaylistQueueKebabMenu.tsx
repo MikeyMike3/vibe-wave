@@ -27,7 +27,7 @@ export const PlaylistQueueKebabMenu = ({ track }: PlaylistQueueKebabMenuProps) =
       >
         <PlaySkipButton
           name={track.track?.name}
-          priorityQueue={false}
+          shouldIndexPlaylistQueue={true}
           setIsKebabMenuClicked={setIsKebabMenuClicked}
         />
         <div className="h-[2px] w-full bg-bgAccent" />
