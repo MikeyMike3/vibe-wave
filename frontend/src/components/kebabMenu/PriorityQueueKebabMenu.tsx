@@ -25,7 +25,7 @@ export const PriorityQueueKebabMenu = ({ track }: PriorityQueueKebabMenuProps) =
       >
         <PlaySkipButton
           name={track.name}
-          priorityQueue={true}
+          shouldIndexPriorityQueue={true}
           setIsKebabMenuClicked={setIsKebabMenuClicked}
         />
 
