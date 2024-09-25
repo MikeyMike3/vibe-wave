@@ -1,4 +1,5 @@
 import { PlaylistQueueKebabMenu } from '../kebabMenu/PlaylistQueueKebabMenu';
+import { PriorityQueueKebabMenu } from '../kebabMenu/PriorityQueueKebabMenu';
 import { TrackInfo } from '../TrackInfo';
 
 type QueueItemProps = {
@@ -15,7 +16,13 @@ export const QueueItem = ({ name, images, artists, track, currentlyPlaying }: Qu
       <TrackInfo name={name} images={images} artists={artists} shouldAddPadding={true} />
       <div className="flex items-center gap-3">
         {!currentlyPlaying && (
-          <>{track && 'track' in track ? <PlaylistQueueKebabMenu track={track} /> : <p>d</p>}</>
+          <>
+            {track && 'track' in track ? (
+              <PlaylistQueueKebabMenu track={track} />
+            ) : (
+              track && 'uri' in track && <PriorityQueueKebabMenu track={track} />
+            )}
+          </>
         )}
       </div>
     </div>
