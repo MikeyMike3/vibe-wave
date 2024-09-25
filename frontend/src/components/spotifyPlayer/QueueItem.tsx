@@ -1,4 +1,4 @@
-import { KebabMenu } from '../KebabMenu';
+import { KebabMenu } from '../kebabMenu/KebabMenu';
 import { TrackInfo } from '../TrackInfo';
 
 type QueueItemProps = {

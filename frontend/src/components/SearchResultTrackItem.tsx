@@ -1,4 +1,4 @@
-import { KebabMenu } from './KebabMenu';
+import { SearchedTrackKebabMenu } from './kebabMenu/SearchedTrackKebabMenu';
 
 import { TrackInfo } from './TrackInfo';
 
@@ -11,11 +11,7 @@ export const SearchResultTrackItem = ({ track }: SearchResultTrackItemProps) => 
     <div className="flex w-full items-center justify-between py-2 pl-2 hover:bg-bgAccent">
       <TrackInfo images={track.album.images} name={track.name} artists={track.artists} />
       <div className="flex gap-3 text-white">
-        <KebabMenu
-          track={track}
-          shouldIncludeAddToQueueButton={true}
-          shouldIncludeAddToFrontOfPriorityQueueButton={true}
-        />
+        <SearchedTrackKebabMenu track={track} name={track.name} />
       </div>
     </div>
   );
