@@ -1,10 +1,10 @@
 import { faEllipsisVertical as faEllipsisVerticalSolid } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
-import { AddToFrontOfPriorityQueueButton } from './AddToFrontOfPriorityQueueButton';
-import { AddToQueueButton } from './AddToQueueButton';
-import { PlaySkipButton } from './spotifyPlayer/PlaySkipButton';
-import { RemoveFromQueueButton } from './spotifyPlayer/RemoveFromQueueButton';
+import { AddToFrontOfPriorityQueueButton } from '../AddToFrontOfPriorityQueueButton';
+import { AddToQueueButton } from '../AddToQueueButton';
+import { PlaySkipButton } from '../spotifyPlayer/PlaySkipButton';
+import { RemoveFromQueueButton } from '../spotifyPlayer/RemoveFromQueueButton';
 
 type KebabMenuProps = {
   track: SpotifyApi.TrackObjectFull | SpotifyApi.PlaylistTrackObject | undefined;
