@@ -19,6 +19,12 @@ export const PlaySkipButton = ({
   setIsKebabMenuClicked,
 }: PlaySkipButtonProps) => {
   const playSkip = usePlaySkip();
+  if (!shouldIndexPlaylistQueue && !shouldIndexPriorityQueue && !shouldPlaySong) {
+    console.error(
+      'No options were selected. Set one of shouldIndexPriorityQueue, shouldIndexPlaylistQueue, or shouldPlaySong to true',
+    );
+    return;
+  }
   return (
     <button
       className="text-textPrimary duration-150 hover:text-textHover"
