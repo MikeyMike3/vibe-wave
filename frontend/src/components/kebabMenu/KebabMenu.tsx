@@ -44,7 +44,11 @@ export const KebabMenu = ({
         <div className="h-[2px] w-full bg-bgAccent" />
         {shouldIncludeRemoveQueueButton && (
           <>
-            <RemoveFromQueueButton name={name} priorityQueue={priorityQueue} />
+            <RemoveFromQueueButton
+              name={name}
+              priorityQueue={priorityQueue}
+              setIsKebabMenuClicked={setIsKebabMenuClicked}
+            />
             <div className="h-[2px] w-full bg-bgAccent" />
           </>
         )}
