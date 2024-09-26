@@ -17,6 +17,12 @@ export const RemoveFromQueueButton = ({
   setIsKebabMenuClicked,
 }: RemoveFromQueueButtonProps) => {
   const removeFromQueue = useRemoveFromQueue();
+  if (!shouldIndexPlaylistQueue && !shouldIndexPriorityQueue) {
+    console.error(
+      'No options were selected. Set either shouldIndexPriorityQueue or shouldIndexPlaylistQueue to true',
+    );
+    return;
+  }
 
   return (
     <button
