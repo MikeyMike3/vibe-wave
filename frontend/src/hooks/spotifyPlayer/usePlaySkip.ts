@@ -45,7 +45,6 @@ export const usePlaySkip = () => {
         return tempQueue;
       });
     } else if (shouldIndexPlaylistQueue && playlistQueue) {
-      console.log('hey');
       const index = playlistQueue.findIndex(item => item.track?.name === name);
       indexPlaylistQueue(index, 'set');
       playSong(playlistQueue[playlistQueueIndexRef.current].track?.uri);

@@ -32,7 +32,7 @@ export const PriorityQueueKebabMenu = ({ track }: PriorityQueueKebabMenuProps) =
         <div className="h-[2px] w-full bg-bgAccent" />
         <RemoveFromQueueButton
           name={track.name}
-          priorityQueue={true}
+          shouldIndexPriorityQueue={true}
           setIsKebabMenuClicked={setIsKebabMenuClicked}
         />
       </div>
