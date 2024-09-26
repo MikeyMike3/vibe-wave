@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { faEllipsisVertical as faEllipsisVerticalSolid } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AddToFrontOfPriorityQueueButton } from '../AddToFrontOfPriorityQueueButton';
@@ -11,8 +11,23 @@ type SearchedTrackKebabMenuProps = {
 
 export const SearchedTrackKebabMenu = ({ track }: SearchedTrackKebabMenuProps) => {
   const [isKebabMenuClicked, setIsKebabMenuClicked] = useState<boolean>(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  // Detect clicks outside of the menu
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsKebabMenuClicked(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [menuRef]);
   return (
-    <div className="relative">
+    <div className="relative" ref={menuRef}>
       <button onClick={() => setIsKebabMenuClicked(!isKebabMenuClicked)}>
         <FontAwesomeIcon
           className="rounded-full p-2 px-4 text-xl text-textPrimary duration-150 hover:bg-bgAccent"
