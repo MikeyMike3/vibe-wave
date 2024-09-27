@@ -8,9 +8,18 @@ type QueueItemProps = {
   artists: SpotifyApi.ArtistObjectSimplified[] | Spotify.Entity[] | undefined;
   track?: SpotifyApi.TrackObjectFull | SpotifyApi.PlaylistTrackObject | undefined;
   currentlyPlaying?: boolean;
+  //prettier-ignore
+  queueDisplayRef: React.RefObject<HTMLDivElement>;
 };
 
-export const QueueItem = ({ name, images, artists, track, currentlyPlaying }: QueueItemProps) => {
+export const QueueItem = ({
+  name,
+  images,
+  artists,
+  track,
+  currentlyPlaying,
+  queueDisplayRef,
+}: QueueItemProps) => {
   return (
     <div className="flex justify-between">
       <TrackInfo name={name} images={images} artists={artists} shouldAddPadding={true} />
@@ -18,7 +27,7 @@ export const QueueItem = ({ name, images, artists, track, currentlyPlaying }: Qu
         {!currentlyPlaying && (
           <>
             {track && 'track' in track ? (
-              <PlaylistQueueKebabMenu track={track} />
+              <PlaylistQueueKebabMenu queueDisplayRef={queueDisplayRef} track={track} />
             ) : (
               track && 'uri' in track && <PriorityQueueKebabMenu track={track} />
             )}

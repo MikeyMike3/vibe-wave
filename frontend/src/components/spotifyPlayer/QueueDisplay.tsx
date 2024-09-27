@@ -1,17 +1,25 @@
 import { useQueueContext } from '../../hooks/context/useQueueContext';
 import { QueueItem } from './QueueItem';
 import { usePlaybackContext } from '../../hooks/context/usePlaybackContext';
+import { useRef } from 'react';
 
 type QueueDisplayProps = {
   queueSegment: SpotifyApi.PlaylistTrackObject[];
+  //prettier-ignore
+  queueDisplayRef: React.RefObject<HTMLDivElement>;
 };
 
 export const QueueDisplay = ({ queueSegment }: QueueDisplayProps) => {
   const { priorityQueue, playlistQueue } = useQueueContext();
   const { playerState, playlistName } = usePlaybackContext();
 
+  const queueDisplayRef = useRef<HTMLDivElement>(null);
+
   return (
-    <div className="absolute bottom-[105px] right-4 h-[400px] w-[500px] overflow-y-scroll border-2 border-bgAccentHover bg-black px-2">
+    <div
+      ref={queueDisplayRef}
+      className="absolute bottom-[105px] right-4 h-[400px] w-[500px] overflow-y-scroll border-2 border-bgAccentHover bg-black px-2"
+    >
       {playerState?.track_window.current_track && (
         <>
           <h2 className="py-2 text-xl text-textPrimary"> Currently Playing</h2>
@@ -45,6 +53,7 @@ export const QueueDisplay = ({ queueSegment }: QueueDisplayProps) => {
           {queueSegment.map((item, index) => (
             <QueueItem
               key={`${item.track?.id}-${index}`}
+              queueDisplayRef={queueDisplayRef}
               name={item.track?.name}
               images={item.track?.album.images}
               artists={item.track?.artists}
