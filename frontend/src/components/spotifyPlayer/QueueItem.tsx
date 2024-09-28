@@ -35,7 +35,7 @@ export const QueueItem = ({
             )} */}
             {isPriorityQueueItem && track ? (
               <>
-                <PriorityQueueKebabMenu track={track} />
+                <PriorityQueueKebabMenu queueDisplayRef={queueDisplayRef} track={track} />
               </>
             ) : (
               track &&

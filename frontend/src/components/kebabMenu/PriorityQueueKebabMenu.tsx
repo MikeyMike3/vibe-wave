@@ -7,11 +7,15 @@ import { RemoveFromQueueButton } from '../spotifyPlayer/RemoveFromQueueButton';
 
 type PriorityQueueKebabMenuProps = {
   track: SpotifyApi.TrackObjectFull | SpotifyApi.PlaylistTrackObject;
+  //prettier-ignore
+  queueDisplayRef: React.RefObject<HTMLDivElement>;
 };
 
-export const PriorityQueueKebabMenu = ({ track }: PriorityQueueKebabMenuProps) => {
+export const PriorityQueueKebabMenu = ({ track, queueDisplayRef }: PriorityQueueKebabMenuProps) => {
   const [isKebabMenuClicked, setIsKebabMenuClicked] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const [menuStyle, setMenuStyle] = useState<React.CSSProperties>({});
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Detect clicks outside of the menu
   useEffect(() => {
@@ -26,6 +30,43 @@ export const PriorityQueueKebabMenu = ({ track }: PriorityQueueKebabMenuProps) =
       document.removeEventListener('click', handleClickOutside);
     };
   }, [menuRef]);
+
+  useEffect(() => {
+    if (isKebabMenuClicked && menuRef.current && dropdownRef.current && queueDisplayRef.current) {
+      const menuRect = menuRef.current.getBoundingClientRect(); // Get kebab button position
+      const dropdownHeight = dropdownRef.current.offsetHeight; // Get dropdown height
+      const queueDisplayRect = queueDisplayRef.current.getBoundingClientRect(); // Get scrollable queueDisplay dimensions
+
+      // Calculate available space below the kebab button within the scrollable queueDisplay
+      const spaceAbove = menuRect.top - queueDisplayRect.top;
+      const spaceBelow = queueDisplayRect.bottom - menuRect.bottom; // Space below the kebab button within the queueDisplay
+
+      let newStyle: React.CSSProperties = {};
+
+      // Check if there's enough space below for the dropdown within the queueDisplay
+      if (spaceBelow < dropdownHeight && spaceAbove < dropdownHeight) {
+        // If neither space above nor below is enough, set a fallback (e.g., within the container with scrolling)
+        newStyle = {
+          top: `-70px`, // Constrained positioning
+          bottom: 'auto',
+        };
+      } else if (spaceBelow < dropdownHeight) {
+        // If not enough space below, position the dropdown above the button
+        newStyle = {
+          top: 'auto',
+          bottom: `${queueDisplayRect.bottom / menuRect.top}px`, // Align it to the top of the button, accounting for scroll
+        };
+      } else {
+        // If enough space, position the dropdown below the button within the queueDisplay
+        newStyle = {
+          top: `0px`, // Position relative to the queueDisplay's top
+          bottom: 'auto',
+        };
+      }
+
+      setMenuStyle(newStyle);
+    }
+  }, [isKebabMenuClicked, queueDisplayRef]);
   return (
     <div className="relative" ref={menuRef}>
       <button onClick={() => setIsKebabMenuClicked(!isKebabMenuClicked)}>
@@ -36,7 +77,9 @@ export const PriorityQueueKebabMenu = ({ track }: PriorityQueueKebabMenuProps) =
       </button>
 
       <div
-        className={`${isKebabMenuClicked ? 'block' : 'hidden'} absolute bottom-0 right-11 flex flex-col gap-4 rounded-xl bg-bgPrimary p-4`}
+        style={menuStyle}
+        ref={dropdownRef}
+        className={`${isKebabMenuClicked ? 'block' : 'hidden'} ' absolute right-11 flex flex-col gap-4 rounded-xl bg-bgPrimary p-4`}
       >
         {track && 'uri' in track ? (
           <>
