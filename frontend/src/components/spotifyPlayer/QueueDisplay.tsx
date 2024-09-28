@@ -5,8 +5,6 @@ import { useRef } from 'react';
 
 type QueueDisplayProps = {
   queueSegment: SpotifyApi.PlaylistTrackObject[];
-  //prettier-ignore
-  queueDisplayRef: React.RefObject<HTMLDivElement>;
 };
 
 export const QueueDisplay = ({ queueSegment }: QueueDisplayProps) => {
