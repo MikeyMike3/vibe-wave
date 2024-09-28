@@ -3,7 +3,8 @@ import { useQueueContext } from '../../hooks/context/useQueueContext';
 import { QueueDisplay } from './QueueDisplay';
 import { usePlaybackContext } from '../../hooks/context/usePlaybackContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faListMusic } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
+import { faListMusic as faListMusicSolid } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
+import { faListMusic as faListMusicRegular } from '@awesome.me/kit-71c07605c0/icons/sharp/regular';
 
 export const Queue = () => {
   const { playlistQueue, playlistQueueIndex } = useQueueContext();
@@ -36,7 +37,10 @@ export const Queue = () => {
         }
         onClick={handleClick}
       >
-        <FontAwesomeIcon className="text-2xl" icon={faListMusic} />
+        <FontAwesomeIcon
+          className="text-2xl"
+          icon={isQueueSegmentOpen ? faListMusicSolid : faListMusicRegular}
+        />
       </button>
       {isQueueSegmentOpen && <QueueDisplay queueSegment={queueSegment} />}
     </>
