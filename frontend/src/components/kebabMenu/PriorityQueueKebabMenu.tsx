@@ -40,7 +40,6 @@ export const PriorityQueueKebabMenu = ({ track }: PriorityQueueKebabMenuProps) =
       >
         {track && 'uri' in track ? (
           <>
-            {console.log(track.uri)}
             <PlaySkipButton
               name={track.name}
               shouldIndexPriorityQueue={true}

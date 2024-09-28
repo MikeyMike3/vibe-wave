@@ -35,7 +35,6 @@ export const QueueItem = ({
             )} */}
             {isPriorityQueueItem && track ? (
               <>
-                {console.log('hey')}
                 <PriorityQueueKebabMenu track={track} />
               </>
             ) : (
