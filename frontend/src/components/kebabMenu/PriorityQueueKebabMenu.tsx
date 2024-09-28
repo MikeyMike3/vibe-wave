@@ -6,7 +6,7 @@ import { PlaySkipButton } from '../spotifyPlayer/PlaySkipButton';
 import { RemoveFromQueueButton } from '../spotifyPlayer/RemoveFromQueueButton';
 
 type PriorityQueueKebabMenuProps = {
-  track: SpotifyApi.TrackObjectFull;
+  track: SpotifyApi.TrackObjectFull | SpotifyApi.PlaylistTrackObject;
 };
 
 export const PriorityQueueKebabMenu = ({ track }: PriorityQueueKebabMenuProps) => {
@@ -21,9 +21,9 @@ export const PriorityQueueKebabMenu = ({ track }: PriorityQueueKebabMenuProps) =
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('click', handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('click', handleClickOutside);
     };
   }, [menuRef]);
   return (
@@ -38,18 +38,37 @@ export const PriorityQueueKebabMenu = ({ track }: PriorityQueueKebabMenuProps) =
       <div
         className={`${isKebabMenuClicked ? 'block' : 'hidden'} absolute bottom-0 right-11 flex flex-col gap-4 rounded-xl bg-bgPrimary p-4`}
       >
-        <PlaySkipButton
-          name={track.name}
-          shouldIndexPriorityQueue={true}
-          setIsKebabMenuClicked={setIsKebabMenuClicked}
-        />
+        {track && 'uri' in track ? (
+          <>
+            {console.log(track.uri)}
+            <PlaySkipButton
+              name={track.name}
+              shouldIndexPriorityQueue={true}
+              setIsKebabMenuClicked={setIsKebabMenuClicked}
+            />
+          </>
+        ) : (
+          <PlaySkipButton
+            name={track.track?.name}
+            shouldIndexPriorityQueue={true}
+            setIsKebabMenuClicked={setIsKebabMenuClicked}
+          />
+        )}
 
         <div className="h-[2px] w-full bg-bgAccent" />
-        <RemoveFromQueueButton
-          name={track.name}
-          shouldIndexPriorityQueue={true}
-          setIsKebabMenuClicked={setIsKebabMenuClicked}
-        />
+        {track && 'uri' in track ? (
+          <RemoveFromQueueButton
+            name={track.name}
+            shouldIndexPriorityQueue={true}
+            setIsKebabMenuClicked={setIsKebabMenuClicked}
+          />
+        ) : (
+          <RemoveFromQueueButton
+            name={track.track?.name}
+            shouldIndexPriorityQueue={true}
+            setIsKebabMenuClicked={setIsKebabMenuClicked}
+          />
+        )}
       </div>
     </div>
   );

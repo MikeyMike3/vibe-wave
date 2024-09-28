@@ -25,6 +25,7 @@ export const QueueDisplay = ({ queueSegment }: QueueDisplayProps) => {
           <h2 className="py-2 text-xl text-textPrimary"> Currently Playing</h2>
           <QueueItem
             key={playerState.track_window.current_track.id}
+            queueDisplayRef={queueDisplayRef}
             name={playerState.track_window.current_track.name}
             images={playerState.track_window.current_track.album.images}
             artists={playerState.track_window.current_track.artists}
@@ -39,6 +40,8 @@ export const QueueDisplay = ({ queueSegment }: QueueDisplayProps) => {
           {priorityQueue.map((item, index) => (
             <QueueItem
               key={`${item.id}-${index}`}
+              queueDisplayRef={queueDisplayRef}
+              isPriorityQueueItem={true}
               name={item.name}
               images={item.album.images}
               artists={item.artists}
