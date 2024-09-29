@@ -28,11 +28,6 @@ export const QueueItem = ({
       <div className="flex items-center gap-3">
         {!currentlyPlaying && (
           <>
-            {/* {track && 'track' in track ? (
-              <PlaylistQueueKebabMenu queueDisplayRef={queueDisplayRef} track={track} />
-            ) : (
-              track && 'uri' in track && <PriorityQueueKebabMenu track={track} />
-            )} */}
             {isPriorityQueueItem && track ? (
               <>
                 <PriorityQueueKebabMenu queueDisplayRef={queueDisplayRef} track={track} />
