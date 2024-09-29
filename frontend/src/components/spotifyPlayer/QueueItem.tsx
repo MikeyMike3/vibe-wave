@@ -29,9 +29,7 @@ export const QueueItem = ({
         {!currentlyPlaying && (
           <>
             {isPriorityQueueItem && track ? (
-              <>
-                <PriorityQueueKebabMenu queueDisplayRef={queueDisplayRef} track={track} />
-              </>
+              <PriorityQueueKebabMenu queueDisplayRef={queueDisplayRef} track={track} />
             ) : (
               track &&
               'track' in track && (
