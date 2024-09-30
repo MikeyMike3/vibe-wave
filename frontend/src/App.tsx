@@ -22,6 +22,8 @@ import { Artist } from './pages/Artist';
 import { Album } from './pages/Album';
 import { SavedAlbums } from './pages/SavedAlbums';
 
+import { UserPlaylistPage } from './pages/UserPlaylistPage';
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -29,7 +31,11 @@ const router = createBrowserRouter(
       <Route element={<PrivateRoutes />}>
         <Route path="/" element={<RootLayout />}>
           <Route index element={<Home />} />
+          {/* Playlists route */}
           <Route path="playlists" element={<Playlists />} />
+
+          {/* Dynamic Playlist ID route */}
+          <Route path="playlists/:id" element={<UserPlaylistPage />} />
           <Route path="liked-songs" element={<LikedSongs />} />
           <Route path="saved-albums" element={<SavedAlbums />} />
           <Route path="followed-artists" element={<FollowedArtists />} />
