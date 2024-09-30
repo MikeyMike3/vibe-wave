@@ -5,9 +5,11 @@ import { useRef } from 'react';
 
 type QueueDisplayProps = {
   queueSegment: SpotifyApi.PlaylistTrackObject[];
+  //prettier-ignore
+  setIsQueueSegmentOpen: React.Dispatch<React.SetStateAction<boolean>>
 };
 
-export const QueueDisplay = ({ queueSegment }: QueueDisplayProps) => {
+export const QueueDisplay = ({ queueSegment, setIsQueueSegmentOpen }: QueueDisplayProps) => {
   const { priorityQueue, playlistQueue } = useQueueContext();
   const { playerState, playlistName } = usePlaybackContext();
 
@@ -20,7 +22,12 @@ export const QueueDisplay = ({ queueSegment }: QueueDisplayProps) => {
     >
       {playerState?.track_window.current_track && (
         <>
-          <h2 className="py-2 text-xl text-textPrimary"> Currently Playing</h2>
+          <div className="flex items-center justify-between">
+            <h2 className="py-2 text-xl text-textPrimary"> Currently Playing</h2>
+            <button className="p-2 text-xl" onClick={() => setIsQueueSegmentOpen(false)}>
+              Close
+            </button>
+          </div>
           <QueueItem
             key={playerState.track_window.current_track.id}
             queueDisplayRef={queueDisplayRef}

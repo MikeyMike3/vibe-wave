@@ -42,7 +42,9 @@ export const Queue = () => {
           icon={isQueueSegmentOpen ? faListMusicSolid : faListMusicRegular}
         />
       </button>
-      {isQueueSegmentOpen && <QueueDisplay queueSegment={queueSegment} />}
+      {isQueueSegmentOpen && (
+        <QueueDisplay queueSegment={queueSegment} setIsQueueSegmentOpen={setIsQueueSegmentOpen} />
+      )}
     </>
   );
 };
