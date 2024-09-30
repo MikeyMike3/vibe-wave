@@ -18,7 +18,7 @@ export const QueueDisplay = ({ queueSegment, setIsQueueSegmentOpen }: QueueDispl
   return (
     <div
       ref={queueDisplayRef}
-      className="absolute bottom-[105px] right-4 h-[400px] w-[500px] overflow-y-scroll border-2 border-bgAccentHover bg-black px-2"
+      className="absolute bottom-[105px] right-4 h-[500px] w-[500px] overflow-y-scroll border-2 border-bgAccentHover bg-black px-2"
     >
       {playerState?.track_window.current_track && (
         <>
