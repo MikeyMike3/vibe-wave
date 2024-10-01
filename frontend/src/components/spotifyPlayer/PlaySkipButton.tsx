@@ -25,6 +25,7 @@ export const PlaySkipButton = ({
     );
     return;
   }
+
   return (
     <button
       className="text-textPrimary duration-150 hover:text-textHover"
