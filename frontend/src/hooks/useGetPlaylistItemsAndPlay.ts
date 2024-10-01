@@ -12,7 +12,7 @@ export const useGetPlaylistItemsAndPlay = (playlistId: string, playlistName: str
   const playSong = usePlaySong();
 
   const indexPlaylistQueue = useIndexPlaylistQueue();
-  const getPlaylistItems = useGetPlaylistItems(playlistId);
+  const { getPlaylistItems } = useGetPlaylistItems(playlistId);
 
   const getPlaylistItemsAndPlay = async () => {
     const data = await getPlaylistItems();

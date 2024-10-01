@@ -19,7 +19,6 @@ export const Playlists = () => {
       {userPlaylists?.items.map(item => (
         <UserPlaylist
           key={item.id}
-          id={item.id}
           name={item.name}
           images={item.images}
           type={item.type}

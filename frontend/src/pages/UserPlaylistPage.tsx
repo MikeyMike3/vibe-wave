@@ -1,6 +1,12 @@
 import { useParams } from 'react-router-dom';
+import { useGetPlaylistItems } from '../hooks/apis/useGetPlaylistItems';
 
 export const UserPlaylistPage = () => {
-  const { id } = useParams();
-  return <div className="text-white">{id}</div>;
+  const { playlistId } = useParams();
+
+  const { playlistItems } = useGetPlaylistItems(playlistId, true);
+
+  return (
+    <div className="text-white">{playlistItems?.items.map(item => <p>{item.track?.uri}</p>)}</div>
+  );
 };

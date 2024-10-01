@@ -4,7 +4,6 @@ import { PlaylistPlayButton } from './spotifyPlayer/PlaylistPlayButton';
 import { capitalizeFirstLetter } from '../functions/capitalizeFirstLetter';
 
 type UserPlaylistProps = {
-  id: string;
   name: string;
   owner: string | undefined;
   type: string;
@@ -12,12 +11,12 @@ type UserPlaylistProps = {
   playlistId: string;
 };
 
-export const UserPlaylist = ({ id, name, images, owner, type, playlistId }: UserPlaylistProps) => {
+export const UserPlaylist = ({ name, images, owner, type, playlistId }: UserPlaylistProps) => {
   const image = getImageUrl(images);
   const uppercaseType = capitalizeFirstLetter(type);
 
   return (
-    <Link to={`${id}`}>
+    <Link to={`${playlistId}`}>
       <div className="group flex h-full w-full flex-col gap-2 rounded-xl p-2 duration-300 hover:bg-bgAccent">
         <div
           className="relative h-64 w-full rounded-xl bg-cover bg-center"

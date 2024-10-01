@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { useHeaders } from './useHeaders';
 
-export const useGetPlaylistItems = (playlistId: string) => {
+export const useGetPlaylistItems = (playlistId: string | undefined, updateState?: boolean) => {
+  const [playlistItems, setPlaylistItems] = useState<SpotifyApi.PlaylistTrackResponse>();
   const accessToken = sessionStorage.getItem('accessToken');
   const apiHeaders = useHeaders(accessToken);
 
@@ -13,11 +15,17 @@ export const useGetPlaylistItems = (playlistId: string) => {
 
       if (response.ok) {
         const data = await response.json();
+        setPlaylistItems(data);
         return data;
       }
     } catch (error) {
       console.error(error);
     }
   };
-  return getPlaylistItems;
+
+  if (updateState) {
+    getPlaylistItems();
+  }
+
+  return { getPlaylistItems, playlistItems };
 };
