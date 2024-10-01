@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useGetPlaylistItems } from '../hooks/apis/useGetPlaylistItems';
+import { TrackInfo } from '../components/TrackInfo';
 
 export const UserPlaylistPage = () => {
   const { playlistId } = useParams();
@@ -7,6 +8,15 @@ export const UserPlaylistPage = () => {
   const { playlistItems } = useGetPlaylistItems(playlistId, true);
 
   return (
-    <div className="text-white">{playlistItems?.items.map(item => <p>{item.track?.uri}</p>)}</div>
+    <div className="text-white">
+      {playlistItems?.items.map(item => (
+        <TrackInfo
+          images={item.track?.album.images}
+          name={item.track?.name}
+          artists={item.track?.artists}
+          shouldAddPadding={true}
+        />
+      ))}
+    </div>
   );
 };
