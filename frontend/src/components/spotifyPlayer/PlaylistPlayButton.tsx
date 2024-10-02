@@ -10,7 +10,7 @@ type PlaylistPlayButtonProps = {
 
 export const PlaylistPlayButton = ({ playlistId, name }: PlaylistPlayButtonProps) => {
   const { isPlayerReady } = useSpotifyPlayerContext();
-  const getPlaylistItemsAndPlay = useGetPlaylistItemsAndPlay(playlistId, name);
+  const { getPlaylistItemsAndPlay } = useGetPlaylistItemsAndPlay(playlistId, name);
   return (
     isPlayerReady && (
       <button
