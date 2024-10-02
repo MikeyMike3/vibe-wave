@@ -16,7 +16,6 @@ export const useGetPlaylistItems = (playlistId: string | undefined, updateState?
 
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
           let allPlaylistItems = [...data.items];
           const playlistItemsMissing: number = data.total - data.items.length;
           const loopsRequired: number = Math.ceil(playlistItemsMissing / data.limit);
