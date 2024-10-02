@@ -4,13 +4,13 @@ import { UserPlaylist } from '../components/UserPlaylist';
 import { useFetchUserPlaylists } from '../hooks/apis/useFetchUserPlaylists';
 
 export const Playlists = () => {
-  const { userPlaylists, isUserPlaylistsLoading, isUserPlaylistsError } = useFetchUserPlaylists();
+  const { data: userPlaylists, isLoading, isError } = useFetchUserPlaylists();
 
-  if (isUserPlaylistsLoading) {
+  if (isLoading) {
     return <MainLoading />;
   }
 
-  if (isUserPlaylistsError) {
+  if (isError) {
     return <ErrorMessage />;
   }
 
