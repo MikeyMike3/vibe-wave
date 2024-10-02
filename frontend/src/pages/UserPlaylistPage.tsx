@@ -1,16 +1,16 @@
-import { useParams } from 'react-router-dom';
-import { useGetPlaylistItems } from '../hooks/apis/useGetPlaylistItems';
-import { TrackInfo } from '../components/TrackInfo';
-import { PlaylistItemKebabMenu } from '../components/kebabMenu/PlaylistItemKebabMenu';
+// import { useParams } from 'react-router-dom';
+// import { useGetPlaylistItems } from '../hooks/apis/useGetPlaylistItems';
+// import { TrackInfo } from '../components/TrackInfo';
+// import { PlaylistItemKebabMenu } from '../components/kebabMenu/PlaylistItemKebabMenu';
 
 export const UserPlaylistPage = () => {
-  const { playlistId } = useParams();
+  // const { playlistId } = useParams();
 
-  const { playlistItems } = useGetPlaylistItems(playlistId, true);
+  // const { playlistItems } = useGetPlaylistItems(playlistId, true);
 
   return (
     <div className="text-white">
-      {playlistItems?.items.map(item => (
+      {/* {playlistItems?.items.map(item => (
         <div key={item.track?.id} className="flex items-center justify-between gap-4">
           <TrackInfo
             images={item.track?.album.images}
@@ -20,7 +20,7 @@ export const UserPlaylistPage = () => {
           />
           <PlaylistItemKebabMenu track={item} />
         </div>
-      ))}
+      ))} */}
     </div>
   );
 };

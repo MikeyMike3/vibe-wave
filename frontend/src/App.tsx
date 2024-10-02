@@ -22,7 +22,7 @@ import { Artist } from './pages/Artist';
 import { Album } from './pages/Album';
 import { SavedAlbums } from './pages/SavedAlbums';
 
-import { UserPlaylistPage } from './pages/UserPlaylistPage';
+// import { UserPlaylistPage } from './pages/UserPlaylistPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -32,7 +32,7 @@ const router = createBrowserRouter(
         <Route path="/" element={<RootLayout />}>
           <Route index element={<Home />} />
           <Route path="playlists" element={<Playlists />} />
-          <Route path="playlists/:playlistId" element={<UserPlaylistPage />} />
+          {/* <Route path="playlists/:playlistId" element={<UserPlaylistPage />} /> */}
           <Route path="liked-songs" element={<LikedSongs />} />
           <Route path="saved-albums" element={<SavedAlbums />} />
           <Route path="followed-artists" element={<FollowedArtists />} />
