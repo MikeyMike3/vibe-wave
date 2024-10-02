@@ -2,11 +2,21 @@ import { useParams } from 'react-router-dom';
 import { useGetPlaylistItems } from '../hooks/apis/useGetPlaylistItems';
 import { TrackInfo } from '../components/TrackInfo';
 import { PlaylistItemKebabMenu } from '../components/kebabMenu/PlaylistItemKebabMenu';
+import { MainLoading } from '../components/MainLoading';
+import { ErrorMessage } from '../components/ErrorMessage';
 
 export const UserPlaylistPage = () => {
   const { playlistId } = useParams();
 
-  const { playlistItems } = useGetPlaylistItems(playlistId, true);
+  const { playlistItems, isLoading, isError } = useGetPlaylistItems(playlistId);
+
+  if (isLoading) {
+    return <MainLoading />;
+  }
+
+  if (isError) {
+    return <ErrorMessage />;
+  }
 
   return (
     <div className="text-white">
