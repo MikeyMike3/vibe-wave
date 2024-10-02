@@ -5,7 +5,7 @@ import { PlaylistItemKebabMenu } from '../components/kebabMenu/PlaylistItemKebab
 import { MainLoading } from '../components/MainLoading';
 import { ErrorMessage } from '../components/ErrorMessage';
 
-export const UserPlaylistPage = () => {
+export const UserPlaylistItems = () => {
   const { playlistId } = useParams();
 
   const { playlistItems, isLoading, isError } = useGetPlaylistItems(playlistId);
