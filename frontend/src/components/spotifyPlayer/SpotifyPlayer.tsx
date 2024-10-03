@@ -57,7 +57,7 @@ export const SpotifyPlayer = () => {
     }
 
     isTransitioningRef.current = true;
-
+    // play the song that the user wants to have on repeat
     if (repeatRef.current === 2) {
       playSongMutation({ uri: state.track_window.current_track.uri, options: {} }).finally(() => {
         isTransitioningRef.current = false;
@@ -125,7 +125,6 @@ export const SpotifyPlayer = () => {
 
       // play the next song in the queue if either queues have items in them
       if (state.track_window.current_track?.name === state.track_window.previous_tracks[0]?.name) {
-        // play the song that the user wants to have on repeat
         handleSongEnd(state);
       }
       setPlayerState(state);
