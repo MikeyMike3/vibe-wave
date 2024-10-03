@@ -28,46 +28,52 @@ export const QueueDisplay = ({ queueSegment, setIsQueueSegmentOpen }: QueueDispl
               Close
             </button>
           </div>
-          <QueueItem
-            key={playerState.track_window.current_track.id}
-            queueDisplayRef={queueDisplayRef}
-            name={playerState.track_window.current_track.name}
-            images={playerState.track_window.current_track.album.images}
-            artists={playerState.track_window.current_track.artists}
-            currentlyPlaying={true}
-          />
+          <div className="pb-2">
+            <QueueItem
+              key={playerState.track_window.current_track.id}
+              queueDisplayRef={queueDisplayRef}
+              name={playerState.track_window.current_track.name}
+              images={playerState.track_window.current_track.album.images}
+              artists={playerState.track_window.current_track.artists}
+              currentlyPlaying={true}
+            />
+          </div>
         </>
       )}
 
       {priorityQueue && priorityQueue?.length > 0 && (
         <>
-          <h2 className="py-2 text-xl text-textPrimary">Next in Queue</h2>
-          {priorityQueue.map((item, index) => (
-            <QueueItem
-              key={`${item.id}-${index}`}
-              queueDisplayRef={queueDisplayRef}
-              isPriorityQueueItem={true}
-              name={item.name}
-              images={item.album.images}
-              artists={item.artists}
-              track={item}
-            />
-          ))}
+          <h2 className="pb-2 text-xl text-textPrimary">Next in Queue</h2>
+          <div className="py-2">
+            {priorityQueue.map((item, index) => (
+              <QueueItem
+                key={`${item.id}-${index}`}
+                queueDisplayRef={queueDisplayRef}
+                isPriorityQueueItem={true}
+                name={item.name}
+                images={item.album.images}
+                artists={item.artists}
+                track={item}
+              />
+            ))}
+          </div>
         </>
       )}
       {playlistQueue.length > 0 && (
         <>
-          <h2 className="py-2 text-xl text-textPrimary">Next Up from: {playlistName}</h2>
-          {queueSegment.map((item, index) => (
-            <QueueItem
-              key={`${item.track?.id}-${index}`}
-              queueDisplayRef={queueDisplayRef}
-              name={item.track?.name}
-              images={item.track?.album.images}
-              artists={item.track?.artists}
-              track={item}
-            />
-          ))}
+          <h2 className="pb-2 text-xl text-textPrimary">Next Up from: {playlistName}</h2>
+          <div className="py-2">
+            {queueSegment.map((item, index) => (
+              <QueueItem
+                key={`${item.track?.id}-${index}`}
+                queueDisplayRef={queueDisplayRef}
+                name={item.track?.name}
+                images={item.track?.album.images}
+                artists={item.track?.artists}
+                track={item}
+              />
+            ))}
+          </div>
         </>
       )}
     </div>
