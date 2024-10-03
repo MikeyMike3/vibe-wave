@@ -11,27 +11,34 @@ export const SearchBar = () => {
   const location = useLocation();
 
   const { setSearchResults, query, setQuery } = useSearchContext();
-  const fetchSearchResults = useFetchSearchResults();
+  const { data: searchResult } = useFetchSearchResults(query);
 
   const inputRef = useRef<HTMLInputElement>(null);
+  const debounceTimeout = useRef<number | undefined>(undefined);
+
+  const debounceDelay = 500;
 
   //prettier-ignore
-  const handleChange = (e:  React.ChangeEvent<HTMLInputElement>) => {
-    if (inputRef.current?.value) {
-      inputRef.current.value = e.target.value;
-      setQuery(inputRef.current.value);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (debounceTimeout.current) {
+      clearTimeout(debounceTimeout.current);
     }
 
-    if (inputRef.current?.value.length === 0) {
-      setSearchResults({});
-    }
+    debounceTimeout.current = window.setTimeout(() => {
+      const value = e.target.value;
+      setQuery(value);
+
+      if (value.length === 0) {
+        setSearchResults({});
+      }
+    }, debounceDelay);
   };
 
   useEffect(() => {
-    if (query.length > 0) {
-      fetchSearchResults(query);
+    if (searchResult) {
+      setSearchResults(searchResult);
     }
-  }, [query, fetchSearchResults]);
+  }, [searchResult, setSearchResults]);
 
   return (
     <div className="sticky top-0 z-[9999] flex w-full justify-center bg-black">
