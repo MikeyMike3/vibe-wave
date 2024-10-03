@@ -21,12 +21,14 @@ export const UserPlaylistItems = () => {
   return (
     <div className="text-white">
       {playlistItems?.items.map(item => (
-        <div key={item.track?.id} className="flex items-center justify-between gap-4">
+        <div
+          key={item.track?.id}
+          className="flex w-full items-center justify-between py-2 pl-2 hover:bg-bgAccent"
+        >
           <TrackInfo
             images={item.track?.album.images}
             name={item.track?.name}
             artists={item.track?.artists}
-            shouldAddPadding={true}
           />
           <PlaylistItemKebabMenu track={item} />
         </div>
