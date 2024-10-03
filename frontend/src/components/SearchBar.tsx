@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSearchContext } from '../hooks/context/useSearchContext';
 import { useFetchSearchResults } from '../hooks/apis/useFetchSearchResults';
@@ -11,7 +11,7 @@ export const SearchBar = () => {
   const location = useLocation();
 
   const { setSearchResults, query, setQuery } = useSearchContext();
-  const { data: searchResult } = useFetchSearchResults(query);
+  useFetchSearchResults(query);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const debounceTimeout = useRef<number | undefined>(undefined);
@@ -33,12 +33,6 @@ export const SearchBar = () => {
       }
     }, debounceDelay);
   };
-
-  useEffect(() => {
-    if (searchResult) {
-      setSearchResults(searchResult);
-    }
-  }, [searchResult, setSearchResults]);
 
   return (
     <div className="sticky top-0 z-[9999] flex w-full justify-center bg-black">
