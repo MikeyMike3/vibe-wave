@@ -23,8 +23,8 @@ export const QueueItem = ({
   isPriorityQueueItem,
 }: QueueItemProps) => {
   return (
-    <div className="flex justify-between">
-      <TrackInfo name={name} images={images} artists={artists} shouldAddPadding={true} />
+    <div className="flex w-full items-center justify-between py-2 pl-2 hover:bg-bgAccent">
+      <TrackInfo name={name} images={images} artists={artists} />
       <div className="flex items-center gap-3">
         {!currentlyPlaying && (
           <>
