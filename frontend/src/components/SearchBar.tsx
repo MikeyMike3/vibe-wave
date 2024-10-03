@@ -16,7 +16,7 @@ export const SearchBar = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const debounceTimeout = useRef<number | undefined>(undefined);
 
-  const debounceDelay = 500;
+  const debounceDelay = 200;
 
   //prettier-ignore
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
