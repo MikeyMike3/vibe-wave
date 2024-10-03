@@ -36,9 +36,15 @@ export const useFetchPlaylistDetails = (playlistId: number) => {
     }
   };
 
-  return useQuery({
+  const {
+    data: playlistDetails,
+    error,
+    isLoading,
+  } = useQuery({
     queryKey: ['playlistDetails', playlistId],
     queryFn: fetchPlaylistDetails,
     enabled: !!accessToken,
   });
+
+  return { playlistDetails, error, isLoading };
 };
