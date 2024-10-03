@@ -73,7 +73,7 @@ export const PlaylistQueueKebabMenu = ({ track, queueDisplayRef }: PlaylistQueue
     <div className="relative">
       <button ref={menuRef} onClick={() => setIsKebabMenuClicked(!isKebabMenuClicked)}>
         <FontAwesomeIcon
-          className="rounded-full p-2 px-4 text-xl text-textPrimary duration-150 hover:bg-bgAccent"
+          className="rounded-full p-2 px-4 text-xl text-textPrimary duration-150 hover:bg-bgAccentHover"
           icon={faEllipsisVerticalSolid}
         />
       </button>
