@@ -13,7 +13,7 @@ export const useShuffleTracks = () => {
   const { shuffleTracksRef, playerState, setShuffleTracksState } = usePlaybackContext();
   const { playlistQueue, setPlaylistQueue, unShuffledQueueRef } = useQueueContext();
   const indexPlaylistQueue = useIndexPlaylistQueue();
-  const playSong = usePlaySong();
+  const playSongMutation = usePlaySong();
 
   const shuffleTracks = (options: ShuffleTracksOptions = {}) => {
     const { prevQueue = [], shouldChangeState = false } = options;
@@ -35,7 +35,7 @@ export const useShuffleTracks = () => {
       indexPlaylistQueue(0, 'set');
       setPlaylistQueue(shuffledQueue);
       if (prevQueue.length > 0) {
-        playSong(shuffledQueue[0].track?.uri);
+        playSongMutation({ uri: shuffledQueue[0].track?.uri, options: {} });
       }
     } else if (unShuffledQueueRef.current) {
       // Resumes the playlist from the current song when the user turns off shuffle mode.

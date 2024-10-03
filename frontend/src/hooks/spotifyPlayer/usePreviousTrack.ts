@@ -8,7 +8,7 @@ export const usePreviousTrack = () => {
   const { playlistQueue, playlistQueueIndexRef } = useQueueContext();
   const { repeatRef, setRepeat, userPreviousTrackRef, playerPosition } = usePlaybackContext();
   const { player } = useSpotifyPlayerContext();
-  const playSong = usePlaySong();
+  const playSongMutation = usePlaySong();
   const indexPlaylistQueue = useIndexPlaylistQueue();
   const previousTrack = () => {
     userPreviousTrackRef.current = true;
@@ -31,7 +31,10 @@ export const usePreviousTrack = () => {
     if (playlistQueue.length > 0 && playlistQueueIndexRef.current > 1) {
       // playlistQueueIndexRef.current must be subtracted by 2 to be able to play the previous song
       indexPlaylistQueue(2, '-');
-      playSong(playlistQueue[playlistQueueIndexRef.current].track?.uri);
+      playSongMutation({
+        uri: playlistQueue[playlistQueueIndexRef.current].track?.uri,
+        options: {},
+      });
     }
   };
 

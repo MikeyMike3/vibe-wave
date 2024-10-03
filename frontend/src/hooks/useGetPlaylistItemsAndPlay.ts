@@ -10,7 +10,7 @@ export const useGetPlaylistItemsAndPlay = (playlistId: string, playlistName: str
   const { setPlaylistName, shuffleTracksRef } = usePlaybackContext();
   const { setPlaylistQueue, unShuffledQueueRef } = useQueueContext();
   const shuffleTracks = useShuffleTracks();
-  const playSong = usePlaySong();
+  const playSongMutation = usePlaySong();
   const indexPlaylistQueue = useIndexPlaylistQueue();
 
   const accessToken = sessionStorage.getItem('accessToken');
@@ -70,7 +70,10 @@ export const useGetPlaylistItemsAndPlay = (playlistId: string, playlistName: str
             shuffleTracks({ prevQueue: [...currentQueue] });
           }
           if (!shuffleTracksRef.current) {
-            playSong(currentQueue[0].track?.uri, { tempQueue: currentQueue });
+            playSongMutation({
+              uri: currentQueue[0].track?.uri,
+              options: { tempQueue: currentQueue },
+            });
           }
         }
 

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { usePlaySong } from '../../hooks/spotifyPlayer/usePlaySong';
 import { useSpotifyPlayerContext } from '../../hooks/context/useSpotifyPlayerContext';
 import { useQueueContext } from '../../hooks/context/useQueueContext';
@@ -35,8 +35,61 @@ export const SpotifyPlayer = () => {
     playlistQueueIndexRef,
   } = useQueueContext();
 
-  const playSong = usePlaySong();
+  const playSongMutation = usePlaySong();
   const indexPlaylistQueue = useIndexPlaylistQueue();
+
+  const isTransitioningRef = useRef(false); // Still use this to prevent re-entrance
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const debounce = <T extends (...args: any[]) => void>(func: T, wait: number) => {
+    //prettier-ignore
+    let timeout: ReturnType<typeof setTimeout>;
+    //prettier-ignore
+    return (...args: Parameters<T>) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(this, args), wait);
+    };
+  };
+
+  const handleSongEnd = debounce(state => {
+    if (isTransitioningRef.current) {
+      return;
+    }
+
+    isTransitioningRef.current = true;
+
+    if (repeatRef.current === 2) {
+      playSongMutation({ uri: state.track_window.current_track.uri, options: {} }).finally(() => {
+        isTransitioningRef.current = false;
+      });
+    } else if (priorityQueue && priorityQueue.length > 0) {
+      playSongMutation({ uri: priorityQueue[0]?.uri, options: {} }).finally(() => {
+        isTransitioningRef.current = false;
+      });
+    } else if (playlistQueue.length > 0) {
+      if (playlistQueueIndexRef.current === playlistQueue.length) {
+        if (repeatRef.current === 1) {
+          indexPlaylistQueue(0, 'set');
+          playSongMutation({ uri: playlistQueue[0].track?.uri, options: {} }).finally(() => {
+            isTransitioningRef.current = false;
+          });
+        } else {
+          indexPlaylistQueue(0, 'set');
+          playSongMutation({ uri: playlistQueue[0].track?.uri, options: {} }).finally(() => {
+            isPausedRef.current = true;
+            isTransitioningRef.current = false;
+          });
+        }
+      } else {
+        playSongMutation({
+          uri: playlistQueue[playlistQueueIndexRef.current].track?.uri,
+          options: {},
+        }).finally(() => {
+          isTransitioningRef.current = false;
+        });
+      }
+    }
+  }, 500);
 
   useEffect(() => {
     const onPlayerStateChanged = (state: Spotify.PlaybackState) => {
@@ -73,26 +126,7 @@ export const SpotifyPlayer = () => {
       // play the next song in the queue if either queues have items in them
       if (state.track_window.current_track?.name === state.track_window.previous_tracks[0]?.name) {
         // play the song that the user wants to have on repeat
-        if (repeatRef.current === 2) {
-          playSong(state.track_window.current_track.uri);
-        } else if (priorityQueue && priorityQueue.length > 0) {
-          playSong(priorityQueue[0]?.uri);
-        } else if (playlistQueue.length > 0) {
-          if (playlistQueueIndexRef.current === playlistQueue.length) {
-            // plays the first song of the playlistQueue once the last song ends
-            if (repeatRef.current === 1) {
-              indexPlaylistQueue(0, 'set');
-
-              playSong(playlistQueue[0].track?.uri);
-            } else {
-              // pauses the first song of the playlistQueue once the last song ends
-              indexPlaylistQueue(0, 'set');
-              playSong(playlistQueue[0].track?.uri);
-              isPausedRef.current = true;
-            }
-          }
-          playSong(playlistQueue[playlistQueueIndexRef.current].track?.uri);
-        }
+        handleSongEnd(state);
       }
       setPlayerState(state);
     };
@@ -122,7 +156,7 @@ export const SpotifyPlayer = () => {
     playlistQueue,
     setPlaylistQueue,
     playlistQueueIndexRef,
-    playSong,
+    playSongMutation,
     isPausedRef,
     repeatRef,
     setPlayerState,
@@ -131,6 +165,7 @@ export const SpotifyPlayer = () => {
     playerState,
     indexPlaylistQueue,
     playerDuration,
+    handleSongEnd,
   ]);
 
   return (

@@ -1,3 +1,4 @@
+import { useMutation } from '@tanstack/react-query';
 import { usePlaybackContext } from '../context/usePlaybackContext';
 import { useQueueContext } from '../context/useQueueContext';
 import { useSpotifyPlayerContext } from '../context/useSpotifyPlayerContext';
@@ -25,8 +26,12 @@ export const usePlaySong = () => {
   const indexPlaylistQueue = useIndexPlaylistQueue();
   // shouldUnpause tells this function to override the isPausedRef so that the song will play
   // if the song plays then quickly pauses then you need to set shouldUnpause to true
-  const playSong = async (uri: string | undefined, options: PlaySongOptions = {}) => {
+  const playSong = async (
+    params: { uri: string | undefined; options: PlaySongOptions }, // Define params here
+  ) => {
+    const { uri, options } = params; // Destructure uri and options
     const { shouldUnpause = false, shouldClearQueue = false, tempQueue = [] } = options;
+
     if (shouldUnpause) {
       isPausedRef.current = false;
     }
@@ -70,18 +75,24 @@ export const usePlaySong = () => {
               setPriorityQueue(prevQueue => {
                 const newQueue = prevQueue.filter(track => track.name !== prevQueue[0].name);
                 if (newQueue.length > 0) {
-                  playSong(newQueue[0].uri);
+                  playSong({ uri: newQueue[0].uri, options: {} });
                 }
                 return newQueue;
               });
 
               if (playlistQueue.length > 0) {
                 indexPlaylistQueue(1, '+');
-                playSong(playlistQueue[playlistQueueIndexRef.current].track?.uri);
+                playSong({
+                  uri: playlistQueue[playlistQueueIndexRef.current].track?.uri,
+                  options: {},
+                });
               }
             } else if (userSkippedTrackRef.current) {
               indexPlaylistQueue(1, '+');
-              playSong(playlistQueue[playlistQueueIndexRef.current].track?.uri);
+              playSong({
+                uri: playlistQueue[playlistQueueIndexRef.current].track?.uri,
+                options: {},
+              });
             } else if (userPreviousTrackRef.current) {
               if (repeatRef.current === 1 && playlistQueueIndexRef.current <= 1) {
                 indexPlaylistQueue(1 + playlistQueue.length, 'set');
@@ -91,14 +102,20 @@ export const usePlaySong = () => {
               if (playlistQueue.length > 0 && playlistQueueIndexRef.current > 1) {
                 // playlistQueueIndexRef.current must be subtracted by 2 to be able to play the previous song
                 indexPlaylistQueue(2, '-');
-                playSong(playlistQueue[playlistQueueIndexRef.current].track?.uri);
+                playSong({
+                  uri: playlistQueue[playlistQueueIndexRef.current].track?.uri,
+                  options: {},
+                });
               }
             } else if (tempQueue.length > 0) {
               indexPlaylistQueue(1, '+');
-              playSong(tempQueue[playlistQueueIndexRef.current].track?.uri);
+              playSong({ uri: tempQueue[playlistQueueIndexRef.current].track?.uri, options: {} });
             } else if (playlistQueue.length) {
               indexPlaylistQueue(1, '+');
-              playSong(playlistQueue[playlistQueueIndexRef.current].track?.uri);
+              playSong({
+                uri: playlistQueue[playlistQueueIndexRef.current].track?.uri,
+                options: {},
+              });
             }
           }
         }
@@ -118,5 +135,9 @@ export const usePlaySong = () => {
     });
   };
 
-  return playSong;
+  const { mutateAsync: playSongMutation } = useMutation({
+    mutationFn: playSong,
+  });
+
+  return playSongMutation;
 };

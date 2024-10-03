@@ -11,7 +11,7 @@ type Options = {
 export const usePlaySkip = () => {
   const { playlistQueue, playlistQueueIndexRef, priorityQueue, setPriorityQueue } =
     useQueueContext();
-  const playSong = usePlaySong();
+  const playSongMutation = usePlaySong();
   const indexPlaylistQueue = useIndexPlaylistQueue();
 
   const playSkip = (
@@ -32,14 +32,14 @@ export const usePlaySkip = () => {
 
     if (shouldPlaySong) {
       if (track && 'track' in track) {
-        playSong(track.track?.uri);
+        playSongMutation({ uri: track.track?.uri, options: {} });
       } else {
-        playSong(track?.uri);
+        playSongMutation({ uri: track?.uri, options: {} });
       }
       return;
     } else if (shouldIndexPriorityQueue && priorityQueue) {
       const indexToPlayAndRemove = priorityQueue.findIndex(item => item.name === name);
-      playSong(priorityQueue[indexToPlayAndRemove].uri);
+      playSongMutation({ uri: priorityQueue[indexToPlayAndRemove].uri, options: {} });
       setPriorityQueue(prevQueue => {
         const tempQueue = prevQueue.filter((_, index) => index !== indexToPlayAndRemove);
         return tempQueue;
@@ -47,7 +47,10 @@ export const usePlaySkip = () => {
     } else if (shouldIndexPlaylistQueue && playlistQueue) {
       const index = playlistQueue.findIndex(item => item.track?.name === name);
       indexPlaylistQueue(index, 'set');
-      playSong(playlistQueue[playlistQueueIndexRef.current].track?.uri);
+      playSongMutation({
+        uri: playlistQueue[playlistQueueIndexRef.current].track?.uri,
+        options: {},
+      });
       return;
     }
   };
