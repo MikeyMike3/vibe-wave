@@ -5,6 +5,7 @@ import { PlaylistItemKebabMenu } from '../components/kebabMenu/PlaylistItemKebab
 import { MainLoading } from '../components/MainLoading';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { useFetchPlaylistDetails } from '../hooks/apis/useFetchPlaylistDetails';
+import { getImageUrl } from '../functions/getImageUrl';
 
 export const UserPlaylistItems = () => {
   const { playlistId } = useParams();
@@ -21,12 +22,14 @@ export const UserPlaylistItems = () => {
     return <ErrorMessage />;
   }
 
+  const image = getImageUrl(playlistDetails?.images);
+
   return (
     <div className="text-white">
       <h1>{playlistDetails?.name}</h1>
       {<p>{playlistDetails?.owner.display_name}</p>}
       <p>{playlistDetails?.description}</p>
-      <img src={playlistDetails?.images[0]?.url} alt={playlistDetails?.name} />
+      <img src={image} alt={playlistDetails?.name} />
       {playlistItems?.items.map(item => (
         <div
           key={item.track?.id}
