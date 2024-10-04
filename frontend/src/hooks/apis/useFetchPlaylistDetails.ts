@@ -14,7 +14,7 @@ type PlaylistDetails = {
   description: string;
 };
 
-export const useFetchPlaylistDetails = (playlistId: number) => {
+export const useFetchPlaylistDetails = (playlistId: string | undefined) => {
   const accessToken = sessionStorage.getItem('accessToken');
   const apiHeaders = useHeaders(accessToken);
   const fetchPlaylistDetails = async () => {

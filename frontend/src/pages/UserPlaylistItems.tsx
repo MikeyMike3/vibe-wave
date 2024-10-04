@@ -4,11 +4,14 @@ import { TrackInfo } from '../components/TrackInfo';
 import { PlaylistItemKebabMenu } from '../components/kebabMenu/PlaylistItemKebabMenu';
 import { MainLoading } from '../components/MainLoading';
 import { ErrorMessage } from '../components/ErrorMessage';
+import { useFetchPlaylistDetails } from '../hooks/apis/useFetchPlaylistDetails';
 
 export const UserPlaylistItems = () => {
   const { playlistId } = useParams();
 
+  // I need to make another hook that combines these together so that I can Promise.All these together
   const { playlistItems, isLoading, isError } = useGetPlaylistItems(playlistId);
+  const { playlistDetails } = useFetchPlaylistDetails(playlistId);
 
   if (isLoading) {
     return <MainLoading />;
@@ -20,6 +23,10 @@ export const UserPlaylistItems = () => {
 
   return (
     <div className="text-white">
+      <h1>{playlistDetails?.name}</h1>
+      {<p>{playlistDetails?.owner.display_name}</p>}
+      <p>{playlistDetails?.description}</p>
+      <img src={playlistDetails?.images[0]?.url} alt={playlistDetails?.name} />
       {playlistItems?.items.map(item => (
         <div
           key={item.track?.id}
