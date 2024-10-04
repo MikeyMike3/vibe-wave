@@ -1,6 +1,7 @@
 import { ErrorMessage } from '../components/ErrorMessage';
 import { SearchedTrackKebabMenu } from '../components/kebabMenu/SearchedTrackKebabMenu';
 import { MainLoading } from '../components/MainLoading';
+import { PlayLikedTracksButton } from '../components/PlayLikedTracksButton';
 import { TrackInfo } from '../components/TrackInfo';
 import { useFetchSavedTracks } from '../hooks/apis/useFetchSavedTracks';
 
@@ -17,6 +18,7 @@ export const LikedSongs = () => {
 
   return (
     <div className="text-white">
+      <PlayLikedTracksButton likedTracks={savedTracks?.items} />
       {savedTracks?.items.map(item => (
         <div
           key={item.track?.id}
