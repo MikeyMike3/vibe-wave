@@ -12,9 +12,9 @@ export const useFetchSavedTracks = () => {
         throw new Error('An error occurred when fetching saved tracks');
       }
       const data: SpotifyApi.UsersSavedTracksResponse = await response.json();
-      let allPlaylistItems = [...data.items];
-      const playlistItemsMissing: number = data.total - data.items.length;
-      const loopsRequired: number = Math.ceil(playlistItemsMissing / data.limit);
+      let allSavedTracks = [...data.items];
+      const SavedTracksMissing: number = data.total - data.items.length;
+      const loopsRequired: number = Math.ceil(SavedTracksMissing / data.limit);
 
       for (let i = 1; i <= loopsRequired; i++) {
         const nextPageResponse = await fetch(
@@ -27,10 +27,10 @@ export const useFetchSavedTracks = () => {
         }
 
         const nextPageData: SpotifyApi.UsersSavedTracksResponse = await nextPageResponse.json();
-        allPlaylistItems = allPlaylistItems.concat(nextPageData.items);
+        allSavedTracks = allSavedTracks.concat(nextPageData.items);
       }
 
-      return { ...data, items: allPlaylistItems };
+      return { ...data, items: allSavedTracks };
     } catch (error) {
       console.error('An error occurred when fetching saved tracks', error);
       throw error;
