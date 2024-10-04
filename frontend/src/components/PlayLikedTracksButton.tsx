@@ -1,3 +1,6 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCirclePlay } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
+
 import { usePlaybackContext } from '../hooks/context/usePlaybackContext';
 import { useQueueContext } from '../hooks/context/useQueueContext';
 import { useIndexPlaylistQueue } from '../hooks/spotifyPlayer/useIndexPlaylistQueue';
@@ -44,5 +47,9 @@ export const PlayLikedTracksButton = ({ likedTracks }: PlayLikedTracksButtonProp
       return currentQueue;
     });
   };
-  return <button onClick={handleClick}>PlayLikedTracksButton</button>;
+  return (
+    <button onClick={handleClick}>
+      <FontAwesomeIcon className="text-6xl" icon={faCirclePlay} color="aqua" />
+    </button>
+  );
 };
