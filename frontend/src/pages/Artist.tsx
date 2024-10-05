@@ -15,6 +15,5 @@ export const Artist = () => {
     return <ErrorMessage />;
   }
 
-  console.log(artistDetails);
-  return <div className="text-white">Artist</div>;
+  return <div className="text-white">{artistDetails?.info.name}</div>;
 };
