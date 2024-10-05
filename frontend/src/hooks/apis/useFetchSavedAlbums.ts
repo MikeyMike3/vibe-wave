@@ -18,20 +18,23 @@ export const useFetchSavedAlbums = () => {
       const loopsRequired: number = Math.ceil(SavedAlbumsMissing / data.limit);
 
       for (let i = 1; i <= loopsRequired; i++) {
-        const nextPageResponse = await fetch(
-          `https://api.spotify.com/v1/me/albums?offset=${i * data.limit}`,
-          apiHeader,
-        );
+        try {
+          const nextPageResponse = await fetch(
+            `https://api.spotify.com/v1/me/albums?offset=${i * data.limit}`,
+            apiHeader,
+          );
 
-        if (!nextPageResponse.ok) {
-          throw new Error('Error fetching additional saved Albums');
+          if (!nextPageResponse.ok) {
+            throw new Error('Error fetching additional saved Albums');
+          }
+          //prettier-ignore
+          const nextPageData: SpotifyApi.PagingObject<SpotifyApi.SavedAlbumObject> = await nextPageResponse.json();
+          allSavedAlbums = allSavedAlbums.concat(nextPageData.items);
+          return { ...data, items: allSavedAlbums };
+        } catch (error) {
+          throw error;
         }
-        //prettier-ignore
-        const nextPageData: SpotifyApi.PagingObject<SpotifyApi.SavedAlbumObject> = await nextPageResponse.json();
-        allSavedAlbums = allSavedAlbums.concat(nextPageData.items);
       }
-
-      return { ...data, items: allSavedAlbums };
     } catch (error) {
       throw error;
     }
