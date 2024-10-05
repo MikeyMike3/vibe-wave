@@ -3,14 +3,15 @@ import { getImageUrl } from '../functions/getImageUrl';
 
 type SearchResultArtistItemProps = {
   artist: SpotifyApi.ArtistObjectFull;
+  artistId: string;
 };
 
-export const SearchResultArtistItem = ({ artist }: SearchResultArtistItemProps) => {
+export const SearchResultArtistItem = ({ artist, artistId }: SearchResultArtistItemProps) => {
   const image = getImageUrl(artist.images);
 
   return (
     <Link
-      to={'/artist'}
+      to={`${artistId}`}
       className="w-64 flex-shrink-0 rounded-xl py-4 duration-150 hover:bg-bgAccent"
     >
       <img className="mx-auto h-64 w-full rounded-full object-cover px-2" src={image} />
