@@ -40,7 +40,7 @@ const router = createBrowserRouter(
           <Route path="saved-albums" element={<SavedAlbums />} />
           <Route path="followed-artists" element={<FollowedArtists />} />
           <Route path="search" element={<Search />} />
-          <Route path="followed-artists/:artistId" element={<Artist />} />
+          <Route path="artist/:artistId" element={<Artist />} />
           <Route path="album" element={<Album />} />
         </Route>
       </Route>
