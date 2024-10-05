@@ -5,7 +5,7 @@ import { ErrorMessage } from '../components/ErrorMessage';
 
 export const Artist = () => {
   const { artistId } = useParams();
-  const { data, isLoading, isError } = useFetchArtistDetails(artistId);
+  const { artistDetails, isLoading, isError } = useFetchArtistDetails(artistId);
 
   if (isLoading) {
     return <MainLoading />;
@@ -15,6 +15,6 @@ export const Artist = () => {
     return <ErrorMessage />;
   }
 
-  console.log(data);
+  console.log(artistDetails);
   return <div className="text-white">Artist</div>;
 };

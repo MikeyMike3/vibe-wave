@@ -12,7 +12,7 @@ export const useFetchArtistDetails = (artistId: string | undefined) => {
         throw new Error('Error fetching artist details');
       }
 
-      const data = await response.json();
+      const data: SpotifyApi.ArtistObjectFull = await response.json();
       return data;
     } catch (error) {
       throw error;
@@ -30,7 +30,7 @@ export const useFetchArtistDetails = (artistId: string | undefined) => {
         throw new Error('Error fetching artist details');
       }
 
-      const data = await response.json();
+      const data: SpotifyApi.ArtistsAlbumsResponse = await response.json();
       return data;
     } catch (error) {
       throw error;
@@ -48,7 +48,7 @@ export const useFetchArtistDetails = (artistId: string | undefined) => {
         throw new Error('Error fetching artist details');
       }
 
-      const data = await response.json();
+      const data: SpotifyApi.ArtistsTopTracksResponse = await response.json();
       return data;
     } catch (error) {
       throw error;
@@ -66,7 +66,7 @@ export const useFetchArtistDetails = (artistId: string | undefined) => {
         throw new Error('Error fetching artist details');
       }
 
-      const data = await response.json();
+      const data: SpotifyApi.ArtistsRelatedArtistsResponse = await response.json();
       return data;
     } catch (error) {
       throw error;
@@ -94,10 +94,14 @@ export const useFetchArtistDetails = (artistId: string | undefined) => {
     };
   };
 
-  const { data, isLoading, isError } = useQuery({
+  const {
+    data: artistDetails,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ['artistDetails', artistId],
     queryFn: fetchArtistDetails,
     enabled: !!accessToken,
   });
-  return { data, isError, isLoading };
+  return { artistDetails, isError, isLoading };
 };
