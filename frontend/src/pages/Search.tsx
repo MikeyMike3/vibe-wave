@@ -4,6 +4,7 @@ import { useSearchContext } from '../hooks/context/useSearchContext';
 import { SearchResultArtistItem } from '../components/SearchResultArtistItem';
 import { SearchResultAlbumItem } from '../components/SearchResultAlbumItem';
 import { AllSearchResults } from '../components/AllSearchResults';
+import { GridContainer } from '../components/styledComponents/GridContainer';
 
 export const Search = () => {
   const { searchResults } = useSearchContext();
@@ -89,11 +90,11 @@ export const Search = () => {
               <h2 className="pb-4 text-3xl text-textPrimary">Artists</h2>
 
               {(searchResults?.artists?.items?.length ?? 0) > 0 ? (
-                <div className="grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-7">
+                <GridContainer>
                   {searchResults?.artists?.items.map(item => (
                     <SearchResultArtistItem key={item.id} artist={item} />
                   ))}
-                </div>
+                </GridContainer>
               ) : (
                 <p className="text-textAccent">No artists found.</p>
               )}
@@ -104,11 +105,11 @@ export const Search = () => {
             <>
               <h2 className="pb-4 text-3xl text-textPrimary">Albums</h2>
               {(searchResults?.albums?.items?.length ?? 0) > 0 ? (
-                <div className="grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-7">
+                <GridContainer>
                   {searchResults?.albums?.items.map(item => (
                     <SearchResultAlbumItem key={item.id} album={item} />
                   ))}
-                </div>
+                </GridContainer>
               ) : (
                 <p className="text-textAccent">No albums found.</p>
               )}

@@ -1,5 +1,6 @@
 import { ErrorMessage } from '../components/ErrorMessage';
 import { MainLoading } from '../components/MainLoading';
+import { GridContainer } from '../components/styledComponents/GridContainer';
 import { UserPlaylist } from '../components/UserPlaylist';
 import { useFetchUserPlaylists } from '../hooks/apis/useFetchUserPlaylists';
 
@@ -15,7 +16,7 @@ export const Playlists = () => {
   }
 
   return (
-    <div className="grid h-full w-full flex-1 grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-7">
+    <GridContainer>
       {userPlaylists?.items.map(item => (
         <UserPlaylist
           key={item.id}
@@ -26,6 +27,6 @@ export const Playlists = () => {
           playlistId={item.id}
         />
       ))}
-    </div>
+    </GridContainer>
   );
 };

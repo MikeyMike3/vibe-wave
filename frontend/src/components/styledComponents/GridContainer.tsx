@@ -4,12 +4,10 @@ type GridContainerProps = {
   children: React.ReactNode;
 };
 //prettier-ignore
-const GridContainer: React.FC<GridContainerProps> = ({ children }) => {
+export const GridContainer: React.FC<GridContainerProps> = ({ children }) => {
   return (
-    <div className="grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-7">
+    <div className="grid h-full w-full flex-1 grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-7">
       {children}
     </div>
   );
 };
-
-export default GridContainer;
