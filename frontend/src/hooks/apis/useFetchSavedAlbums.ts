@@ -19,7 +19,7 @@ export const useFetchSavedAlbums = () => {
 
       for (let i = 1; i <= loopsRequired; i++) {
         const nextPageResponse = await fetch(
-          `https://api.spotify.com/v1/me/Albums?offset=${i * data.limit}`,
+          `https://api.spotify.com/v1/me/albums?offset=${i * data.limit}`,
           apiHeader,
         );
 
