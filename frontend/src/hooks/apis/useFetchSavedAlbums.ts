@@ -11,7 +11,8 @@ export const useFetchSavedAlbums = () => {
       if (!response.ok) {
         throw new Error('Error fetching saved albums');
       }
-      const data = await response.json();
+      //prettier-ignore
+      const data:SpotifyApi.PagingObject<SpotifyApi.SavedAlbumObject> = await response.json();
       return data;
     } catch (error) {
       throw error;
