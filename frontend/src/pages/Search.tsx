@@ -92,7 +92,7 @@ export const Search = () => {
               {(searchResults?.artists?.items?.length ?? 0) > 0 ? (
                 <GridContainer>
                   {searchResults?.artists?.items.map(item => (
-                    <SearchResultArtistItem key={item.id} artist={item} />
+                    <SearchResultArtistItem key={item.id} artist={item} artistId={item.id} />
                   ))}
                 </GridContainer>
               ) : (
