@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useHeaders } from './useHeaders';
 
-export const useFetchArtistDetails = (artistId: string) => {
+export const useFetchArtistDetails = (artistId: string | undefined) => {
   const accessToken = sessionStorage.getItem('accessToken');
   const apiHeader = useHeaders(accessToken);
   const fetchArtistInfo = async () => {
