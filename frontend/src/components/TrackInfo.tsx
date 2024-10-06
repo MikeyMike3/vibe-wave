@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { getImageUrl } from '../functions/getImageUrl';
 
 type TrackInfoProps = {
@@ -6,6 +7,12 @@ type TrackInfoProps = {
   artists: SpotifyApi.ArtistObjectSimplified[] | Spotify.Entity[] | undefined;
   shouldAddPadding?: boolean;
 };
+
+function isArtistObjectSimplified(
+  item: SpotifyApi.ArtistObjectSimplified | Spotify.Entity,
+): item is SpotifyApi.ArtistObjectSimplified {
+  return (item as SpotifyApi.ArtistObjectSimplified).id !== undefined;
+}
 
 export const TrackInfo = ({ images, name, artists, shouldAddPadding = false }: TrackInfoProps) => {
   const image = getImageUrl(images);
@@ -16,7 +23,20 @@ export const TrackInfo = ({ images, name, artists, shouldAddPadding = false }: T
         <img loading="lazy" className="h-20 w-20 rounded-md object-cover" src={image} />
         <div className="flex flex-col">
           <p className="text-smTitle text-textPrimary">{name}</p>
-          <p className="text-base text-textAccent">{artists?.map(item => item.name).join(', ')}</p>
+
+          <span className="text-textPrimary">
+            {artists?.map((item, index) => (
+              <div key={isArtistObjectSimplified(item) ? item.id : index}>
+                <Link
+                  className="text-textAccent hover:text-textPrimary hover:underline"
+                  to={`/artist/${isArtistObjectSimplified(item) ? item.id : ''}`}
+                >
+                  {item.name}
+                </Link>
+                {index < artists.length - 1 && <span>, </span>}
+              </div>
+            ))}
+          </span>
         </div>
       </div>
     </div>
