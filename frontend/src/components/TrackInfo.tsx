@@ -26,7 +26,7 @@ export const TrackInfo = ({ images, name, artists, shouldAddPadding = false }: T
 
           <span className="text-textPrimary">
             {artists?.map((item, index) => (
-              <div key={isArtistObjectSimplified(item) ? item.id : index}>
+              <span key={isArtistObjectSimplified(item) ? item.id : index}>
                 <Link
                   className="text-textAccent hover:text-textPrimary hover:underline"
                   to={`/artist/${isArtistObjectSimplified(item) ? item.id : ''}`}
@@ -34,7 +34,7 @@ export const TrackInfo = ({ images, name, artists, shouldAddPadding = false }: T
                   {item.name}
                 </Link>
                 {index < artists.length - 1 && <span>, </span>}
-              </div>
+              </span>
             ))}
           </span>
         </div>
