@@ -62,36 +62,19 @@ export const useFetchHomePageData = () => {
     }
   };
 
-  const fetchTrackRecommendations = async () => {
-    try {
-      const response = await fetch('https://api.spotify.com/v1/recommendations', apiHeaders);
-      if (!response.ok) {
-        throw new Error('Error fetching recommended tracks');
-      }
-      const data: SpotifyApi.RecommendationsFromSeedsResponse = await response.json();
-      return data;
-    } catch (error) {
-      console.error('Error fetching recommended tracks', error);
-      throw error;
-    }
-  };
-
   const fetchHomePageDetails = async () => {
-    const [newAlbumReleases, topTracks, topArtists, featuredPlaylists, trackRecommendations] =
-      await Promise.all([
-        fetchNewAlbumReleases(),
-        fetchUsersTopTracks(),
-        fetchUsersTopArtists(),
-        fetchFeaturedPlaylists(),
-        fetchTrackRecommendations(),
-      ]);
+    const [newAlbumReleases, topTracks, topArtists, featuredPlaylists] = await Promise.all([
+      fetchNewAlbumReleases(),
+      fetchUsersTopTracks(),
+      fetchUsersTopArtists(),
+      fetchFeaturedPlaylists(),
+    ]);
 
     return {
       newAlbumReleases,
       topTracks,
       topArtists,
       featuredPlaylists,
-      trackRecommendations,
     };
   };
 
