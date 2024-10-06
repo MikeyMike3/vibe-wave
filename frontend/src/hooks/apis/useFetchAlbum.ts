@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useHeaders } from './useHeaders';
 
-export const useFetchAlbum = (albumId: string) => {
+export const useFetchAlbum = (albumId: string | undefined) => {
   const apiHeader = useHeaders();
   const fetchAlbum = async () => {
     try {
