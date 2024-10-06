@@ -2,8 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useHeaders } from './useHeaders';
 
 export const useFetchSavedAlbums = () => {
-  const accessToken = sessionStorage.getItem('accessToken');
-  const apiHeader = useHeaders(accessToken);
+  const apiHeader = useHeaders();
   const fetchSavedAlbums = async () => {
     try {
       const response = await fetch('https://api.spotify.com/v1/me/albums', apiHeader);
@@ -46,7 +45,6 @@ export const useFetchSavedAlbums = () => {
   } = useQuery({
     queryKey: ['savedAlbums'],
     queryFn: fetchSavedAlbums,
-    enabled: !!accessToken,
   });
 
   return { savedAlbums, isError, isLoading };

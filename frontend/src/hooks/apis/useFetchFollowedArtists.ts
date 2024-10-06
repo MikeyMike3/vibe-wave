@@ -2,8 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useHeaders } from './useHeaders';
 
 export const useFetchFollowedArtists = () => {
-  const accessToken = sessionStorage.getItem('accessToken');
-  const apiHeader = useHeaders(accessToken);
+  const apiHeader = useHeaders();
   const fetchFollowedArtists = async () => {
     try {
       const response = await fetch(
@@ -54,7 +53,6 @@ export const useFetchFollowedArtists = () => {
   } = useQuery({
     queryKey: ['followedArtists'],
     queryFn: fetchFollowedArtists,
-    enabled: !!accessToken,
   });
   return { followedArtists, isLoading, isError };
 };

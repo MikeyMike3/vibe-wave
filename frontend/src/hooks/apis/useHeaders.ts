@@ -1,6 +1,8 @@
 import { useMemo } from 'react';
+import { UseAuthContext } from '../context/useAuthContext';
 
-export const useHeaders = (accessToken: string | null) => {
+export const useHeaders = () => {
+  const { accessToken } = UseAuthContext();
   return useMemo(() => {
     return {
       headers: {

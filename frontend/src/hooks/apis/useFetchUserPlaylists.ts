@@ -2,8 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useHeaders } from '../../hooks/apis/useHeaders';
 
 export const useFetchUserPlaylists = () => {
-  const accessToken = sessionStorage.getItem('accessToken');
-  const apiHeaders = useHeaders(accessToken);
+  const apiHeaders = useHeaders();
 
   const fetchUserPlaylists = async () => {
     try {
@@ -44,8 +43,7 @@ export const useFetchUserPlaylists = () => {
   };
 
   return useQuery({
-    queryKey: ['userPlaylists', accessToken],
+    queryKey: ['userPlaylists'],
     queryFn: fetchUserPlaylists,
-    enabled: !!accessToken,
   });
 };

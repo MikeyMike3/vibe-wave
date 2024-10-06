@@ -2,8 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useHeaders } from './useHeaders';
 
 export const useFetchArtistDetails = (artistId: string | undefined) => {
-  const accessToken = sessionStorage.getItem('accessToken');
-  const apiHeader = useHeaders(accessToken);
+  const apiHeader = useHeaders();
   const fetchArtistInfo = async () => {
     try {
       const response = await fetch(`https://api.spotify.com/v1/artists/${artistId}`, apiHeader);
@@ -101,7 +100,6 @@ export const useFetchArtistDetails = (artistId: string | undefined) => {
   } = useQuery({
     queryKey: ['artistDetails', artistId],
     queryFn: fetchArtistDetails,
-    enabled: !!accessToken,
   });
   return { artistDetails, isError, isLoading };
 };

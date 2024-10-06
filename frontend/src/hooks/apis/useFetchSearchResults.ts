@@ -4,8 +4,7 @@ import { useSearchContext } from '../context/useSearchContext';
 
 export const useFetchSearchResults = (query: string) => {
   const { setSearchResults } = useSearchContext();
-  const accessToken = sessionStorage.getItem('accessToken');
-  const apiHeaders = useHeaders(accessToken);
+  const apiHeaders = useHeaders();
 
   const fetchSearchResults = async ({ queryKey }: { queryKey: [string, string | null] }) => {
     const [, searchQuery] = queryKey;
@@ -37,6 +36,6 @@ export const useFetchSearchResults = (query: string) => {
   return useQuery({
     queryKey: ['searchResults', query],
     queryFn: fetchSearchResults,
-    enabled: !!accessToken && !!query,
+    enabled: !!query,
   });
 };

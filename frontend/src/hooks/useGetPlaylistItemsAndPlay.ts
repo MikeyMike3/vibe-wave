@@ -13,8 +13,7 @@ export const useGetPlaylistItemsAndPlay = (playlistId: string, playlistName: str
   const playSongMutation = usePlaySong();
   const indexPlaylistQueue = useIndexPlaylistQueue();
 
-  const accessToken = sessionStorage.getItem('accessToken');
-  const apiHeaders = useHeaders(accessToken);
+  const apiHeaders = useHeaders();
 
   //prettier-ignore
   const fetchPlaylistItems = async (): Promise<SpotifyApi.PlaylistTrackResponse> => {

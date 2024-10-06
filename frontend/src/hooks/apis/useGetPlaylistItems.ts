@@ -2,8 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useHeaders } from './useHeaders';
 
 export const useGetPlaylistItems = (playlistId: string | undefined) => {
-  const accessToken = sessionStorage.getItem('accessToken');
-  const apiHeaders = useHeaders(accessToken);
+  const apiHeaders = useHeaders();
 
   //prettier-ignore
   const fetchPlaylistItems = async (): Promise<SpotifyApi.PlaylistTrackResponse> => {

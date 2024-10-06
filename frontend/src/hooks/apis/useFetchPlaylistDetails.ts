@@ -15,8 +15,7 @@ type PlaylistDetails = {
 };
 
 export const useFetchPlaylistDetails = (playlistId: string | undefined) => {
-  const accessToken = sessionStorage.getItem('accessToken');
-  const apiHeaders = useHeaders(accessToken);
+  const apiHeaders = useHeaders();
   const fetchPlaylistDetails = async () => {
     try {
       const response = await fetch(
@@ -43,7 +42,6 @@ export const useFetchPlaylistDetails = (playlistId: string | undefined) => {
   } = useQuery({
     queryKey: ['playlistDetails', playlistId],
     queryFn: fetchPlaylistDetails,
-    enabled: !!accessToken,
   });
 
   return { playlistDetails, error, isLoading };
