@@ -31,9 +31,7 @@ export const AllSearchResults = ({ tracks, artists, albums }: AllSearchResultsPr
             className="flex gap-7 overflow-x-scroll pb-4"
             style={{ width: 'calc(100vw - 330px)' }}
           >
-            {artists?.items.map(item => (
-              <SearchResultArtistItem key={item.id} artist={item} artistId={item.id} />
-            ))}
+            {artists?.items.map(item => <SearchResultArtistItem key={item.id} artist={item} />)}
           </div>
         ) : (
           <p className="text-textAccent">No artists found.</p>

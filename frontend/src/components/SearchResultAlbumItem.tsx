@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { getImageUrl } from '../functions/getImageUrl';
-import { findAlbumReleaseDate } from '../functions/FindAlbumReleaseDate';
+import { findAlbumReleaseDate } from '../functions/findAlbumReleaseDate';
 
 type SearchResultAlbumItemProps = {
   album: SpotifyApi.AlbumObjectSimplified;
@@ -12,7 +12,7 @@ export const SearchResultAlbumItem = ({ album }: SearchResultAlbumItemProps) => 
 
   return (
     <Link
-      to={'/album'}
+      to={`/album/${album.id}`}
       className="relative z-50 w-64 flex-shrink-0 rounded-xl p-4 duration-150 hover:bg-bgAccent"
     >
       {/* Need to add dynamic coloring to the div be below so that the color matches the album cover*/}
