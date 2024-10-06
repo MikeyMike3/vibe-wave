@@ -25,17 +25,28 @@ export const TrackInfo = ({ images, name, artists, shouldAddPadding = false }: T
           <p className="text-smTitle text-textPrimary">{name}</p>
 
           <span className="text-textAccent">
-            {artists?.map((item, index) => (
-              <span key={isArtistObjectSimplified(item) ? item.id : index}>
-                <Link
-                  className="hover:text-textPrimary hover:underline"
-                  to={`/artist/${isArtistObjectSimplified(item) ? item.id : ''}`}
-                >
-                  {item.name}
-                </Link>
-                {index < artists.length - 1 && <span>, </span>}
-              </span>
-            ))}
+            {artists?.map((item, index) => {
+              let artistId;
+
+              if (isArtistObjectSimplified(item)) {
+                artistId = item.id;
+              } else {
+                const arraySplit = item.url.split('/');
+                artistId = arraySplit[5];
+              }
+              return (
+                <span key={artistId}>
+                  <Link
+                    className="text-textAccent hover:text-textPrimary hover:underline"
+                    to={`/artist/${artistId}`}
+                  >
+                    {item.name}
+                  </Link>
+
+                  {index < artists.length - 1 && <span>, </span>}
+                </span>
+              );
+            })}
           </span>
         </div>
       </div>
