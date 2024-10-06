@@ -14,5 +14,5 @@ export const Home = () => {
   }
 
   console.log(homePageData);
-  return <div className="text-white">Home</div>;
+  return <div className="text-white">{homePageData?.topTracks.items[0].name}</div>;
 };
