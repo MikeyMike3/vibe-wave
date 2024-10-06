@@ -24,11 +24,11 @@ export const TrackInfo = ({ images, name, artists, shouldAddPadding = false }: T
         <div className="flex flex-col">
           <p className="text-smTitle text-textPrimary">{name}</p>
 
-          <span className="text-textPrimary">
+          <span className="text-textAccent">
             {artists?.map((item, index) => (
               <span key={isArtistObjectSimplified(item) ? item.id : index}>
                 <Link
-                  className="text-textAccent hover:text-textPrimary hover:underline"
+                  className="hover:text-textPrimary hover:underline"
                   to={`/artist/${isArtistObjectSimplified(item) ? item.id : ''}`}
                 >
                   {item.name}
