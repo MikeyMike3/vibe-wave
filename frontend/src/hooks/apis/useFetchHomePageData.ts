@@ -96,7 +96,7 @@ export const useFetchHomePageData = () => {
   };
 
   const {
-    data: homePageDetails,
+    data: homePageData,
     isLoading,
     isError,
   } = useQuery({
@@ -104,5 +104,5 @@ export const useFetchHomePageData = () => {
     queryFn: fetchHomePageDetails,
   });
 
-  return { homePageDetails, isLoading, isError };
+  return { homePageData, isLoading, isError };
 };
