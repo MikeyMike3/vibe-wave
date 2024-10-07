@@ -3,7 +3,7 @@ import { useHeaders } from './useHeaders';
 
 export const useFetchArtistGenres = () => {
   const apiHeader = useHeaders();
-  const fetchArtistGenres = async (artistId: string) => {
+  const fetchArtistGenres = async (artistId: string | undefined) => {
     try {
       const response = await fetch(`https://api.spotify.com/v1/artists/${artistId}`, apiHeader);
 
