@@ -9,6 +9,7 @@ import { getImageUrl } from '../functions/getImageUrl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlay } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
 import { ShuffleTracksButton } from '../components/spotifyPlayer/ShuffleTracksButton';
+import { useFetchArtistGenres } from '../hooks/apis/useFetchArtistGenres';
 
 export const UserPlaylistItems = () => {
   const { playlistId } = useParams();
@@ -16,6 +17,7 @@ export const UserPlaylistItems = () => {
   // I need to make another hook that combines these together so that I can Promise.All these together
   const { playlistItems, isLoading, isError } = useGetPlaylistItems(playlistId);
   const { playlistDetails } = useFetchPlaylistDetails(playlistId);
+  const fetchArtistGenresMutation = useFetchArtistGenres();
 
   if (isLoading) {
     return <MainLoading />;
@@ -47,19 +49,25 @@ export const UserPlaylistItems = () => {
               <ShuffleTracksButton />
             </div>
           </div>
-          {playlistItems?.items.map(item => (
-            <div
-              key={item.track?.id}
-              className="flex w-full items-center justify-between py-2 pl-2 hover:bg-bgAccent"
-            >
-              <TrackInfo
-                images={item.track?.album.images}
-                name={item.track?.name}
-                artists={item.track?.artists}
-              />
-              <PlaylistItemKebabMenu track={item} />
-            </div>
-          ))}
+          {playlistItems?.items.map((item, index) => {
+            if (index < 5) {
+              fetchArtistGenresMutation(item.track?.artists[0]);
+            }
+
+            return (
+              <div
+                key={item.track?.id}
+                className="flex w-full items-center justify-between py-2 pl-2 hover:bg-bgAccent"
+              >
+                <TrackInfo
+                  images={item.track?.album.images}
+                  name={item.track?.name}
+                  artists={item.track?.artists}
+                />
+                <PlaylistItemKebabMenu track={item} />
+              </div>
+            );
+          })}
         </div>
         <div>
           <div className="sticky top-5">
