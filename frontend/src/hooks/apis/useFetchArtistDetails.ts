@@ -8,12 +8,13 @@ export const useFetchArtistDetails = (artistId: string | undefined) => {
       const response = await fetch(`https://api.spotify.com/v1/artists/${artistId}`, apiHeader);
 
       if (!response.ok) {
-        throw new Error('Error fetching artist details');
+        throw new Error('Error fetching artist info');
       }
 
       const data: SpotifyApi.ArtistObjectFull = await response.json();
       return data;
     } catch (error) {
+      console.error('Error fetching artist info', error);
       throw error;
     }
   };
@@ -26,12 +27,13 @@ export const useFetchArtistDetails = (artistId: string | undefined) => {
       );
 
       if (!response.ok) {
-        throw new Error('Error fetching artist details');
+        throw new Error('Error fetching artist albums');
       }
 
       const data: SpotifyApi.ArtistsAlbumsResponse = await response.json();
       return data;
     } catch (error) {
+      console.error('Error fetching artist albums', error);
       throw error;
     }
   };
@@ -44,12 +46,13 @@ export const useFetchArtistDetails = (artistId: string | undefined) => {
       );
 
       if (!response.ok) {
-        throw new Error('Error fetching artist details');
+        throw new Error('Error fetching artist top tracks');
       }
 
       const data: SpotifyApi.ArtistsTopTracksResponse = await response.json();
       return data;
     } catch (error) {
+      console.error('Error fetching artist top tracks', error);
       throw error;
     }
   };
@@ -62,12 +65,13 @@ export const useFetchArtistDetails = (artistId: string | undefined) => {
       );
 
       if (!response.ok) {
-        throw new Error('Error fetching artist details');
+        throw new Error('Error fetching related artists ');
       }
 
       const data: SpotifyApi.ArtistsRelatedArtistsResponse = await response.json();
       return data;
     } catch (error) {
+      console.error('Error fetching related artists ', error);
       throw error;
     }
   };
