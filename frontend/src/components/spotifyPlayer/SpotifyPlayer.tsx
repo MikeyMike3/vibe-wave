@@ -168,7 +168,7 @@ export const SpotifyPlayer = () => {
   ]);
 
   return (
-    <footer className="sticky bottom-0 z-[9999] mt-auto grid w-full grid-cols-[25%_50%_25%] items-center bg-black p-3 text-white">
+    <footer className="sticky bottom-0 z-[9999] mt-auto grid w-full grid-cols-[25%_50%_25%] items-center rounded-3xl bg-black p-3 text-white">
       <TrackInfo
         name={playerState?.track_window?.current_track?.name}
         images={playerState?.track_window?.current_track?.album?.images}
