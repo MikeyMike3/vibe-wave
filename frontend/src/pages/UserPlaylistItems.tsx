@@ -77,7 +77,7 @@ export const UserPlaylistItems = () => {
 
               {playlistItems?.items.map((item, index) => {
                 return (
-                  <tr key={item.track?.id} className="p-2 text-left">
+                  <tr key={item.track?.id} className="group">
                     <td className="p-2">{index + 1}</td>
                     <td className="p-2">
                       <TrackInfo
@@ -96,7 +96,7 @@ export const UserPlaylistItems = () => {
                     </td>
                     <td className="p-2">{formatTime(item.track?.duration_ms)}</td>
 
-                    <td>
+                    <td className="opacity-0 group-hover:opacity-100">
                       <PlaylistItemKebabMenu track={item} />
                     </td>
                   </tr>
