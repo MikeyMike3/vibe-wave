@@ -12,6 +12,7 @@ import { ShuffleTracksButton } from '../components/spotifyPlayer/ShuffleTracksBu
 import { useFetchArtistImagesAndGenres } from '../hooks/apis/useFetchArtistInfoForTracks';
 import { capitalizeFirstLetterOfEachWord } from '../functions/capitalizeFirstLetterOfEachWord';
 import { Wrapper } from '../components/styledComponents/Wrapper';
+import { formatTimeInHours } from '../functions/formatTimeInHours';
 
 export const UserPlaylistItems = () => {
   const { playlistId } = useParams();
@@ -49,7 +50,8 @@ export const UserPlaylistItems = () => {
                   By: <span className="text-textPrimary">Michael Morgan</span>{' '}
                   <span className="text-textPrimary">&#8226;</span> {playlistItems?.items.length}{' '}
                   songs
-                  <span className="text-textPrimary"> &#8226;</span> Total Time of songs
+                  <span className="text-textPrimary"> &#8226;</span>{' '}
+                  {formatTimeInHours(playlistItems?.items)}
                 </p>
               </div>
 
