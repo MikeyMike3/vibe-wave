@@ -13,5 +13,5 @@ export const formatTimeInHours = (
   const totalHours = Math.floor(totalDurationMs / (1000 * 60 * 60));
   const totalMinutes = Math.floor((totalDurationMs % (1000 * 60 * 60)) / (1000 * 60));
 
-  return `${totalHours}h ${totalMinutes}m`;
+  return `${totalHours} hr ${totalMinutes} min`;
 };
