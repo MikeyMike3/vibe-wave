@@ -13,6 +13,7 @@ import { useFetchArtistImagesAndGenres } from '../hooks/apis/useFetchArtistInfoF
 import { capitalizeFirstLetterOfEachWord } from '../functions/capitalizeFirstLetterOfEachWord';
 import { Wrapper } from '../components/styledComponents/Wrapper';
 import { formatTimeInHours } from '../functions/formatTimeInHours';
+import { formatTime } from '../functions/formatTime';
 
 export const UserPlaylistItems = () => {
   const { playlistId } = useParams();
@@ -61,21 +62,37 @@ export const UserPlaylistItems = () => {
                 <ShuffleTracksButton />
               </div>
             </div>
-            {playlistItems?.items.map(item => {
-              return (
-                <div
-                  key={item.track?.id}
-                  className="flex w-full items-center justify-between py-2 pl-2 hover:bg-bgAccent"
-                >
-                  <TrackInfo
-                    images={item.track?.album.images}
-                    name={item.track?.name}
-                    artists={item.track?.artists}
-                  />
-                  <PlaylistItemKebabMenu track={item} />
-                </div>
-              );
-            })}
+            <table className="w-full table-auto text-white">
+              <thead>
+                <tr className="p-2 text-left">
+                  <th className="p-2">#</th>
+                  <th className="p-2">Title</th>
+                  <th className="p-2">Album</th>
+                  <th className="p-2">Duration</th>
+                </tr>
+              </thead>
+
+              {playlistItems?.items.map((item, index) => {
+                return (
+                  <tr key={item.track?.id} className="p-2 text-left">
+                    <td className="p-2">{index + 1}</td>
+                    <td className="p-2">
+                      <TrackInfo
+                        images={item.track?.album.images}
+                        name={item.track?.name}
+                        artists={item.track?.artists}
+                      />
+                    </td>
+                    <td className="p-2">{item.track?.album.name}</td>
+                    <td className="p-2">{formatTime(item.track?.duration_ms)}</td>
+
+                    <td>
+                      <PlaylistItemKebabMenu track={item} />
+                    </td>
+                  </tr>
+                );
+              })}
+            </table>
           </div>
           <div className="sticky top-5 overflow-y-auto" style={{ height: 'calc(100vh - 210px)' }}>
             <div>
