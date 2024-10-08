@@ -7,7 +7,7 @@ import { SearchBar } from '../components/SearchBar';
 export const RootLayout = () => {
   return (
     <>
-      <div className="fixed top-0 grid h-screen w-full grid-cols-[300px_1fr]">
+      <div className="fixed top-0 grid h-screen w-full grid-cols-[300px_1fr] gap-2">
         <div className="bg-black">
           <PCNav />
           <MobileNav />
@@ -15,7 +15,7 @@ export const RootLayout = () => {
         <div className="flex flex-col">
           <SearchBar />
           {/* the height is very magic numbery */}
-          <div className="overflow-y-auto" style={{ height: 'calc(100vh - 189px)' }}>
+          <div className="overflow-y-auto rounded-3xl" style={{ height: 'calc(100vh - 189px)' }}>
             <Outlet />
           </div>
           <SpotifyPlayer />
