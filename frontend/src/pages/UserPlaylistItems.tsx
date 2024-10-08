@@ -66,8 +66,13 @@ export const UserPlaylistItems = () => {
         <div>
           <div className="sticky top-5">
             <img src={image} alt={playlistDetails?.name} />
-            <div className="flex">
-              <p></p>
+            <div className="flex flex-col gap-4 pt-4">
+              {playlistItems?.items.slice(0, 3).map(item => (
+                <div className="flex items-center gap-4">
+                  <img className="h-14 w-14 rounded-full" src={item.track?.album.images[0].url} />
+                  <p>{item.track?.artists[0].name}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
