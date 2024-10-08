@@ -20,8 +20,6 @@ export const UserPlaylistItems = () => {
   const { playlistDetails } = useFetchPlaylistDetails(playlistId);
   const { data: artistInfo } = useFetchArtistImagesAndGenres(playlistItems?.items);
 
-  console.log(artistInfo);
-
   if (isLoading) {
     return <MainLoading />;
   }
@@ -80,13 +78,14 @@ export const UserPlaylistItems = () => {
               <img className="h-80 object-cover pb-5" src={image} alt={playlistDetails?.name} />
 
               <div className="flex flex-wrap gap-3">
-                {artistInfo?.genres
-                  .slice(0, 3)
-                  .map(item => (
-                    <p className="rounded-3xl border-2 border-textPrimary p-3 px-5 text-textPrimary">
-                      {capitalizeFirstLetterOfEachWord(item)}
-                    </p>
-                  ))}
+                {artistInfo?.genres.slice(0, 3).map(item => (
+                  <p
+                    key={item}
+                    className="rounded-3xl border-2 border-textPrimary p-3 px-5 text-textPrimary"
+                  >
+                    {capitalizeFirstLetterOfEachWord(item)}
+                  </p>
+                ))}
               </div>
 
               <div className="flex flex-col gap-4 pt-4">
