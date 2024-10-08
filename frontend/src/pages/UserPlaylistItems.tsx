@@ -86,7 +86,9 @@ export const UserPlaylistItems = () => {
                         artists={item.track?.artists}
                       />
                     </td>
-                    <td className="p-2">{item.track?.album.name}</td>
+                    <td className="p-2">
+                      <Link to={`/album/${item.track?.album.id}`}>{item.track?.album.name}</Link>
+                    </td>
                     <td className="p-2">{formatTime(item.track?.duration_ms)}</td>
 
                     <td>
