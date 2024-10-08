@@ -47,7 +47,8 @@ export const UserPlaylistItems = () => {
               <div className="flex flex-col gap-5">
                 <h1 className="text-5xl font-semibold text-textPrimary">{playlistDetails?.name}</h1>
                 <p className="text-textAccent">
-                  By: <span className="text-textPrimary">Michael Morgan</span>{' '}
+                  By:{' '}
+                  <span className="text-textPrimary">{playlistDetails?.owner.display_name}</span>{' '}
                   <span className="text-textPrimary">&#8226;</span> {playlistItems?.items.length}{' '}
                   songs
                   <span className="text-textPrimary"> &#8226;</span>{' '}
