@@ -34,6 +34,7 @@ export const UserPlaylistItems = () => {
 
   return (
     <div
+      className="rounded-2xl"
       style={{
         background: 'linear-gradient(0deg, rgba(0,0,0,1) 10%, rgba(28, 37, 82,1) 100%)',
         backgroundAttachment: 'fixed', // Fixes the background when scrolling
