@@ -77,7 +77,7 @@ export const UserPlaylistItems = () => {
               );
             })}
           </div>
-          <div className="sticky top-5 overflow-y-auto" style={{ height: 'calc(100vh - 225px)' }}>
+          <div className="sticky top-5 overflow-y-auto" style={{ height: 'calc(100vh - 210px)' }}>
             <div>
               <img className="h-80 object-cover pb-5" src={image} alt={playlistDetails?.name} />
 
