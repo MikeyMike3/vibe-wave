@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlay } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
 import { ShuffleTracksButton } from '../components/spotifyPlayer/ShuffleTracksButton';
 import { useFetchArtistImagesAndGenres } from '../hooks/apis/useFetchArtistInfoForTracks';
+import { capitalizeFirstLetterOfEachWord } from '../functions/capitalizeFirstLetterOfEachWord';
 
 export const UserPlaylistItems = () => {
   const { playlistId } = useParams();
@@ -82,7 +83,9 @@ export const UserPlaylistItems = () => {
                 {artistInfo?.genres
                   .slice(0, 3)
                   .map(item => (
-                    <p className="rounded-3xl border-2 border-textAccent p-3">{item}</p>
+                    <p className="rounded-3xl border-2 border-textPrimary p-3 px-5 text-textPrimary">
+                      {capitalizeFirstLetterOfEachWord(item)}
+                    </p>
                   ))}
               </div>
 
