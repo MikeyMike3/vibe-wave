@@ -9,7 +9,6 @@ import { getImageUrl } from '../functions/getImageUrl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlay } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
 import { ShuffleTracksButton } from '../components/spotifyPlayer/ShuffleTracksButton';
-import { useFetchArtistGenres } from '../hooks/apis/useFetchArtistGenres';
 
 export const UserPlaylistItems = () => {
   const { playlistId } = useParams();
@@ -17,7 +16,6 @@ export const UserPlaylistItems = () => {
   // I need to make another hook that combines these together so that I can Promise.All these together
   const { playlistItems, isLoading, isError } = useGetPlaylistItems(playlistId);
   const { playlistDetails } = useFetchPlaylistDetails(playlistId);
-  const fetchArtistGenresMutation = useFetchArtistGenres();
 
   if (isLoading) {
     return <MainLoading />;
@@ -49,11 +47,7 @@ export const UserPlaylistItems = () => {
               <ShuffleTracksButton />
             </div>
           </div>
-          {playlistItems?.items.map((item, index) => {
-            if (index < 5) {
-              fetchArtistGenresMutation(item.track?.artists[0]);
-            }
-
+          {playlistItems?.items.map(item => {
             return (
               <div
                 key={item.track?.id}
