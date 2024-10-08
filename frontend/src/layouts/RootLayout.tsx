@@ -15,7 +15,7 @@ export const RootLayout = () => {
         <div className="flex flex-col">
           <SearchBar />
           {/* the height is very magic numbery */}
-          <div className="overflow-y-auto p-2" style={{ height: 'calc(100vh - 189px)' }}>
+          <div className="overflow-y-auto" style={{ height: 'calc(100vh - 189px)' }}>
             <Outlet />
           </div>
           <SpotifyPlayer />
