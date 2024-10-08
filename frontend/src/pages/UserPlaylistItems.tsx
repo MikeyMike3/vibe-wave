@@ -63,14 +63,14 @@ export const UserPlaylistItems = () => {
                 <ShuffleTracksButton />
               </div>
             </div>
-            <table className="w-full table-auto text-white">
-              <thead>
+            <table className="w-full table-auto text-textAccent">
+              <thead className="border-b-2 border-textAccent">
                 <tr className="p-2 text-left">
                   <th className="p-2">#</th>
                   <th className="p-2">Title</th>
                   <th className="p-2">Album</th>
                   <th className="p-2 text-center">
-                    <FontAwesomeIcon className="text-textPrimary" icon={faClockRegular} />
+                    <FontAwesomeIcon className="text-textAccent" icon={faClockRegular} />
                   </th>
                 </tr>
               </thead>
@@ -87,7 +87,12 @@ export const UserPlaylistItems = () => {
                       />
                     </td>
                     <td className="p-2">
-                      <Link to={`/album/${item.track?.album.id}`}>{item.track?.album.name}</Link>
+                      <Link
+                        className="hover:text-textPrimary hover:underline"
+                        to={`/album/${item.track?.album.id}`}
+                      >
+                        {item.track?.album.name}
+                      </Link>
                     </td>
                     <td className="p-2">{formatTime(item.track?.duration_ms)}</td>
 
