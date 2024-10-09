@@ -6,11 +6,11 @@ import { useIndexPlaylistQueue } from '../hooks/spotifyPlayer/useIndexPlaylistQu
 import { usePlaySong } from '../hooks/spotifyPlayer/usePlaySong';
 import { useShuffleTracks } from '../hooks/spotifyPlayer/useShuffleTracks';
 
-type PlaylistPlayButtonProps = {
+type PlaylistPagePlayButtonProps = {
   playlistItems: SpotifyApi.PlaylistTrackResponse | undefined;
 };
 
-export const PlaylistPlayButton = ({ playlistItems }: PlaylistPlayButtonProps) => {
+export const PlaylistPagePlayButton = ({ playlistItems }: PlaylistPagePlayButtonProps) => {
   const { setPlaylistName, shuffleTracksRef, repeatRef, setRepeat } = usePlaybackContext();
   const { setPlaylistQueue, unShuffledQueueRef } = useQueueContext();
   const shuffleTracks = useShuffleTracks();

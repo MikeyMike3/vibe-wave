@@ -14,7 +14,7 @@ import { formatTimeInHours } from '../functions/formatTimeInHours';
 import { formatTime } from '../functions/formatTime';
 import { getBackgroundImageColor } from '../functions/getBackgroundImageColor';
 import { useEffect, useState } from 'react';
-import { PlaylistPlayButton } from '../components/PlaylistPlayButton';
+import { PlaylistPagePlayButton } from '../components/PlaylistPagePlayButton';
 
 export const UserPlaylistItems = () => {
   const { playlistId } = useParams();
@@ -68,7 +68,7 @@ export const UserPlaylistItems = () => {
               </div>
 
               <div className="flex gap-6">
-                <PlaylistPlayButton playlistItems={playlistItems} />
+                <PlaylistPagePlayButton playlistItems={playlistItems} />
                 <ShuffleTracksButton />
               </div>
             </div>
