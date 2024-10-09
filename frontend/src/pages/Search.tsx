@@ -5,6 +5,7 @@ import { SearchResultArtistItem } from '../components/SearchResultArtistItem';
 import { SearchResultAlbumItem } from '../components/SearchResultAlbumItem';
 import { AllSearchResults } from '../components/AllSearchResults';
 import { GridContainer } from '../components/styledComponents/GridContainer';
+import { Wrapper } from '../components/styledComponents/Wrapper';
 
 export const Search = () => {
   const { searchResults } = useSearchContext();
@@ -14,10 +15,10 @@ export const Search = () => {
   const [isAlbumsClicked, setIsAlbumsClicked] = useState(false);
 
   return (
-    <>
+    <Wrapper>
       {searchResults.albums && searchResults.artists && searchResults.tracks && (
         <>
-          <div className="flex gap-4 py-4 text-white">
+          <div className="flex gap-4 pb-4 text-white">
             <button
               className={`${isAllClicked ? 'bg-white text-black' : 'hover:bg-bgAccentHover'} rounded-xl bg-bgAccent p-2 px-4 duration-150 ${isAllClicked && 'hover:bg-white'}`}
               onClick={() => {
@@ -117,6 +118,6 @@ export const Search = () => {
           )}
         </>
       )}
-    </>
+    </Wrapper>
   );
 };
