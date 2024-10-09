@@ -148,7 +148,7 @@ export const UserPlaylistItems = () => {
                       className="group flex items-center gap-3"
                     >
                       <img
-                        className="h-16 w-16 rounded-full duration-300 group-hover:scale-105"
+                        className="h-16 w-16 rounded-full"
                         src={artist?.images[0]?.url}
                         alt={item.track?.artists[0]?.name}
                       />
