@@ -63,9 +63,13 @@ export const QueueDisplay = ({ queueSegment, setIsQueueSegmentOpen }: QueueDispl
       {playlistQueue.length > 0 && (
         <>
           <h2 className="pb-2 text-xl text-textPrimary">
-            Next Up from: <Link to={`/playlist.${playlistId}`}> </Link>
-            {playlistName}
+            Next Up from:{' '}
+            <Link className="hover:underline" to={`/playlists/${playlistId}`}>
+              {' '}
+              {playlistName}
+            </Link>
           </h2>
+
           <div className="py-2">
             {queueSegment.map((item, index) => (
               <QueueItem
