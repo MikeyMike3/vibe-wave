@@ -89,7 +89,7 @@ export const UserPlaylistItems = () => {
                 {playlistItems?.items.map((item, index) => {
                   return (
                     <tr key={item.track?.id} className="group">
-                      <td className="p-2">{index + 1}</td>
+                      <td className="p-2 group-hover:text-textPrimary">{index + 1}</td>
                       <td className="p-2">
                         <TrackInfo
                           images={item.track?.album.images}
@@ -97,7 +97,7 @@ export const UserPlaylistItems = () => {
                           artists={item.track?.artists}
                         />
                       </td>
-                      <td className="p-2">
+                      <td className="p-2 group-hover:text-textPrimary">
                         <Link
                           className="hover:text-textPrimary hover:underline"
                           to={`/album/${item.track?.album.id}`}
@@ -105,7 +105,9 @@ export const UserPlaylistItems = () => {
                           {item.track?.album.name}
                         </Link>
                       </td>
-                      <td className="p-2">{formatTime(item.track?.duration_ms)}</td>
+                      <td className="p-2 group-hover:text-textPrimary">
+                        {formatTime(item.track?.duration_ms)}
+                      </td>
 
                       <td className="opacity-0 group-hover:opacity-100">
                         <PlaylistItemKebabMenu track={item} />
