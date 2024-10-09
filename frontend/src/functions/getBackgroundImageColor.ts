@@ -27,14 +27,14 @@ export const getBackgroundImageColor = (
             Math.floor(rgbaValues[0] * darkenFactor),
             Math.floor(rgbaValues[1] * darkenFactor),
             Math.floor(rgbaValues[2] * darkenFactor),
-            (rgbaValues[3] = 0.5), // Keep the alpha (opacity) the same
+            (rgbaValues[3] = 0.5),
           ];
         } else {
           darkerColor = [
             Math.floor(rgbaValues[0] * darkenFactor),
             Math.floor(rgbaValues[1] * darkenFactor),
             Math.floor(rgbaValues[2] * darkenFactor),
-            rgbaValues[3],
+            (rgbaValues[3] = 0.8),
           ];
         }
 
