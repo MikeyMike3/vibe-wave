@@ -6,8 +6,6 @@ import { MainLoading } from '../components/MainLoading';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { useFetchPlaylistDetails } from '../hooks/apis/useFetchPlaylistDetails';
 import { getImageUrl } from '../functions/getImageUrl';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCirclePlay } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
 import { ShuffleTracksButton } from '../components/spotifyPlayer/ShuffleTracksButton';
 import { useFetchArtistImagesAndGenres } from '../hooks/apis/useFetchArtistInfoForTracks';
 import { capitalizeFirstLetterOfEachWord } from '../functions/capitalizeFirstLetterOfEachWord';
@@ -16,6 +14,7 @@ import { formatTimeInHours } from '../functions/formatTimeInHours';
 import { formatTime } from '../functions/formatTime';
 import { getBackgroundImageColor } from '../functions/getBackgroundImageColor';
 import { useEffect, useState } from 'react';
+import { PlaylistPlayButton } from '../components/PlaylistPlayButton';
 
 export const UserPlaylistItems = () => {
   const { playlistId } = useParams();
@@ -69,7 +68,7 @@ export const UserPlaylistItems = () => {
               </div>
 
               <div className="flex gap-6">
-                <FontAwesomeIcon className="text-6xl" icon={faCirclePlay} color="aqua" />
+                <PlaylistPlayButton playlistItems={playlistItems} />
                 <ShuffleTracksButton />
               </div>
             </div>
