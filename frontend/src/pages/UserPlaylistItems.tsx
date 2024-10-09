@@ -15,8 +15,8 @@ import { Wrapper } from '../components/styledComponents/Wrapper';
 import { formatTimeInHours } from '../functions/formatTimeInHours';
 import { formatTime } from '../functions/formatTime';
 import { faClock as faClockRegular } from '@awesome.me/kit-71c07605c0/icons/sharp/regular';
+import { getBackgroundImageColor } from '../functions/getBackgroundImageColor';
 import { useEffect, useState } from 'react';
-import { FastAverageColor } from 'fast-average-color';
 
 export const UserPlaylistItems = () => {
   const { playlistId } = useParams();
@@ -31,38 +31,10 @@ export const UserPlaylistItems = () => {
   const image = getImageUrl(playlistDetails?.images);
 
   useEffect(() => {
-    const imgUrl = playlistDetails?.images?.[0]?.url;
-    if (imgUrl) {
-      const fac = new FastAverageColor();
-      fac
-        .getColorAsync(imgUrl)
-        .then(color => {
-          const rgbaString = color.rgba;
-
-          const rgbaArray = rgbaString.match(/[\d.]+/g);
-
-          if (rgbaArray) {
-            const rgbaValues = rgbaArray.map(Number);
-
-            const darkenFactor = 0.8;
-
-            const darkerColor = [
-              Math.floor(rgbaValues[0] * darkenFactor),
-              Math.floor(rgbaValues[1] * darkenFactor),
-              Math.floor(rgbaValues[2] * darkenFactor),
-              rgbaValues[3],
-            ];
-
-            const darkerColorString = `rgba(${darkerColor.join(',')})`;
-
-            setBackgroundColor(darkerColorString);
-          } else {
-            console.error('Invalid rgba string:', rgbaString);
-          }
-        })
-        .catch(error => console.error('Error extracting color:', error));
+    if (image) {
+      getBackgroundImageColor(image, setBackgroundColor);
     }
-  }, [playlistDetails?.images]);
+  }, [image]);
 
   if (isLoading) {
     return <MainLoading />;
