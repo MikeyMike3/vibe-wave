@@ -3,7 +3,7 @@ import { FastAverageColor } from 'fast-average-color';
 export const getBackgroundImageColor = (
   imgUrl: string,
   setColor: (color: string) => void,
-  shouldAddOpacity?: boolean,
+  shouldBeDarker?: boolean,
 ) => {
   const fac = new FastAverageColor();
 
@@ -17,12 +17,11 @@ export const getBackgroundImageColor = (
       if (rgbaArray) {
         const rgbaValues = rgbaArray.map(Number);
 
-        // Darkening factor
         const darkenFactor = 0.8;
         let darkerColor;
 
         // Darken the color
-        if (shouldAddOpacity) {
+        if (shouldBeDarker) {
           darkerColor = [
             Math.floor(rgbaValues[0] * darkenFactor),
             Math.floor(rgbaValues[1] * darkenFactor),
@@ -40,7 +39,6 @@ export const getBackgroundImageColor = (
 
         const darkerColorString = `rgba(${darkerColor.join(',')})`;
 
-        // Set the darker color as background color
         setColor(darkerColorString);
       } else {
         console.error('Invalid rgba string:', rgbaString);
