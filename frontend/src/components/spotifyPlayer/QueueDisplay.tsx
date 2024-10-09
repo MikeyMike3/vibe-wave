@@ -65,7 +65,6 @@ export const QueueDisplay = ({ queueSegment, setIsQueueSegmentOpen }: QueueDispl
           <h2 className="pb-2 text-xl text-textPrimary">
             Next Up from:{' '}
             <Link className="hover:underline" to={`/playlists/${playlistId}`}>
-              {' '}
               {playlistName}
             </Link>
           </h2>
