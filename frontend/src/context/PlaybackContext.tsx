@@ -31,6 +31,9 @@ type PlaybackContext = {
   playlistName: string;
   // prettier-ignore
   setPlaylistName: React.Dispatch<React.SetStateAction<string>>
+  playlistId: string;
+  // prettier-ignore
+  setPlaylistId: React.Dispatch<React.SetStateAction<string>>
   shuffleTracksState: boolean;
   // prettier-ignore
   setShuffleTracksState: React.Dispatch<React.SetStateAction<boolean>>
@@ -47,6 +50,7 @@ export const PlaybackProvider = ({ children }: PlaybackProvider) => {
   const [playerDuration, setPlayerDuration] = useState<string | number>('0');
   const [playerPosition, setPlayerPosition] = useState<string | number>('0');
   const [playlistName, setPlaylistName] = useState<string>('');
+  const [playlistId, setPlaylistId] = useState<string>('');
   const [shuffleTracksState, setShuffleTracksState] = useState<boolean>(false);
   const [volume, setVolume] = useState<number>(10);
 
@@ -74,6 +78,8 @@ export const PlaybackProvider = ({ children }: PlaybackProvider) => {
         setPlayerPosition,
         playlistName,
         setPlaylistName,
+        playlistId,
+        setPlaylistId,
         shuffleTracksState,
         setShuffleTracksState,
         volume,

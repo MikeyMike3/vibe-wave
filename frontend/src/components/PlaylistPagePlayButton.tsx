@@ -7,12 +7,32 @@ import { usePlaySong } from '../hooks/spotifyPlayer/usePlaySong';
 import { useShuffleTracks } from '../hooks/spotifyPlayer/useShuffleTracks';
 import { useSpotifyPlayerContext } from '../hooks/context/useSpotifyPlayerContext';
 
-type PlaylistPagePlayButtonProps = {
-  playlistItems: SpotifyApi.PlaylistTrackResponse | undefined;
+type PlaylistDetails = {
+  name: string;
+  owner: {
+    display_name: string;
+  };
+  images: {
+    url: string;
+    height: number | null;
+    width: number | null;
+  }[];
+  description: string;
 };
 
-export const PlaylistPagePlayButton = ({ playlistItems }: PlaylistPagePlayButtonProps) => {
-  const { setPlaylistName, shuffleTracksRef, repeatRef, setRepeat } = usePlaybackContext();
+type PlaylistPagePlayButtonProps = {
+  playlistItems: SpotifyApi.PlaylistTrackResponse | undefined;
+  playlistDetails: PlaylistDetails | undefined;
+  playlistId: string | undefined;
+};
+
+export const PlaylistPagePlayButton = ({
+  playlistItems,
+  playlistDetails,
+  playlistId,
+}: PlaylistPagePlayButtonProps) => {
+  const { setPlaylistName, setPlaylistId, shuffleTracksRef, repeatRef, setRepeat } =
+    usePlaybackContext();
   const { setPlaylistQueue, unShuffledQueueRef } = useQueueContext();
   const { isPlayerReady } = useSpotifyPlayerContext();
   const shuffleTracks = useShuffleTracks();
@@ -20,11 +40,13 @@ export const PlaylistPagePlayButton = ({ playlistItems }: PlaylistPagePlayButton
   const indexPlaylistQueue = useIndexPlaylistQueue();
 
   const handleClick = () => {
-    if (!playlistItems) {
+    if (!playlistItems || !playlistDetails || !playlistId) {
       return;
     }
+
     setPlaylistQueue(playlistItems.items);
-    setPlaylistName('Liked Songs');
+    setPlaylistName(playlistDetails?.name);
+    setPlaylistId(playlistId);
 
     if (repeatRef.current === 2) {
       setRepeat(1);

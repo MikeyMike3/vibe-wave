@@ -2,6 +2,7 @@ import { useQueueContext } from '../../hooks/context/useQueueContext';
 import { QueueItem } from './QueueItem';
 import { usePlaybackContext } from '../../hooks/context/usePlaybackContext';
 import { useRef } from 'react';
+import { Link } from 'react-router-dom';
 
 type QueueDisplayProps = {
   queueSegment: SpotifyApi.PlaylistTrackObject[];
@@ -11,7 +12,7 @@ type QueueDisplayProps = {
 
 export const QueueDisplay = ({ queueSegment, setIsQueueSegmentOpen }: QueueDisplayProps) => {
   const { priorityQueue, playlistQueue } = useQueueContext();
-  const { playerState, playlistName } = usePlaybackContext();
+  const { playerState, playlistName, playlistId } = usePlaybackContext();
 
   const queueDisplayRef = useRef<HTMLDivElement>(null);
 
@@ -61,7 +62,10 @@ export const QueueDisplay = ({ queueSegment, setIsQueueSegmentOpen }: QueueDispl
       )}
       {playlistQueue.length > 0 && (
         <>
-          <h2 className="pb-2 text-xl text-textPrimary">Next Up from: {playlistName}</h2>
+          <h2 className="pb-2 text-xl text-textPrimary">
+            Next Up from: <Link to={`/playlist.${playlistId}`}> </Link>
+            {playlistName}
+          </h2>
           <div className="py-2">
             {queueSegment.map((item, index) => (
               <QueueItem

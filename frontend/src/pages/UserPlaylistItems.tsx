@@ -68,7 +68,11 @@ export const UserPlaylistItems = () => {
               </div>
 
               <div className="flex gap-6">
-                <PlaylistPagePlayButton playlistItems={playlistItems} />
+                <PlaylistPagePlayButton
+                  playlistItems={playlistItems}
+                  playlistDetails={playlistDetails}
+                  playlistId={playlistId}
+                />
                 <ShuffleTracksButton />
               </div>
             </div>
