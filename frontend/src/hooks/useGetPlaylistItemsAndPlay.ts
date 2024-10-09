@@ -7,7 +7,7 @@ import { useIndexPlaylistQueue } from './spotifyPlayer/useIndexPlaylistQueue';
 import { useHeaders } from './apis/useHeaders';
 
 export const useGetPlaylistItemsAndPlay = (playlistId: string, playlistName: string) => {
-  const { setPlaylistName, shuffleTracksRef } = usePlaybackContext();
+  const { setPlaylistName, shuffleTracksRef, repeatRef, setRepeat } = usePlaybackContext();
   const { setPlaylistQueue, unShuffledQueueRef } = useQueueContext();
   const shuffleTracks = useShuffleTracks();
   const playSongMutation = usePlaySong();
@@ -60,6 +60,11 @@ export const useGetPlaylistItemsAndPlay = (playlistId: string, playlistName: str
       setPlaylistQueue([]);
       setPlaylistQueue(data.data.items);
       setPlaylistName(playlistName);
+
+      if (repeatRef.current === 2) {
+        setRepeat(1);
+        repeatRef.current = 1;
+      }
 
       setPlaylistQueue(currentQueue => {
         if (currentQueue.length > 0) {
