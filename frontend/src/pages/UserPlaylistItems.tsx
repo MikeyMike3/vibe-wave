@@ -15,6 +15,8 @@ import { Wrapper } from '../components/styledComponents/Wrapper';
 import { formatTimeInHours } from '../functions/formatTimeInHours';
 import { formatTime } from '../functions/formatTime';
 import { faClock as faClockRegular } from '@awesome.me/kit-71c07605c0/icons/sharp/regular';
+import { useEffect, useState } from 'react';
+import { FastAverageColor } from 'fast-average-color';
 
 export const UserPlaylistItems = () => {
   const { playlistId } = useParams();
@@ -24,6 +26,24 @@ export const UserPlaylistItems = () => {
   const { playlistDetails } = useFetchPlaylistDetails(playlistId);
   const { data: artistInfo } = useFetchArtistImagesAndGenres(playlistItems?.items);
 
+  const [backgroundColor, setBackgroundColor] = useState<string>('');
+
+  const image = getImageUrl(playlistDetails?.images);
+
+  useEffect(() => {
+    const imgUrl = playlistDetails?.images?.[0]?.url;
+    if (imgUrl) {
+      const fac = new FastAverageColor();
+      fac
+        .getColorAsync(imgUrl)
+        .then(color => {
+          console.log(color);
+          setBackgroundColor(color.rgba);
+        })
+        .catch(error => console.error('Error extracting color:', error));
+    }
+  }, [playlistDetails?.images]);
+
   if (isLoading) {
     return <MainLoading />;
   }
@@ -32,14 +52,13 @@ export const UserPlaylistItems = () => {
     return <ErrorMessage />;
   }
 
-  const image = getImageUrl(playlistDetails?.images);
-
   return (
     <div
       style={{
-        background: 'linear-gradient(0deg, rgba(0,0,0,1) 10%, rgba(28, 37, 82,1) 100%)',
-        backgroundAttachment: 'fixed', // Fixes the background when scrolling
-        backgroundSize: 'cover', // Ensures the background covers the entire element
+        backgroundImage: `linear-gradient(0deg, rgba(0,0,0,1) 10%, ${backgroundColor} 100%)`,
+        backgroundAttachment: 'fixed',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
       }}
     >
       <Wrapper>
@@ -74,34 +93,35 @@ export const UserPlaylistItems = () => {
                   </th>
                 </tr>
               </thead>
+              <tbody>
+                {playlistItems?.items.map((item, index) => {
+                  return (
+                    <tr key={item.track?.id} className="group">
+                      <td className="p-2">{index + 1}</td>
+                      <td className="p-2">
+                        <TrackInfo
+                          images={item.track?.album.images}
+                          name={item.track?.name}
+                          artists={item.track?.artists}
+                        />
+                      </td>
+                      <td className="p-2">
+                        <Link
+                          className="hover:text-textPrimary hover:underline"
+                          to={`/album/${item.track?.album.id}`}
+                        >
+                          {item.track?.album.name}
+                        </Link>
+                      </td>
+                      <td className="p-2">{formatTime(item.track?.duration_ms)}</td>
 
-              {playlistItems?.items.map((item, index) => {
-                return (
-                  <tr key={item.track?.id} className="group">
-                    <td className="p-2">{index + 1}</td>
-                    <td className="p-2">
-                      <TrackInfo
-                        images={item.track?.album.images}
-                        name={item.track?.name}
-                        artists={item.track?.artists}
-                      />
-                    </td>
-                    <td className="p-2">
-                      <Link
-                        className="hover:text-textPrimary hover:underline"
-                        to={`/album/${item.track?.album.id}`}
-                      >
-                        {item.track?.album.name}
-                      </Link>
-                    </td>
-                    <td className="p-2">{formatTime(item.track?.duration_ms)}</td>
-
-                    <td className="opacity-0 group-hover:opacity-100">
-                      <PlaylistItemKebabMenu track={item} />
-                    </td>
-                  </tr>
-                );
-              })}
+                      <td className="opacity-0 group-hover:opacity-100">
+                        <PlaylistItemKebabMenu track={item} />
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
             </table>
           </div>
           <div className="sticky top-5 overflow-y-auto" style={{ height: 'calc(100vh - 210px)' }}>
