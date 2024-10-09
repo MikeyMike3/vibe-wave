@@ -1,6 +1,6 @@
 export const formatTime = (timeInMs: string | number | undefined) => {
   if (!timeInMs) {
-    return;
+    return '0:00';
   }
   const timeInMsNumber = Number(timeInMs);
   const minutes = Math.floor(timeInMsNumber / 60000);
