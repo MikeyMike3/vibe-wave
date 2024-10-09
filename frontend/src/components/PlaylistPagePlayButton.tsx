@@ -5,6 +5,7 @@ import { useQueueContext } from '../hooks/context/useQueueContext';
 import { useIndexPlaylistQueue } from '../hooks/spotifyPlayer/useIndexPlaylistQueue';
 import { usePlaySong } from '../hooks/spotifyPlayer/usePlaySong';
 import { useShuffleTracks } from '../hooks/spotifyPlayer/useShuffleTracks';
+import { useSpotifyPlayerContext } from '../hooks/context/useSpotifyPlayerContext';
 
 type PlaylistPagePlayButtonProps = {
   playlistItems: SpotifyApi.PlaylistTrackResponse | undefined;
@@ -13,6 +14,7 @@ type PlaylistPagePlayButtonProps = {
 export const PlaylistPagePlayButton = ({ playlistItems }: PlaylistPagePlayButtonProps) => {
   const { setPlaylistName, shuffleTracksRef, repeatRef, setRepeat } = usePlaybackContext();
   const { setPlaylistQueue, unShuffledQueueRef } = useQueueContext();
+  const { isPlayerReady } = useSpotifyPlayerContext();
   const shuffleTracks = useShuffleTracks();
   const playSongMutation = usePlaySong();
   const indexPlaylistQueue = useIndexPlaylistQueue();
@@ -49,6 +51,10 @@ export const PlaylistPagePlayButton = ({ playlistItems }: PlaylistPagePlayButton
   };
 
   return (
-    <FontAwesomeIcon onClick={handleClick} className="text-6xl" icon={faCirclePlay} color="aqua" />
+    isPlayerReady && (
+      <button className="rounded-full bg-black duration-300 hover:scale-105" onClick={handleClick}>
+        <FontAwesomeIcon className="text-5xl" icon={faCirclePlay} color="aqua" />
+      </button>
+    )
   );
 };
