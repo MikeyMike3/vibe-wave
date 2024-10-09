@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { usePlaySong } from '../../hooks/spotifyPlayer/usePlaySong';
 import { useSpotifyPlayerContext } from '../../hooks/context/useSpotifyPlayerContext';
 import { useQueueContext } from '../../hooks/context/useQueueContext';
@@ -14,6 +14,8 @@ import { TrackInfo } from '../TrackInfo';
 import { VolumeControl } from './VolumeControl';
 import { TogglePlayButton } from './TogglePlayButton';
 import { TogglePauseButton } from './TogglePauseButton';
+import { getImageUrl } from '../../functions/getImageUrl';
+import { getBackgroundImageColor } from '../../functions/getBackgroundImageColor';
 
 export const SpotifyPlayer = () => {
   const { player } = useSpotifyPlayerContext();
@@ -38,7 +40,17 @@ export const SpotifyPlayer = () => {
   const playSongMutation = usePlaySong();
   const indexPlaylistQueue = useIndexPlaylistQueue();
 
-  const isTransitioningRef = useRef(false); // Still use this to prevent re-entrance
+  const isTransitioningRef = useRef(false);
+
+  const [backgroundColor, setBackgroundColor] = useState<string>('');
+
+  const image = getImageUrl(playerState?.track_window.current_track.album.images);
+
+  useEffect(() => {
+    if (image) {
+      getBackgroundImageColor(image, setBackgroundColor);
+    }
+  }, [image]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const debounce = <T extends (...args: any[]) => void>(func: T, wait: number) => {
@@ -168,7 +180,10 @@ export const SpotifyPlayer = () => {
   ]);
 
   return (
-    <footer className="sticky bottom-0 z-[9999] mt-auto grid w-full grid-cols-[25%_50%_25%] items-center rounded-3xl bg-black p-3 text-white">
+    <footer
+      className="sticky bottom-0 z-[9999] mt-auto grid w-full grid-cols-[25%_50%_25%] items-center rounded-3xl bg-black p-3 text-white"
+      style={{ backgroundColor: `${backgroundColor}` }}
+    >
       <TrackInfo
         name={playerState?.track_window?.current_track?.name}
         images={playerState?.track_window?.current_track?.album?.images}
