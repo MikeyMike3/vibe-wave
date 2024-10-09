@@ -138,21 +138,19 @@ export const UserPlaylistItems = () => {
                   const artist = artistInfo ? artistInfo.artistData[artistId] : null;
 
                   return (
-                    <div key={item.track?.id} className="flex items-center gap-4">
+                    <Link
+                      to={`/artist/${item.track?.artists[0].id}`}
+                      key={item.track?.id}
+                      className="group flex items-center gap-3"
+                    >
                       <img
                         className="h-16 w-16 rounded-full"
                         src={artist?.images[0]?.url}
                         alt={item.track?.artists[0]?.name}
                       />
-                      <div>
-                        <Link
-                          to={`/artist/${item.track?.artists[0].id}`}
-                          className="text-textPrimary hover:underline"
-                        >
-                          {item.track?.artists[0]?.name}
-                        </Link>
-                      </div>
-                    </div>
+
+                      <p className="group-hover:underline">{item.track?.artists[0]?.name}</p>
+                    </Link>
                   );
                 })}
               </div>
