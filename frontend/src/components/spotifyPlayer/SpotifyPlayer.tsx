@@ -48,7 +48,7 @@ export const SpotifyPlayer = () => {
 
   useEffect(() => {
     if (image) {
-      getBackgroundImageColor(image, setBackgroundColor);
+      getBackgroundImageColor(image, setBackgroundColor, true);
     }
   }, [image]);
 

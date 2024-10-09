@@ -1,6 +1,10 @@
 import { FastAverageColor } from 'fast-average-color';
 
-export const getBackgroundImageColor = (imgUrl: string, setColor: (color: string) => void) => {
+export const getBackgroundImageColor = (
+  imgUrl: string,
+  setColor: (color: string) => void,
+  shouldAddOpacity?: boolean,
+) => {
   const fac = new FastAverageColor();
 
   fac
@@ -15,14 +19,24 @@ export const getBackgroundImageColor = (imgUrl: string, setColor: (color: string
 
         // Darkening factor
         const darkenFactor = 0.8;
+        let darkerColor;
 
         // Darken the color
-        const darkerColor = [
-          Math.floor(rgbaValues[0] * darkenFactor),
-          Math.floor(rgbaValues[1] * darkenFactor),
-          Math.floor(rgbaValues[2] * darkenFactor),
-          rgbaValues[3], // Keep the alpha (opacity) the same
-        ];
+        if (shouldAddOpacity) {
+          darkerColor = [
+            Math.floor(rgbaValues[0] * darkenFactor),
+            Math.floor(rgbaValues[1] * darkenFactor),
+            Math.floor(rgbaValues[2] * darkenFactor),
+            (rgbaValues[3] = 0.5), // Keep the alpha (opacity) the same
+          ];
+        } else {
+          darkerColor = [
+            Math.floor(rgbaValues[0] * darkenFactor),
+            Math.floor(rgbaValues[1] * darkenFactor),
+            Math.floor(rgbaValues[2] * darkenFactor),
+            rgbaValues[3],
+          ];
+        }
 
         const darkerColorString = `rgba(${darkerColor.join(',')})`;
 
