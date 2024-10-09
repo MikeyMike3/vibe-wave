@@ -52,7 +52,7 @@ export const UserPlaylistItems = () => {
       }}
     >
       <Wrapper>
-        <div className="grid grid-cols-[1fr_300px] gap-5 pt-5 text-white">
+        <div className="grid grid-cols-[1fr_300px] gap-5 text-white">
           <div>
             <div className="flex flex-col gap-5 pb-5">
               <div className="flex flex-col gap-5">
