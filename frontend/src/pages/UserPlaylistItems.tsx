@@ -14,7 +14,6 @@ import { capitalizeFirstLetterOfEachWord } from '../functions/capitalizeFirstLet
 import { Wrapper } from '../components/styledComponents/Wrapper';
 import { formatTimeInHours } from '../functions/formatTimeInHours';
 import { formatTime } from '../functions/formatTime';
-import { faClock as faClockRegular } from '@awesome.me/kit-71c07605c0/icons/sharp/regular';
 import { getBackgroundImageColor } from '../functions/getBackgroundImageColor';
 import { useEffect, useState } from 'react';
 
@@ -80,9 +79,7 @@ export const UserPlaylistItems = () => {
                   <th className="p-2">#</th>
                   <th className="p-2">Title</th>
                   <th className="p-2">Album</th>
-                  <th className="p-2 text-center">
-                    <FontAwesomeIcon className="text-textAccent" icon={faClockRegular} />
-                  </th>
+                  <th className="p-2 text-left">Duration</th>
                 </tr>
               </thead>
               <tbody>
