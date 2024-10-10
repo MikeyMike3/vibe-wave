@@ -29,7 +29,7 @@ export const AllSearchResults = ({ tracks, artists, albums }: AllSearchResultsPr
         {(artists?.items?.length ?? 0) > 0 ? (
           <div
             className="flex gap-7 overflow-x-scroll pb-4"
-            style={{ width: 'calc(100vw - 330px)' }}
+            style={{ width: 'calc(100vw - 360px)' }}
           >
             {artists?.items.map(item => <SearchResultArtistItem key={item.id} artist={item} />)}
           </div>
@@ -42,7 +42,7 @@ export const AllSearchResults = ({ tracks, artists, albums }: AllSearchResultsPr
         {(albums?.items?.length ?? 0) > 0 ? (
           <div
             className="flex gap-7 overflow-x-scroll pb-4"
-            style={{ width: 'calc(100vw - 330px)' }}
+            style={{ width: 'calc(100vw - 360px)' }}
           >
             {albums?.items.map(item => <SearchResultAlbumItem key={item.id} album={item} />)}
           </div>
