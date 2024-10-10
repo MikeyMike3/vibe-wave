@@ -8,11 +8,11 @@ import { ShuffleTracksButton } from '../components/spotifyPlayer/ShuffleTracksBu
 import { useFetchArtistImagesAndGenres } from '../hooks/apis/useFetchArtistInfoForTracks';
 import { capitalizeFirstLetterOfEachWord } from '../functions/capitalizeFirstLetterOfEachWord';
 import { Wrapper } from '../components/styledComponents/Wrapper';
-import { formatTimeInHours } from '../functions/formatTimeInHours';
 import { getBackgroundImageColor } from '../functions/getBackgroundImageColor';
 import { useEffect, useState } from 'react';
 import { PlaylistPagePlayButton } from '../components/PlaylistPagePlayButton';
 import { PlaylistItemsTable } from '../components/userPlaylistPageComp/PlaylistItemsTable';
+import { PlaylistItemsHeader } from '../components/userPlaylistPageComp/PlaylistItemsHeader';
 
 export const UserPlaylistItems = () => {
   const { playlistId } = useParams();
@@ -54,15 +54,10 @@ export const UserPlaylistItems = () => {
           <div>
             <div className="flex flex-col gap-5 pb-5">
               <div className="flex flex-col gap-5">
-                <h1 className="text-5xl font-semibold text-textPrimary">{playlistDetails?.name}</h1>
-                <p className="text-textAccent">
-                  By:{' '}
-                  <span className="text-textPrimary">{playlistDetails?.owner.display_name}</span>{' '}
-                  <span className="text-textPrimary">&#8226;</span> {playlistItems?.items.length}{' '}
-                  songs
-                  <span className="text-textPrimary"> &#8226;</span>{' '}
-                  {formatTimeInHours(playlistItems?.items)}
-                </p>
+                <PlaylistItemsHeader
+                  playlistDetails={playlistDetails}
+                  playlistItems={playlistItems}
+                />
               </div>
 
               <div className="flex gap-6">
@@ -76,7 +71,6 @@ export const UserPlaylistItems = () => {
 
               <PlaylistItemsTable playlistItems={playlistItems} />
             </div>
-            
           </div>
           <div className="sticky top-5 overflow-y-auto" style={{ height: 'calc(100vh - 210px)' }}>
             <div>
