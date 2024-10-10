@@ -13,6 +13,7 @@ import { PlaylistPagePlayButton } from '../components/PlaylistPagePlayButton';
 import { PlaylistItemsTable } from '../components/userPlaylistPageComp/PlaylistItemsTable';
 import { PlaylistItemsHeader } from '../components/userPlaylistPageComp/PlaylistItemsHeader';
 import { PlaylistItemsGenres } from '../components/userPlaylistPageComp/PlaylistItemsGenres';
+import { PlaylistImage } from '../components/PlaylistImage';
 
 export const UserPlaylistItems = () => {
   const { playlistId } = useParams();
@@ -74,7 +75,7 @@ export const UserPlaylistItems = () => {
           </div>
           <div className="sticky top-5 overflow-y-auto" style={{ height: 'calc(100vh - 210px)' }}>
             <div>
-              <img className="h-80 object-cover pb-5" src={image} alt={playlistDetails?.name} />
+              <PlaylistImage images={playlistDetails?.images} alt={playlistDetails?.name} />
 
               <div className="flex flex-wrap gap-3">
                 <PlaylistItemsGenres artistInfo={artistInfo} />
