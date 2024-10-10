@@ -6,13 +6,13 @@ import { useFetchPlaylistDetails } from '../hooks/apis/useFetchPlaylistDetails';
 import { getImageUrl } from '../functions/getImageUrl';
 import { ShuffleTracksButton } from '../components/spotifyPlayer/ShuffleTracksButton';
 import { useFetchArtistImagesAndGenres } from '../hooks/apis/useFetchArtistInfoForTracks';
-import { capitalizeFirstLetterOfEachWord } from '../functions/capitalizeFirstLetterOfEachWord';
 import { Wrapper } from '../components/styledComponents/Wrapper';
 import { getBackgroundImageColor } from '../functions/getBackgroundImageColor';
 import { useEffect, useState } from 'react';
 import { PlaylistPagePlayButton } from '../components/PlaylistPagePlayButton';
 import { PlaylistItemsTable } from '../components/userPlaylistPageComp/PlaylistItemsTable';
 import { PlaylistItemsHeader } from '../components/userPlaylistPageComp/PlaylistItemsHeader';
+import { PlaylistItemsGenres } from '../components/userPlaylistPageComp/PlaylistItemsGenres';
 
 export const UserPlaylistItems = () => {
   const { playlistId } = useParams();
@@ -77,14 +77,7 @@ export const UserPlaylistItems = () => {
               <img className="h-80 object-cover pb-5" src={image} alt={playlistDetails?.name} />
 
               <div className="flex flex-wrap gap-3">
-                {artistInfo?.genres.slice(0, 3).map(item => (
-                  <p
-                    key={item}
-                    className="rounded-3xl border-2 border-textPrimary px-4 py-2 text-textPrimary"
-                  >
-                    {capitalizeFirstLetterOfEachWord(item)}
-                  </p>
-                ))}
+                <PlaylistItemsGenres artistInfo={artistInfo} />
               </div>
 
               <div className="flex flex-col gap-4 pt-4">
