@@ -1,7 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
 import { useGetPlaylistItems } from '../hooks/apis/useGetPlaylistItems';
-import { TrackInfo } from '../components/TrackInfo';
-import { PlaylistItemKebabMenu } from '../components/kebabMenu/PlaylistItemKebabMenu';
 import { MainLoading } from '../components/MainLoading';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { useFetchPlaylistDetails } from '../hooks/apis/useFetchPlaylistDetails';
@@ -11,10 +9,10 @@ import { useFetchArtistImagesAndGenres } from '../hooks/apis/useFetchArtistInfoF
 import { capitalizeFirstLetterOfEachWord } from '../functions/capitalizeFirstLetterOfEachWord';
 import { Wrapper } from '../components/styledComponents/Wrapper';
 import { formatTimeInHours } from '../functions/formatTimeInHours';
-import { formatTime } from '../functions/formatTime';
 import { getBackgroundImageColor } from '../functions/getBackgroundImageColor';
 import { useEffect, useState } from 'react';
 import { PlaylistPagePlayButton } from '../components/PlaylistPagePlayButton';
+import { PlaylistItemsTable } from '../components/userPlaylistPageComp/PlaylistItemsTable';
 
 export const UserPlaylistItems = () => {
   const { playlistId } = useParams();
@@ -75,48 +73,10 @@ export const UserPlaylistItems = () => {
                 />
                 <ShuffleTracksButton />
               </div>
-            </div>
-            <table className="w-full table-auto text-textAccent">
-              <thead className="border-b-2 border-textAccent">
-                <tr className="p-2 text-left">
-                  <th className="p-2">#</th>
-                  <th className="p-2">Title</th>
-                  <th className="p-2">Album</th>
-                  <th className="p-2 text-left">Duration</th>
-                </tr>
-              </thead>
-              <tbody>
-                {playlistItems?.items.map((item, index) => {
-                  return (
-                    <tr key={item.track?.id} className="group">
-                      <td className="p-2 group-hover:text-textPrimary">{index + 1}</td>
-                      <td className="p-2">
-                        <TrackInfo
-                          images={item.track?.album.images}
-                          name={item.track?.name}
-                          artists={item.track?.artists}
-                        />
-                      </td>
-                      <td className="p-2 group-hover:text-textPrimary">
-                        <Link
-                          className="hover:text-textPrimary hover:underline"
-                          to={`/album/${item.track?.album.id}`}
-                        >
-                          {item.track?.album.name}
-                        </Link>
-                      </td>
-                      <td className="p-2 group-hover:text-textPrimary">
-                        {formatTime(item.track?.duration_ms)}
-                      </td>
 
-                      <td className="opacity-0 group-hover:opacity-100">
-                        <PlaylistItemKebabMenu track={item} />
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+              <PlaylistItemsTable playlistItems={playlistItems} />
+            </div>
+            
           </div>
           <div className="sticky top-5 overflow-y-auto" style={{ height: 'calc(100vh - 210px)' }}>
             <div>
