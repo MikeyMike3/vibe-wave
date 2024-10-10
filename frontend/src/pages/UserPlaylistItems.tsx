@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useGetPlaylistItems } from '../hooks/apis/useGetPlaylistItems';
 import { MainLoading } from '../components/MainLoading';
 import { ErrorMessage } from '../components/ErrorMessage';
@@ -14,6 +14,7 @@ import { PlaylistItemsTable } from '../components/userPlaylistPageComp/PlaylistI
 import { PlaylistItemsHeader } from '../components/userPlaylistPageComp/PlaylistItemsHeader';
 import { PlaylistItemsGenres } from '../components/userPlaylistPageComp/PlaylistItemsGenres';
 import { PlaylistImage } from '../components/PlaylistImage';
+import { PlaylistItemsArtist } from '../components/userPlaylistPageComp/PlaylistItemsArtist';
 
 export const UserPlaylistItems = () => {
   const { playlistId } = useParams();
@@ -90,19 +91,11 @@ export const UserPlaylistItems = () => {
                   const artist = artistInfo ? artistInfo.artistData[artistId] : null;
 
                   return (
-                    <Link
-                      to={`/artist/${item.track?.artists[0].id}`}
-                      key={item.track?.id}
-                      className="group flex items-center gap-3"
-                    >
-                      <img
-                        className="h-16 w-16 rounded-full"
-                        src={artist?.images[0]?.url}
-                        alt={item.track?.artists[0]?.name}
-                      />
-
-                      <p className="group-hover:underline">{item.track?.artists[0]?.name}</p>
-                    </Link>
+                    <PlaylistItemsArtist
+                      id={item.track?.artists[0].id}
+                      name={item.track?.artists[0]?.name}
+                      images={artist?.images}
+                    />
                   );
                 })}
               </div>
