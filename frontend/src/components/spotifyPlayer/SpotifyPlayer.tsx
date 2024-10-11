@@ -200,7 +200,7 @@ export const SpotifyPlayer = () => {
         <ProgressTracker />
       </div>
       <div className="ml-auto flex items-center gap-4">
-        <Queue />
+        <Queue backgroundColor={backgroundColor} />
         <VolumeControl />
       </div>
     </footer>

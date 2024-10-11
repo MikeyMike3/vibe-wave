@@ -6,7 +6,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faListMusic as faListMusicSolid } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
 import { faListMusic as faListMusicRegular } from '@awesome.me/kit-71c07605c0/icons/sharp/regular';
 
-export const Queue = () => {
+type QueueProps = {
+  backgroundColor: string;
+};
+
+export const Queue = ({ backgroundColor }: QueueProps) => {
   const { playlistQueue, playlistQueueIndex } = useQueueContext();
   const { repeatRef, repeat } = usePlaybackContext();
   const [queueSegment, setQueueSegment] = useState<SpotifyApi.PlaylistTrackObject[]>([]);
@@ -43,7 +47,11 @@ export const Queue = () => {
         />
       </button>
       {isQueueSegmentOpen && (
-        <QueueDisplay queueSegment={queueSegment} setIsQueueSegmentOpen={setIsQueueSegmentOpen} />
+        <QueueDisplay
+          queueSegment={queueSegment}
+          setIsQueueSegmentOpen={setIsQueueSegmentOpen}
+          backgroundColor={backgroundColor}
+        />
       )}
     </>
   );
