@@ -17,7 +17,7 @@ export const RootLayout = () => {
           {/* the height is very magic numbery */}
           <div
             className="overflow-y-auto rounded-3xl border-2 border-bgAccent"
-            style={{ height: 'calc(100vh - 189px)' }}
+            style={{ height: 'calc(100vh - 195px)' }}
           >
             <Outlet />
           </div>
