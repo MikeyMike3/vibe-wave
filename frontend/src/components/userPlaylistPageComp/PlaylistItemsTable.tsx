@@ -25,7 +25,7 @@ export const PlaylistItemsTable = ({ playlistItems }: PlaylistItemsTableProps) =
               <td className="p-2 group-hover:text-textPrimary">{index + 1}</td>
               <td className="p-2">
                 <TrackInfo
-                  images={item.track?.album.images}
+                  images={item.track?.album?.images}
                   name={item.track?.name}
                   artists={item.track?.artists}
                 />
@@ -33,9 +33,9 @@ export const PlaylistItemsTable = ({ playlistItems }: PlaylistItemsTableProps) =
               <td className="p-2 group-hover:text-textPrimary">
                 <Link
                   className="hover:text-textPrimary hover:underline"
-                  to={`/album/${item.track?.album.id}`}
+                  to={`/album/${item.track?.album?.id}`}
                 >
-                  {item.track?.album.name}
+                  {item.track?.album?.name}
                 </Link>
               </td>
               <td className="p-2 group-hover:text-textPrimary">
