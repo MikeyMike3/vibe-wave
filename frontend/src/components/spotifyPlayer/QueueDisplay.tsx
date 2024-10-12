@@ -1,6 +1,8 @@
 import { useQueueContext } from '../../hooks/context/useQueueContext';
 import { QueueItem } from './QueueItem';
 import { usePlaybackContext } from '../../hooks/context/usePlaybackContext';
+import { faX } from '@awesome.me/kit-71c07605c0/icons/sharp/regular';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -24,7 +26,7 @@ export const QueueDisplay = ({
   return (
     <div
       ref={queueDisplayRef}
-      className="absolute bottom-[112px] right-6 h-[500px] w-[500px] overflow-y-scroll border-2 border-bgAccentHover bg-black"
+      className="absolute bottom-[112px] right-6 h-[500px] w-[500px] overflow-y-scroll rounded-2xl border-2 border-bgAccentHover bg-black"
     >
       <div className="px-2" style={{ backgroundColor: `${backgroundColor}` }}>
         {playerState?.track_window.current_track && (
@@ -32,7 +34,7 @@ export const QueueDisplay = ({
             <div className="flex items-center justify-between">
               <h2 className="py-2 text-xl text-textPrimary"> Currently Playing</h2>
               <button className="p-2 text-xl" onClick={() => setIsQueueSegmentOpen(false)}>
-                Close
+                <FontAwesomeIcon className="p-2 duration-150 hover:text-aqua" icon={faX} />
               </button>
             </div>
             <div className="pb-2">
