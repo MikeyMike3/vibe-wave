@@ -18,6 +18,7 @@ import { PlaylistItemsArtist } from '../components/userPlaylistPageComp/Playlist
 import { PlaylistItemsTR } from '../components/userPlaylistPageComp/PlaylistItemsTR';
 import { PlaylistItemsGrid } from '../components/userPlaylistPageComp/PlaylistItemsGrid';
 import { PlaylistTableColumnFlexContainer } from '../components/userPlaylistPageComp/PlaylistTableColumnFlexContainer';
+import { PlaylistItemsHeaderFlexContainer } from '../components/userPlaylistPageComp/PlaylistItemsHeaderFlexContainer';
 
 export const UserPlaylistItems = () => {
   const { playlistId } = useParams();
@@ -58,12 +59,12 @@ export const UserPlaylistItems = () => {
         <PlaylistItemsGrid>
           <div>
             <PlaylistTableColumnFlexContainer>
-              <div className="flex flex-col gap-5">
+              <PlaylistItemsHeaderFlexContainer>
                 <PlaylistItemsHeader
                   playlistDetails={playlistDetails}
                   playlistItems={playlistItems}
                 />
-              </div>
+              </PlaylistItemsHeaderFlexContainer>
 
               <div className="flex gap-6">
                 <PlaylistPagePlayButton
