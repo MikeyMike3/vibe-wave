@@ -15,6 +15,7 @@ import { PlaylistItemsHeader } from '../components/userPlaylistPageComp/Playlist
 import { PlaylistItemsGenres } from '../components/userPlaylistPageComp/PlaylistItemsGenres';
 import { PlaylistImage } from '../components/PlaylistImage';
 import { PlaylistItemsArtist } from '../components/userPlaylistPageComp/PlaylistItemsArtist';
+import { PlaylistItemsTR } from '../components/userPlaylistPageComp/PlaylistItemsTR';
 
 export const UserPlaylistItems = () => {
   const { playlistId } = useParams();
@@ -71,7 +72,21 @@ export const UserPlaylistItems = () => {
                 <ShuffleTracksButton />
               </div>
 
-              <PlaylistItemsTable playlistItems={playlistItems} />
+              <PlaylistItemsTable>
+                {playlistItems?.items.map((item, index) => (
+                  <PlaylistItemsTR
+                    position={index + 1}
+                    images={item.track?.album.images}
+                    trackName={item.track?.name}
+                    artists={item.track?.artists}
+                    albumId={item.track?.album.id}
+                    albumName={item.track?.album.name}
+                    trackLength={item.track?.duration_ms}
+                    track={item}
+                    trackId={item.track?.id}
+                  />
+                ))}
+              </PlaylistItemsTable>
             </div>
           </div>
           <div className="sticky top-5 overflow-y-auto" style={{ height: 'calc(100vh - 210px)' }}>
