@@ -17,6 +17,7 @@ import { PlaylistImage } from '../components/PlaylistImage';
 import { PlaylistItemsArtist } from '../components/userPlaylistPageComp/PlaylistItemsArtist';
 import { PlaylistItemsTR } from '../components/userPlaylistPageComp/PlaylistItemsTR';
 import { PlaylistItemsGrid } from '../components/userPlaylistPageComp/PlaylistItemsGrid';
+import { PlaylistTableColumnFlexContainer } from '../components/userPlaylistPageComp/PlaylistTableColumnFlexContainer';
 
 export const UserPlaylistItems = () => {
   const { playlistId } = useParams();
@@ -56,7 +57,7 @@ export const UserPlaylistItems = () => {
       <Wrapper>
         <PlaylistItemsGrid>
           <div>
-            <div className="flex flex-col gap-5 pb-5">
+            <PlaylistTableColumnFlexContainer>
               <div className="flex flex-col gap-5">
                 <PlaylistItemsHeader
                   playlistDetails={playlistDetails}
@@ -88,7 +89,7 @@ export const UserPlaylistItems = () => {
                   />
                 ))}
               </PlaylistItemsTable>
-            </div>
+            </PlaylistTableColumnFlexContainer>
           </div>
           <div className="sticky top-5 overflow-y-auto" style={{ height: 'calc(100vh - 210px)' }}>
             <div>
