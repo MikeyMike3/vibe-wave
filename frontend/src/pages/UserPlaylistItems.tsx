@@ -19,6 +19,7 @@ import { PlaylistItemsTR } from '../components/userPlaylistPageComp/PlaylistItem
 import { PlaylistItemsGrid } from '../components/userPlaylistPageComp/PlaylistItemsGrid';
 import { PlaylistTableColumnFlexContainer } from '../components/userPlaylistPageComp/PlaylistTableColumnFlexContainer';
 import { PlaylistItemsHeaderFlexContainer } from '../components/userPlaylistPageComp/PlaylistItemsHeaderFlexContainer';
+import { PlaylistItemsButtonsFlexContainer } from '../components/userPlaylistPageComp/PlaylistItemsButtonsFlexContainer';
 
 export const UserPlaylistItems = () => {
   const { playlistId } = useParams();
@@ -66,14 +67,14 @@ export const UserPlaylistItems = () => {
                 />
               </PlaylistItemsHeaderFlexContainer>
 
-              <div className="flex gap-6">
+              <PlaylistItemsButtonsFlexContainer>
                 <PlaylistPagePlayButton
                   playlistItems={playlistItems}
                   playlistDetails={playlistDetails}
                   playlistId={playlistId}
                 />
                 <ShuffleTracksButton />
-              </div>
+              </PlaylistItemsButtonsFlexContainer>
 
               <PlaylistItemsTable>
                 {playlistItems?.items.map((item, index) => (
