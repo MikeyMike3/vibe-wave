@@ -20,6 +20,7 @@ import { PlaylistItemsGrid } from '../components/userPlaylistPageComp/PlaylistIt
 import { PlaylistTableColumnFlexContainer } from '../components/userPlaylistPageComp/PlaylistTableColumnFlexContainer';
 import { PlaylistItemsHeaderFlexContainer } from '../components/userPlaylistPageComp/PlaylistItemsHeaderFlexContainer';
 import { PlaylistItemsButtonsFlexContainer } from '../components/userPlaylistPageComp/PlaylistItemsButtonsFlexContainer';
+import { formatTimeInHours } from '../functions/formatTimeInHours';
 
 export const UserPlaylistItems = () => {
   const { playlistId } = useParams();
@@ -62,8 +63,10 @@ export const UserPlaylistItems = () => {
             <PlaylistTableColumnFlexContainer>
               <PlaylistItemsHeaderFlexContainer>
                 <PlaylistItemsHeader
-                  playlistDetails={playlistDetails}
-                  playlistItems={playlistItems}
+                  playlistName={playlistDetails?.name}
+                  playlistOwnerName={playlistDetails?.owner.display_name}
+                  playlistLength={playlistItems?.items.length}
+                  playlistTotalTime={formatTimeInHours(playlistItems?.items)}
                 />
               </PlaylistItemsHeaderFlexContainer>
 
