@@ -16,6 +16,7 @@ import { PlaylistItemsGenres } from '../components/userPlaylistPageComp/Playlist
 import { PlaylistImage } from '../components/PlaylistImage';
 import { PlaylistItemsArtist } from '../components/userPlaylistPageComp/PlaylistItemsArtist';
 import { PlaylistItemsTR } from '../components/userPlaylistPageComp/PlaylistItemsTR';
+import { PlaylistItemsGrid } from '../components/userPlaylistPageComp/PlaylistItemsGrid';
 
 export const UserPlaylistItems = () => {
   const { playlistId } = useParams();
@@ -53,7 +54,7 @@ export const UserPlaylistItems = () => {
       }}
     >
       <Wrapper>
-        <div className="grid grid-cols-[1fr_300px] gap-5 text-white">
+        <PlaylistItemsGrid>
           <div>
             <div className="flex flex-col gap-5 pb-5">
               <div className="flex flex-col gap-5">
@@ -116,7 +117,7 @@ export const UserPlaylistItems = () => {
               </div>
             </div>
           </div>
-        </div>
+        </PlaylistItemsGrid>
       </Wrapper>
     </div>
   );
