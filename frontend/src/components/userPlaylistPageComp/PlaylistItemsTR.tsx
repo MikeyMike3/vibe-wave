@@ -6,11 +6,11 @@ import { SearchedTrackKebabMenu } from '../kebabMenu/SearchedTrackKebabMenu';
 
 type PlaylistItemsTR = {
   position: number;
-  images: SpotifyApi.ImageObject[] | Spotify.Image[] | undefined;
+  images?: SpotifyApi.ImageObject[] | Spotify.Image[] | undefined;
   trackName: string | undefined;
   artists: SpotifyApi.ArtistObjectSimplified[] | Spotify.Entity[] | undefined;
   albumId: string | undefined;
-  albumName: string | undefined;
+  albumName?: string | undefined;
   trackLength: number | undefined;
   track: SpotifyApi.PlaylistTrackObject | SpotifyApi.SavedTrackObject;
   trackId: string | undefined;

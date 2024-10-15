@@ -79,7 +79,7 @@ export const UserPlaylistItems = () => {
                 <ShuffleTracksButton />
               </PlaylistItemsButtonsFlexContainer>
 
-              <PlaylistItemsTable>
+              <PlaylistItemsTable shouldIncludeAlbum={true}>
                 {playlistItems?.items.map((item, index) => (
                   <PlaylistItemsTR
                     position={index + 1}
