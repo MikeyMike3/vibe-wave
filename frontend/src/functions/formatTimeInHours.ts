@@ -1,5 +1,5 @@
 export const formatTimeInHours = (
-  playlistItems: SpotifyApi.PlaylistTrackObject[] | undefined,
+  playlistItems: SpotifyApi.PlaylistTrackObject[] | SpotifyApi.SavedTrackObject[] | undefined,
 ): string | undefined => {
   if (!playlistItems) {
     return;
