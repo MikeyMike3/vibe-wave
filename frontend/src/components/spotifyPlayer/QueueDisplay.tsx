@@ -5,6 +5,8 @@ import { faX } from '@awesome.me/kit-71c07605c0/icons/sharp/regular';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { AlbumTrackWithImage } from '../../types/AlbumTrackWithImage';
+import { AlbumTrackQueueItem } from '../AlbumTrackQueueItem';
 
 type QueueDisplayProps = {
   queueSegment: SpotifyApi.PlaylistTrackObject[];
@@ -54,17 +56,39 @@ export const QueueDisplay = ({
           <>
             <h2 className="pb-2 text-xl text-textPrimary">Next in Queue</h2>
             <div className="py-2">
-              {priorityQueue.map((item, index) => (
-                <QueueItem
-                  key={`${item.id}-${index}`}
-                  queueDisplayRef={queueDisplayRef}
-                  isPriorityQueueItem={true}
-                  name={item.name}
-                  images={item.album.images}
-                  artists={item.artists}
-                  track={item}
-                />
-              ))}
+              {priorityQueue.map((item, index) => {
+                const isTrackObjectFull = (
+                  item: SpotifyApi.TrackObjectFull | AlbumTrackWithImage,
+                ): item is SpotifyApi.TrackObjectFull => {
+                  return 'album' in item;
+                };
+
+                if (isTrackObjectFull(item)) {
+                  return (
+                    <QueueItem
+                      key={`${item.id}-${index}`}
+                      queueDisplayRef={queueDisplayRef}
+                      isPriorityQueueItem={true}
+                      name={item.name}
+                      images={item.album.images}
+                      artists={item.artists}
+                      track={item}
+                    />
+                  );
+                } else {
+                  return (
+                    <AlbumTrackQueueItem
+                      key={`${item.id}-${index}`}
+                      queueDisplayRef={queueDisplayRef}
+                      isPriorityQueueItem={true}
+                      name={item.name}
+                      image={item.image}
+                      artists={item.artists}
+                      track={item}
+                    />
+                  );
+                }
+              })}
             </div>
           </>
         )}

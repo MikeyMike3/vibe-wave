@@ -4,9 +4,10 @@ import { useEffect, useRef, useState } from 'react';
 
 import { PlaySkipButton } from '../spotifyPlayer/PlaySkipButton';
 import { RemoveFromQueueButton } from '../spotifyPlayer/RemoveFromQueueButton';
+import { AlbumTrackWithImage } from '../../types/AlbumTrackWithImage';
 
 type PriorityQueueKebabMenuProps = {
-  track: SpotifyApi.TrackObjectFull | SpotifyApi.PlaylistTrackObject;
+  track: SpotifyApi.TrackObjectFull | SpotifyApi.PlaylistTrackObject | AlbumTrackWithImage;
   //prettier-ignore
   queueDisplayRef: React.RefObject<HTMLDivElement>;
 };
