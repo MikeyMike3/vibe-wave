@@ -65,6 +65,7 @@ export const Album = () => {
             <PlaylistItemsTable>
               {album?.tracks.items.map((item, index) => (
                 <AlbumItemsTR
+                  key={item.id}
                   position={index + 1}
                   trackName={item.name}
                   artists={item.artists}
