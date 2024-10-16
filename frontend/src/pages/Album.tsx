@@ -13,10 +13,21 @@ import { PlaylistItemsButtonsFlexContainer } from '../components/userPlaylistPag
 import { PlaylistItemsTable } from '../components/userPlaylistPageComp/PlaylistItemsTable';
 import { AlbumItemsTR } from '../components/albumPageComponents/AlbumItemsTR';
 import { getImageUrl } from '../functions/getImageUrl';
+import { useState, useEffect } from 'react';
+import { getBackgroundImageColor } from '../functions/getBackgroundImageColor';
 
 export const Album = () => {
   const { albumId } = useParams();
   const { album, isLoading, isError } = useFetchAlbum(albumId);
+  const [backgroundColor, setBackgroundColor] = useState<string>('');
+
+  const image = getImageUrl(album?.images);
+
+  useEffect(() => {
+    if (image) {
+      getBackgroundImageColor(image, setBackgroundColor);
+    }
+  }, [image]);
 
   if (isLoading) {
     return <MainLoading />;
@@ -26,10 +37,16 @@ export const Album = () => {
     return <ErrorMessage />;
   }
 
-  const image = getImageUrl(album?.images);
-
   return (
-    <div className="text-white">
+    <div
+      className="text-white"
+      style={{
+        backgroundImage: `linear-gradient(0deg, rgba(0,0,0,1) 10%, ${backgroundColor} 100%)`,
+        backgroundAttachment: 'fixed',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
       <Wrapper>
         <PlaylistItemsGrid>
           <PlaylistTableColumnFlexContainer>
