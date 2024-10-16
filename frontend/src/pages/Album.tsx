@@ -73,7 +73,7 @@ export const Album = () => {
               ))}
             </PlaylistItemsTable>
           </PlaylistTableColumnFlexContainer>
-          <div className="sticky top-5 overflow-y-auto" style={{ height: 'calc(100vh - 210px)' }}>
+          <div className="sticky top-5 overflow-y-auto" style={{ height: 'calc(100vh - 245px)' }}>
             {/* <div>
             <PlaylistImage images={playlistDetails?.images} alt={playlistDetails?.name} />
 
