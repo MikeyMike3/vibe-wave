@@ -13,21 +13,12 @@ import { PlaylistItemsButtonsFlexContainer } from '../components/userPlaylistPag
 import { PlaylistItemsTable } from '../components/userPlaylistPageComp/PlaylistItemsTable';
 import { AlbumItemsTR } from '../components/albumPageComponents/AlbumItemsTR';
 import { getImageUrl } from '../functions/getImageUrl';
-import { useState, useEffect } from 'react';
-import { getBackgroundImageColor } from '../functions/getBackgroundImageColor';
 
 export const Album = () => {
   const { albumId } = useParams();
   const { album, isLoading, isError } = useFetchAlbum(albumId);
-  const [backgroundColor, setBackgroundColor] = useState<string>('');
 
   const image = getImageUrl(album?.images);
-
-  useEffect(() => {
-    if (image) {
-      getBackgroundImageColor(image, setBackgroundColor);
-    }
-  }, [image]);
 
   if (isLoading) {
     return <MainLoading />;
@@ -38,15 +29,20 @@ export const Album = () => {
   }
 
   return (
-    <div
-      className="text-white"
-      style={{
-        backgroundImage: `linear-gradient(0deg, rgba(0,0,0,1) 10%, ${backgroundColor} 100%)`,
-        backgroundAttachment: 'fixed',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
+    <div className="relative">
+      {/* Blurred background */}
+      <div
+        className="absolute inset-0 z-[-1] blur-md"
+        style={{
+          backgroundImage: `url(${image})`,
+          backgroundAttachment: 'fixed',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          filter: 'blur(10px)', // Adjust the blur level as needed
+        }}
+      >
+        <div className="absolute inset-0 z-[-1] bg-black opacity-80"></div>
+      </div>
       <Wrapper>
         <PlaylistItemsGrid>
           <PlaylistTableColumnFlexContainer>
