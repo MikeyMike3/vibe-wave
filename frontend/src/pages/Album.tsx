@@ -13,6 +13,7 @@ import { PlaylistItemsButtonsFlexContainer } from '../components/userPlaylistPag
 import { PlaylistItemsTable } from '../components/userPlaylistPageComp/PlaylistItemsTable';
 import { AlbumItemsTR } from '../components/albumPageComponents/AlbumItemsTR';
 import { getImageUrl } from '../functions/getImageUrl';
+import { PlaylistImage } from '../components/PlaylistImage';
 
 export const Album = () => {
   const { albumId } = useParams();
@@ -74,31 +75,7 @@ export const Album = () => {
             </PlaylistItemsTable>
           </PlaylistTableColumnFlexContainer>
           <div className="sticky top-5 overflow-y-auto" style={{ height: 'calc(100vh - 245px)' }}>
-            {/* <div>
-            <PlaylistImage images={playlistDetails?.images} alt={playlistDetails?.name} />
-
-            <div className="flex flex-wrap gap-3">
-              <PlaylistItemsGenres artistInfo={artistInfo} />
-            </div>
-
-            <div className="flex flex-col gap-4 pt-4">
-              {playlistItems?.items.slice(0, 3).map(item => {
-                const artistId = item.track?.artists[0]?.id;
-                if (!artistId) {
-                  return;
-                }
-                const artist = artistInfo ? artistInfo.artistData[artistId] : null;
-
-                return (
-                  <PlaylistItemsArtist
-                    id={item.track?.artists[0].id}
-                    name={item.track?.artists[0]?.name}
-                    images={artist?.images}
-                  />
-                );
-              })}
-            </div>
-          </div> */}
+            <PlaylistImage imageUrl={image} alt={album?.name} />
           </div>
         </PlaylistItemsGrid>
       </Wrapper>
