@@ -1,3 +1,4 @@
+import { AlbumTrackWithImage } from '../../types/AlbumTrackWithImage';
 import { useQueueContext } from '../context/useQueueContext';
 import { useIndexPlaylistQueue } from './useIndexPlaylistQueue';
 import { usePlaySong } from './usePlaySong';
@@ -17,7 +18,7 @@ export const usePlaySkip = () => {
   const playSkip = (
     name: string | undefined,
     options: Options = {},
-    track?: SpotifyApi.TrackObjectFull | SpotifyApi.PlaylistTrackObject,
+    track?: SpotifyApi.TrackObjectFull | SpotifyApi.PlaylistTrackObject | AlbumTrackWithImage,
   ) => {
     const {
       shouldIndexPlaylistQueue = false,
@@ -41,8 +42,11 @@ export const usePlaySkip = () => {
       const indexToPlayAndRemove = priorityQueue.findIndex(item => item.name === name);
       playSongMutation({ uri: priorityQueue[indexToPlayAndRemove].uri, options: {} });
       setPriorityQueue(prevQueue => {
+        if (!prevQueue) {
+          return null;
+        }
         const tempQueue = prevQueue.filter((_, index) => index !== indexToPlayAndRemove);
-        return tempQueue;
+        return tempQueue.length > 0 ? tempQueue : null;
       });
     } else if (shouldIndexPlaylistQueue && playlistQueue) {
       const index = playlistQueue.findIndex(item => item.track?.name === name);

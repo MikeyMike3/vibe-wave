@@ -12,6 +12,7 @@ import { ShuffleTracksButton } from '../components/spotifyPlayer/ShuffleTracksBu
 import { PlaylistItemsButtonsFlexContainer } from '../components/userPlaylistPageComp/PlaylistItemsButtonsFlexContainer';
 import { PlaylistItemsTable } from '../components/userPlaylistPageComp/PlaylistItemsTable';
 import { AlbumItemsTR } from '../components/albumPageComponents/AlbumItemsTR';
+import { getImageUrl } from '../functions/getImageUrl';
 
 export const Album = () => {
   const { albumId } = useParams();
@@ -24,6 +25,8 @@ export const Album = () => {
   if (isError) {
     return <ErrorMessage />;
   }
+
+  const image = getImageUrl(album?.images);
 
   return (
     <div className="text-white">
@@ -48,10 +51,10 @@ export const Album = () => {
                   position={index + 1}
                   trackName={item.name}
                   artists={item.artists}
-                  albumId={album.id}
                   trackLength={item.duration_ms}
                   track={item}
                   trackId={item.id}
+                  image={image}
                 />
               ))}
             </PlaylistItemsTable>

@@ -1,11 +1,12 @@
 import { usePlaySkip } from '../../hooks/spotifyPlayer/usePlaySkip';
+import { AlbumTrackWithImage } from '../../types/AlbumTrackWithImage';
 
 type PlaySkipButtonProps = {
   name: string | undefined;
   shouldIndexPriorityQueue?: boolean | undefined;
   shouldIndexPlaylistQueue?: boolean | undefined;
   shouldPlaySong?: boolean | undefined;
-  track?: SpotifyApi.TrackObjectFull | SpotifyApi.PlaylistTrackObject;
+  track?: SpotifyApi.TrackObjectFull | SpotifyApi.PlaylistTrackObject | AlbumTrackWithImage;
   // prettier-ignore
   setIsKebabMenuClicked: React.Dispatch<React.SetStateAction<boolean>>
 };

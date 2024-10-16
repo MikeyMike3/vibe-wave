@@ -1,7 +1,8 @@
 import { useAddToFrontOfPriorityQueue } from '../hooks/spotifyPlayer/useAddToFrontOfPriorityQueue';
+import { AlbumTrackWithImage } from '../types/AlbumTrackWithImage';
 
 type AddToFrontOfQueueProps = {
-  track: SpotifyApi.TrackObjectFull | SpotifyApi.PlaylistTrackObject;
+  track: SpotifyApi.TrackObjectFull | SpotifyApi.PlaylistTrackObject | AlbumTrackWithImage;
   // prettier-ignore
   setIsKebabMenuClicked: React.Dispatch<React.SetStateAction<boolean>>
 };

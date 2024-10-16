@@ -1,13 +1,15 @@
 import { createContext, ReactNode, useRef, useState } from 'react';
+import { AlbumTrackWithImage } from '../types/AlbumTrackWithImage';
 
 type QueueProviderProps = {
   children: ReactNode;
 };
 
 type QueueContext = {
-  priorityQueue: SpotifyApi.TrackObjectFull[] | null;
+  priorityQueue: (SpotifyApi.TrackObjectFull | AlbumTrackWithImage)[] | null;
   //prettier-ignore
-  setPriorityQueue: React.Dispatch<React.SetStateAction<SpotifyApi.TrackObjectFull[]>>;
+  setPriorityQueue: React.Dispatch<React.SetStateAction<(SpotifyApi.TrackObjectFull | AlbumTrackWithImage)[] | null>>;
+
   playlistQueue: SpotifyApi.PlaylistTrackObject[];
   //prettier-ignore
   setPlaylistQueue: React.Dispatch<React.SetStateAction<SpotifyApi.PlaylistTrackObject[]>>;
@@ -23,7 +25,9 @@ type QueueContext = {
 const QueueContext = createContext<QueueContext | undefined>(undefined);
 
 export const QueueProvider = ({ children }: QueueProviderProps) => {
-  const [priorityQueue, setPriorityQueue] = useState<SpotifyApi.TrackObjectFull[]>([]);
+  const [priorityQueue, setPriorityQueue] = useState<
+    (SpotifyApi.TrackObjectFull | AlbumTrackWithImage)[] | null
+  >(null);
   const [playlistQueue, setPlaylistQueue] = useState<SpotifyApi.PlaylistTrackObject[]>([]);
   const [playlistQueueIndex, setPlaylistQueueIndex] = useState<number>(0);
 
