@@ -3,13 +3,15 @@ import { usePlaybackContext } from '../context/usePlaybackContext';
 import { useQueueContext } from '../context/useQueueContext';
 import { useSpotifyPlayerContext } from '../context/useSpotifyPlayerContext';
 import { useIndexPlaylistQueue } from './useIndexPlaylistQueue';
+import { isPlaylistTrackObjectArray } from '../../types/typeGuards/isPlaylistTrackObjectArray';
+import { isSingleAlbumResponse } from '../../types/typeGuards/isSIngleAlbumResponse';
 
 let controller: AbortController | null = null;
 
 type PlaySongOptions = {
   shouldUnpause?: boolean;
   shouldClearQueue?: boolean;
-  tempQueue?: SpotifyApi.PlaylistTrackObject[];
+  tempQueue?: SpotifyApi.PlaylistTrackObject[] | SpotifyApi.SingleAlbumResponse | undefined;
 };
 
 export const usePlaySong = () => {
@@ -26,10 +28,8 @@ export const usePlaySong = () => {
   const indexPlaylistQueue = useIndexPlaylistQueue();
   // shouldUnpause tells this function to override the isPausedRef so that the song will play
   // if the song plays then quickly pauses then you need to set shouldUnpause to true
-  const playSong = async (
-    params: { uri: string | undefined; options: PlaySongOptions }, // Define params here
-  ) => {
-    const { uri, options } = params; // Destructure uri and options
+  const playSong = async (params: { uri: string | undefined; options: PlaySongOptions }) => {
+    const { uri, options } = params;
     const { shouldUnpause = false, shouldClearQueue = false, tempQueue = [] } = options;
 
     if (shouldUnpause) {
@@ -73,13 +73,87 @@ export const usePlaySong = () => {
           if (response.status === 403) {
             if (priorityQueue && priorityQueue.length > 0) {
               setPriorityQueue(prevQueue => {
-                const newQueue = prevQueue.filter(track => track.name !== prevQueue[0].name);
-                if (newQueue.length > 0) {
-                  playSong({ uri: newQueue[0].uri, options: {} });
+                if (prevQueue) {
+                  const newQueue = prevQueue.filter(track => track.name !== prevQueue[0].name);
+                  if (newQueue.length > 0) {
+                    playSong({ uri: newQueue[0].uri, options: {} });
+                  }
+                  return newQueue;
                 }
-                return newQueue;
               });
 
+              if (!playlistQueue) {
+                return;
+              }
+              if (isPlaylistTrackObjectArray(playlistQueue) && playlistQueue.length > 0) {
+                indexPlaylistQueue(1, '+');
+                playSong({
+                  uri: playlistQueue[playlistQueueIndexRef.current].track?.uri,
+                  options: {},
+                });
+              } else if (isSingleAlbumResponse(playlistQueue)) {
+                indexPlaylistQueue(1, '+');
+                playSong({
+                  uri: playlistQueue.tracks.items[playlistQueueIndexRef.current].uri,
+                  options: {},
+                });
+              }
+            } else if (!playlistQueue) {
+              return;
+            } else if (userSkippedTrackRef.current) {
+              if (isPlaylistTrackObjectArray(playlistQueue)) {
+                indexPlaylistQueue(1, '+');
+                playSong({
+                  uri: playlistQueue[playlistQueueIndexRef.current].track?.uri,
+                  options: {},
+                });
+              } else if (isSingleAlbumResponse(playlistQueue)) {
+                indexPlaylistQueue(1, '+');
+                playSong({
+                  uri: playlistQueue.tracks.items[playlistQueueIndexRef.current].uri,
+                  options: {},
+                });
+              }
+            } else if (userPreviousTrackRef.current) {
+              if (repeatRef.current === 1 && playlistQueueIndexRef.current <= 1) {
+                if (isPlaylistTrackObjectArray(playlistQueue)) {
+                  indexPlaylistQueue(1 + playlistQueue.length, 'set');
+                  playlistQueueIndexRef.current = playlistQueue.length + 1;
+                } else if (isSingleAlbumResponse(playlistQueue)) {
+                  indexPlaylistQueue(1 + playlistQueue.tracks.items.length, 'set');
+                  playlistQueueIndexRef.current = playlistQueue.tracks.items.length + 1;
+                }
+              }
+              if (isPlaylistTrackObjectArray(playlistQueue)) {
+                if (playlistQueue.length > 0 && playlistQueueIndexRef.current > 1) {
+                  // playlistQueueIndexRef.current must be subtracted by 2 to be able to play the previous song
+                  indexPlaylistQueue(2, '-');
+                  playSong({
+                    uri: playlistQueue[playlistQueueIndexRef.current].track?.uri,
+                    options: {},
+                  });
+                }
+              } else if (isSingleAlbumResponse(playlistQueue)) {
+                indexPlaylistQueue(2, '-');
+                playSong({
+                  uri: playlistQueue.tracks.items[playlistQueueIndexRef.current].uri,
+                  options: {},
+                });
+              }
+            } else if (isPlaylistTrackObjectArray(tempQueue)) {
+              if (tempQueue.length > 0) {
+                indexPlaylistQueue(1, '+');
+                playSong({ uri: tempQueue[playlistQueueIndexRef.current].track?.uri, options: {} });
+              }
+            } else if (isSingleAlbumResponse(tempQueue)) {
+              if (tempQueue.tracks.items.length > 0) {
+                indexPlaylistQueue(1, '+');
+                playSong({
+                  uri: tempQueue.tracks.items[playlistQueueIndexRef.current].uri,
+                  options: {},
+                });
+              }
+            } else if (isPlaylistTrackObjectArray(playlistQueue)) {
               if (playlistQueue.length > 0) {
                 indexPlaylistQueue(1, '+');
                 playSong({
@@ -87,35 +161,14 @@ export const usePlaySong = () => {
                   options: {},
                 });
               }
-            } else if (userSkippedTrackRef.current) {
-              indexPlaylistQueue(1, '+');
-              playSong({
-                uri: playlistQueue[playlistQueueIndexRef.current].track?.uri,
-                options: {},
-              });
-            } else if (userPreviousTrackRef.current) {
-              if (repeatRef.current === 1 && playlistQueueIndexRef.current <= 1) {
-                indexPlaylistQueue(1 + playlistQueue.length, 'set');
-                playlistQueueIndexRef.current = playlistQueue.length + 1;
-              }
-
-              if (playlistQueue.length > 0 && playlistQueueIndexRef.current > 1) {
-                // playlistQueueIndexRef.current must be subtracted by 2 to be able to play the previous song
-                indexPlaylistQueue(2, '-');
+            } else if (isSingleAlbumResponse(playlistQueue)) {
+              if (playlistQueue.tracks.items.length > 0) {
+                indexPlaylistQueue(1, '+');
                 playSong({
-                  uri: playlistQueue[playlistQueueIndexRef.current].track?.uri,
+                  uri: playlistQueue.tracks.items[playlistQueueIndexRef.current].uri,
                   options: {},
                 });
               }
-            } else if (tempQueue.length > 0) {
-              indexPlaylistQueue(1, '+');
-              playSong({ uri: tempQueue[playlistQueueIndexRef.current].track?.uri, options: {} });
-            } else if (playlistQueue.length) {
-              indexPlaylistQueue(1, '+');
-              playSong({
-                uri: playlistQueue[playlistQueueIndexRef.current].track?.uri,
-                options: {},
-              });
             }
           }
         }
