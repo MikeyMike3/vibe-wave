@@ -5,6 +5,8 @@ import { useQueueContext } from '../../hooks/context/useQueueContext';
 import { useIndexPlaylistQueue } from '../../hooks/spotifyPlayer/useIndexPlaylistQueue';
 import { usePlaySong } from '../../hooks/spotifyPlayer/usePlaySong';
 import { useShuffleTracks } from '../../hooks/spotifyPlayer/useShuffleTracks';
+import { isPlaylistTrackObjectArray } from '../../types/typeGuards/isPlaylistTrackObjectArray';
+import { isSingleAlbumResponse } from '../../types/typeGuards/isSIngleAlbumResponse';
 
 type PlayAlbumTracksButtonProps = {
   album: SpotifyApi.SingleAlbumResponse | undefined;
@@ -27,17 +29,37 @@ export const PlayAlbumTracksPlayButton = ({ album }: PlayAlbumTracksButtonProps)
     }
 
     setPlaylistQueue(currentQueue => {
-      if (currentQueue.length > 0) {
-        indexPlaylistQueue(0, 'set');
-        unShuffledQueueRef.current = currentQueue;
-        if (shuffleTracksRef.current) {
-          shuffleTracks({ prevQueue: [...currentQueue] });
-        }
-        if (!shuffleTracksRef.current) {
-          playSongMutation({
-            uri: currentQueue[0].track?.uri,
-            options: { tempQueue: currentQueue },
-          });
+      if (currentQueue) {
+        if (isPlaylistTrackObjectArray(currentQueue)) {
+          if (currentQueue.length > 0) {
+            indexPlaylistQueue(0, 'set');
+            unShuffledQueueRef.current = currentQueue;
+            if (shuffleTracksRef.current) {
+              shuffleTracks({ prevQueue: [...currentQueue] });
+            }
+            if (!shuffleTracksRef.current) {
+              playSongMutation({
+                uri: currentQueue[0].track?.uri,
+                options: { tempQueue: currentQueue },
+              });
+            }
+          }
+        } else if (isSingleAlbumResponse(currentQueue)) {
+          if (currentQueue.tracks.items.length > 0) {
+            indexPlaylistQueue(0, 'set');
+            unShuffledQueueRef.current = currentQueue;
+            if (shuffleTracksRef.current) {
+              shuffleTracks({ prevQueue: currentQueue });
+            }
+            if (!shuffleTracksRef.current) {
+              playSongMutation({
+                uri: currentQueue.tracks.items[0].uri,
+                options: { tempQueue: currentQueue },
+              });
+            }
+          }
+        } else {
+          console.error('Wrong type is specified');
         }
       }
 
