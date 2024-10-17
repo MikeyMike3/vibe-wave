@@ -10,9 +10,9 @@ type QueueContext = {
   //prettier-ignore
   setPriorityQueue: React.Dispatch<React.SetStateAction<(SpotifyApi.TrackObjectFull | AlbumTrackWithImage)[] | null>>;
 
-  playlistQueue: SpotifyApi.PlaylistTrackObject[] | SpotifyApi.SingleAlbumResponse;
+  playlistQueue: SpotifyApi.PlaylistTrackObject[] | SpotifyApi.SingleAlbumResponse | undefined;
   //prettier-ignore
-  setPlaylistQueue: React.Dispatch<React.SetStateAction<SpotifyApi.PlaylistTrackObject[] |  SpotifyApi.SingleAlbumResponse>>;
+  setPlaylistQueue: React.Dispatch<React.SetStateAction<SpotifyApi.PlaylistTrackObject[] |  SpotifyApi.SingleAlbumResponse | undefined>>;
   playlistQueueIndex: number;
   //prettier-ignore
   setPlaylistQueueIndex: React.Dispatch<React.SetStateAction<number>>
@@ -29,7 +29,7 @@ export const QueueProvider = ({ children }: QueueProviderProps) => {
     (SpotifyApi.TrackObjectFull | AlbumTrackWithImage)[] | null
   >(null);
   const [playlistQueue, setPlaylistQueue] = useState<
-    SpotifyApi.PlaylistTrackObject[] | SpotifyApi.SingleAlbumResponse
+    SpotifyApi.PlaylistTrackObject[] | SpotifyApi.SingleAlbumResponse | undefined
   >([]);
   const [playlistQueueIndex, setPlaylistQueueIndex] = useState<number>(0);
 
