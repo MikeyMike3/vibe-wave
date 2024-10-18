@@ -11,31 +11,31 @@ type QueueProps = {
 };
 
 export const Queue = ({ backgroundColor }: QueueProps) => {
-  const { playlistQueue, playlistQueueIndex } = useQueueContext();
-  const { repeatRef, repeat } = usePlaybackContext();
-  const [queueSegment, setQueueSegment] = useState<SpotifyApi.PlaylistTrackObject[]>([]);
+  // const { playlistQueue, playlistQueueIndex } = useQueueContext();
+  // const { repeatRef, repeat } = usePlaybackContext();
+  // const [queueSegment, setQueueSegment] = useState<SpotifyApi.PlaylistTrackObject[]>([]);
 
-  const [isQueueSegmentOpen, setIsQueueSegmentOpen] = useState<boolean>(false);
+  // const [isQueueSegmentOpen, setIsQueueSegmentOpen] = useState<boolean>(false);
 
-  useEffect(() => {
-    const temp = playlistQueue?.slice(playlistQueueIndex, playlistQueueIndex + 50);
-    if (temp.length < 50 && repeatRef.current === 1) {
-      const sliceAmount = 50 - temp.length;
-      const tempSliceSegment = playlistQueue?.slice(0, sliceAmount);
-      const combinedArray = [...temp, ...tempSliceSegment];
-      setQueueSegment(combinedArray);
-    } else {
-      setQueueSegment(temp);
-    }
-  }, [playlistQueueIndex, playlistQueue, repeatRef, repeat]);
+  // useEffect(() => {
+  //   const temp = playlistQueue?.slice(playlistQueueIndex, playlistQueueIndex + 50);
+  //   if (temp.length < 50 && repeatRef.current === 1) {
+  //     const sliceAmount = 50 - temp.length;
+  //     const tempSliceSegment = playlistQueue?.slice(0, sliceAmount);
+  //     const combinedArray = [...temp, ...tempSliceSegment];
+  //     setQueueSegment(combinedArray);
+  //   } else {
+  //     setQueueSegment(temp);
+  //   }
+  // }, [playlistQueueIndex, playlistQueue, repeatRef, repeat]);
 
-  const handleClick = () => {
-    setIsQueueSegmentOpen(prev => !prev);
-  };
+  // const handleClick = () => {
+  //   setIsQueueSegmentOpen(prev => !prev);
+  // };
 
   return (
     <>
-      <button
+      {/* <button
         className={
           isQueueSegmentOpen ? `text-aqua` : `text-textAccent duration-150 hover:text-textPrimary`
         }
@@ -52,7 +52,7 @@ export const Queue = ({ backgroundColor }: QueueProps) => {
           setIsQueueSegmentOpen={setIsQueueSegmentOpen}
           backgroundColor={backgroundColor}
         />
-      )}
+      )} */}
     </>
   );
 };

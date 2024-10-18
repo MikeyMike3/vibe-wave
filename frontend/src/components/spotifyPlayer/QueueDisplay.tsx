@@ -30,7 +30,7 @@ export const QueueDisplay = ({
       ref={queueDisplayRef}
       className="absolute bottom-[112px] right-6 h-[500px] w-[500px] overflow-y-scroll rounded-2xl border-2 border-bgAccentHover bg-black"
     >
-      <div className="px-2" style={{ backgroundColor: `${backgroundColor}` }}>
+      <div className="h-full w-full px-2" style={{ backgroundColor: `${backgroundColor}` }}>
         {playerState?.track_window.current_track && (
           <>
             <div className="flex items-center justify-between">

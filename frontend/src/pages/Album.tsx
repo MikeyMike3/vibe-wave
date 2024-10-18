@@ -14,6 +14,7 @@ import { PlaylistItemsTable } from '../components/userPlaylistPageComp/PlaylistI
 import { AlbumItemsTR } from '../components/albumPageComponents/AlbumItemsTR';
 import { getImageUrl } from '../functions/getImageUrl';
 import { PlaylistImage } from '../components/PlaylistImage';
+import { PlayAlbumTracksPlayButton } from '../components/albumPageComponents/PlayAlbumTracksPlayButton';
 
 export const Album = () => {
   const { albumId } = useParams();
@@ -57,6 +58,7 @@ export const Album = () => {
             </PlaylistItemsHeaderFlexContainer>
             <PlaylistItemsButtonsFlexContainer>
               {/* <PlayLikedTracksButton likedTracks={album?.tracks.items} /> */}
+              <PlayAlbumTracksPlayButton album={album} />
               <ShuffleTracksButton />
             </PlaylistItemsButtonsFlexContainer>
             <PlaylistItemsTable>

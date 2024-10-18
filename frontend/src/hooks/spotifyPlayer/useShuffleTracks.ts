@@ -6,7 +6,7 @@ import { usePlaySong } from './usePlaySong';
 
 type ShuffleTracksOptions = {
   shouldChangeState?: boolean;
-  prevQueue?: SpotifyApi.PlaylistTrackObject[];
+  prevQueue?: SpotifyApi.PlaylistTrackObject[] | SpotifyApi.SingleAlbumResponse | undefined;
 };
 
 export const useShuffleTracks = () => {

@@ -16,6 +16,8 @@ import { TogglePlayButton } from './TogglePlayButton';
 import { TogglePauseButton } from './TogglePauseButton';
 import { getImageUrl } from '../../functions/getImageUrl';
 import { getBackgroundImageColor } from '../../functions/getBackgroundImageColor';
+import { isPlaylistTrackObjectArray } from '../../types/typeGuards/isPlaylistTrackObjectArray';
+import { isSingleAlbumResponse } from '../../types/typeGuards/isSIngleAlbumResponse';
 
 export const SpotifyPlayer = () => {
   const { player } = useSpotifyPlayerContext();
@@ -78,28 +80,60 @@ export const SpotifyPlayer = () => {
       playSongMutation({ uri: priorityQueue[0]?.uri, options: {} }).finally(() => {
         isTransitioningRef.current = false;
       });
-    } else if (playlistQueue.length > 0) {
-      if (playlistQueueIndexRef.current === playlistQueue.length) {
-        if (repeatRef.current === 1) {
-          indexPlaylistQueue(0, 'set');
-          playSongMutation({ uri: playlistQueue[0].track?.uri, options: {} }).finally(() => {
-            isTransitioningRef.current = false;
-          });
+    } else if (playlistQueue && isPlaylistTrackObjectArray(playlistQueue)) {
+      if (playlistQueue.length > 0) {
+        if (playlistQueueIndexRef.current === playlistQueue.length) {
+          if (repeatRef.current === 1) {
+            indexPlaylistQueue(0, 'set');
+            playSongMutation({ uri: playlistQueue[0].track?.uri, options: {} }).finally(() => {
+              isTransitioningRef.current = false;
+            });
+          } else {
+            indexPlaylistQueue(0, 'set');
+            playSongMutation({ uri: playlistQueue[0].track?.uri, options: {} }).finally(() => {
+              isPausedRef.current = true;
+              isTransitioningRef.current = false;
+            });
+          }
         } else {
-          indexPlaylistQueue(0, 'set');
-          playSongMutation({ uri: playlistQueue[0].track?.uri, options: {} }).finally(() => {
-            isPausedRef.current = true;
+          playSongMutation({
+            uri: playlistQueue[playlistQueueIndexRef.current].track?.uri,
+            options: {},
+          }).finally(() => {
             isTransitioningRef.current = false;
           });
         }
-      } else {
-        playSongMutation({
-          uri: playlistQueue[playlistQueueIndexRef.current].track?.uri,
-          options: {},
-        }).finally(() => {
-          isTransitioningRef.current = false;
-        });
       }
+    } else if (playlistQueue && isSingleAlbumResponse(playlistQueue)) {
+      if (playlistQueue.tracks.items.length > 0) {
+        if (playlistQueueIndexRef.current === playlistQueue.tracks.items.length) {
+          if (repeatRef.current === 1) {
+            indexPlaylistQueue(0, 'set');
+            playSongMutation({ uri: playlistQueue.tracks.items[0].uri, options: {} }).finally(
+              () => {
+                isTransitioningRef.current = false;
+              },
+            );
+          } else {
+            indexPlaylistQueue(0, 'set');
+            playSongMutation({ uri: playlistQueue.tracks.items[0].uri, options: {} }).finally(
+              () => {
+                isPausedRef.current = true;
+                isTransitioningRef.current = false;
+              },
+            );
+          }
+        } else {
+          playSongMutation({
+            uri: playlistQueue.tracks.items[playlistQueueIndexRef.current].uri,
+            options: {},
+          }).finally(() => {
+            isTransitioningRef.current = false;
+          });
+        }
+      }
+    } else {
+      console.error('playlistQueue is undefined or not a valid type.');
     }
   }, 500);
 
@@ -120,6 +154,7 @@ export const SpotifyPlayer = () => {
         if (priorityQueue && state.track_window.current_track?.name === priorityQueue[0]?.name) {
           setPriorityQueue(prevQueue => {
             if (
+              prevQueue &&
               prevQueue.length > 0 &&
               state.track_window.current_track?.name === prevQueue[0].name
             ) {
@@ -127,11 +162,20 @@ export const SpotifyPlayer = () => {
             }
             return prevQueue;
           });
-        } else if (
-          state.track_window.current_track?.name ===
-          playlistQueue[playlistQueueIndexRef.current]?.track?.name
-        ) {
-          indexPlaylistQueue(1, '+');
+        } else if (playlistQueue && isPlaylistTrackObjectArray(playlistQueue)) {
+          if (
+            playlistQueue &&
+            state.track_window.current_track?.name ===
+              playlistQueue[playlistQueueIndexRef.current]?.track?.name
+          ) {
+            indexPlaylistQueue(1, '+');
+          }
+        } else if (playlistQueue && isSingleAlbumResponse(playlistQueue)) {
+          // Handle the case when playlistQueue is a SingleAlbumResponse
+          const currentTrack = playlistQueue.tracks.items[playlistQueueIndexRef.current];
+          if (playlistQueue && state.track_window.current_track?.name === currentTrack?.name) {
+            indexPlaylistQueue(1, '+');
+          }
         }
       }
 
