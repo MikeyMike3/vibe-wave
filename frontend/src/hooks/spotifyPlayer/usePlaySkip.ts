@@ -1,4 +1,6 @@
 import { AlbumTrackWithImage } from '../../types/AlbumTrackWithImage';
+import { isPlaylistTrackObjectArray } from '../../types/typeGuards/isPlaylistTrackObjectArray';
+import { isSingleAlbumResponse } from '../../types/typeGuards/isSIngleAlbumResponse';
 import { useQueueContext } from '../context/useQueueContext';
 import { useIndexPlaylistQueue } from './useIndexPlaylistQueue';
 import { usePlaySong } from './usePlaySong';
@@ -49,13 +51,23 @@ export const usePlaySkip = () => {
         return tempQueue.length > 0 ? tempQueue : null;
       });
     } else if (shouldIndexPlaylistQueue && playlistQueue) {
-      const index = playlistQueue.findIndex(item => item.track?.name === name);
-      indexPlaylistQueue(index, 'set');
-      playSongMutation({
-        uri: playlistQueue[playlistQueueIndexRef.current].track?.uri,
-        options: {},
-      });
-      return;
+      if (isPlaylistTrackObjectArray(playlistQueue)) {
+        const index = playlistQueue.findIndex(item => item.track?.name === name);
+        indexPlaylistQueue(index, 'set');
+        playSongMutation({
+          uri: playlistQueue[playlistQueueIndexRef.current].track?.uri,
+          options: {},
+        });
+        return;
+      } else if (isSingleAlbumResponse(playlistQueue)) {
+        const index = playlistQueue.tracks.items.findIndex(item => item.name === name);
+        indexPlaylistQueue(index, 'set');
+        playSongMutation({
+          uri: playlistQueue.tracks.items[playlistQueueIndexRef.current].uri,
+          options: {},
+        });
+        return;
+      }
     }
   };
   return playSkip;
