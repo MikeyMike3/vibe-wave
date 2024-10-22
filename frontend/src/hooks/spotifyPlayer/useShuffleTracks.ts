@@ -25,7 +25,6 @@ export const useShuffleTracks = () => {
     }
 
     if (!playlistQueue) {
-      console.log('yoyoyoyo');
       return;
     }
 
@@ -65,7 +64,7 @@ export const useShuffleTracks = () => {
           items: shuffledTracks,
         },
       };
-      console.log(shuffledQueue);
+
       indexPlaylistQueue(0, 'set');
       setPlaylistQueue(shuffledQueue);
       if (isSingleAlbumResponse(prevQueue)) {
