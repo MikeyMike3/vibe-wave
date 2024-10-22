@@ -6,6 +6,7 @@ import { useIndexPlaylistQueue } from '../hooks/spotifyPlayer/useIndexPlaylistQu
 import { usePlaySong } from '../hooks/spotifyPlayer/usePlaySong';
 import { useShuffleTracks } from '../hooks/spotifyPlayer/useShuffleTracks';
 import { useSpotifyPlayerContext } from '../hooks/context/useSpotifyPlayerContext';
+import { isPlaylistTrackObjectArray } from '../types/typeGuards/isPlaylistTrackObjectArray';
 
 type PlaylistDetails = {
   name: string;
@@ -54,20 +55,24 @@ export const PlaylistPagePlayButton = ({
     }
 
     setPlaylistQueue(currentQueue => {
-      if (currentQueue.length > 0) {
-        indexPlaylistQueue(0, 'set');
-        unShuffledQueueRef.current = currentQueue;
-        if (shuffleTracksRef.current) {
-          shuffleTracks({ prevQueue: [...currentQueue] });
-        }
-        if (!shuffleTracksRef.current) {
-          playSongMutation({
-            uri: currentQueue[0].track?.uri,
-            options: { tempQueue: currentQueue },
-          });
-        }
-      }
+      if (currentQueue) {
+        if (isPlaylistTrackObjectArray(currentQueue))
+          if (currentQueue.length > 0) {
+            indexPlaylistQueue(0, 'set');
+            unShuffledQueueRef.current = currentQueue;
 
+            if (shuffleTracksRef.current) {
+              shuffleTracks({ prevQueue: [...currentQueue] });
+            }
+
+            if (!shuffleTracksRef.current) {
+              playSongMutation({
+                uri: currentQueue[0].track?.uri,
+                options: { tempQueue: currentQueue },
+              });
+            }
+          }
+      }
       return currentQueue;
     });
   };
