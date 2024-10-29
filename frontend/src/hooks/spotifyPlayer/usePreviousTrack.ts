@@ -45,7 +45,11 @@ export const usePreviousTrack = () => {
           uri: playlistQueue[playlistQueueIndexRef.current].track?.uri,
           options: {},
         });
-      } else if (isSingleAlbumResponse(playlistQueue)) {
+      } else if (
+        isSingleAlbumResponse(playlistQueue) &&
+        playlistQueue.tracks.items.length > 0 &&
+        playlistQueueIndexRef.current > 1
+      ) {
         indexPlaylistQueue(2, '-');
         playSongMutation({
           uri: playlistQueue.tracks.items[playlistQueueIndexRef.current].uri,
