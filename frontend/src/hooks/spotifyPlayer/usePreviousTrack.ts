@@ -3,6 +3,8 @@ import { useQueueContext } from '../context/useQueueContext';
 import { usePlaybackContext } from '../context/usePlaybackContext';
 import { useIndexPlaylistQueue } from './useIndexPlaylistQueue';
 import { useSpotifyPlayerContext } from '../context/useSpotifyPlayerContext';
+import { isPlaylistTrackObjectArray } from '../../types/typeGuards/isPlaylistTrackObjectArray';
+import { isSingleAlbumResponse } from '../../types/typeGuards/isSIngleAlbumResponse';
 
 export const usePreviousTrack = () => {
   const { playlistQueue, playlistQueueIndexRef } = useQueueContext();
@@ -24,17 +26,32 @@ export const usePreviousTrack = () => {
     }
 
     // sets the playlistQueueIndexRef to the last song of the playlist
-    if (repeatRef.current === 1 && playlistQueueIndexRef.current <= 1) {
-      indexPlaylistQueue(playlistQueue.length + 1, 'set');
+    if (repeatRef.current === 1 && playlistQueueIndexRef.current <= 1 && playlistQueue) {
+      if (isPlaylistTrackObjectArray(playlistQueue)) {
+        indexPlaylistQueue(playlistQueue.length + 1, 'set');
+      } else if (isSingleAlbumResponse(playlistQueue)) {
+        indexPlaylistQueue(playlistQueue.tracks.items.length + 1, 'set');
+      }
     }
-
-    if (playlistQueue.length > 0 && playlistQueueIndexRef.current > 1) {
-      // playlistQueueIndexRef.current must be subtracted by 2 to be able to play the previous song
-      indexPlaylistQueue(2, '-');
-      playSongMutation({
-        uri: playlistQueue[playlistQueueIndexRef.current].track?.uri,
-        options: {},
-      });
+    if (playlistQueue) {
+      if (
+        isPlaylistTrackObjectArray(playlistQueue) &&
+        playlistQueue.length > 0 &&
+        playlistQueueIndexRef.current > 1
+      ) {
+        // playlistQueueIndexRef.current must be subtracted by 2 to be able to play the previous song
+        indexPlaylistQueue(2, '-');
+        playSongMutation({
+          uri: playlistQueue[playlistQueueIndexRef.current].track?.uri,
+          options: {},
+        });
+      } else if (isSingleAlbumResponse(playlistQueue)) {
+        indexPlaylistQueue(2, '-');
+        playSongMutation({
+          uri: playlistQueue.tracks.items[playlistQueueIndexRef.current].uri,
+          options: {},
+        });
+      }
     }
   };
 
