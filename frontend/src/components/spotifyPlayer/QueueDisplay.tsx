@@ -7,9 +7,11 @@ import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { AlbumTrackWithImage } from '../../types/AlbumTrackWithImage';
 import { AlbumTrackQueueItem } from '../AlbumTrackQueueItem';
+import { isPlaylistTrackObjectArray } from '../../types/typeGuards/isPlaylistTrackObjectArray';
+import { isSingleAlbumResponse } from '../../types/typeGuards/isSIngleAlbumResponse';
 
 type QueueDisplayProps = {
-  queueSegment: SpotifyApi.PlaylistTrackObject[];
+  queueSegment: SpotifyApi.PlaylistTrackObject[] | SpotifyApi.SingleAlbumResponse;
   //prettier-ignore
   setIsQueueSegmentOpen: React.Dispatch<React.SetStateAction<boolean>>
   backgroundColor: string;
@@ -92,29 +94,58 @@ export const QueueDisplay = ({
             </div>
           </>
         )}
-        {playlistQueue.length > 0 && (
-          <>
-            <h2 className="pb-2 text-xl text-textPrimary">
-              Next Up from:{' '}
-              <Link className="hover:underline" to={`/playlists/${playlistId}`}>
-                {playlistName}
-              </Link>
-            </h2>
+        {playlistQueue &&
+          isPlaylistTrackObjectArray(playlistQueue) &&
+          isPlaylistTrackObjectArray(queueSegment) &&
+          playlistQueue.length > 0 && (
+            <>
+              <h2 className="pb-2 text-xl text-textPrimary">
+                Next Up from: {''}
+                <Link className="hover:underline" to={`/playlists/${playlistId}`}>
+                  {playlistName}
+                </Link>
+              </h2>
 
-            <div className="py-2">
-              {queueSegment.map((item, index) => (
-                <QueueItem
-                  key={`${item.track?.id}-${index}`}
-                  queueDisplayRef={queueDisplayRef}
-                  name={item.track?.name}
-                  images={item.track?.album.images}
-                  artists={item.track?.artists}
-                  track={item}
-                />
-              ))}
-            </div>
-          </>
-        )}
+              <div className="py-2">
+                {queueSegment.map((item, index) => (
+                  <QueueItem
+                    key={`${item.track?.id}-${index}`}
+                    queueDisplayRef={queueDisplayRef}
+                    name={item.track?.name}
+                    images={item.track?.album.images}
+                    artists={item.track?.artists}
+                    track={item}
+                  />
+                ))}
+              </div>
+            </>
+          )}
+        {playlistQueue &&
+          isSingleAlbumResponse(playlistQueue) &&
+          isSingleAlbumResponse(queueSegment) &&
+          playlistQueue.tracks.items.length > 0 && (
+            <>
+              <h2 className="pb-2 text-xl text-textPrimary">
+                Next Up from:{' '}
+                <Link className="hover:underline" to={`/album/${playlistQueue.id}`}>
+                  {playlistQueue.name}
+                </Link>
+              </h2>
+
+              <div className="py-2">
+                {queueSegment.tracks.items.map((item, index) => (
+                  <AlbumTrackQueueItem
+                    key={`${item.id}-${index}`}
+                    queueDisplayRef={queueDisplayRef}
+                    name={item.name}
+                    image={queueSegment.images[0].url}
+                    artists={item.artists}
+                    track={item as AlbumTrackWithImage}
+                  />
+                ))}
+              </div>
+            </>
+          )}
       </div>
     </div>
   );
