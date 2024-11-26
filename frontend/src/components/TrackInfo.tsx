@@ -31,9 +31,10 @@ export const TrackInfo = ({ images, name, artists, shouldAddPadding = false }: T
               if (isArtistObjectSimplified(item)) {
                 artistId = item.id;
               } else {
-                const arraySplit = item.url.split('/');
-                artistId = arraySplit[5];
+                const arraySplit = item.uri.split(':');
+                artistId = arraySplit[2];
               }
+
               return (
                 <span key={artistId}>
                   <Link
