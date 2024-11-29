@@ -19,16 +19,20 @@ export const Playlists = () => {
   return (
     <Wrapper>
       <GridContainer>
-        {userPlaylists?.items.map(item => (
-          <UserPlaylist
-            key={item.id}
-            name={item.name}
-            images={item.images}
-            type={item.type}
-            owner={item.owner.display_name}
-            playlistId={item.id}
-          />
-        ))}
+        {userPlaylists?.items?.map(item => {
+          if (item) {
+            return (
+              <UserPlaylist
+                key={item.id}
+                name={item.name}
+                images={item.images}
+                type={item.type}
+                owner={item.owner?.display_name}
+                playlistId={item.id}
+              />
+            );
+          }
+        })}
       </GridContainer>
     </Wrapper>
   );
