@@ -45,36 +45,17 @@ export const useFetchHomePageData = () => {
     }
   };
 
-  const fetchFeaturedPlaylists = async () => {
-    try {
-      const response = await fetch(
-        'https://api.spotify.com/v1/browse/featured-playlists',
-        apiHeaders,
-      );
-      if (!response.ok) {
-        throw new Error('Error fetching featured playlists');
-      }
-      const data: SpotifyApi.ListOfFeaturedPlaylistsResponse = await response.json();
-      return data;
-    } catch (error) {
-      console.error('Error fetch featured playlists', error);
-      throw error;
-    }
-  };
-
   const fetchHomePageDetails = async () => {
-    const [newAlbumReleases, topTracks, topArtists, featuredPlaylists] = await Promise.all([
+    const [newAlbumReleases, topTracks, topArtists] = await Promise.all([
       fetchNewAlbumReleases(),
       fetchUsersTopTracks(),
       fetchUsersTopArtists(),
-      fetchFeaturedPlaylists(),
     ]);
 
     return {
       newAlbumReleases,
       topTracks,
       topArtists,
-      featuredPlaylists,
     };
   };
 

@@ -57,43 +57,21 @@ export const useFetchArtistDetails = (artistId: string | undefined) => {
     }
   };
 
-  const fetchArtistRelatedArtists = async () => {
-    try {
-      const response = await fetch(
-        `https://api.spotify.com/v1/artists/${artistId}/related-artists`,
-        apiHeader,
-      );
-
-      if (!response.ok) {
-        throw new Error('Error fetching related artists ');
-      }
-
-      const data: SpotifyApi.ArtistsRelatedArtistsResponse = await response.json();
-      return data;
-    } catch (error) {
-      console.error('Error fetching related artists ', error);
-      throw error;
-    }
-  };
-
   const fetchArtistDetails = async () => {
     const artistInfo = fetchArtistInfo();
     const artistAlbums = fetchArtistAlbums();
     const artistTopTracks = fetchArtistTopTracks();
-    const artistRelatedArtists = fetchArtistRelatedArtists();
 
-    const [info, albums, topTracks, relatedArtists] = await Promise.all([
+    const [info, albums, topTracks] = await Promise.all([
       artistInfo,
       artistAlbums,
       artistTopTracks,
-      artistRelatedArtists,
     ]);
 
     return {
       info,
       albums,
       topTracks,
-      relatedArtists,
     };
   };
 
