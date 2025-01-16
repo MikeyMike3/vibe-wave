@@ -56,10 +56,6 @@ export const ProgressTracker = () => {
     player?.seek(seekPosition);
   }
 
-  useEffect(() => {
-    console.log(playerDuration);
-  }, [playerDuration]);
-
   return (
     <div className="flex w-[590px] items-center gap-3">
       <p className="cursor-default text-textPrimary">
@@ -83,13 +79,15 @@ export const ProgressTracker = () => {
           borderRadius: '4px',
           cursor: 'pointer',
           outline: 'none',
-          background: `linear-gradient(
-            to right,
-            ${dynamicImageBgColorLighter} 0%,
-            ${dynamicImageBgColorLighter} ${sliderValue}%,
-            #a8a8a8 ${sliderValue}%,
-            #a8a8a8 100%
-          )`,
+          background: `
+      linear-gradient(
+        to right,
+        ${dynamicImageBgColorLighter} 0%, 
+        ${dynamicImageBgColorLighter} ${(Number(sliderValue) / Number(playerDuration)) * 100 || 0}%, 
+        #a8a8a8 ${(Number(sliderValue) / Number(playerDuration)) * 100 || 0}%, 
+        #a8a8a8 100%
+      )
+    `,
         }}
       />
       <p className="cursor-default text-textPrimary">{displayDuration}</p>
