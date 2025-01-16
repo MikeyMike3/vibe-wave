@@ -11,7 +11,9 @@ export const modifyDynamicBgColor = (color: string, modifyFactor: number, alpha:
       Math.floor(rgbaValues[2] * modifyFactor),
       (rgbaValues[3] = alpha),
     ];
+    const newColorString = `rgba(${colorModified.join(',')})`;
+    return newColorString;
+  } else {
+    console.error('Invalid RGBA string', color);
   }
-
-  return colorModified;
 };
