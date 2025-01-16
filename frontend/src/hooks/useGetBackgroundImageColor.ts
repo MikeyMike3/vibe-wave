@@ -11,7 +11,6 @@ export const useGetBackgroundImageColor = () => {
       try {
         const color = await fac.getColorAsync(imgUrl);
         const rgbaString = color.rgba;
-        console.log(rgbaString);
         setDynamicImageBgColorMaster(rgbaString);
       } catch (error) {
         console.error('Error extracting color:', error);

@@ -2,9 +2,11 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { usePlaybackContext } from '../../hooks/context/usePlaybackContext';
 import { formatTime } from '../../functions/formatTime';
 import { useSpotifyPlayerContext } from '../../hooks/context/useSpotifyPlayerContext';
+import { useDynamicImageBgColorContext } from '../../hooks/context/useDynamicImageBgColorContext';
 
 export const ProgressTracker = () => {
   const { player } = useSpotifyPlayerContext();
+  const { dynamicImageBgColorLighter } = useDynamicImageBgColorContext();
   const { playerDuration, playerPosition, setPlayerPosition } = usePlaybackContext();
   const [displayPosition, setDisplayPosition] = useState<string | number>(0);
   const [tempDisplayPosition, setTempDisplayPosition] = useState<string | number>();
@@ -54,6 +56,10 @@ export const ProgressTracker = () => {
     player?.seek(seekPosition);
   }
 
+  useEffect(() => {
+    console.log(playerDuration);
+  }, [playerDuration]);
+
   return (
     <div className="flex w-[590px] items-center gap-3">
       <p className="cursor-default text-textPrimary">
@@ -69,6 +75,22 @@ export const ProgressTracker = () => {
         value={currentlySeekingRef.current ? seekPosition : playerPosition}
         onChange={handleChange}
         onMouseUp={handleMouseUp}
+        style={{
+          WebkitAppearance: 'none',
+          appearance: 'none',
+          width: '100%',
+          height: '8px',
+          borderRadius: '4px',
+          cursor: 'pointer',
+          outline: 'none',
+          background: `linear-gradient(
+            to right,
+            ${dynamicImageBgColorLighter} 0%,
+            ${dynamicImageBgColorLighter} ${sliderValue}%,
+            #a8a8a8 ${sliderValue}%,
+            #a8a8a8 100%
+          )`,
+        }}
       />
       <p className="cursor-default text-textPrimary">{displayDuration}</p>
     </div>

@@ -4,10 +4,12 @@ import { useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVolume, faVolumeMute, faVolumeHigh } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
 import { faVolumeLow } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
+import { useDynamicImageBgColorContext } from '../../hooks/context/useDynamicImageBgColorContext';
 
 export const VolumeControl = () => {
   const { player, isPlayerReady } = useSpotifyPlayerContext();
   const { volume, setVolume } = usePlaybackContext();
+  const { dynamicImageBgColorLighter } = useDynamicImageBgColorContext();
 
   const volumeRef = useRef<HTMLInputElement>(null);
   const prevVolumeRef = useRef(0.1);
@@ -91,6 +93,20 @@ export const VolumeControl = () => {
         max="100"
         onChange={handleChange}
         value={volume}
+        style={{
+          WebkitAppearance: 'none',
+          appearance: 'none',
+          width: '100%',
+          height: '8px',
+          borderRadius: '4px',
+          cursor: 'pointer',
+          outline: 'none',
+          background: `linear-gradient(
+            to right,
+            ${dynamicImageBgColorLighter} ${volume}%,
+            #a8a8a8 ${volume}%
+          )`,
+        }}
       />
     </div>
   );

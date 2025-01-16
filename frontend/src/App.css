@@ -9,19 +9,6 @@ input[type='range'] {
   outline: none; /* Remove outline on focus */
 }
 
-/* WebKit browsers (Chrome, Safari, Opera GX) */
-input[type='range']::-webkit-slider-runnable-track {
-  width: 100%;
-  height: 8px; /* Same height as the track */
-  background: linear-gradient(
-    to right,
-    #00ffff var(--value, 0%),
-    #a8a8a8 var(--value, 0%)
-  ); /* Dynamic background */
-  border-radius: 4px; /* Rounded corners */
-  border: none; /* Remove any default border */
-}
-
 /* Hide the thumb initially */
 input[type='range']::-webkit-slider-thumb {
   -webkit-appearance: none; /* Remove default appearance for thumb */

@@ -7,6 +7,7 @@ import { faListMusic as faListMusicSolid } from '@awesome.me/kit-71c07605c0/icon
 import { faListMusic as faListMusicRegular } from '@awesome.me/kit-71c07605c0/icons/sharp/regular';
 import { isPlaylistTrackObjectArray } from '../../types/typeGuards/isPlaylistTrackObjectArray';
 import { isSingleAlbumResponse } from '../../types/typeGuards/isSIngleAlbumResponse';
+import { useDynamicImageBgColorContext } from '../../hooks/context/useDynamicImageBgColorContext';
 
 type QueueProps = {
   backgroundColor: string;
@@ -18,6 +19,8 @@ export const Queue = ({ backgroundColor }: QueueProps) => {
   const [queueSegment, setQueueSegment] = useState<
     SpotifyApi.PlaylistTrackObject[] | SpotifyApi.SingleAlbumResponse
   >([]);
+
+  const { dynamicImageBgColorLighter } = useDynamicImageBgColorContext();
 
   const [isQueueSegmentOpen, setIsQueueSegmentOpen] = useState<boolean>(false);
 
@@ -67,17 +70,25 @@ export const Queue = ({ backgroundColor }: QueueProps) => {
 
   return (
     <>
-      <button
-        className={
-          isQueueSegmentOpen ? `text-aqua` : `text-textAccent duration-150 hover:text-textPrimary`
-        }
-        onClick={handleClick}
-      >
-        <FontAwesomeIcon
-          className="text-2xl"
-          icon={isQueueSegmentOpen ? faListMusicSolid : faListMusicRegular}
-        />
-      </button>
+      {isQueueSegmentOpen && (
+        <button onClick={handleClick}>
+          <FontAwesomeIcon
+            className="text-2xl"
+            style={{ color: dynamicImageBgColorLighter }}
+            icon={faListMusicSolid}
+          />
+        </button>
+      )}
+
+      {!isQueueSegmentOpen && (
+        <button
+          onClick={handleClick}
+          className="text-textAccent duration-150 hover:text-textPrimary"
+        >
+          <FontAwesomeIcon className="text-2xl" icon={faListMusicRegular} />
+        </button>
+      )}
+
       {isQueueSegmentOpen && (
         <QueueDisplay
           queueSegment={queueSegment}
