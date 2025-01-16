@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { getImageUrl } from '../functions/getImageUrl';
 import { findAlbumReleaseDate } from '../functions/findAlbumReleaseDate';
 import { useEffect, useState } from 'react';
-import { getBackgroundImageColor } from '../functions/getBackgroundImageColor';
+import { useGetBackgroundImageColor } from '../hooks/useGetBackgroundImageColor';
 
 type SearchResultAlbumItemProps = {
   album: SpotifyApi.AlbumObjectSimplified;
@@ -11,13 +11,14 @@ type SearchResultAlbumItemProps = {
 export const SearchResultAlbumItem = ({ album }: SearchResultAlbumItemProps) => {
   const image = getImageUrl(album?.images);
   const albumReleaseDate = findAlbumReleaseDate(album.release_date);
+  const getBackgroundImageColor = useGetBackgroundImageColor();
   const [backgroundColor, setBackgroundColor] = useState<string>('');
 
   useEffect(() => {
     if (image) {
-      getBackgroundImageColor(image, setBackgroundColor);
+      getBackgroundImageColor(image);
     }
-  }, [image]);
+  }, [image, getBackgroundImageColor]);
 
   return (
     <Link

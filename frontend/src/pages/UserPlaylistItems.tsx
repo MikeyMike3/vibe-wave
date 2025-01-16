@@ -7,7 +7,7 @@ import { getImageUrl } from '../functions/getImageUrl';
 import { ShuffleTracksButton } from '../components/spotifyPlayer/ShuffleTracksButton';
 import { useFetchArtistImagesAndGenres } from '../hooks/apis/useFetchArtistInfoForTracks';
 import { Wrapper } from '../components/styledComponents/Wrapper';
-import { getBackgroundImageColor } from '../functions/getBackgroundImageColor';
+import { useGetBackgroundImageColor } from '../hooks/useGetBackgroundImageColor';
 import { useEffect, useState } from 'react';
 import { PlaylistPagePlayButton } from '../components/PlaylistPagePlayButton';
 import { PlaylistItemsTable } from '../components/userPlaylistPageComp/PlaylistItemsTable';
@@ -28,6 +28,7 @@ export const UserPlaylistItems = () => {
   // I need to make another hook that combines these together so that I can Promise.All these together
   const { playlistItems, isLoading, isError } = useGetPlaylistItems(playlistId);
   const { playlistDetails } = useFetchPlaylistDetails(playlistId);
+  const getBackgroundImageColor = useGetBackgroundImageColor();
   const { data: artistInfo } = useFetchArtistImagesAndGenres(playlistItems?.items);
 
   const [backgroundColor, setBackgroundColor] = useState<string>('');
@@ -36,9 +37,9 @@ export const UserPlaylistItems = () => {
 
   useEffect(() => {
     if (image) {
-      getBackgroundImageColor(image, setBackgroundColor);
+      getBackgroundImageColor(image);
     }
-  }, [image]);
+  }, [image, getBackgroundImageColor]);
 
   if (isLoading) {
     return <MainLoading />;

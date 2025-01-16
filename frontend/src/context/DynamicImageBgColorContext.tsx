@@ -1,4 +1,5 @@
-import { createContext, ReactNode, useState } from 'react';
+import { createContext, ReactNode, useEffect, useState } from 'react';
+import { modifyDynamicBgColor } from '../functions/modifyDynamicBgColor';
 
 type DynamicImageBgColorProviderProps = {
   children: ReactNode;
@@ -19,6 +20,12 @@ export const DynamicImageBgColorProvider = ({ children }: DynamicImageBgColorPro
   const [dynamicImageBgColorMaster, setDynamicImageBgColorMaster] = useState('');
   const [dynamicImageBgColorDark, setDynamicImageBgColorDark] = useState('');
   const [dynamicImageBgColorMuted, setDynamicImageBgColorMuted] = useState('');
+
+  useEffect(() => {
+    setDynamicImageBgColorDark(
+      modifyDynamicBgColor(dynamicImageBgColorMaster, 0.8, 0.5) ?? 'rgba(255, 255, 255, 1)',
+    );
+  }, [dynamicImageBgColorMaster]);
 
   return (
     <DynamicImageBgColorContext.Provider

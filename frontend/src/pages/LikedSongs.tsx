@@ -14,19 +14,20 @@ import { PlaylistTableColumnFlexContainer } from '../components/userPlaylistPage
 import { formatTimeInHours } from '../functions/formatTimeInHours';
 import { getImageUrl } from '../functions/getImageUrl';
 import { useFetchSavedTracks } from '../hooks/apis/useFetchSavedTracks';
-import { getBackgroundImageColor } from '../functions/getBackgroundImageColor';
+import { useGetBackgroundImageColor } from '../hooks/useGetBackgroundImageColor';
 
 export const LikedSongs = () => {
   const { savedTracks, isLoading, isError } = useFetchSavedTracks();
+  const getBackgroundImageColor = useGetBackgroundImageColor();
   const [backgroundColor, setBackgroundColor] = useState<string>('');
 
   const image = getImageUrl(savedTracks?.items[0].track.album.images);
 
   useEffect(() => {
     if (image) {
-      getBackgroundImageColor(image, setBackgroundColor);
+      getBackgroundImageColor(image);
     }
-  }, [image]);
+  }, [image, getBackgroundImageColor]);
 
   if (isLoading) {
     return <MainLoading />;

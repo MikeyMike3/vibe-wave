@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { usePlaySong } from '../../hooks/spotifyPlayer/usePlaySong';
 import { useSpotifyPlayerContext } from '../../hooks/context/useSpotifyPlayerContext';
 import { useQueueContext } from '../../hooks/context/useQueueContext';
@@ -15,9 +15,10 @@ import { VolumeControl } from './VolumeControl';
 import { TogglePlayButton } from './TogglePlayButton';
 import { TogglePauseButton } from './TogglePauseButton';
 import { getImageUrl } from '../../functions/getImageUrl';
-import { getBackgroundImageColor } from '../../functions/getBackgroundImageColor';
+import { useGetBackgroundImageColor } from '../../hooks/useGetBackgroundImageColor';
 import { isPlaylistTrackObjectArray } from '../../types/typeGuards/isPlaylistTrackObjectArray';
 import { isSingleAlbumResponse } from '../../types/typeGuards/isSIngleAlbumResponse';
+import { useDynamicImageBgColorContext } from '../../hooks/context/useDynamicImageBgColorContext';
 
 export const SpotifyPlayer = () => {
   const { player } = useSpotifyPlayerContext();
@@ -39,20 +40,22 @@ export const SpotifyPlayer = () => {
     playlistQueueIndexRef,
   } = useQueueContext();
 
+  const { dynamicImageBgColorDark } = useDynamicImageBgColorContext();
+
   const playSongMutation = usePlaySong();
   const indexPlaylistQueue = useIndexPlaylistQueue();
 
-  const isTransitioningRef = useRef(false);
+  const getBackgroundImageColor = useGetBackgroundImageColor();
 
-  const [backgroundColor, setBackgroundColor] = useState<string>('');
+  const isTransitioningRef = useRef(false);
 
   const image = getImageUrl(playerState?.track_window.current_track.album.images);
 
   useEffect(() => {
     if (image) {
-      getBackgroundImageColor(image, setBackgroundColor, true);
+      getBackgroundImageColor(image);
     }
-  }, [image]);
+  }, [image, getBackgroundImageColor]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const debounce = <T extends (...args: any[]) => void>(func: T, wait: number) => {
@@ -226,7 +229,7 @@ export const SpotifyPlayer = () => {
   return (
     <footer
       className="sticky bottom-0 z-[9999] mt-auto grid w-full grid-cols-[25%_50%_25%] items-center rounded-3xl bg-black p-3 text-white"
-      style={{ backgroundColor: `${backgroundColor}` }}
+      style={{ backgroundColor: `${dynamicImageBgColorDark}` }}
     >
       <TrackInfo
         name={playerState?.track_window?.current_track?.name}
@@ -244,7 +247,7 @@ export const SpotifyPlayer = () => {
         <ProgressTracker />
       </div>
       <div className="ml-auto flex items-center gap-4">
-        <Queue backgroundColor={backgroundColor} />
+        <Queue backgroundColor={dynamicImageBgColorDark} />
         <VolumeControl />
       </div>
     </footer>
