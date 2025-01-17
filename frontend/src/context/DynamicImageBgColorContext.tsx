@@ -30,6 +30,8 @@ export const DynamicImageBgColorProvider = ({ children }: DynamicImageBgColorPro
       modifyDynamicBgColor(dynamicImageBgColorMaster, 0.8, 0.5) ?? 'rgba(255, 255, 255, 1)',
     );
 
+    // this determines how much brighter of a color is should be based on
+    //  how bright or dark the dynamicImageBgColorMaster is.
     if (getLuminance(dynamicImageBgColorMaster) <= 0.1) {
       setDynamicImageBgColorLighter(
         modifyDynamicBgColor(dynamicImageBgColorMaster, 12, 1) ?? 'rgba(255, 255, 255, 1)',
