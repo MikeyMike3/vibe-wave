@@ -61,20 +61,6 @@ export const DynamicImageBgColorProvider = ({ children }: DynamicImageBgColorPro
       );
     } else if (
       getLuminance(dynamicImageBgColorMaster) >= 0.5 &&
-      getLuminance(dynamicImageBgColorMaster) <= 0.6
-    ) {
-      setDynamicImageBgColorLighter(
-        modifyDynamicBgColor(dynamicImageBgColorMaster, 1.2, 1) ?? 'rgba(255, 255, 255, 1)',
-      );
-    } else if (
-      getLuminance(dynamicImageBgColorMaster) >= 0.6 &&
-      getLuminance(dynamicImageBgColorMaster) <= 0.7
-    ) {
-      setDynamicImageBgColorLighter(
-        modifyDynamicBgColor(dynamicImageBgColorMaster, 1.2, 1) ?? 'rgba(255, 255, 255, 1)',
-      );
-    } else if (
-      getLuminance(dynamicImageBgColorMaster) >= 0.7 &&
       getLuminance(dynamicImageBgColorMaster) <= 0.8
     ) {
       setDynamicImageBgColorLighter(
