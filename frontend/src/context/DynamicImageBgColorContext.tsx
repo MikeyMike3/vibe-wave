@@ -1,5 +1,6 @@
 import { createContext, ReactNode, useEffect, useState } from 'react';
 import { modifyDynamicBgColor } from '../functions/modifyDynamicBgColor';
+import { getLuminance } from '../functions/getLuminance';
 
 type DynamicImageBgColorProviderProps = {
   children: ReactNode;
@@ -28,9 +29,66 @@ export const DynamicImageBgColorProvider = ({ children }: DynamicImageBgColorPro
     setDynamicImageBgColorDark(
       modifyDynamicBgColor(dynamicImageBgColorMaster, 0.8, 0.5) ?? 'rgba(255, 255, 255, 1)',
     );
-    setDynamicImageBgColorLighter(
-      modifyDynamicBgColor(dynamicImageBgColorMaster, 2.5, 1) ?? 'rgba(255, 255, 255, 1)',
-    );
+
+    if (getLuminance(dynamicImageBgColorMaster) <= 0.1) {
+      setDynamicImageBgColorLighter(
+        modifyDynamicBgColor(dynamicImageBgColorMaster, 12, 1) ?? 'rgba(255, 255, 255, 1)',
+      );
+    } else if (
+      getLuminance(dynamicImageBgColorMaster) >= 0.1 &&
+      getLuminance(dynamicImageBgColorMaster) <= 0.15
+    ) {
+      setDynamicImageBgColorLighter(
+        modifyDynamicBgColor(dynamicImageBgColorMaster, 5.5, 1) ?? 'rgba(255, 255, 255, 1)',
+      );
+    } else if (
+      getLuminance(dynamicImageBgColorMaster) >= 0.35 &&
+      getLuminance(dynamicImageBgColorMaster) < 0.4
+    ) {
+      setDynamicImageBgColorLighter(
+        modifyDynamicBgColor(dynamicImageBgColorMaster, 2.3, 1) ?? 'rgba(255, 255, 255, 1)',
+      );
+    } else if (getLuminance(dynamicImageBgColorMaster) <= 0.4) {
+      setDynamicImageBgColorLighter(
+        modifyDynamicBgColor(dynamicImageBgColorMaster, 2.8, 1) ?? 'rgba(255, 255, 255, 1)',
+      );
+    } else if (
+      getLuminance(dynamicImageBgColorMaster) >= 0.4 &&
+      getLuminance(dynamicImageBgColorMaster) <= 0.5
+    ) {
+      setDynamicImageBgColorLighter(
+        modifyDynamicBgColor(dynamicImageBgColorMaster, 1.6, 1) ?? 'rgba(255, 255, 255, 1)',
+      );
+    } else if (
+      getLuminance(dynamicImageBgColorMaster) >= 0.5 &&
+      getLuminance(dynamicImageBgColorMaster) <= 0.6
+    ) {
+      setDynamicImageBgColorLighter(
+        modifyDynamicBgColor(dynamicImageBgColorMaster, 1.2, 1) ?? 'rgba(255, 255, 255, 1)',
+      );
+    } else if (
+      getLuminance(dynamicImageBgColorMaster) >= 0.6 &&
+      getLuminance(dynamicImageBgColorMaster) <= 0.7
+    ) {
+      setDynamicImageBgColorLighter(
+        modifyDynamicBgColor(dynamicImageBgColorMaster, 1.2, 1) ?? 'rgba(255, 255, 255, 1)',
+      );
+    } else if (
+      getLuminance(dynamicImageBgColorMaster) >= 0.7 &&
+      getLuminance(dynamicImageBgColorMaster) <= 0.8
+    ) {
+      setDynamicImageBgColorLighter(
+        modifyDynamicBgColor(dynamicImageBgColorMaster, 1.2, 1) ?? 'rgba(255, 255, 255, 1)',
+      );
+    } else if (getLuminance(dynamicImageBgColorMaster) >= 0.8) {
+      setDynamicImageBgColorLighter(
+        modifyDynamicBgColor(dynamicImageBgColorMaster, 1.1, 1) ?? 'rgba(255, 255, 255, 1)',
+      );
+    } else {
+      setDynamicImageBgColorLighter(
+        modifyDynamicBgColor(dynamicImageBgColorMaster, 1.7, 1) ?? 'rgba(255, 255, 255, 1)',
+      );
+    }
   }, [dynamicImageBgColorMaster]);
 
   return (
