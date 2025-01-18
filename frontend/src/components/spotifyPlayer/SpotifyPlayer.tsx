@@ -40,7 +40,7 @@ export const SpotifyPlayer = () => {
     playlistQueueIndexRef,
   } = useQueueContext();
 
-  const { dynamicImageBgColorDark } = useDynamicImageBgColorContext();
+  const { dynamicImageBgColorDark, setDynamicImageBgColorMaster } = useDynamicImageBgColorContext();
 
   const playSongMutation = usePlaySong();
   const indexPlaylistQueue = useIndexPlaylistQueue();
@@ -53,9 +53,12 @@ export const SpotifyPlayer = () => {
 
   useEffect(() => {
     if (image) {
-      getBackgroundImageColor(image);
+      (async () => {
+        const color = await getBackgroundImageColor(image);
+        setDynamicImageBgColorMaster(color);
+      })();
     }
-  }, [image, getBackgroundImageColor]);
+  }, [image, getBackgroundImageColor, setDynamicImageBgColorMaster]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const debounce = <T extends (...args: any[]) => void>(func: T, wait: number) => {

@@ -4,19 +4,20 @@ import { useCallback, useMemo } from 'react';
 
 export const useGetBackgroundImageColor = () => {
   const fac = useMemo(() => new FastAverageColor(), []);
-  const { setDynamicImageBgColorMaster } = useDynamicImageBgColorContext();
+  const { defaultColorRef } = useDynamicImageBgColorContext();
 
   const getBackgroundImageColor = useCallback(
-    async (imgUrl: string): Promise<void> => {
+    async (imgUrl: string): Promise<string> => {
       try {
         const color = await fac.getColorAsync(imgUrl);
         const rgbaString = color.rgba;
-        setDynamicImageBgColorMaster(rgbaString);
+        return rgbaString;
       } catch (error) {
         console.error('Error extracting color:', error);
+        return defaultColorRef.current;
       }
     },
-    [fac, setDynamicImageBgColorMaster],
+    [fac, defaultColorRef],
   );
 
   return getBackgroundImageColor;
