@@ -18,13 +18,13 @@ export const useAddToPriorityQueue = () => {
           return [track as AlbumTrackWithImage];
         }
       } else {
-        // If the queue is already an array, add the new track to the front of the array
+        // If the queue is already an array, add the new track to the end of the array
         if ('track' in track && track.track) {
-          return [track.track as SpotifyApi.TrackObjectFull, ...(prevQueue ?? [])];
+          return [...(prevQueue ?? []), track.track as SpotifyApi.TrackObjectFull];
         } else if ('album' in track) {
-          return [track as SpotifyApi.TrackObjectFull, ...(prevQueue ?? [])];
+          return [...(prevQueue ?? []), track as SpotifyApi.TrackObjectFull];
         } else if ('duration_ms' in track) {
-          return [track as AlbumTrackWithImage, ...(prevQueue ?? [])];
+          return [...(prevQueue ?? []), track as AlbumTrackWithImage];
         }
       }
 
