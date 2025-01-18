@@ -40,7 +40,8 @@ export const SpotifyPlayer = () => {
     playlistQueueIndexRef,
   } = useQueueContext();
 
-  const { dynamicImageBgColorDark, setDynamicImageBgColorMaster } = useDynamicImageBgColorContext();
+  const { dynamicImageBgColorDark, setDynamicImageBgColorMaster, dynamicImageBgColorLighter } =
+    useDynamicImageBgColorContext();
 
   const playSongMutation = usePlaySong();
   const indexPlaylistQueue = useIndexPlaylistQueue();
@@ -241,7 +242,7 @@ export const SpotifyPlayer = () => {
       />
       <div className="mx-auto flex flex-col items-center gap-4">
         <div className="flex gap-10">
-          <ShuffleTracksButton />
+          <ShuffleTracksButton buttonColor={dynamicImageBgColorLighter} />
           <PreviousTrackButton />
           {playerState?.paused ? <TogglePlayButton /> : <TogglePauseButton />}
           <NextTrackButton />

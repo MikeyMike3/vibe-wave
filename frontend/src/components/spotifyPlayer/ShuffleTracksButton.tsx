@@ -3,14 +3,22 @@ import { useShuffleTracks } from '../../hooks/spotifyPlayer/useShuffleTracks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShuffle } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
 
-export const ShuffleTracksButton = () => {
+type buttonColorProps = {
+  buttonColor?: string;
+};
+
+export const ShuffleTracksButton = ({ buttonColor }: buttonColorProps) => {
   const { shuffleTracksState } = usePlaybackContext();
   const shuffleTracks = useShuffleTracks();
 
   return (
     <>
       {shuffleTracksState ? (
-        <button className="text-aqua" onClick={() => shuffleTracks({ shouldChangeState: true })}>
+        <button
+          className="text-aqua"
+          style={{ color: buttonColor || '#00ffff' }}
+          onClick={() => shuffleTracks({ shouldChangeState: true })}
+        >
           <FontAwesomeIcon className="text-2xl" icon={faShuffle} />
         </button>
       ) : (
