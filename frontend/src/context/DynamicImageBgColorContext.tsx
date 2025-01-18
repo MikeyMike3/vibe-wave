@@ -15,10 +15,6 @@ type DynamicImageBgColorContext = {
   setDynamicImageBgColorMuted: React.Dispatch<React.SetStateAction<string>>;
   dynamicImageBgColorLighter: string;
   setDynamicImageBgColorLighter: React.Dispatch<React.SetStateAction<string>>;
-  dynamicPlaylistBgColor: string;
-  setDynamicPlaylistBgColor: React.Dispatch<React.SetStateAction<string>>;
-  dynamicAlbumCoverBgColor: string;
-  setDynamicAlbumCoverBgColor: React.Dispatch<React.SetStateAction<string>>;
 
   defaultColorRef: React.MutableRefObject<string>;
 };
@@ -30,9 +26,6 @@ export const DynamicImageBgColorProvider = ({ children }: DynamicImageBgColorPro
   const [dynamicImageBgColorDark, setDynamicImageBgColorDark] = useState('');
   const [dynamicImageBgColorMuted, setDynamicImageBgColorMuted] = useState('');
   const [dynamicImageBgColorLighter, setDynamicImageBgColorLighter] = useState('');
-
-  const [dynamicPlaylistBgColor, setDynamicPlaylistBgColor] = useState('');
-  const [dynamicAlbumCoverBgColor, setDynamicAlbumCoverBgColor] = useState('');
 
   const defaultColorRef = useRef<string>('rgba(255, 255, 255, 1)');
 
@@ -101,10 +94,6 @@ export const DynamicImageBgColorProvider = ({ children }: DynamicImageBgColorPro
         setDynamicImageBgColorMuted,
         dynamicImageBgColorLighter,
         setDynamicImageBgColorLighter,
-        dynamicPlaylistBgColor,
-        setDynamicPlaylistBgColor,
-        dynamicAlbumCoverBgColor,
-        setDynamicAlbumCoverBgColor,
         defaultColorRef,
       }}
     >
