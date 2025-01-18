@@ -15,6 +15,7 @@ import { formatTimeInHours } from '../functions/formatTimeInHours';
 import { getImageUrl } from '../functions/getImageUrl';
 import { useFetchSavedTracks } from '../hooks/apis/useFetchSavedTracks';
 import { useGetBackgroundImageColor } from '../hooks/useGetBackgroundImageColor';
+import { modifyDynamicBgColor } from '../functions/modifyDynamicBgColor';
 
 export const LikedSongs = () => {
   const { savedTracks, isLoading, isError } = useFetchSavedTracks();
@@ -25,7 +26,10 @@ export const LikedSongs = () => {
 
   useEffect(() => {
     if (image) {
-      getBackgroundImageColor(image);
+      (async () => {
+        const color = await getBackgroundImageColor(image);
+        setBackgroundColor(modifyDynamicBgColor(color, 0.6, 1));
+      })();
     }
   }, [image, getBackgroundImageColor]);
 
