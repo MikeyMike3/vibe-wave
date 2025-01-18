@@ -37,9 +37,12 @@ export const UserPlaylistItems = () => {
 
   useEffect(() => {
     if (image) {
-      getBackgroundImageColor(image);
+      (async () => {
+        const color = await getBackgroundImageColor(image);
+        setBackgroundColor(color);
+      })();
     }
-  }, [image, getBackgroundImageColor]);
+  }, [image, getBackgroundImageColor, setBackgroundColor]);
 
   if (isLoading) {
     return <MainLoading />;

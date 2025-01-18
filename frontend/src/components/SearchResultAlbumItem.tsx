@@ -16,9 +16,12 @@ export const SearchResultAlbumItem = ({ album }: SearchResultAlbumItemProps) => 
 
   useEffect(() => {
     if (image) {
-      getBackgroundImageColor(image);
+      (async () => {
+        const color = await getBackgroundImageColor(image);
+        setBackgroundColor(color);
+      })();
     }
-  }, [image, getBackgroundImageColor]);
+  }, [image, getBackgroundImageColor, setBackgroundColor]);
 
   return (
     <Link
