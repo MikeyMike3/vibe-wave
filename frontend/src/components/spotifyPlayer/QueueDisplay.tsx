@@ -9,30 +9,29 @@ import { AlbumTrackWithImage } from '../../types/AlbumTrackWithImage';
 import { AlbumTrackQueueItem } from '../AlbumTrackQueueItem';
 import { isPlaylistTrackObjectArray } from '../../types/typeGuards/isPlaylistTrackObjectArray';
 import { isSingleAlbumResponse } from '../../types/typeGuards/isSIngleAlbumResponse';
+import { useDynamicImageBgColorContext } from '../../hooks/context/useDynamicImageBgColorContext';
 
 type QueueDisplayProps = {
   queueSegment: SpotifyApi.PlaylistTrackObject[] | SpotifyApi.SingleAlbumResponse;
   //prettier-ignore
   setIsQueueSegmentOpen: React.Dispatch<React.SetStateAction<boolean>>
-  backgroundColor: string;
 };
 
-export const QueueDisplay = ({
-  queueSegment,
-  setIsQueueSegmentOpen,
-  backgroundColor,
-}: QueueDisplayProps) => {
+export const QueueDisplay = ({ queueSegment, setIsQueueSegmentOpen }: QueueDisplayProps) => {
   const { priorityQueue, playlistQueue } = useQueueContext();
   const { playerState, playlistName, playlistId } = usePlaybackContext();
+
+  const { dynamicImageBgColorDark } = useDynamicImageBgColorContext();
 
   const queueDisplayRef = useRef<HTMLDivElement>(null);
 
   return (
     <div
       ref={queueDisplayRef}
-      className="absolute bottom-[112px] right-6 h-[500px] w-[500px] overflow-y-scroll rounded-2xl border-2 border-bgAccentHover bg-black"
+      className="absolute bottom-[112px] right-6 h-[500px] w-[500px] overflow-y-scroll rounded-2xl border-2 border-bgAccentHover"
+      style={{ backgroundColor: `${dynamicImageBgColorDark}` }}
     >
-      <div className="w-full px-2" style={{ backgroundColor: `${backgroundColor}` }}>
+      <div className="w-full px-2">
         {playerState?.track_window.current_track && (
           <>
             <div className="flex items-center justify-between">

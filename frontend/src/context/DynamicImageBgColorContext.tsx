@@ -31,7 +31,7 @@ export const DynamicImageBgColorProvider = ({ children }: DynamicImageBgColorPro
 
   useEffect(() => {
     setDynamicImageBgColorDark(
-      modifyDynamicBgColor(dynamicImageBgColorMaster, 0.8, 0.5) ?? defaultColorRef.current,
+      modifyDynamicBgColor(dynamicImageBgColorMaster, 0.3, 1) ?? defaultColorRef.current,
     );
 
     // this determines how much brighter of a color is should be based on

@@ -9,11 +9,7 @@ import { isPlaylistTrackObjectArray } from '../../types/typeGuards/isPlaylistTra
 import { isSingleAlbumResponse } from '../../types/typeGuards/isSIngleAlbumResponse';
 import { useDynamicImageBgColorContext } from '../../hooks/context/useDynamicImageBgColorContext';
 
-type QueueProps = {
-  backgroundColor: string;
-};
-
-export const Queue = ({ backgroundColor }: QueueProps) => {
+export const Queue = () => {
   const { playlistQueue, playlistQueueIndex } = useQueueContext();
   const { repeatRef, repeat } = usePlaybackContext();
   const [queueSegment, setQueueSegment] = useState<
@@ -90,11 +86,7 @@ export const Queue = ({ backgroundColor }: QueueProps) => {
       )}
 
       {isQueueSegmentOpen && (
-        <QueueDisplay
-          queueSegment={queueSegment}
-          setIsQueueSegmentOpen={setIsQueueSegmentOpen}
-          backgroundColor={backgroundColor}
-        />
+        <QueueDisplay queueSegment={queueSegment} setIsQueueSegmentOpen={setIsQueueSegmentOpen} />
       )}
     </>
   );
