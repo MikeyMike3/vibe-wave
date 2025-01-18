@@ -3,6 +3,7 @@ import { getImageUrl } from '../functions/getImageUrl';
 import { findAlbumReleaseDate } from '../functions/findAlbumReleaseDate';
 import { useEffect, useState } from 'react';
 import { useGetBackgroundImageColor } from '../hooks/useGetBackgroundImageColor';
+import { modifyDynamicBgColor } from '../functions/modifyDynamicBgColor';
 
 type SearchResultAlbumItemProps = {
   album: SpotifyApi.AlbumObjectSimplified;
@@ -18,7 +19,7 @@ export const SearchResultAlbumItem = ({ album }: SearchResultAlbumItemProps) => 
     if (image) {
       (async () => {
         const color = await getBackgroundImageColor(image);
-        setBackgroundColor(color);
+        setBackgroundColor(modifyDynamicBgColor(color, 0.7, 1));
       })();
     }
   }, [image, getBackgroundImageColor, setBackgroundColor]);

@@ -15,5 +15,6 @@ export const modifyDynamicBgColor = (color: string, modifyFactor: number, alpha:
     return newColorString;
   } else {
     console.error('Invalid RGBA string', color);
+    return color;
   }
 };

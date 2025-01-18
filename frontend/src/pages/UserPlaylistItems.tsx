@@ -21,6 +21,7 @@ import { PlaylistTableColumnFlexContainer } from '../components/userPlaylistPage
 import { PlaylistItemsHeaderFlexContainer } from '../components/userPlaylistPageComp/PlaylistItemsHeaderFlexContainer';
 import { PlaylistItemsButtonsFlexContainer } from '../components/userPlaylistPageComp/PlaylistItemsButtonsFlexContainer';
 import { formatTimeInHours } from '../functions/formatTimeInHours';
+import { modifyDynamicBgColor } from '../functions/modifyDynamicBgColor';
 
 export const UserPlaylistItems = () => {
   const { playlistId } = useParams();
@@ -39,7 +40,8 @@ export const UserPlaylistItems = () => {
     if (image) {
       (async () => {
         const color = await getBackgroundImageColor(image);
-        setBackgroundColor(color);
+
+        setBackgroundColor(modifyDynamicBgColor(color, 0.6, 1));
       })();
     }
   }, [image, getBackgroundImageColor, setBackgroundColor]);
