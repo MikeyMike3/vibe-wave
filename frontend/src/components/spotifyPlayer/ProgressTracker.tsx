@@ -6,7 +6,7 @@ import { useDynamicImageBgColorContext } from '../../hooks/context/useDynamicIma
 
 export const ProgressTracker = () => {
   const { player } = useSpotifyPlayerContext();
-  const { dynamicImageBgColorLighter } = useDynamicImageBgColorContext();
+  const { dynamicImageBgColorLighter, dynamicImageBgColorMedium } = useDynamicImageBgColorContext();
   const { playerDuration, playerPosition, setPlayerPosition } = usePlaybackContext();
   const [displayPosition, setDisplayPosition] = useState<string | number>(0);
   const [tempDisplayPosition, setTempDisplayPosition] = useState<string | number>();
@@ -84,8 +84,8 @@ export const ProgressTracker = () => {
         to right,
         ${dynamicImageBgColorLighter} 0%, 
         ${dynamicImageBgColorLighter} ${(Number(sliderValue) / Number(playerDuration)) * 100 || 0}%, 
-        #a8a8a8 ${(Number(sliderValue) / Number(playerDuration)) * 100 || 0}%, 
-        #a8a8a8 100%
+        ${dynamicImageBgColorMedium} ${(Number(sliderValue) / Number(playerDuration)) * 100 || 0}%, 
+        ${dynamicImageBgColorMedium} 100%
       )
     `,
         }}

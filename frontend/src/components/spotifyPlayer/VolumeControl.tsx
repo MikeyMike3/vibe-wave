@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVolume, faVolumeMute, faVolumeHigh } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
 import { faVolumeLow } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
 import { useDynamicImageBgColorContext } from '../../hooks/context/useDynamicImageBgColorContext';
+import { modifyDynamicBgColor } from '../../functions/modifyDynamicBgColor';
 
 export const VolumeControl = () => {
   const { player, isPlayerReady } = useSpotifyPlayerContext();
@@ -104,7 +105,7 @@ export const VolumeControl = () => {
           background: `linear-gradient(
             to right,
             ${dynamicImageBgColorLighter} ${volume}%,
-            #a8a8a8 ${volume}%
+            ${modifyDynamicBgColor(dynamicImageBgColorLighter, 0.4, 1)} ${volume}%
           )`,
         }}
       />

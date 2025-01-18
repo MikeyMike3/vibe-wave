@@ -15,6 +15,8 @@ type DynamicImageBgColorContext = {
   setDynamicImageBgColorMuted: React.Dispatch<React.SetStateAction<string>>;
   dynamicImageBgColorLighter: string;
   setDynamicImageBgColorLighter: React.Dispatch<React.SetStateAction<string>>;
+  dynamicImageBgColorMedium: string;
+  setDynamicImageBgColorMedium: React.Dispatch<React.SetStateAction<string>>;
 
   defaultColorRef: React.MutableRefObject<string>;
 };
@@ -26,6 +28,7 @@ export const DynamicImageBgColorProvider = ({ children }: DynamicImageBgColorPro
   const [dynamicImageBgColorDark, setDynamicImageBgColorDark] = useState('');
   const [dynamicImageBgColorMuted, setDynamicImageBgColorMuted] = useState('');
   const [dynamicImageBgColorLighter, setDynamicImageBgColorLighter] = useState('');
+  const [dynamicImageBgColorMedium, setDynamicImageBgColorMedium] = useState('');
 
   const defaultColorRef = useRef<string>('rgba(255, 255, 255, 1)');
 
@@ -83,6 +86,12 @@ export const DynamicImageBgColorProvider = ({ children }: DynamicImageBgColorPro
     }
   }, [dynamicImageBgColorMaster]);
 
+  useEffect(() => {
+    setDynamicImageBgColorMedium(
+      modifyDynamicBgColor(dynamicImageBgColorLighter, 0.4, 1) ?? defaultColorRef.current,
+    );
+  }, [dynamicImageBgColorLighter]);
+
   return (
     <DynamicImageBgColorContext.Provider
       value={{
@@ -95,6 +104,8 @@ export const DynamicImageBgColorProvider = ({ children }: DynamicImageBgColorPro
         dynamicImageBgColorLighter,
         setDynamicImageBgColorLighter,
         defaultColorRef,
+        dynamicImageBgColorMedium,
+        setDynamicImageBgColorMedium,
       }}
     >
       {children}
