@@ -10,7 +10,7 @@ import { modifyDynamicBgColor } from '../../functions/modifyDynamicBgColor';
 export const VolumeControl = () => {
   const { player, isPlayerReady } = useSpotifyPlayerContext();
   const { volume, setVolume } = usePlaybackContext();
-  const { dynamicImageBgColorLighter } = useDynamicImageBgColorContext();
+  const { dynamicImageBgColorLighter, dynamicImageBgColorMuted } = useDynamicImageBgColorContext();
 
   const volumeRef = useRef<HTMLInputElement>(null);
   const prevVolumeRef = useRef(0.1);
@@ -78,8 +78,9 @@ export const VolumeControl = () => {
   return (
     <div className="flex items-center gap-2">
       <button
-        className="h-10 w-10 items-center justify-center text-textAccent duration-150 hover:text-textPrimary"
+        className="h-10 w-10 items-center justify-center duration-150"
         onClick={handleClick}
+        style={{ color: dynamicImageBgColorMuted }}
       >
         {volume === 0 && <FontAwesomeIcon className="text-2xl" icon={faVolumeMute} />}
         {volume >= 1 && volume <= 33 && <FontAwesomeIcon className="text-2xl" icon={faVolumeLow} />}

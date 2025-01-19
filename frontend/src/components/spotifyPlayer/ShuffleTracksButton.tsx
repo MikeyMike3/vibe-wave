@@ -4,10 +4,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShuffle } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
 
 type buttonColorProps = {
-  buttonColor?: string;
+  activeButtonColor?: string;
+  notActiveButtonColor?: string;
 };
 
-export const ShuffleTracksButton = ({ buttonColor }: buttonColorProps) => {
+export const ShuffleTracksButton = ({
+  activeButtonColor,
+  notActiveButtonColor,
+}: buttonColorProps) => {
   const { shuffleTracksState } = usePlaybackContext();
   const shuffleTracks = useShuffleTracks();
 
@@ -15,16 +19,16 @@ export const ShuffleTracksButton = ({ buttonColor }: buttonColorProps) => {
     <>
       {shuffleTracksState ? (
         <button
-          className="text-aqua"
-          style={{ color: buttonColor || '#00ffff' }}
+          style={{ color: activeButtonColor || '#00ffff' }}
           onClick={() => shuffleTracks({ shouldChangeState: true })}
         >
           <FontAwesomeIcon className="text-2xl" icon={faShuffle} />
         </button>
       ) : (
         <button
-          className="text-textAccent duration-150 hover:text-textPrimary"
+          className="duration-150"
           onClick={() => shuffleTracks({ shouldChangeState: true })}
+          style={{ color: notActiveButtonColor || 'rgb(168 168 168)' }}
         >
           <FontAwesomeIcon className="text-2xl" icon={faShuffle} />
         </button>

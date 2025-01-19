@@ -90,6 +90,7 @@ export const DynamicImageBgColorProvider = ({ children }: DynamicImageBgColorPro
     setDynamicImageBgColorMedium(
       modifyDynamicBgColor(dynamicImageBgColorLighter, 0.4, 1) ?? defaultColorRef.current,
     );
+    setDynamicImageBgColorMuted(modifyDynamicBgColor(dynamicImageBgColorLighter, 0.7, 1));
   }, [dynamicImageBgColorLighter]);
 
   return (

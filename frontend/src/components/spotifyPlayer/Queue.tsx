@@ -16,7 +16,7 @@ export const Queue = () => {
     SpotifyApi.PlaylistTrackObject[] | SpotifyApi.SingleAlbumResponse
   >([]);
 
-  const { dynamicImageBgColorLighter } = useDynamicImageBgColorContext();
+  const { dynamicImageBgColorLighter, dynamicImageBgColorMuted } = useDynamicImageBgColorContext();
 
   const [isQueueSegmentOpen, setIsQueueSegmentOpen] = useState<boolean>(false);
 
@@ -48,7 +48,6 @@ export const Queue = () => {
         };
         setQueueSegment(combinedArray);
       } else {
-        console.log(playlistQueue);
         setQueueSegment({
           ...playlistQueue,
           tracks: {
@@ -77,11 +76,12 @@ export const Queue = () => {
       )}
 
       {!isQueueSegmentOpen && (
-        <button
-          onClick={handleClick}
-          className="text-textAccent duration-150 hover:text-textPrimary"
-        >
-          <FontAwesomeIcon className="text-2xl" icon={faListMusicRegular} />
+        <button onClick={handleClick} className="duration-150">
+          <FontAwesomeIcon
+            className="text-2xl"
+            icon={faListMusicRegular}
+            style={{ color: dynamicImageBgColorMuted }}
+          />
         </button>
       )}
 

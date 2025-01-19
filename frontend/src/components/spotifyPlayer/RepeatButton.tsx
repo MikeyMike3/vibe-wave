@@ -7,7 +7,7 @@ import { useDynamicImageBgColorContext } from '../../hooks/context/useDynamicIma
 
 export const RepeatButton = () => {
   const { repeat, setRepeat, repeatRef } = usePlaybackContext();
-  const { dynamicImageBgColorLighter } = useDynamicImageBgColorContext();
+  const { dynamicImageBgColorLighter, dynamicImageBgColorMuted } = useDynamicImageBgColorContext();
 
   const handleClick = () => {
     setRepeat(repeat => repeat + 1);
@@ -26,7 +26,11 @@ export const RepeatButton = () => {
           className="text-textAccent duration-150 hover:text-textPrimary"
           onClick={handleClick}
         >
-          <FontAwesomeIcon className="text-2xl" icon={faRepeat} />
+          <FontAwesomeIcon
+            className="text-2xl"
+            icon={faRepeat}
+            style={{ color: dynamicImageBgColorMuted }}
+          />
         </button>
       )}
       {repeat === 1 && (
