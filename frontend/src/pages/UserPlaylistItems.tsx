@@ -22,6 +22,7 @@ import { PlaylistItemsHeaderFlexContainer } from '../components/userPlaylistPage
 import { PlaylistItemsButtonsFlexContainer } from '../components/userPlaylistPageComp/PlaylistItemsButtonsFlexContainer';
 import { formatTimeInHours } from '../functions/formatTimeInHours';
 import { modifyDynamicBgColor } from '../functions/modifyDynamicBgColor';
+import { UserItemsSearchBar } from '../components/UserItemsSearchBar';
 
 export const UserPlaylistItems = () => {
   const { playlistId } = useParams();
@@ -33,6 +34,9 @@ export const UserPlaylistItems = () => {
   const { data: artistInfo } = useFetchArtistImagesAndGenres(playlistItems?.items);
 
   const [backgroundColor, setBackgroundColor] = useState<string>('');
+  const [filteredPlaylists, setFilteredPlaylists] = useState<
+    SpotifyApi.PlaylistTrackObject[] | undefined
+  >();
 
   const image = getImageUrl(playlistDetails?.images);
 
@@ -45,6 +49,10 @@ export const UserPlaylistItems = () => {
       })();
     }
   }, [image, getBackgroundImageColor, setBackgroundColor]);
+
+  useEffect(() => {
+    console.log(filteredPlaylists);
+  }, [filteredPlaylists]);
 
   if (isLoading) {
     return <MainLoading />;
@@ -64,6 +72,11 @@ export const UserPlaylistItems = () => {
       }}
     >
       <Wrapper>
+        <UserItemsSearchBar
+          placeHolder="Search Playlist Songs"
+          state={playlistItems}
+          setFilteredArray={setFilteredPlaylists}
+        />
         <PlaylistItemsGrid>
           <div>
             <PlaylistTableColumnFlexContainer>
@@ -86,7 +99,10 @@ export const UserPlaylistItems = () => {
               </PlaylistItemsButtonsFlexContainer>
 
               <PlaylistItemsTable shouldIncludeAlbum={true}>
-                {playlistItems?.items.map((item, index) => (
+                {(filteredPlaylists && filteredPlaylists.length > 0
+                  ? filteredPlaylists
+                  : playlistItems?.items
+                )?.map((item, index) => (
                   <PlaylistItemsTR
                     position={index + 1}
                     images={item.track?.album.images}
