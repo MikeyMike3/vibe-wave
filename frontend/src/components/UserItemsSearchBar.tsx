@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 type userPlaylists =
   | {
@@ -13,6 +13,8 @@ type userPlaylists =
   | undefined;
 
 type UserItemsSearchBarProps = {
+  inputState: string;
+  setInputState: React.Dispatch<React.SetStateAction<string>>;
   placeHolder: string;
   state: SpotifyApi.PlaylistTrackResponse | userPlaylists | undefined;
   setFilteredArray:
@@ -35,12 +37,12 @@ const isUserPlaylists = (
   typeof state === 'object' && state !== null && 'items' in state && !('tracks' in state);
 
 export const UserItemsSearchBar = ({
+  inputState,
+  setInputState,
   placeHolder,
   state,
   setFilteredArray,
 }: UserItemsSearchBarProps) => {
-  const [inputState, setInputState] = useState('');
-
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputState(e.target.value);
   };
@@ -65,7 +67,7 @@ export const UserItemsSearchBar = ({
     if (inputState.length === 0) {
       setInputState('');
     }
-  }, [inputState, state, setFilteredArray]);
+  }, [inputState, state, setFilteredArray, setInputState]);
 
   return <input placeholder={placeHolder} onChange={onChange}></input>;
 };

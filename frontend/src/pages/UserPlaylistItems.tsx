@@ -37,6 +37,7 @@ export const UserPlaylistItems = () => {
   const [filteredPlaylists, setFilteredPlaylists] = useState<
     SpotifyApi.PlaylistTrackObject[] | undefined
   >();
+  const [input, setInput] = useState('');
 
   const image = getImageUrl(playlistDetails?.images);
 
@@ -49,10 +50,6 @@ export const UserPlaylistItems = () => {
       })();
     }
   }, [image, getBackgroundImageColor, setBackgroundColor]);
-
-  useEffect(() => {
-    console.log(filteredPlaylists);
-  }, [filteredPlaylists]);
 
   if (isLoading) {
     return <MainLoading />;
@@ -73,6 +70,8 @@ export const UserPlaylistItems = () => {
     >
       <Wrapper>
         <UserItemsSearchBar
+          inputState={input}
+          setInputState={setInput}
           placeHolder="Search Playlist Songs"
           state={playlistItems}
           setFilteredArray={setFilteredPlaylists}
@@ -99,22 +98,27 @@ export const UserPlaylistItems = () => {
               </PlaylistItemsButtonsFlexContainer>
 
               <PlaylistItemsTable shouldIncludeAlbum={true}>
-                {(filteredPlaylists && filteredPlaylists.length > 0
-                  ? filteredPlaylists
-                  : playlistItems?.items
-                )?.map((item, index) => (
-                  <PlaylistItemsTR
-                    position={index + 1}
-                    images={item.track?.album.images}
-                    trackName={item.track?.name}
-                    artists={item.track?.artists}
-                    albumId={item.track?.album.id}
-                    albumName={item.track?.album.name}
-                    trackLength={item.track?.duration_ms}
-                    track={item}
-                    trackId={item.track?.id}
-                  />
-                ))}
+                {input.length > 0 && filteredPlaylists?.length === 0 ? (
+                  <p>No Results Found.</p>
+                ) : (
+                  (filteredPlaylists && filteredPlaylists?.length > 0
+                    ? filteredPlaylists
+                    : playlistItems?.items
+                  )?.map((item, index) => (
+                    <PlaylistItemsTR
+                      key={item.track?.id || index} // Ensure a unique key
+                      position={index + 1}
+                      images={item.track?.album.images}
+                      trackName={item.track?.name}
+                      artists={item.track?.artists}
+                      albumId={item.track?.album.id}
+                      albumName={item.track?.album.name}
+                      trackLength={item.track?.duration_ms}
+                      track={item}
+                      trackId={item.track?.id}
+                    />
+                  ))
+                )}
               </PlaylistItemsTable>
             </PlaylistTableColumnFlexContainer>
           </div>

@@ -13,6 +13,8 @@ export const Playlists = () => {
     SpotifyApi.PlaylistObjectSimplified[] | undefined
   >();
 
+  const [input, setInput] = useState('');
+
   if (isLoading) {
     return <MainLoading />;
   }
@@ -24,26 +26,32 @@ export const Playlists = () => {
   return (
     <Wrapper>
       <UserItemsSearchBar
+        inputState={input}
+        setInputState={setInput}
         placeHolder="Search Playlists"
         state={userPlaylists}
         setFilteredArray={setFilteredPlaylists}
       />
       <GridContainer>
-        {(filteredPlaylists && filteredPlaylists?.length > 0
-          ? filteredPlaylists
-          : userPlaylists?.items
-        )?.map(
-          item =>
-            item && (
-              <UserPlaylist
-                key={item.id}
-                name={item.name}
-                images={item.images}
-                type={item.type}
-                owner={item.owner?.display_name}
-                playlistId={item.id}
-              />
-            ),
+        {input?.length > 0 && filteredPlaylists?.length === 0 ? (
+          <p>No Results Found.</p>
+        ) : (
+          (filteredPlaylists && filteredPlaylists?.length > 0
+            ? filteredPlaylists
+            : userPlaylists?.items
+          )?.map(
+            item =>
+              item && (
+                <UserPlaylist
+                  key={item.id}
+                  name={item.name}
+                  images={item.images}
+                  type={item.type}
+                  owner={item.owner?.display_name}
+                  playlistId={item.id}
+                />
+              ),
+          )
         )}
       </GridContainer>
     </Wrapper>
