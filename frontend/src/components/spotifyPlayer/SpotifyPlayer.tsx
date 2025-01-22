@@ -181,11 +181,53 @@ export const SpotifyPlayer = () => {
           ) {
             indexPlaylistQueue(1, '+');
           }
+
+          // this detects if the song version changed
+          // a song version change is when the same song plays but it has a different id/name value. Any property value within the song data can change
+          // this keeps the queue moving along because the name of the song may be slightly different
+          if (
+            playlistQueue &&
+            playlistQueueIndexRef.current > 1 &&
+            state.track_window.current_track.name !==
+              playlistQueue[playlistQueueIndexRef.current - 1].track?.name
+          ) {
+            const prevTrackNameSplit =
+              playlistQueue[playlistQueueIndexRef.current].track?.name.split(' ');
+
+            if (
+              playlistQueue &&
+              prevTrackNameSplit &&
+              state.track_window.current_track.name.includes(prevTrackNameSplit[0])
+            ) {
+              indexPlaylistQueue(1, '+');
+            }
+          }
         } else if (playlistQueue && isSingleAlbumResponse(playlistQueue)) {
           // Handle the case when playlistQueue is a SingleAlbumResponse
           const currentTrack = playlistQueue.tracks.items[playlistQueueIndexRef.current];
           if (playlistQueue && state.track_window.current_track?.name === currentTrack?.name) {
             indexPlaylistQueue(1, '+');
+          }
+
+          // this detects if the song version changed
+          // a song version change is when the same song plays but it has a different id/name value. Any property value within the song data can change
+          // this keeps the queue moving along because the name of the song may be slightly different
+          if (
+            playlistQueue &&
+            playlistQueueIndexRef.current > 1 &&
+            state.track_window.current_track.name !==
+              playlistQueue.tracks.items[playlistQueueIndexRef.current - 1].name
+          ) {
+            const prevTrackNameSplit =
+              playlistQueue.tracks.items[playlistQueueIndexRef.current].name.split(' ');
+
+            if (
+              playlistQueue &&
+              prevTrackNameSplit &&
+              state.track_window.current_track.name.includes(prevTrackNameSplit[0])
+            ) {
+              indexPlaylistQueue(1, '+');
+            }
           }
         }
       }
