@@ -191,15 +191,17 @@ export const SpotifyPlayer = () => {
             state.track_window.current_track.name !==
               playlistQueue[playlistQueueIndexRef.current - 1].track?.name
           ) {
-            const prevTrackNameSplit =
-              playlistQueue[playlistQueueIndexRef.current].track?.name.split(' ');
+            if (playlistQueue.length !== playlistQueueIndexRef.current) {
+              const prevTrackNameSplit =
+                playlistQueue[playlistQueueIndexRef.current].track?.name.split(' ');
 
-            if (
-              playlistQueue &&
-              prevTrackNameSplit &&
-              state.track_window.current_track.name.includes(prevTrackNameSplit[0])
-            ) {
-              indexPlaylistQueue(1, '+');
+              if (
+                playlistQueue &&
+                prevTrackNameSplit &&
+                state.track_window.current_track.name.includes(prevTrackNameSplit[0])
+              ) {
+                indexPlaylistQueue(1, '+');
+              }
             }
           }
         } else if (playlistQueue && isSingleAlbumResponse(playlistQueue)) {
@@ -218,15 +220,17 @@ export const SpotifyPlayer = () => {
             state.track_window.current_track.name !==
               playlistQueue.tracks.items[playlistQueueIndexRef.current - 1].name
           ) {
-            const prevTrackNameSplit =
-              playlistQueue.tracks.items[playlistQueueIndexRef.current].name.split(' ');
+            if (playlistQueue.tracks.items.length !== playlistQueueIndexRef.current) {
+              const prevTrackNameSplit =
+                playlistQueue.tracks.items[playlistQueueIndexRef.current].name.split(' ');
 
-            if (
-              playlistQueue &&
-              prevTrackNameSplit &&
-              state.track_window.current_track.name.includes(prevTrackNameSplit[0])
-            ) {
-              indexPlaylistQueue(1, '+');
+              if (
+                playlistQueue &&
+                prevTrackNameSplit &&
+                state.track_window.current_track.name.includes(prevTrackNameSplit[0])
+              ) {
+                indexPlaylistQueue(1, '+');
+              }
             }
           }
         }
