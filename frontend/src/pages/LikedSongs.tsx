@@ -16,11 +16,16 @@ import { getImageUrl } from '../functions/getImageUrl';
 import { useFetchSavedTracks } from '../hooks/apis/useFetchSavedTracks';
 import { useGetBackgroundImageColor } from '../hooks/useGetBackgroundImageColor';
 import { modifyDynamicBgColor } from '../functions/modifyDynamicBgColor';
+import { UserItemsSearchBar } from '../components/UserItemsSearchBar';
 
 export const LikedSongs = () => {
   const { savedTracks, isLoading, isError } = useFetchSavedTracks();
   const getBackgroundImageColor = useGetBackgroundImageColor();
   const [backgroundColor, setBackgroundColor] = useState<string>('');
+  const [input, setInput] = useState('');
+  const [filteredPlaylistItems, setFilteredPlaylistItems] = useState<
+    SpotifyApi.PlaylistTrackObject[] | undefined
+  >();
 
   const image = getImageUrl(savedTracks?.items[0].track.album.images);
 
@@ -61,6 +66,13 @@ export const LikedSongs = () => {
                   playlistLength={savedTracks?.items.length}
                   playlistTotalTime={formatTimeInHours(savedTracks?.items)}
                 />
+                <UserItemsSearchBar
+                  setFilteredArray={setFilteredPlaylistItems}
+                  placeHolder="Search Liked Songs"
+                  inputState={input}
+                  state={savedTracks as SpotifyApi.PlaylistTrackResponse}
+                  setInputState={setInput}
+                />
               </PlaylistItemsHeaderFlexContainer>
 
               <PlaylistItemsButtonsFlexContainer>
@@ -69,19 +81,27 @@ export const LikedSongs = () => {
               </PlaylistItemsButtonsFlexContainer>
 
               <PlaylistItemsTable shouldIncludeAlbum={true}>
-                {savedTracks?.items.map((item, index) => (
-                  <PlaylistItemsTR
-                    position={index + 1}
-                    images={item.track?.album.images}
-                    trackName={item.track?.name}
-                    artists={item.track?.artists}
-                    albumId={item.track?.album.id}
-                    albumName={item.track?.album.name}
-                    trackLength={item.track?.duration_ms}
-                    track={item}
-                    trackId={item.track?.id}
-                  />
-                ))}
+                {input.length > 0 && filteredPlaylistItems?.length === 0 ? (
+                  <p>No Results Found.</p>
+                ) : (
+                  (filteredPlaylistItems && filteredPlaylistItems?.length > 0
+                    ? filteredPlaylistItems
+                    : savedTracks?.items
+                  )?.map((item, index) => (
+                    <PlaylistItemsTR
+                      key={item.track?.id || index} // Ensure a unique key
+                      position={index + 1}
+                      images={item.track?.album.images}
+                      trackName={item.track?.name}
+                      artists={item.track?.artists}
+                      albumId={item.track?.album.id}
+                      albumName={item.track?.album.name}
+                      trackLength={item.track?.duration_ms}
+                      track={item}
+                      trackId={item.track?.id}
+                    />
+                  ))
+                )}
               </PlaylistItemsTable>
             </PlaylistTableColumnFlexContainer>
           </div>
