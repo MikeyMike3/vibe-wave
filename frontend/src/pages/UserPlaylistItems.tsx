@@ -42,10 +42,6 @@ export const UserPlaylistItems = () => {
   const image = getImageUrl(playlistDetails?.images);
 
   useEffect(() => {
-    console.log(playlistDetails);
-  }, [playlistDetails]);
-
-  useEffect(() => {
     if (image) {
       (async () => {
         const color = await getBackgroundImageColor(image);
