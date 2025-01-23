@@ -9,6 +9,7 @@ import { usePlaySong } from './usePlaySong';
 type ShuffleTracksOptions = {
   shouldChangeState?: boolean;
   prevQueue?: SpotifyApi.PlaylistTrackObject[] | SpotifyApi.SingleAlbumResponse | undefined;
+  dontPlaySong?: boolean;
 };
 
 export const useShuffleTracks = () => {
@@ -18,7 +19,7 @@ export const useShuffleTracks = () => {
   const playSongMutation = usePlaySong();
 
   const shuffleTracks = (options: ShuffleTracksOptions = {}) => {
-    const { prevQueue = [], shouldChangeState = false } = options;
+    const { prevQueue = [], shouldChangeState = false, dontPlaySong = false } = options;
     if (shouldChangeState) {
       shuffleTracksRef.current = !shuffleTracksRef.current;
       setShuffleTracksState(shuffle => !shuffle);
@@ -41,7 +42,7 @@ export const useShuffleTracks = () => {
       indexPlaylistQueue(0, 'set');
       setPlaylistQueue(shuffledQueue);
       if (isPlaylistTrackObjectArray(prevQueue)) {
-        if (prevQueue.length > 0) {
+        if (prevQueue.length > 0 && !dontPlaySong) {
           playSongMutation({ uri: shuffledQueue[0].track?.uri, options: {} });
         }
       }

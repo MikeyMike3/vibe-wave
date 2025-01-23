@@ -63,7 +63,7 @@ export const PlaylistItemsTR = ({
         indexPlaylistQueue(position - 1, 'set');
         unShuffledQueueRef.current = currentQueue;
         if (shuffleTracksRef.current) {
-          shuffleTracks({ prevQueue: [...currentQueue] });
+          shuffleTracks({ prevQueue: [...currentQueue], dontPlaySong: true });
         }
 
         playSongMutation({
