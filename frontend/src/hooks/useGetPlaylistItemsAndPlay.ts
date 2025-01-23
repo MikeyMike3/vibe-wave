@@ -5,6 +5,7 @@ import { useShuffleTracks } from './spotifyPlayer/useShuffleTracks';
 import { usePlaySong } from './spotifyPlayer/usePlaySong';
 import { useIndexPlaylistQueue } from './spotifyPlayer/useIndexPlaylistQueue';
 import { useHeaders } from './apis/useHeaders';
+import { isPlaylistTrackObjectArray } from '../types/typeGuards/isPlaylistTrackObjectArray';
 
 export const useGetPlaylistItemsAndPlay = (playlistId: string, playlistName: string) => {
   const { setPlaylistName, shuffleTracksRef, repeatRef, setRepeat, setPlaylistId } =
@@ -69,7 +70,7 @@ export const useGetPlaylistItemsAndPlay = (playlistId: string, playlistName: str
       }
 
       setPlaylistQueue(currentQueue => {
-        if (currentQueue.length > 0) {
+        if (currentQueue && isPlaylistTrackObjectArray(currentQueue) && currentQueue.length > 0) {
           indexPlaylistQueue(0, 'set');
           unShuffledQueueRef.current = currentQueue;
           if (shuffleTracksRef.current) {
@@ -81,6 +82,10 @@ export const useGetPlaylistItemsAndPlay = (playlistId: string, playlistName: str
               options: { tempQueue: currentQueue },
             });
           }
+        } else {
+          console.error(
+            'This custom hook is being used in the wrong place. Ensure that this is only being used for getting and playing playlist tracks, not saved tracks or anything else.',
+          );
         }
 
         return currentQueue;

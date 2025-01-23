@@ -6,6 +6,7 @@ import { useQueueContext } from '../hooks/context/useQueueContext';
 import { useIndexPlaylistQueue } from '../hooks/spotifyPlayer/useIndexPlaylistQueue';
 import { usePlaySong } from '../hooks/spotifyPlayer/usePlaySong';
 import { useShuffleTracks } from '../hooks/spotifyPlayer/useShuffleTracks';
+import { isPlaylistTrackObjectArray } from '../types/typeGuards/isPlaylistTrackObjectArray';
 
 type PlayLikedTracksButtonProps = {
   likedTracks: SpotifyApi.SavedTrackObject[] | undefined;
@@ -30,7 +31,7 @@ export const PlayLikedTracksButton = ({ likedTracks }: PlayLikedTracksButtonProp
     }
 
     setPlaylistQueue(currentQueue => {
-      if (currentQueue.length > 0) {
+      if (currentQueue && isPlaylistTrackObjectArray(currentQueue) && currentQueue.length > 0) {
         indexPlaylistQueue(0, 'set');
         unShuffledQueueRef.current = currentQueue;
         if (shuffleTracksRef.current) {
@@ -42,6 +43,10 @@ export const PlayLikedTracksButton = ({ likedTracks }: PlayLikedTracksButtonProp
             options: { tempQueue: currentQueue },
           });
         }
+      } else {
+        console.error(
+          'This custom hook is being used in the wrong place. Ensure that this is only being used for playing liked tracks, not playlist tracks or anything else.',
+        );
       }
 
       return currentQueue;

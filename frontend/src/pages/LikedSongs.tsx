@@ -99,6 +99,7 @@ export const LikedSongs = () => {
                       trackLength={item.track?.duration_ms}
                       track={item}
                       trackId={item.track?.id}
+                      playlistArray={savedTracks?.items as SpotifyApi.PlaylistTrackObject[]}
                     />
                   ))
                 )}
