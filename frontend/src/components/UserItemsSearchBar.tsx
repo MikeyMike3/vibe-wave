@@ -51,8 +51,10 @@ export const UserItemsSearchBar = ({
     const lowerCaseInput = inputState.toLowerCase();
 
     if (isPlaylistTrackResponse(state)) {
-      const filtered = state.items.filter(item =>
-        item?.track?.name?.toLowerCase().includes(lowerCaseInput),
+      const filtered = state.items.filter(
+        item =>
+          item?.track?.name?.toLowerCase().includes(lowerCaseInput) ||
+          item.track?.artists?.some(artist => artist.name.toLowerCase().includes(lowerCaseInput)),
       );
       setFilteredArray(filtered);
     } else if (isUserPlaylists(state)) {
