@@ -67,7 +67,7 @@ export const PlaylistItemsTR = ({
         // when they search for a track within a playlist
         if (filteredPlaylist && filteredPlaylist?.length > 0) {
           const itemIndex = currentQueue.findIndex(
-            item => item.track?.name === filteredPlaylist[indexValue].track?.name,
+            item => item.track?.id === filteredPlaylist[indexValue].track?.id,
           );
           indexValue = itemIndex;
         }
