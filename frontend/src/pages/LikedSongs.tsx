@@ -100,6 +100,7 @@ export const LikedSongs = () => {
                       track={item}
                       trackId={item.track?.id}
                       playlistArray={savedTracks?.items as SpotifyApi.PlaylistTrackObject[]}
+                      filteredPlaylist={filteredPlaylistItems}
                     />
                   ))
                 )}

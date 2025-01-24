@@ -21,6 +21,7 @@ type PlaylistItemsTR = {
   track: SpotifyApi.PlaylistTrackObject | SpotifyApi.SavedTrackObject;
   trackId: string | undefined;
   playlistArray: SpotifyApi.PlaylistTrackObject[] | undefined;
+  filteredPlaylist: SpotifyApi.PlaylistTrackObject[] | undefined;
   playlistName?: string;
   playlistId?: string;
 };
@@ -38,6 +39,7 @@ export const PlaylistItemsTR = ({
   playlistArray,
   playlistName,
   playlistId,
+  filteredPlaylist,
 }: PlaylistItemsTR) => {
   const { setPlaylistName, shuffleTracksRef, repeatRef, setRepeat, setPlaylistId } =
     usePlaybackContext();
@@ -60,14 +62,23 @@ export const PlaylistItemsTR = ({
 
     setPlaylistQueue(currentQueue => {
       if (currentQueue && isPlaylistTrackObjectArray(currentQueue) && currentQueue.length > 0) {
-        indexPlaylistQueue(position - 1, 'set');
+        let indexValue = position - 1;
+        // this finds the correct index of whichever track the user plays
+        // when they search for a track within a playlist
+        if (filteredPlaylist && filteredPlaylist?.length > 0) {
+          const itemIndex = currentQueue.findIndex(
+            item => item.track?.name === filteredPlaylist[indexValue].track?.name,
+          );
+          indexValue = itemIndex;
+        }
+        indexPlaylistQueue(indexValue, 'set');
         unShuffledQueueRef.current = currentQueue;
         if (shuffleTracksRef.current) {
           shuffleTracks({ prevQueue: [...currentQueue], dontPlaySong: true });
         }
 
         playSongMutation({
-          uri: currentQueue[position - 1].track?.uri,
+          uri: currentQueue[indexValue].track?.uri,
           options: { tempQueue: currentQueue },
         });
       } else {

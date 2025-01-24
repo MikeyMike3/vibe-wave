@@ -119,6 +119,7 @@ export const UserPlaylistItems = () => {
                       playlistArray={playlistItems?.items}
                       playlistName={playlistDetails?.name}
                       playlistId={playlistId}
+                      filteredPlaylist={filteredPlaylists}
                     />
                   ))
                 )}
