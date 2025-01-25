@@ -34,7 +34,7 @@ export const Album = () => {
     <div className="relative">
       {/* Blurred background */}
       <div
-        className="absolute inset-0 z-[-1] blur-xl"
+        className="absolute inset-0 z-[-1] blur-3xl"
         style={{
           backgroundImage: `url(${image})`,
           backgroundAttachment: 'fixed',
