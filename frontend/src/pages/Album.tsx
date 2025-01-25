@@ -53,6 +53,7 @@ export const Album = () => {
                 playlistOwnerName={album?.artists[0].name}
                 playlistLength={album?.tracks.total}
                 playlistTotalTime={formatTimeInHours(album?.tracks.items)}
+                artistId={album?.artists[0].id}
               />
             </PlaylistItemsHeaderFlexContainer>
             <PlaylistItemsButtonsFlexContainer>
