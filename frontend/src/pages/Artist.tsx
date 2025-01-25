@@ -32,14 +32,12 @@ export const Artist = () => {
     if (!value) {
       return undefined;
     }
-
     const string = value.toString();
     const array = string.split('');
 
     for (let i = array.length - 3; i > 0; i -= 3) {
       array.splice(i, 0, ',');
     }
-
     return array.join('');
   };
 
