@@ -170,17 +170,28 @@ export const SpotifyPlayer = () => {
 
       // moves the queues along when the song ends
       if (repeatRef.current !== 2) {
-        if (priorityQueue && state.track_window.current_track?.name === priorityQueue[0]?.name) {
-          setPriorityQueue(prevQueue => {
-            if (
-              prevQueue &&
-              prevQueue.length > 0 &&
-              state.track_window.current_track?.name === prevQueue[0].name
-            ) {
-              return prevQueue.slice(1);
-            }
-            return prevQueue;
-          });
+        if (priorityQueue && priorityQueue?.length > 0) {
+          const prevPriorityTrack: string[] = priorityQueue[0].name.split(' ');
+
+          if (state.track_window.current_track?.name === priorityQueue[0]?.name) {
+            setPriorityQueue(prevQueue => {
+              if (
+                prevQueue &&
+                prevQueue.length > 0 &&
+                state.track_window.current_track?.name === prevQueue[0].name
+              ) {
+                return prevQueue.slice(1);
+              }
+              return prevQueue;
+            });
+          } else if (
+            priorityQueue[0].id !== state.track_window.current_track?.id &&
+            state.track_window.current_track?.name.includes(prevPriorityTrack[0])
+          ) {
+            setPriorityQueue(prevQueue => {
+              return prevQueue?.slice(1);
+            });
+          }
         } else if (playlistQueue && isPlaylistTrackObjectArray(playlistQueue)) {
           if (
             playlistQueue &&

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { MainLoading } from '../components/MainLoading';
 import { PlayLikedTracksButton } from '../components/PlayLikedTracksButton';
@@ -12,31 +12,15 @@ import { PlaylistItemsTable } from '../components/userPlaylistPageComp/PlaylistI
 import { PlaylistItemsTR } from '../components/userPlaylistPageComp/PlaylistItemsTR';
 import { PlaylistTableColumnFlexContainer } from '../components/userPlaylistPageComp/PlaylistTableColumnFlexContainer';
 import { formatTimeInHours } from '../functions/formatTimeInHours';
-import { getImageUrl } from '../functions/getImageUrl';
 import { useFetchSavedTracks } from '../hooks/apis/useFetchSavedTracks';
-import { useGetBackgroundImageColor } from '../hooks/useGetBackgroundImageColor';
-import { modifyDynamicBgColor } from '../functions/modifyDynamicBgColor';
 import { UserItemsSearchBar } from '../components/UserItemsSearchBar';
 
 export const LikedSongs = () => {
   const { savedTracks, isLoading, isError } = useFetchSavedTracks();
-  const getBackgroundImageColor = useGetBackgroundImageColor();
-  const [backgroundColor, setBackgroundColor] = useState<string>('');
   const [input, setInput] = useState('');
   const [filteredPlaylistItems, setFilteredPlaylistItems] = useState<
     SpotifyApi.PlaylistTrackObject[] | undefined
   >();
-
-  const image = getImageUrl(savedTracks?.items[0].track.album.images);
-
-  useEffect(() => {
-    if (image) {
-      (async () => {
-        const color = await getBackgroundImageColor(image);
-        setBackgroundColor(modifyDynamicBgColor(color, 0.6, 1));
-      })();
-    }
-  }, [image, getBackgroundImageColor]);
 
   if (isLoading) {
     return <MainLoading />;
@@ -47,68 +31,60 @@ export const LikedSongs = () => {
   }
 
   return (
-    <div
-      style={{
-        backgroundImage: `linear-gradient(0deg, rgba(0,0,0,1) 10%, ${backgroundColor} 100%)`,
-        backgroundAttachment: 'fixed',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      <Wrapper>
-        <PlaylistItemsGrid>
-          <div>
-            <PlaylistTableColumnFlexContainer>
-              <PlaylistItemsHeaderFlexContainer>
-                <PlaylistItemsHeader
-                  playlistName={'Liked Songs'}
-                  playlistOwnerName={'Spotify'}
-                  playlistLength={savedTracks?.items.length}
-                  playlistTotalTime={formatTimeInHours(savedTracks?.items)}
-                />
-                <UserItemsSearchBar
-                  setFilteredArray={setFilteredPlaylistItems}
-                  placeHolder="Search Liked Songs"
-                  inputState={input}
-                  state={savedTracks as SpotifyApi.PlaylistTrackResponse}
-                  setInputState={setInput}
-                />
-              </PlaylistItemsHeaderFlexContainer>
+    <Wrapper>
+      <PlaylistItemsGrid>
+        <div>
+          <PlaylistTableColumnFlexContainer>
+            <PlaylistItemsHeaderFlexContainer>
+              <PlaylistItemsHeader
+                playlistName={'Liked Songs'}
+                playlistOwnerName={'Spotify'}
+                playlistLength={savedTracks?.items.length}
+                playlistTotalTime={formatTimeInHours(savedTracks?.items)}
+              />
+              <UserItemsSearchBar
+                setFilteredArray={setFilteredPlaylistItems}
+                placeHolder="Search Liked Songs"
+                inputState={input}
+                state={savedTracks as SpotifyApi.PlaylistTrackResponse}
+                setInputState={setInput}
+              />
+            </PlaylistItemsHeaderFlexContainer>
 
-              <PlaylistItemsButtonsFlexContainer>
-                <PlayLikedTracksButton likedTracks={savedTracks?.items} />
-                <ShuffleTracksButton />
-              </PlaylistItemsButtonsFlexContainer>
+            <PlaylistItemsButtonsFlexContainer>
+              <PlayLikedTracksButton likedTracks={savedTracks?.items} />
+              <ShuffleTracksButton />
+            </PlaylistItemsButtonsFlexContainer>
 
-              <PlaylistItemsTable shouldIncludeAlbum={true}>
-                {input.length > 0 && filteredPlaylistItems?.length === 0 ? (
-                  <p>No Results Found.</p>
-                ) : (
-                  (filteredPlaylistItems && filteredPlaylistItems?.length > 0
-                    ? filteredPlaylistItems
-                    : savedTracks?.items
-                  )?.map((item, index) => (
-                    <PlaylistItemsTR
-                      key={item.track?.id || index} // Ensure a unique key
-                      position={index + 1}
-                      images={item.track?.album.images}
-                      trackName={item.track?.name}
-                      artists={item.track?.artists}
-                      albumId={item.track?.album.id}
-                      albumName={item.track?.album.name}
-                      trackLength={item.track?.duration_ms}
-                      track={item}
-                      trackId={item.track?.id}
-                      playlistArray={savedTracks?.items as SpotifyApi.PlaylistTrackObject[]}
-                      filteredPlaylist={filteredPlaylistItems}
-                    />
-                  ))
-                )}
-              </PlaylistItemsTable>
-            </PlaylistTableColumnFlexContainer>
-          </div>
-          <div className="sticky top-5 overflow-y-auto" style={{ height: 'calc(100vh - 210px)' }}>
-            {/* <div>
+            <PlaylistItemsTable shouldIncludeAlbum={true}>
+              {input.length > 0 && filteredPlaylistItems?.length === 0 ? (
+                <p>No Results Found.</p>
+              ) : (
+                (filteredPlaylistItems && filteredPlaylistItems?.length > 0
+                  ? filteredPlaylistItems
+                  : savedTracks?.items
+                )?.map((item, index) => (
+                  <PlaylistItemsTR
+                    key={item.track?.id || index} // Ensure a unique key
+                    position={index + 1}
+                    images={item.track?.album.images}
+                    trackName={item.track?.name}
+                    artists={item.track?.artists}
+                    albumId={item.track?.album.id}
+                    albumName={item.track?.album.name}
+                    trackLength={item.track?.duration_ms}
+                    track={item}
+                    trackId={item.track?.id}
+                    playlistArray={savedTracks?.items as SpotifyApi.PlaylistTrackObject[]}
+                    filteredPlaylist={filteredPlaylistItems}
+                  />
+                ))
+              )}
+            </PlaylistItemsTable>
+          </PlaylistTableColumnFlexContainer>
+        </div>
+        <div className="sticky top-5 overflow-y-auto" style={{ height: 'calc(100vh - 210px)' }}>
+          {/* <div>
             <PlaylistImage images={playlistDetails?.images} alt={playlistDetails?.name} />
 
             <div className="flex flex-wrap gap-3">
@@ -133,9 +109,8 @@ export const LikedSongs = () => {
               })}
             </div>
           </div> */}
-          </div>
-        </PlaylistItemsGrid>
-      </Wrapper>
-    </div>
+        </div>
+      </PlaylistItemsGrid>
+    </Wrapper>
   );
 };

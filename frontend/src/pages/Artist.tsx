@@ -8,8 +8,8 @@ import { capitalizeFirstLetterOfEachWord } from '../functions/capitalizeFirstLet
 import { Wrapper } from '../components/styledComponents/Wrapper';
 import { useGetBackgroundImageColor } from '../hooks/useGetBackgroundImageColor';
 import { modifyDynamicBgColor } from '../functions/modifyDynamicBgColor';
-import { TrackInfo } from '../components/TrackInfo';
 import { SearchResultAlbumItem } from '../components/SearchResultAlbumItem';
+import { SearchResultTrackItem } from '../components/SearchResultTrackItem';
 
 export const Artist = () => {
   const { artistId } = useParams();
@@ -80,23 +80,13 @@ export const Artist = () => {
             </div>
           </div>
         </div>
-        <div className="mt-3">
+        <div className="mt-3 w-[1300px]">
           <h2 className="mb-2 text-xl text-white">Popular Tracks:</h2>
           {artistDetails?.topTracks.tracks
             .sort((a, b) => {
               return b.popularity - a.popularity;
             })
-
-            .map(item => (
-              <TrackInfo
-                key={item.id}
-                images={item.album.images}
-                name={item.name}
-                artists={item.artists}
-                shouldAddPadding={true}
-                albumId={item.album.id}
-              />
-            ))}
+            .map(item => <SearchResultTrackItem track={item} albumId={item.album.id} />)}
         </div>
         <div className="mt-3 gap-7 overflow-x-auto pb-4" style={{ width: 'calc(100vw - 360px)' }}>
           <h2 className="mb-2 text-xl text-white">Albums: </h2>
