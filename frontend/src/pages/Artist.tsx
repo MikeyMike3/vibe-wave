@@ -81,9 +81,12 @@ export const Artist = () => {
           </div>
         </div>
         <div className="mt-3">
-          <h2 className="mb-2 text-xl text-white">Top Tracks:</h2>
+          <h2 className="mb-2 text-xl text-white">Popular Tracks:</h2>
           {artistDetails?.topTracks.tracks
-            .splice(0, 5)
+            .sort((a, b) => {
+              return b.popularity - a.popularity;
+            })
+
             .map(item => (
               <TrackInfo
                 key={item.id}
