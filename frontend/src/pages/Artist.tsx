@@ -28,10 +28,6 @@ export const Artist = () => {
     }
   }, [image, getBackgroundImageColor, setBackgroundColor]);
 
-  useEffect(() => {
-    console.log(artistDetails?.info);
-  }, [artistDetails]);
-
   const addCommas = (value: number | undefined): string | undefined => {
     if (!value) {
       return undefined;
