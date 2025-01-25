@@ -19,7 +19,9 @@ export const AllSearchResults = ({ tracks, artists, albums }: AllSearchResultsPr
         {(tracks?.items?.length ?? 0) > 0 ? (
           tracks?.items
             .slice(0, 5)
-            .map(item => <SearchResultTrackItem key={item.id} track={item} />)
+            .map(item => (
+              <SearchResultTrackItem key={item.id} track={item} albumId={item.album.id} />
+            ))
         ) : (
           <p className="text-textAccent">No tracks found.</p>
         )}

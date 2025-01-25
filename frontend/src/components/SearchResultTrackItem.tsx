@@ -1,13 +1,15 @@
 import { usePlaySkip } from '../hooks/spotifyPlayer/usePlaySkip';
+
 import { SearchedTrackKebabMenu } from './kebabMenu/SearchedTrackKebabMenu';
 
 import { TrackInfo } from './TrackInfo';
 
 type SearchResultTrackItemProps = {
   track: SpotifyApi.TrackObjectFull;
+  albumId: string;
 };
 
-export const SearchResultTrackItem = ({ track }: SearchResultTrackItemProps) => {
+export const SearchResultTrackItem = ({ track, albumId }: SearchResultTrackItemProps) => {
   const playSkip = usePlaySkip();
 
   const handleClick = () => {
@@ -20,7 +22,12 @@ export const SearchResultTrackItem = ({ track }: SearchResultTrackItemProps) => 
         <button className="text-white" onClick={handleClick}>
           Play
         </button>
-        <TrackInfo images={track.album.images} name={track.name} artists={track.artists} />
+        <TrackInfo
+          images={track.album.images}
+          name={track.name}
+          artists={track.artists}
+          albumId={albumId}
+        />
       </div>
       <div className="flex gap-3 text-white">
         <SearchedTrackKebabMenu track={track} />

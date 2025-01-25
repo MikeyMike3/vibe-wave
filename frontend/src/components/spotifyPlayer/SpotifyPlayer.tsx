@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { usePlaySong } from '../../hooks/spotifyPlayer/usePlaySong';
 import { useSpotifyPlayerContext } from '../../hooks/context/useSpotifyPlayerContext';
 import { useQueueContext } from '../../hooks/context/useQueueContext';
@@ -52,6 +52,7 @@ export const SpotifyPlayer = () => {
 
   const getBackgroundImageColor = useGetBackgroundImageColor();
 
+  const [albumId, setAlbumId] = useState('');
   const isTransitioningRef = useRef(false);
 
   const image = getImageUrl(playerState?.track_window.current_track.album.images);
@@ -64,6 +65,13 @@ export const SpotifyPlayer = () => {
       })();
     }
   }, [image, getBackgroundImageColor, setDynamicImageBgColorMaster]);
+
+  useEffect(() => {
+    const uriSplit = playerState?.track_window.current_track.album.uri.split(':');
+    if (uriSplit) {
+      setAlbumId(uriSplit[2]);
+    }
+  }, [playerState]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const debounce = <T extends (...args: any[]) => void>(func: T, wait: number) => {
@@ -289,6 +297,7 @@ export const SpotifyPlayer = () => {
         name={playerState?.track_window?.current_track?.name}
         images={playerState?.track_window?.current_track?.album?.images}
         artists={playerState?.track_window?.current_track?.artists}
+        albumId={albumId}
       />
       <div className="mx-auto flex flex-col items-center gap-4">
         <div className="flex gap-10">

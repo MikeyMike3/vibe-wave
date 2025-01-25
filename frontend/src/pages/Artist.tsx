@@ -94,6 +94,7 @@ export const Artist = () => {
                 name={item.name}
                 artists={item.artists}
                 shouldAddPadding={true}
+                albumId={item.album.id}
               />
             ))}
         </div>

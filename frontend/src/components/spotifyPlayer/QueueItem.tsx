@@ -11,6 +11,7 @@ type QueueItemProps = {
   isPriorityQueueItem?: boolean;
   track?: SpotifyApi.TrackObjectFull | SpotifyApi.PlaylistTrackObject | undefined;
   currentlyPlaying?: boolean;
+  albumId: string;
 };
 
 export const QueueItem = ({
@@ -21,10 +22,11 @@ export const QueueItem = ({
   currentlyPlaying,
   queueDisplayRef,
   isPriorityQueueItem,
+  albumId,
 }: QueueItemProps) => {
   return (
     <div className="flex w-full items-center justify-between py-2 pl-2 hover:bg-bgAccent">
-      <TrackInfo name={name} images={images} artists={artists} />
+      <TrackInfo name={name} images={images} artists={artists} albumId={albumId} />
       <div className="flex items-center gap-3">
         {!currentlyPlaying && (
           <>

@@ -5,7 +5,9 @@ type TrackInfoProps = {
   images: SpotifyApi.ImageObject[] | Spotify.Image[] | undefined;
   name: string | undefined;
   artists: SpotifyApi.ArtistObjectSimplified[] | Spotify.Entity[] | undefined;
+
   shouldAddPadding?: boolean;
+  albumId: string | undefined;
 };
 
 function isArtistObjectSimplified(
@@ -14,7 +16,13 @@ function isArtistObjectSimplified(
   return (item as SpotifyApi.ArtistObjectSimplified).id !== undefined;
 }
 
-export const TrackInfo = ({ images, name, artists, shouldAddPadding = false }: TrackInfoProps) => {
+export const TrackInfo = ({
+  images,
+  name,
+  artists,
+  shouldAddPadding = false,
+  albumId,
+}: TrackInfoProps) => {
   const image = getImageUrl(images);
 
   return (
@@ -22,7 +30,9 @@ export const TrackInfo = ({ images, name, artists, shouldAddPadding = false }: T
       <div className={`${shouldAddPadding && 'py-2'} flex items-center gap-2`}>
         <img loading="lazy" className="h-20 w-20 rounded-md object-cover" src={image} />
         <div className="flex flex-col">
-          <p className="text-smTitle text-textPrimary">{name}</p>
+          <Link to={`/album/${albumId}`} className="text-smTitle text-textPrimary hover:underline">
+            {name}
+          </Link>
 
           <span className="text-textAccent">
             {artists?.map((item, index) => {

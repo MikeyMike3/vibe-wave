@@ -96,7 +96,7 @@ export const PlaylistItemsTR = ({
         <button onClick={onClick}>Play</button>
       </td>
       <td className="p-2">
-        <TrackInfo images={images} name={trackName} artists={artists} />
+        <TrackInfo images={images} name={trackName} artists={artists} albumId={albumId} />
       </td>
       <td className="p-2 group-hover:text-textPrimary">
         <Link className="hover:text-textPrimary hover:underline" to={`/album/${albumId}`}>

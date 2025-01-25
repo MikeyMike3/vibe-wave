@@ -78,7 +78,7 @@ export const Search = () => {
               <h2 className="pb-4 text-3xl text-textPrimary">Tracks</h2>
               {(searchResults?.tracks?.items?.length ?? 0) > 0 ? (
                 searchResults?.tracks?.items.map(item => (
-                  <SearchResultTrackItem key={item.id} track={item} />
+                  <SearchResultTrackItem key={item.id} track={item} albumId={item.album.id} />
                 ))
               ) : (
                 <p className="text-textAccent">No tracks found.</p>
