@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { findAlbumReleaseDate } from '../../functions/findAlbumReleaseDate';
 
 type PlaylistItemsHeaderProps = {
   playlistName: string | undefined;
@@ -6,6 +7,7 @@ type PlaylistItemsHeaderProps = {
   playlistLength: number | undefined;
   playlistTotalTime: string | undefined;
   artistId?: string;
+  albumReleaseDate?: string;
 };
 
 export const PlaylistItemsHeader = ({
@@ -14,10 +16,14 @@ export const PlaylistItemsHeader = ({
   playlistLength,
   playlistTotalTime,
   artistId,
+  albumReleaseDate,
 }: PlaylistItemsHeaderProps) => {
   return (
     <>
-      <h1 className="text-5xl font-semibold text-textPrimary">{playlistName}</h1>
+      <h1 className="text-5xl font-semibold text-textPrimary">
+        {playlistName}
+        {albumReleaseDate && ` • ${findAlbumReleaseDate(albumReleaseDate)}`}
+      </h1>
       <p className="text-textAccent">
         By:{' '}
         <span className="text-textPrimary">

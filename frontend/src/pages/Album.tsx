@@ -54,6 +54,7 @@ export const Album = () => {
                 playlistLength={album?.tracks.total}
                 playlistTotalTime={formatTimeInHours(album?.tracks.items)}
                 artistId={album?.artists[0].id}
+                albumReleaseDate={album?.release_date}
               />
             </PlaylistItemsHeaderFlexContainer>
             <PlaylistItemsButtonsFlexContainer>
