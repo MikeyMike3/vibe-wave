@@ -10,6 +10,7 @@ import { AlbumTrackQueueItem } from '../AlbumTrackQueueItem';
 import { isPlaylistTrackObjectArray } from '../../types/typeGuards/isPlaylistTrackObjectArray';
 import { isSingleAlbumResponse } from '../../types/typeGuards/isSIngleAlbumResponse';
 import { useDynamicImageBgColorContext } from '../../hooks/context/useDynamicImageBgColorContext';
+import { splitAlbumUri } from '../../functions/splitAlbumUri';
 
 type QueueDisplayProps = {
   queueSegment: SpotifyApi.PlaylistTrackObject[] | SpotifyApi.SingleAlbumResponse;
@@ -47,6 +48,7 @@ export const QueueDisplay = ({ queueSegment, setIsQueueSegmentOpen }: QueueDispl
                 name={playerState.track_window.current_track.name}
                 images={playerState.track_window.current_track.album.images}
                 artists={playerState.track_window.current_track.artists}
+                albumId={splitAlbumUri(playerState.track_window.current_track.album.uri)}
                 currentlyPlaying={true}
               />
             </div>
@@ -74,6 +76,7 @@ export const QueueDisplay = ({ queueSegment, setIsQueueSegmentOpen }: QueueDispl
                       images={item.album.images}
                       artists={item.artists}
                       track={item}
+                      albumId={item.album.id}
                     />
                   );
                 } else {
@@ -114,6 +117,7 @@ export const QueueDisplay = ({ queueSegment, setIsQueueSegmentOpen }: QueueDispl
                     images={item.track?.album.images}
                     artists={item.track?.artists}
                     track={item}
+                    albumId={item.track?.album.id}
                   />
                 ))}
               </div>

@@ -11,7 +11,7 @@ type QueueItemProps = {
   isPriorityQueueItem?: boolean;
   track?: SpotifyApi.TrackObjectFull | SpotifyApi.PlaylistTrackObject | undefined;
   currentlyPlaying?: boolean;
-  albumId: string;
+  albumId: string | undefined;
 };
 
 export const QueueItem = ({
