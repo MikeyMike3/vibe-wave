@@ -9,6 +9,8 @@ import { usePlaySong } from '../../hooks/spotifyPlayer/usePlaySong';
 import { useShuffleTracks } from '../../hooks/spotifyPlayer/useShuffleTracks';
 import { usePlaybackContext } from '../../hooks/context/usePlaybackContext';
 import { isPlaylistTrackObjectArray } from '../../types/typeGuards/isPlaylistTrackObjectArray';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlay } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
 
 type PlaylistItemsTR = {
   position: number;
@@ -92,8 +94,11 @@ export const PlaylistItemsTR = ({
   return (
     <tr key={trackId} className="group">
       <td className="p-2 group-hover:text-textPrimary">
-        {position}
-        <button onClick={onClick}>Play</button>
+        <span className="w-4 group-hover:hidden">{position}</span>
+
+        <button className="hidden w-4 group-hover:block" onClick={onClick}>
+          <FontAwesomeIcon icon={faPlay} className="text-xl text-aqua" />
+        </button>
       </td>
       <td className="p-2">
         <TrackInfo images={images} name={trackName} artists={artists} albumId={albumId} />
