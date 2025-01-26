@@ -67,7 +67,7 @@ export const Artist = () => {
           />
           <div className="mt-auto flex flex-col gap-3">
             <h1 className="text-3xl">{artistDetails?.info.name}</h1>
-            <p className="">{formatNumber(artistDetails?.info.followers.total)} followers</p>
+            <p>{formatNumber(artistDetails?.info.followers.total)} followers</p>
             <div className="flex gap-4">
               {artistDetails?.info.genres.map(item => (
                 <p
