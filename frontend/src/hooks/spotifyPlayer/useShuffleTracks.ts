@@ -76,16 +76,16 @@ export const useShuffleTracks = () => {
     } else if (unShuffledQueueRef.current) {
       if (isPlaylistTrackObjectArray(unShuffledQueueRef.current)) {
         // Resumes the playlist from the current song when the user turns off shuffle mode.
-        const currentTrack = playerState?.track_window.current_track.name;
-        let index = unShuffledQueueRef.current.findIndex(item => item.track?.name === currentTrack);
+        const currentTrack = playerState?.track_window.current_track.id;
+        let index = unShuffledQueueRef.current.findIndex(item => item.track?.id === currentTrack);
         index++;
         indexPlaylistQueue(index, 'set');
 
         setPlaylistQueue(unShuffledQueueRef.current);
       } else if (isSingleAlbumResponse(unShuffledQueueRef.current)) {
-        const currentTrack = playerState?.track_window.current_track.name;
+        const currentTrack = playerState?.track_window.current_track.id;
         let index = unShuffledQueueRef.current.tracks.items.findIndex(
-          item => item.name === currentTrack,
+          item => item.id === currentTrack,
         );
         index++;
         indexPlaylistQueue(index, 'set');
