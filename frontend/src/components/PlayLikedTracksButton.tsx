@@ -53,8 +53,8 @@ export const PlayLikedTracksButton = ({ likedTracks }: PlayLikedTracksButtonProp
     });
   };
   return (
-    <button onClick={handleClick}>
-      <FontAwesomeIcon className="text-6xl" icon={faCirclePlay} color="aqua" />
+    <button className="rounded-full bg-black duration-300 hover:scale-105" onClick={handleClick}>
+      <FontAwesomeIcon className="text-5xl" icon={faCirclePlay} color="aqua" />
     </button>
   );
 };
