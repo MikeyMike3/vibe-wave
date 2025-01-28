@@ -4,6 +4,7 @@ import { findAlbumReleaseDate } from '../functions/findAlbumReleaseDate';
 import { useEffect, useState } from 'react';
 import { useGetBackgroundImageColor } from '../hooks/useGetBackgroundImageColor';
 import { modifyDynamicBgColor } from '../functions/modifyDynamicBgColor';
+import { AlbumPlayButton } from './spotifyPlayer/AlbumPlayButton';
 
 type SearchResultAlbumItemProps = {
   album: SpotifyApi.AlbumObjectSimplified;
@@ -27,14 +28,18 @@ export const SearchResultAlbumItem = ({ album }: SearchResultAlbumItemProps) => 
   return (
     <Link
       to={`/album/${album.id}`}
-      className="relative z-50 w-64 flex-shrink-0 rounded-xl p-4 duration-150 hover:bg-bgAccent"
+      className="group relative z-50 w-64 flex-shrink-0 rounded-xl p-4 duration-150 hover:bg-bgAccent"
     >
-      {/* Need to add dynamic coloring to the div be below so that the color matches the album cover*/}
       <div
         className="absolute left-[12%] top-2 -z-[1] mx-auto h-4 w-3/4 rounded-md"
         style={{ backgroundColor: `${backgroundColor}` }}
       />
-      <img className="w-64 rounded-xl object-cover" src={image} />
+
+      <div className="relative">
+        <img className="w-64 rounded-xl object-cover" src={image} />
+        <AlbumPlayButton albumId={album.id} name={album.name} />
+      </div>
+
       <p className="py-3 text-textPrimary">{album?.name}</p>
       <p className="text-textAccent">
         {albumReleaseDate} &#8226; {album.artists[0].name}
