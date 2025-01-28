@@ -40,7 +40,7 @@ export const SearchResultAlbumItem = ({ album }: SearchResultAlbumItemProps) => 
         <AlbumPlayButton albumId={album.id} name={album.name} />
       </div>
 
-      <p className="py-3 text-textPrimary">{album?.name}</p>
+      <p className="py-3 text-aqua">{album?.name}</p>
       <p className="text-textAccent">
         {albumReleaseDate} &#8226; {album.artists[0].name}
       </p>

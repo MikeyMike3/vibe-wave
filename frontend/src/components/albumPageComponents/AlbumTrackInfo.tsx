@@ -12,14 +12,14 @@ export const AlbumTrackInfo = ({ name, artists, image }: AlbumTrackInfoProps) =>
       {image && <img loading="lazy" className="h-20 w-20 rounded-md object-cover" src={image} />}
 
       <div className="flex flex-col">
-        <p className="text-smTitle text-textPrimary">{name}</p>
+        <p className="text-smTitle text-textPrimary group-hover:text-aqua">{name}</p>
 
         <span className="text-textAccent">
           {artists?.map((item, index) => {
             return (
               <span key={item.id}>
                 <Link
-                  className="text-textAccent hover:text-textPrimary hover:underline"
+                  className="text-textAccent hover:text-textPrimary hover:underline group-hover:text-[#00CCCC]"
                   to={`/artist/${item.id}`}
                 >
                   {item.name}

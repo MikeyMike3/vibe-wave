@@ -31,7 +31,7 @@ export const AlbumItemKebabMenu = ({ track }: AlbumItemKebabMenuProps) => {
     <div className="relative" ref={menuRef}>
       <button onClick={() => setIsKebabMenuClicked(!isKebabMenuClicked)}>
         <FontAwesomeIcon
-          className="rounded-full p-2 px-4 text-xl text-textPrimary duration-150 hover:bg-bgAccentHover"
+          className="rounded-full p-2 px-4 text-xl duration-150 hover:bg-bgAccentHover group-hover:text-aqua"
           icon={faEllipsisVerticalSolid}
         />
       </button>

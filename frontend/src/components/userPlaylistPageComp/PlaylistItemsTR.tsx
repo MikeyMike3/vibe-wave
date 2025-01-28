@@ -97,18 +97,18 @@ export const PlaylistItemsTR = ({
         <span className="w-4 group-hover:hidden">{position}</span>
 
         <button className="hidden w-4 group-hover:block" onClick={onClick}>
-          <FontAwesomeIcon icon={faPlay} className="text-xl text-aqua" />
+          <FontAwesomeIcon icon={faPlay} className="text-xl text-magenta" />
         </button>
       </td>
       <td className="p-2">
         <TrackInfo images={images} name={trackName} artists={artists} albumId={albumId} />
       </td>
-      <td className="p-2 group-hover:text-textPrimary">
-        <Link className="hover:text-textPrimary hover:underline" to={`/album/${albumId}`}>
+      <td className="p-2 group-hover:text-aqua">
+        <Link className="hover:underline" to={`/album/${albumId}`}>
           {albumName}
         </Link>
       </td>
-      <td className="p-2 group-hover:text-textPrimary">{formatTime(trackLength)}</td>
+      <td className="p-2 group-hover:text-aqua">{formatTime(trackLength)}</td>
       <td className="opacity-0 group-hover:opacity-100">
         {'added_by' in track ? (
           <PlaylistItemKebabMenu track={track} />

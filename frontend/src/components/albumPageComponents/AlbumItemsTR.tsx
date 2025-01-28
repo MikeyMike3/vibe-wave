@@ -28,11 +28,11 @@ export const AlbumItemsTR = ({
   };
   return (
     <tr key={trackId} className="group">
-      <td className="p-2 group-hover:text-textPrimary">{position}</td>
+      <td className="p-2 group-hover:text-aqua">{position}</td>
       <td className="p-2">
         <AlbumTrackInfo name={trackName} artists={artists} />
       </td>
-      <td className="p-2 group-hover:text-textPrimary">{formatTime(trackLength)}</td>
+      <td className="p-2 group-hover:text-aqua">{formatTime(trackLength)}</td>
       <td className="opacity-0 group-hover:opacity-100">
         <AlbumItemKebabMenu track={albumTrackWithImage} />
       </td>

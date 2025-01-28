@@ -30,7 +30,10 @@ export const TrackInfo = ({
       <div className={`${shouldAddPadding && 'py-2'} flex items-center gap-2`}>
         <img loading="lazy" className="h-20 w-20 rounded-md object-cover" src={image} />
         <div className="flex flex-col">
-          <Link to={`/album/${albumId}`} className="text-smTitle text-textPrimary hover:underline">
+          <Link
+            to={`/album/${albumId}`}
+            className="text-smTitle text-textPrimary hover:underline group-hover:text-aqua"
+          >
             {name}
           </Link>
 
@@ -48,7 +51,7 @@ export const TrackInfo = ({
               return (
                 <span key={artistId}>
                   <Link
-                    className="text-textAccent hover:text-textPrimary hover:underline"
+                    className="text-textAccent hover:text-textPrimary hover:underline group-hover:text-[#00CCCC]"
                     to={`/artist/${artistId}`}
                   >
                     {item.name}

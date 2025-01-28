@@ -30,7 +30,7 @@ export const PlaylistItemKebabMenu = ({ track }: PlaylistItemKebabMenuProps) => 
     <div className="relative" ref={menuRef}>
       <button onClick={() => setIsKebabMenuClicked(!isKebabMenuClicked)}>
         <FontAwesomeIcon
-          className="rounded-full p-2 px-4 text-xl text-textAccent duration-150 hover:bg-bgAccentHover hover:text-textPrimary"
+          className="rounded-full p-2 px-4 text-xl text-aqua duration-150 hover:bg-bgAccentHover"
           icon={faEllipsisVerticalSolid}
         />
       </button>
