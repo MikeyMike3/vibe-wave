@@ -15,6 +15,20 @@ export const Playlists = () => {
 
   const [input, setInput] = useState('');
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const input = e.target.value;
+    setInput(input);
+    const lowerCaseInput = input.toLowerCase();
+    const filtered = userPlaylists?.items.filter(item =>
+      item?.name?.toLowerCase().includes(lowerCaseInput),
+    );
+    setFilteredPlaylists(filtered);
+
+    if (input.length === 0) {
+      setInput('');
+    }
+  };
+
   if (isLoading) {
     return <MainLoading />;
   }
@@ -26,11 +40,8 @@ export const Playlists = () => {
   return (
     <Wrapper>
       <UserItemsSearchBar
-        inputState={input}
-        setInputState={setInput}
-        placeHolder="Search Playlists"
-        state={userPlaylists}
-        setFilteredArray={setFilteredPlaylists}
+        placeholder="Search Playlists"
+        handleInputChangeFunction={handleInputChange}
       />
       <GridContainer>
         {input?.length > 0 && filteredPlaylists?.length === 0 ? (

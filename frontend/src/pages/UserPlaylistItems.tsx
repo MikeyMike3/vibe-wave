@@ -29,10 +29,25 @@ export const UserPlaylistItems = () => {
   const { playlistDetails } = useFetchPlaylistDetails(playlistId);
   const { data: artistInfo } = useFetchArtistImagesAndGenres(playlistItems?.items);
 
-  const [filteredPlaylists, setFilteredPlaylists] = useState<
+  const [filteredPlaylistItems, setFilteredPlaylistItems] = useState<
     SpotifyApi.PlaylistTrackObject[] | undefined
   >();
   const [input, setInput] = useState('');
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const input = e.target.value;
+    setInput(input);
+    const lowerCaseInput = input.toLowerCase();
+    const filtered = playlistItems?.items.filter(
+      item =>
+        item?.track?.name?.toLowerCase().includes(lowerCaseInput) ||
+        item.track?.artists?.some(artist => artist.name.toLowerCase().includes(lowerCaseInput)),
+    );
+    setFilteredPlaylistItems(filtered);
+    if (input.length === 0) {
+      setInput('');
+    }
+  };
 
   if (isLoading) {
     return <MainLoading />;
@@ -45,11 +60,8 @@ export const UserPlaylistItems = () => {
   return (
     <Wrapper>
       <UserItemsSearchBar
-        inputState={input}
-        setInputState={setInput}
-        placeHolder="Search Playlist Songs"
-        state={playlistItems}
-        setFilteredArray={setFilteredPlaylists}
+        placeholder="Search Playlist Songs"
+        handleInputChangeFunction={handleInputChange}
       />
       <PlaylistItemsGrid>
         <div>
@@ -73,11 +85,11 @@ export const UserPlaylistItems = () => {
             </PlaylistItemsButtonsFlexContainer>
 
             <PlaylistItemsTable shouldIncludeAlbum={true}>
-              {input.length > 0 && filteredPlaylists?.length === 0 ? (
+              {input.length > 0 && filteredPlaylistItems?.length === 0 ? (
                 <p>No Results Found.</p>
               ) : (
-                (filteredPlaylists && filteredPlaylists?.length > 0
-                  ? filteredPlaylists
+                (filteredPlaylistItems && filteredPlaylistItems?.length > 0
+                  ? filteredPlaylistItems
                   : playlistItems?.items
                 )?.map((item, index) => (
                   <PlaylistItemsTR
@@ -94,7 +106,7 @@ export const UserPlaylistItems = () => {
                     playlistArray={playlistItems?.items}
                     playlistName={playlistDetails?.name}
                     playlistId={playlistId}
-                    filteredPlaylist={filteredPlaylists}
+                    filteredPlaylist={filteredPlaylistItems}
                   />
                 ))
               )}

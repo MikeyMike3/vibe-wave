@@ -19,8 +19,23 @@ export const LikedSongs = () => {
   const { savedTracks, isLoading, isError } = useFetchSavedTracks();
   const [input, setInput] = useState('');
   const [filteredPlaylistItems, setFilteredPlaylistItems] = useState<
-    SpotifyApi.PlaylistTrackObject[] | undefined
+    SpotifyApi.SavedTrackObject[] | undefined
   >();
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const input = e.target.value;
+    setInput(input);
+    const lowerCaseInput = input.toLowerCase();
+    const filtered = savedTracks?.items.filter(
+      item =>
+        item?.track?.name?.toLowerCase().includes(lowerCaseInput) ||
+        item.track?.artists?.some(artist => artist.name.toLowerCase().includes(lowerCaseInput)),
+    );
+    setFilteredPlaylistItems(filtered);
+    if (input.length === 0) {
+      setInput('');
+    }
+  };
 
   if (isLoading) {
     return <MainLoading />;
@@ -43,11 +58,8 @@ export const LikedSongs = () => {
                 playlistTotalTime={formatTimeInHours(savedTracks?.items)}
               />
               <UserItemsSearchBar
-                setFilteredArray={setFilteredPlaylistItems}
-                placeHolder="Search Liked Songs"
-                inputState={input}
-                state={savedTracks as SpotifyApi.PlaylistTrackResponse}
-                setInputState={setInput}
+                handleInputChangeFunction={handleInputChange}
+                placeholder="Search Liked Songs"
               />
             </PlaylistItemsHeaderFlexContainer>
 
@@ -76,7 +88,7 @@ export const LikedSongs = () => {
                     track={item}
                     trackId={item.track?.id}
                     playlistArray={savedTracks?.items as SpotifyApi.PlaylistTrackObject[]}
-                    filteredPlaylist={filteredPlaylistItems}
+                    filteredPlaylist={filteredPlaylistItems as SpotifyApi.PlaylistTrackObject[]}
                   />
                 ))
               )}
