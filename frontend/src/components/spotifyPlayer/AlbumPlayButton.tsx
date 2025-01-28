@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlay } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
 
 import { useSpotifyPlayerContext } from '../../hooks/context/useSpotifyPlayerContext';
+import { useGetAlbumItemsAndPlay } from '../../hooks/useGetAlbumItemsAndPlay';
 
 type AlbumPlayButtonProps = {
   albumId: string;
@@ -10,6 +11,7 @@ type AlbumPlayButtonProps = {
 
 export const AlbumPlayButton = ({ albumId, name }: AlbumPlayButtonProps) => {
   const { isPlayerReady } = useSpotifyPlayerContext();
+  const getAlbumItemsAndPlay = useGetAlbumItemsAndPlay(albumId, name);
 
   return (
     isPlayerReady && (
@@ -17,7 +19,7 @@ export const AlbumPlayButton = ({ albumId, name }: AlbumPlayButtonProps) => {
         className="absolute bottom-2 right-2 rounded-full bg-black opacity-0 duration-300 hover:scale-105 group-hover:opacity-100"
         onClick={e => {
           e.preventDefault();
-
+          getAlbumItemsAndPlay();
           //   getPlaylistItemsAndPlay();
         }}
       >
