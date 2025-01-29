@@ -51,7 +51,6 @@ export const PCNav = () => {
           linkName="Followed Artists"
           linkTo="followed-artists"
         />
-        <p className="text-white">Party Mode</p>
       </div>
     </>
   );
