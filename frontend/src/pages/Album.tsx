@@ -15,12 +15,34 @@ import { AlbumItemsTR } from '../components/albumPageComponents/AlbumItemsTR';
 import { getImageUrl } from '../functions/getImageUrl';
 import { PlaylistImage } from '../components/PlaylistImage';
 import { PlayAlbumTracksPlayButton } from '../components/albumPageComponents/PlayAlbumTracksPlayButton';
+import { useState } from 'react';
+import { UserItemsSearchBar } from '../components/UserItemsSearchBar';
 
 export const Album = () => {
   const { albumId } = useParams();
   const { album, isLoading, isError } = useFetchAlbum(albumId);
 
+  const [filteredAlbumItemsArray, setFilteredAlbumItemsArray] = useState<
+    SpotifyApi.TrackObjectSimplified[] | undefined
+  >();
+  const [input, setInput] = useState('');
+
   const image = getImageUrl(album?.images);
+
+  const handleInputOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const input = e.target.value;
+    setInput(input);
+    const lowerCaseInput = input.toLowerCase();
+
+    const filtered = album?.tracks.items.filter(
+      item =>
+        item.name.toLowerCase().includes(lowerCaseInput) ||
+        album.artists.some(artist => artist.name.toLowerCase().includes(lowerCaseInput)),
+    );
+
+    console.log(filtered);
+    setFilteredAlbumItemsArray(filtered);
+  };
 
   if (isLoading) {
     return <MainLoading />;
@@ -56,6 +78,10 @@ export const Album = () => {
                 artistId={album?.artists[0].id}
                 albumReleaseDate={album?.release_date}
               />
+              <UserItemsSearchBar
+                handleInputChangeFunction={handleInputOnChange}
+                placeholder="Search Tracks"
+              />
             </PlaylistItemsHeaderFlexContainer>
             <PlaylistItemsButtonsFlexContainer>
               {/* <PlayLikedTracksButton likedTracks={album?.tracks.items} /> */}
@@ -63,18 +89,27 @@ export const Album = () => {
               <ShuffleTracksButton />
             </PlaylistItemsButtonsFlexContainer>
             <PlaylistItemsTable>
-              {album?.tracks.items.map((item, index) => (
-                <AlbumItemsTR
-                  key={item.id}
-                  position={index + 1}
-                  trackName={item.name}
-                  artists={item.artists}
-                  trackLength={item.duration_ms}
-                  track={item}
-                  trackId={item.id}
-                  image={image}
-                />
-              ))}
+              {input.length > 0 && filteredAlbumItemsArray?.length === 0 ? (
+                <p>No tracks found.</p>
+              ) : (
+                (filteredAlbumItemsArray && filteredAlbumItemsArray.length > 0
+                  ? filteredAlbumItemsArray
+                  : album?.tracks?.items
+                )?.map((item, index) => (
+                  <AlbumItemsTR
+                    key={item.id || index} // Ensure a unique key
+                    position={index + 1}
+                    image={image}
+                    trackName={item.name}
+                    artists={item.artists}
+                    trackLength={item.duration_ms}
+                    track={item}
+                    trackId={item.id}
+                    album={album}
+                    filteredAlbumItemsArray={filteredAlbumItemsArray}
+                  />
+                ))
+              )}
             </PlaylistItemsTable>
           </PlaylistTableColumnFlexContainer>
           <div className="sticky top-5 overflow-y-auto" style={{ height: 'calc(100vh - 245px)' }}>
