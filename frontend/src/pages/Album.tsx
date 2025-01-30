@@ -39,8 +39,6 @@ export const Album = () => {
         item.name.toLowerCase().includes(lowerCaseInput) ||
         album.artists.some(artist => artist.name.toLowerCase().includes(lowerCaseInput)),
     );
-
-    console.log(filtered);
     setFilteredAlbumItemsArray(filtered);
   };
 
