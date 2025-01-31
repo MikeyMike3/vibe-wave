@@ -41,7 +41,7 @@ export const SearchResultAlbumItem = ({ album }: SearchResultAlbumItemProps) => 
       </div>
 
       <p className="py-3 text-textPrimary group-hover:text-aqua">{album?.name}</p>
-      <p className="text-textAccent">
+      <p className="text-textAccent group-hover:text-[#00CCCC]">
         {albumReleaseDate} &#8226; {album.artists[0].name}
       </p>
     </Link>
