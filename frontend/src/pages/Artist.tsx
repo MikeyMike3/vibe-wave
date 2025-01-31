@@ -104,7 +104,9 @@ export const Artist = () => {
           </PlaylistItemsTable>
         </div>
         <div className="mt-3 gap-7 overflow-x-auto pb-4" style={{ width: 'calc(100vw - 360px)' }}>
-          <h2 className="mb-2 text-xl text-white">Albums: </h2>
+          {artistDetails && artistDetails?.albums.items.length > 0 && (
+            <h2 className="mb-2 text-xl text-white">Albums: </h2>
+          )}
           <div className="flex">
             {artistDetails?.albums.items.map(item => (
               <SearchResultAlbumItem key={item.id} album={item} />
