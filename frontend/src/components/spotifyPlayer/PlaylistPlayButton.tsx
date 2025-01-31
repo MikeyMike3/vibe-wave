@@ -20,7 +20,7 @@ export const PlaylistPlayButton = ({ playlistId, name }: PlaylistPlayButtonProps
           getPlaylistItemsAndPlay();
         }}
       >
-        <FontAwesomeIcon className="text-6xl" icon={faCirclePlay} color="aqua" />
+        <FontAwesomeIcon className="text-6xl" icon={faCirclePlay} color="magenta" />
       </button>
     )
   );

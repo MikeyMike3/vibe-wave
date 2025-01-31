@@ -28,8 +28,8 @@ export const UserPlaylist = ({ name, images, owner, type, playlistId }: UserPlay
         </div>
 
         <div className="flex flex-col py-2 text-textAccent">
-          <p className="text-smTitle text-aqua">{name}</p>
-          <p className="text-base">
+          <p className="text-smTitle text-textPrimary group-hover:text-aqua">{name}</p>
+          <p className="text-base group-hover:text-[#00CCCC]">
             {uppercaseType} &#8226; {owner}
           </p>
         </div>
