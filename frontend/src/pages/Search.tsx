@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { SearchResultTrackItem } from '../components/SearchResultTrackItem';
 import { useSearchContext } from '../hooks/context/useSearchContext';
 import { SearchResultArtistItem } from '../components/SearchResultArtistItem';
 import { SearchResultAlbumItem } from '../components/SearchResultAlbumItem';
 import { AllSearchResults } from '../components/AllSearchResults';
 import { GridContainer } from '../components/styledComponents/GridContainer';
 import { Wrapper } from '../components/styledComponents/Wrapper';
+import { PlaylistItemsTable } from '../components/userPlaylistPageComp/PlaylistItemsTable';
+import { ArtistTracksTR } from '../components/artistPageComponents/ArtistTracksTR';
 
 export const Search = () => {
   const { searchResults } = useSearchContext();
@@ -76,13 +77,25 @@ export const Search = () => {
           {isTracksClicked && (
             <>
               <h2 className="pb-4 text-3xl text-textPrimary">Tracks</h2>
-              {(searchResults?.tracks?.items?.length ?? 0) > 0 ? (
-                searchResults?.tracks?.items.map(item => (
-                  <SearchResultTrackItem key={item.id} track={item} albumId={item.album.id} />
-                ))
-              ) : (
-                <p className="text-textAccent">No tracks found.</p>
-              )}
+              <PlaylistItemsTable shouldIncludeAlbum={true}>
+                {(searchResults?.tracks?.items?.length ?? 0) > 0 ? (
+                  searchResults?.tracks?.items.map((item, index) => (
+                    <ArtistTracksTR
+                      key={item.id || index} // Ensure a unique key
+                      position={index + 1}
+                      images={item.album.images}
+                      trackName={item.name}
+                      artists={item.artists}
+                      trackLength={item.duration_ms}
+                      track={item}
+                      trackId={item.id}
+                      album={item.album}
+                    />
+                  ))
+                ) : (
+                  <p className="text-textAccent">No tracks found.</p>
+                )}
+              </PlaylistItemsTable>
             </>
           )}
 
