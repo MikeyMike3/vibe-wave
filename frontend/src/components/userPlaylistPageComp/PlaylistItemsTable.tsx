@@ -8,7 +8,7 @@ export const PlaylistItemsTable = ({ children, shouldIncludeAlbum }: PlaylistIte
     <table className="w-full table-auto text-textAccent">
       <thead className="border-b-2 border-textAccent">
         <tr className="p-2 text-left">
-          <th className="w-[3%] p-2">#</th>
+          <th className="min-w-[50px] p-2">#</th>
           <th className={`${shouldIncludeAlbum ? 'w-1/2 p-2' : 'w-full p-2'}`}>Title</th>
           {shouldIncludeAlbum && <th className="w-full p-2">Album</th>}
 
