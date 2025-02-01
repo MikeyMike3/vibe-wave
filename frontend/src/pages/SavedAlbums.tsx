@@ -22,7 +22,7 @@ export const SavedAlbums = () => {
 
     const filtered = savedAlbums?.items.filter(
       item =>
-        item.album.name.includes(lowerCaseInput) ||
+        item.album.name.toLowerCase().includes(lowerCaseInput) ||
         item.album.artists.some(artist => artist.name.toLowerCase().includes(lowerCaseInput)),
     );
     setFilteredSavedAlbums(filtered);
