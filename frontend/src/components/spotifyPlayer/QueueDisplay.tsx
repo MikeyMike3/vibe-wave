@@ -22,15 +22,18 @@ export const QueueDisplay = ({ queueSegment, setIsQueueSegmentOpen }: QueueDispl
   const { priorityQueue, playlistQueue } = useQueueContext();
   const { playerState, playlistName, playlistId } = usePlaybackContext();
 
-  const { dynamicImageBgColorDark } = useDynamicImageBgColorContext();
+  const { dynamicImageBgColorDark, dynamicImageBgColorMuted } = useDynamicImageBgColorContext();
 
   const queueDisplayRef = useRef<HTMLDivElement>(null);
 
   return (
     <div
       ref={queueDisplayRef}
-      className="absolute bottom-[112px] right-6 h-[500px] w-[500px] overflow-y-scroll rounded-2xl border-2 border-bgAccentHover"
-      style={{ backgroundColor: `${dynamicImageBgColorDark}` }}
+      className="absolute bottom-[112px] right-6 h-[500px] w-[500px] overflow-y-scroll rounded-2xl border-2"
+      style={{
+        backgroundColor: `${dynamicImageBgColorDark}`,
+        borderColor: `${dynamicImageBgColorMuted}`,
+      }}
     >
       <div className="w-full px-2">
         {playerState?.track_window.current_track && (
