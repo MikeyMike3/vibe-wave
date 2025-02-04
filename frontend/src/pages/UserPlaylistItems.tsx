@@ -4,13 +4,11 @@ import { MainLoading } from '../components/MainLoading';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { useFetchPlaylistDetails } from '../hooks/apis/useFetchPlaylistDetails';
 import { ShuffleTracksButton } from '../components/spotifyPlayer/ShuffleTracksButton';
-import { useFetchArtistImagesAndGenres } from '../hooks/apis/useFetchArtistInfoForTracks';
 import { Wrapper } from '../components/styledComponents/Wrapper';
 import { useState } from 'react';
 import { PlaylistPagePlayButton } from '../components/PlaylistPagePlayButton';
 import { PlaylistItemsTable } from '../components/userPlaylistPageComp/PlaylistItemsTable';
 import { PlaylistItemsHeader } from '../components/userPlaylistPageComp/PlaylistItemsHeader';
-import { PlaylistItemsGenres } from '../components/userPlaylistPageComp/PlaylistItemsGenres';
 import { PlaylistImage } from '../components/PlaylistImage';
 import { PlaylistItemsArtist } from '../components/userPlaylistPageComp/PlaylistItemsArtist';
 import { PlaylistItemsTR } from '../components/userPlaylistPageComp/PlaylistItemsTR';
@@ -21,6 +19,7 @@ import { PlaylistItemsButtonsFlexContainer } from '../components/userPlaylistPag
 import { formatTimeInHours } from '../functions/formatTimeInHours';
 import { UserItemsSearchBar } from '../components/UserItemsSearchBar';
 import { OpenInSpotifyButton } from '../components/OpenInSpotifyButton';
+import { useFetchUniqueArtists } from '../hooks/apis/useFetchUniqueArtists';
 
 export const UserPlaylistItems = () => {
   const { playlistId } = useParams();
@@ -28,7 +27,7 @@ export const UserPlaylistItems = () => {
   // I need to make another hook that combines these together so that I can Promise.All these together
   const { playlistItems, isLoading, isError } = useGetPlaylistItems(playlistId);
   const { playlistDetails } = useFetchPlaylistDetails(playlistId);
-  const { data: artistInfo } = useFetchArtistImagesAndGenres(playlistItems?.items);
+  const uniqueArtists = useFetchUniqueArtists(playlistItems?.items);
 
   const [filteredPlaylistItems, setFilteredPlaylistItems] = useState<
     SpotifyApi.PlaylistTrackObject[] | undefined
@@ -118,26 +117,16 @@ export const UserPlaylistItems = () => {
         <div className="sticky top-5 overflow-y-auto" style={{ height: 'calc(100vh - 250px)' }}>
           <PlaylistImage images={playlistDetails?.images} alt={playlistDetails?.name} />
 
-          <div className="flex flex-wrap gap-3">
-            <PlaylistItemsGenres artistInfo={artistInfo} />
-          </div>
-
-          <div className="flex flex-col gap-4 pt-4">
-            {playlistItems?.items.slice(0, 3).map(item => {
-              const artistId = item.track?.artists[0]?.id;
-              if (!artistId) {
-                return;
-              }
-              const artist = artistInfo ? artistInfo.artistData[artistId] : null;
-
-              return (
-                <PlaylistItemsArtist
-                  id={item.track?.artists[0].id}
-                  name={item.track?.artists[0]?.name}
-                  images={artist?.images}
-                />
-              );
-            })}
+          <div className="flex flex-col gap-4">
+            <h2 className="text-xl text-textPrimary">Featuring: </h2>
+            {uniqueArtists.uniqueArtists.map(item => (
+              <PlaylistItemsArtist
+                key={item.id}
+                id={item.id}
+                images={item.images}
+                name={item.name}
+              />
+            ))}
           </div>
         </div>
       </PlaylistItemsGrid>

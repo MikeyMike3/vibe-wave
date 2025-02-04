@@ -1,7 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { useHeaders } from './useHeaders';
 
-export const useFetchUniqueArtists = (tracks: SpotifyApi.SavedTrackObject[] | undefined) => {
+export const useFetchUniqueArtists = (
+  tracks: SpotifyApi.SavedTrackObject[] | SpotifyApi.PlaylistTrackObject[] | undefined,
+) => {
   const apiHeader = useHeaders();
 
   const fetchUniqueArtists = async (): Promise<SpotifyApi.ArtistObjectFull[]> => {
@@ -11,15 +13,16 @@ export const useFetchUniqueArtists = (tracks: SpotifyApi.SavedTrackObject[] | un
     const artistIds: string[] = [];
 
     for (const track of tracks) {
-      for (const artist of track.track.artists) {
-        if (!artistSet.has(artist.id)) {
-          artistSet.add(artist.id);
-          artistIds.push(artist.id);
+      if (track.track)
+        for (const artist of track.track.artists) {
+          if (!artistSet.has(artist.id)) {
+            artistSet.add(artist.id);
+            artistIds.push(artist.id);
+          }
+          if (artistIds.length === 3) {
+            break;
+          }
         }
-        if (artistIds.length === 3) {
-          break;
-        }
-      }
       if (artistIds.length === 3) {
         break;
       }
