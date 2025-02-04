@@ -8,67 +8,50 @@ export const ProgressTracker = () => {
   const { player } = useSpotifyPlayerContext();
   const { dynamicImageBgColorLighter, dynamicImageBgColorMedium } = useDynamicImageBgColorContext();
   const { playerDuration, playerPosition, setPlayerPosition } = usePlaybackContext();
-  const [displayPosition, setDisplayPosition] = useState<string | number>(0);
-  const [tempDisplayPosition, setTempDisplayPosition] = useState<string | number>();
-  const [displayDuration, setDisplayDuration] = useState<string | number>(0);
-  const [seekPosition, setSeekPosition] = useState<number>(0);
-  const currentlySeekingRef = useRef<boolean>(false);
 
-  const [sliderValue, setSliderValue] = useState(0);
+  const [displayPosition, setDisplayPosition] = useState('0:00');
+  const [displayDuration, setDisplayDuration] = useState('0:00');
   const sliderRef = useRef<HTMLInputElement>(null);
+  const currentlySeekingRef = useRef(false);
 
   const updateSliderBackground = useCallback(
-    (value: number | string) => {
-      const percentage = (Number(value) / Number(playerDuration)) * 100;
+    (value: number) => {
       if (sliderRef.current) {
+        const percentage = (value / Number(playerDuration)) * 100 || 0;
         sliderRef.current.style.setProperty('--value', `${percentage}%`);
       }
     },
     [playerDuration],
   );
-  useEffect(() => {
-    updateSliderBackground(sliderValue);
-  }, [playerDuration, updateSliderBackground, sliderValue]);
 
   useEffect(() => {
     setDisplayPosition(formatTime(playerPosition));
-    setSliderValue(Number(playerPosition));
-    updateSliderBackground(playerPosition);
-  }, [playerPosition, updateSliderBackground]);
-
-  useEffect(() => {
     setDisplayDuration(formatTime(playerDuration));
-  }, [playerDuration]);
+    updateSliderBackground(Number(playerPosition));
+  }, [playerPosition, playerDuration, updateSliderBackground]);
 
-  //prettier-ignore
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     currentlySeekingRef.current = true;
-    const value = e.target.value;
+    const value = Number(e.target.value);
     setPlayerPosition(value);
-    setTempDisplayPosition(formatTime(value));
-    setSeekPosition(Number(value));
-    setSliderValue(Number(value));
     updateSliderBackground(value);
   };
-  //prettier-ignore
+
   const handleMouseUp = () => {
     currentlySeekingRef.current = false;
-    player?.seek(seekPosition);
-  }
+    player?.seek(Number(playerPosition));
+  };
 
   return (
     <div className="flex w-[590px] items-center gap-3">
-      <p className="cursor-default text-textPrimary">
-        {currentlySeekingRef.current ? tempDisplayPosition : displayPosition}
-      </p>
-
+      <p className="cursor-default text-textPrimary">{displayPosition}</p>
       <input
         ref={sliderRef}
         className="w-full"
         type="range"
         min="0"
         max={playerDuration}
-        value={currentlySeekingRef.current ? seekPosition : playerPosition}
+        value={playerPosition}
         onChange={handleChange}
         onMouseUp={handleMouseUp}
         style={{
@@ -80,14 +63,14 @@ export const ProgressTracker = () => {
           cursor: 'pointer',
           outline: 'none',
           background: `
-      linear-gradient(
-        to right,
-        ${dynamicImageBgColorLighter} 0%, 
-        ${dynamicImageBgColorLighter} ${(Number(sliderValue) / Number(playerDuration)) * 100 || 0}%, 
-        ${dynamicImageBgColorMedium} ${(Number(sliderValue) / Number(playerDuration)) * 100 || 0}%, 
-        ${dynamicImageBgColorMedium} 100%
-      )
-    `,
+            linear-gradient(
+              to right,
+              ${dynamicImageBgColorLighter} 0%, 
+              ${dynamicImageBgColorLighter} ${(Number(playerPosition) / Number(playerDuration)) * 100 || 0}%, 
+              ${dynamicImageBgColorMedium} ${(Number(playerPosition) / Number(playerDuration)) * 100 || 0}%, 
+              ${dynamicImageBgColorMedium} 100%
+            )
+          `,
         }}
       />
       <p className="cursor-default text-textPrimary">{displayDuration}</p>
