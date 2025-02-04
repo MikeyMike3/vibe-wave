@@ -20,6 +20,7 @@ import { PlaylistItemsHeaderFlexContainer } from '../components/userPlaylistPage
 import { PlaylistItemsButtonsFlexContainer } from '../components/userPlaylistPageComp/PlaylistItemsButtonsFlexContainer';
 import { formatTimeInHours } from '../functions/formatTimeInHours';
 import { UserItemsSearchBar } from '../components/UserItemsSearchBar';
+import { OpenInSpotifyButton } from '../components/OpenInSpotifyButton';
 
 export const UserPlaylistItems = () => {
   const { playlistId } = useParams();
@@ -73,6 +74,7 @@ export const UserPlaylistItems = () => {
                 playlistLength={playlistItems?.items.length}
                 playlistTotalTime={formatTimeInHours(playlistItems?.items)}
               />
+              <OpenInSpotifyButton spotifyUrl={playlistDetails?.external_urls.spotify} />
             </PlaylistItemsHeaderFlexContainer>
 
             <PlaylistItemsButtonsFlexContainer>

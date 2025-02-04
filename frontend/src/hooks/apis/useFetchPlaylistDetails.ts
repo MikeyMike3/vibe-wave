@@ -12,6 +12,7 @@ type PlaylistDetails = {
     width: number | null;
   }[];
   description: string;
+  external_urls: SpotifyApi.ExternalUrlObject;
 };
 
 export const useFetchPlaylistDetails = (playlistId: string | undefined) => {
@@ -19,7 +20,7 @@ export const useFetchPlaylistDetails = (playlistId: string | undefined) => {
   const fetchPlaylistDetails = async () => {
     try {
       const response = await fetch(
-        `https://api.spotify.com/v1/playlists/${playlistId}?fields=name,owner(display_name),images,description`,
+        `https://api.spotify.com/v1/playlists/${playlistId}?fields=name,owner(display_name),images,description,external_urls`,
         apiHeaders,
       );
 
