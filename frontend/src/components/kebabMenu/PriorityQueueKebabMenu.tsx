@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { PlaySkipButton } from '../spotifyPlayer/PlaySkipButton';
 import { RemoveFromQueueButton } from '../spotifyPlayer/RemoveFromQueueButton';
 import { AlbumTrackWithImage } from '../../types/AlbumTrackWithImage';
+import { OpenInSpotifyButton } from '../OpenInSpotifyButton';
 
 type PriorityQueueKebabMenuProps = {
   track: SpotifyApi.TrackObjectFull | SpotifyApi.PlaylistTrackObject | AlbumTrackWithImage;
@@ -100,17 +101,25 @@ export const PriorityQueueKebabMenu = ({ track, queueDisplayRef }: PriorityQueue
 
         <div className="h-[2px] w-full bg-bgAccent" />
         {track && 'uri' in track ? (
-          <RemoveFromQueueButton
-            name={track.name}
-            shouldIndexPriorityQueue={true}
-            setIsKebabMenuClicked={setIsKebabMenuClicked}
-          />
+          <>
+            <RemoveFromQueueButton
+              name={track.name}
+              shouldIndexPriorityQueue={true}
+              setIsKebabMenuClicked={setIsKebabMenuClicked}
+            />
+            <div className="h-[2px] w-full bg-bgAccent" />
+            <OpenInSpotifyButton spotifyUrl={track.external_urls.spotify} />
+          </>
         ) : (
-          <RemoveFromQueueButton
-            name={track.track?.name}
-            shouldIndexPriorityQueue={true}
-            setIsKebabMenuClicked={setIsKebabMenuClicked}
-          />
+          <>
+            <RemoveFromQueueButton
+              name={track.track?.name}
+              shouldIndexPriorityQueue={true}
+              setIsKebabMenuClicked={setIsKebabMenuClicked}
+            />
+            <div className="h-[2px] w-full bg-bgAccent" />
+            <OpenInSpotifyButton spotifyUrl={track.track?.external_urls.spotify} />
+          </>
         )}
       </div>
     </div>

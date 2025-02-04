@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AddToFrontOfPriorityQueueButton } from '../AddToFrontOfPriorityQueueButton';
 import { AddToQueueButton } from '../AddToQueueButton';
 import { PlaySkipButton } from '../spotifyPlayer/PlaySkipButton';
+import { OpenInSpotifyButton } from '../OpenInSpotifyButton';
 
 type SearchedTrackKebabMenuProps = {
   track: SpotifyApi.TrackObjectFull;
@@ -53,6 +54,9 @@ export const SearchedTrackKebabMenu = ({ track }: SearchedTrackKebabMenuProps) =
           track={track}
           setIsKebabMenuClicked={setIsKebabMenuClicked}
         />
+
+        <div className="h-[2px] w-full bg-bgAccent" />
+        <OpenInSpotifyButton spotifyUrl={track.external_urls.spotify} />
       </div>
     </div>
   );

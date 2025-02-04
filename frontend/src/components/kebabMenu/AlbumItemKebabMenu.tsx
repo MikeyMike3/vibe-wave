@@ -5,6 +5,7 @@ import { AddToFrontOfPriorityQueueButton } from '../AddToFrontOfPriorityQueueBut
 import { AddToQueueButton } from '../AddToQueueButton';
 import { PlaySkipButton } from '../spotifyPlayer/PlaySkipButton';
 import { AlbumTrackWithImage } from '../../types/AlbumTrackWithImage';
+import { OpenInSpotifyButton } from '../OpenInSpotifyButton';
 
 type AlbumItemKebabMenuProps = {
   track: AlbumTrackWithImage;
@@ -54,6 +55,8 @@ export const AlbumItemKebabMenu = ({ track }: AlbumItemKebabMenuProps) => {
           track={track}
           setIsKebabMenuClicked={setIsKebabMenuClicked}
         />
+        <div className="h-[2px] w-full bg-bgAccent" />
+        <OpenInSpotifyButton spotifyUrl={track.external_urls.spotify} />
       </div>
     </div>
   );

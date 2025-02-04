@@ -11,6 +11,7 @@ import { modifyDynamicBgColor } from '../functions/modifyDynamicBgColor';
 import { SearchResultAlbumItem } from '../components/SearchResultAlbumItem';
 import { PlaylistItemsTable } from '../components/userPlaylistPageComp/PlaylistItemsTable';
 import { ArtistTracksTR } from '../components/artistPageComponents/ArtistTracksTR';
+import { OpenInSpotifyButton } from '../components/OpenInSpotifyButton';
 
 export const Artist = () => {
   const { artistId } = useParams();
@@ -79,6 +80,7 @@ export const Artist = () => {
                 </p>
               ))}
             </div>
+            <OpenInSpotifyButton spotifyUrl={artistDetails?.info.external_urls.spotify} />
           </div>
         </div>
         <div className="mt-3">

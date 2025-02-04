@@ -5,6 +5,7 @@ import { PlaySkipButton } from '../spotifyPlayer/PlaySkipButton';
 import { AddToQueueButton } from '../AddToQueueButton';
 import { AddToFrontOfPriorityQueueButton } from '../AddToFrontOfPriorityQueueButton';
 import { RemoveFromQueueButton } from '../spotifyPlayer/RemoveFromQueueButton';
+import { OpenInSpotifyButton } from '../OpenInSpotifyButton';
 
 type PlaylistQueueKebabMenuProps = {
   track: SpotifyApi.PlaylistTrackObject;
@@ -103,6 +104,8 @@ export const PlaylistQueueKebabMenu = ({ track, queueDisplayRef }: PlaylistQueue
           shouldIndexPlaylistQueue={true}
           setIsKebabMenuClicked={setIsKebabMenuClicked}
         />
+        <div className="h-[2px] w-full bg-bgAccent" />
+        <OpenInSpotifyButton spotifyUrl={track.track?.external_urls.spotify} />
       </div>
     </div>
   );

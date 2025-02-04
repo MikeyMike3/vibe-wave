@@ -17,6 +17,7 @@ import { PlaylistImage } from '../components/PlaylistImage';
 import { PlayAlbumTracksPlayButton } from '../components/albumPageComponents/PlayAlbumTracksPlayButton';
 import { useState } from 'react';
 import { UserItemsSearchBar } from '../components/UserItemsSearchBar';
+import { OpenInSpotifyButton } from '../components/OpenInSpotifyButton';
 
 export const Album = () => {
   const { albumId } = useParams();
@@ -68,6 +69,7 @@ export const Album = () => {
         <PlaylistItemsGrid>
           <PlaylistTableColumnFlexContainer>
             <PlaylistItemsHeaderFlexContainer>
+              <OpenInSpotifyButton spotifyUrl={album?.external_urls.spotify} />
               <PlaylistItemsHeader
                 playlistName={album?.name}
                 playlistOwnerName={album?.artists[0].name}
