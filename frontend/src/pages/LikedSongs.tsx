@@ -103,17 +103,21 @@ export const LikedSongs = () => {
         <div className="sticky top-5 overflow-y-auto" style={{ height: 'calc(100vh - 250px)' }}>
           <img src={likedSongsImage}></img>
           <p className="py-4 text-textPrimary">Your personal collection of favorites!</p>
-          <h2 className="py-2 text-xl text-textPrimary">Featuring: </h2>
-          <div className="flex flex-col gap-4 pt-4">
-            {uniqueArtists.uniqueArtists.map(item => (
-              <PlaylistItemsArtist
-                key={item.id}
-                id={item.id}
-                images={item.images}
-                name={item.name}
-              />
-            ))}
-          </div>
+          {uniqueArtists.uniqueArtists.length > 0 && (
+            <>
+              <h2 className="py-2 text-xl text-textPrimary">Featuring: </h2>
+              <div className="flex flex-col gap-4 pt-4">
+                {uniqueArtists.uniqueArtists.map(item => (
+                  <PlaylistItemsArtist
+                    key={item.id}
+                    id={item.id}
+                    images={item.images}
+                    name={item.name}
+                  />
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </PlaylistItemsGrid>
     </Wrapper>

@@ -117,17 +117,19 @@ export const UserPlaylistItems = () => {
         <div className="sticky top-5 overflow-y-auto" style={{ height: 'calc(100vh - 250px)' }}>
           <PlaylistImage images={playlistDetails?.images} alt={playlistDetails?.name} />
 
-          <div className="flex flex-col gap-4">
-            <h2 className="text-xl text-textPrimary">Featuring: </h2>
-            {uniqueArtists.uniqueArtists.map(item => (
-              <PlaylistItemsArtist
-                key={item.id}
-                id={item.id}
-                images={item.images}
-                name={item.name}
-              />
-            ))}
-          </div>
+          {uniqueArtists.uniqueArtists.length > 0 && (
+            <div className="flex flex-col gap-4">
+              <h2 className="text-xl text-textPrimary">Featuring: </h2>
+              {uniqueArtists.uniqueArtists.map(item => (
+                <PlaylistItemsArtist
+                  key={item.id}
+                  id={item.id}
+                  images={item.images}
+                  name={item.name}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </PlaylistItemsGrid>
     </Wrapper>
