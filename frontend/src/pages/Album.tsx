@@ -113,7 +113,8 @@ export const Album = () => {
             </PlaylistItemsTable>
           </PlaylistTableColumnFlexContainer>
           <div className="sticky top-5 overflow-y-auto" style={{ height: 'calc(100vh - 245px)' }}>
-            <PlaylistImage imageUrl={image} alt={album?.name} />
+            {/* @ts-expect-error the images below works as intended*/}
+            <PlaylistImage images={album?.images} alt={album?.name} />
           </div>
         </PlaylistItemsGrid>
       </Wrapper>

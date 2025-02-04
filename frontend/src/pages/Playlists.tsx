@@ -6,6 +6,7 @@ import { Wrapper } from '../components/styledComponents/Wrapper';
 import { UserPlaylist } from '../components/UserPlaylist';
 import { useFetchUserPlaylists } from '../hooks/apis/useFetchUserPlaylists';
 import { UserItemsSearchBar } from '../components/UserItemsSearchBar';
+import { PageTitle } from '../components/styledComponents/PageTitle';
 
 export const Playlists = () => {
   const { data: userPlaylists, isLoading, isError } = useFetchUserPlaylists();
@@ -39,6 +40,7 @@ export const Playlists = () => {
 
   return (
     <Wrapper>
+      <PageTitle title="Your Playlists" />
       <UserItemsSearchBar
         placeholder="Search Playlists"
         handleInputChangeFunction={handleInputChange}

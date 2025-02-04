@@ -6,6 +6,7 @@ import { GridContainer } from '../components/styledComponents/GridContainer';
 import { Wrapper } from '../components/styledComponents/Wrapper';
 import { UserItemsSearchBar } from '../components/UserItemsSearchBar';
 import { useFetchSavedAlbums } from '../hooks/apis/useFetchSavedAlbums';
+import { PageTitle } from '../components/styledComponents/PageTitle';
 
 export const SavedAlbums = () => {
   const { savedAlbums, isError, isLoading } = useFetchSavedAlbums();
@@ -39,6 +40,7 @@ export const SavedAlbums = () => {
   return (
     <div className="text-white">
       <Wrapper>
+        <PageTitle title="Your Saved Albums" />
         <UserItemsSearchBar
           placeholder="Search Saved Albums"
           handleInputChangeFunction={handleInputChange}

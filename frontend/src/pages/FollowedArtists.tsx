@@ -6,6 +6,7 @@ import { GridContainer } from '../components/styledComponents/GridContainer';
 import { Wrapper } from '../components/styledComponents/Wrapper';
 import { useFetchFollowedArtists } from '../hooks/apis/useFetchFollowedArtists';
 import { UserItemsSearchBar } from '../components/UserItemsSearchBar';
+import { PageTitle } from '../components/styledComponents/PageTitle';
 
 export const FollowedArtists = () => {
   const { followedArtists, isError, isLoading } = useFetchFollowedArtists();
@@ -37,6 +38,7 @@ export const FollowedArtists = () => {
   return (
     <div className="text-white">
       <Wrapper>
+        <PageTitle title="Your Followed Artists" />
         <UserItemsSearchBar
           placeholder="Search Followed Artists"
           handleInputChangeFunction={handleInputChange}
