@@ -12,7 +12,7 @@ export const UserItemsSearchBar = ({
   const [active, setActive] = useState(false);
   return (
     <input
-      className={`${active ? 'border-magenta' : 'border-transparent'} rounded-xl border-2 bg-bgAccent p-2 text-white outline-none placeholder:text-textAccent`}
+      className={`${active ? 'border-magenta' : 'border-transparent'} w-[300px] rounded-xl border-2 bg-bgAccent p-2 text-white outline-none placeholder:text-textAccent`}
       onBlur={() => setActive(false)}
       onClick={() => setActive(true)}
       placeholder={placeholder}
