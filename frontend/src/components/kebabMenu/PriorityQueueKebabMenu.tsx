@@ -73,7 +73,7 @@ export const PriorityQueueKebabMenu = ({ track, queueDisplayRef }: PriorityQueue
     <div className="relative" ref={menuRef}>
       <button onClick={() => setIsKebabMenuClicked(!isKebabMenuClicked)}>
         <FontAwesomeIcon
-          className="rounded-full p-2 px-4 text-xl text-textPrimary duration-150 hover:bg-bgAccentHover"
+          className="rounded-full p-2 px-4 text-xl text-aqua duration-150 hover:bg-bgAccentHover"
           icon={faEllipsisVerticalSolid}
         />
       </button>
