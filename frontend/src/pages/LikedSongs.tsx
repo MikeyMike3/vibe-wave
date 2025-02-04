@@ -14,6 +14,7 @@ import { PlaylistTableColumnFlexContainer } from '../components/userPlaylistPage
 import { formatTimeInHours } from '../functions/formatTimeInHours';
 import { useFetchSavedTracks } from '../hooks/apis/useFetchSavedTracks';
 import { UserItemsSearchBar } from '../components/UserItemsSearchBar';
+import likedSongsImage from '../assets/imgs/VibeWave_Liked_Songs_3D.jpg';
 
 export const LikedSongs = () => {
   const { savedTracks, isLoading, isError } = useFetchSavedTracks();
@@ -96,6 +97,7 @@ export const LikedSongs = () => {
           </PlaylistTableColumnFlexContainer>
         </div>
         <div className="sticky top-5 overflow-y-auto" style={{ height: 'calc(100vh - 210px)' }}>
+          <img src={likedSongsImage}></img>
           {/* <div>
             <PlaylistImage images={playlistDetails?.images} alt={playlistDetails?.name} />
 
