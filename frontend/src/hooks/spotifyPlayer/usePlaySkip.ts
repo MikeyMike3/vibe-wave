@@ -1,6 +1,7 @@
 import { AlbumTrackWithImage } from '../../types/AlbumTrackWithImage';
 import { isPlaylistTrackObjectArray } from '../../types/typeGuards/isPlaylistTrackObjectArray';
 import { isSingleAlbumResponse } from '../../types/typeGuards/isSIngleAlbumResponse';
+import { usePlaybackContext } from '../context/usePlaybackContext';
 import { useQueueContext } from '../context/useQueueContext';
 import { useIndexPlaylistQueue } from './useIndexPlaylistQueue';
 import { usePlaySong } from './usePlaySong';
@@ -14,6 +15,7 @@ type Options = {
 export const usePlaySkip = () => {
   const { playlistQueue, playlistQueueIndexRef, priorityQueue, setPriorityQueue } =
     useQueueContext();
+  const { repeatRef, setRepeat } = usePlaybackContext();
   const playSongMutation = usePlaySong();
   const indexPlaylistQueue = useIndexPlaylistQueue();
 
@@ -31,6 +33,10 @@ export const usePlaySkip = () => {
     if (!shouldIndexPlaylistQueue && !shouldIndexPriorityQueue && !shouldPlaySong) {
       console.error('No Options Selected');
       return;
+    }
+    if (repeatRef.current === 2) {
+      repeatRef.current = 1;
+      setRepeat(1);
     }
 
     if (shouldPlaySong) {
