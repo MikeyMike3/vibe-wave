@@ -13,7 +13,7 @@ export const PlaylistItemsArtist = ({ id, images, name }: PlaylistItemsArtist) =
     <Link to={`/artist/${id}`} key={id} className="group flex items-center gap-3">
       <img className="h-16 w-16 rounded-full" src={image} alt={name} />
 
-      <p className="group-hover:underline">{name}</p>
+      <p className="group-hover:text-aqua group-hover:underline">{name}</p>
     </Link>
   );
 };

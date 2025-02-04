@@ -15,9 +15,13 @@ import { formatTimeInHours } from '../functions/formatTimeInHours';
 import { useFetchSavedTracks } from '../hooks/apis/useFetchSavedTracks';
 import { UserItemsSearchBar } from '../components/UserItemsSearchBar';
 import likedSongsImage from '../assets/imgs/VibeWave_Liked_Songs_3D.jpg';
+import { useFetchUniqueArtists } from '../hooks/apis/useFetchUniqueArtists';
+import { PlaylistItemsArtist } from '../components/userPlaylistPageComp/PlaylistItemsArtist';
 
 export const LikedSongs = () => {
   const { savedTracks, isLoading, isError } = useFetchSavedTracks();
+  const uniqueArtists = useFetchUniqueArtists(savedTracks?.items);
+
   const [input, setInput] = useState('');
   const [filteredPlaylistItems, setFilteredPlaylistItems] = useState<
     SpotifyApi.SavedTrackObject[] | undefined
@@ -98,31 +102,18 @@ export const LikedSongs = () => {
         </div>
         <div className="sticky top-5 overflow-y-auto" style={{ height: 'calc(100vh - 210px)' }}>
           <img src={likedSongsImage}></img>
-          {/* <div>
-            <PlaylistImage images={playlistDetails?.images} alt={playlistDetails?.name} />
-
-            <div className="flex flex-wrap gap-3">
-              <PlaylistItemsGenres artistInfo={artistInfo} />
-            </div>
-
-            <div className="flex flex-col gap-4 pt-4">
-              {playlistItems?.items.slice(0, 3).map(item => {
-                const artistId = item.track?.artists[0]?.id;
-                if (!artistId) {
-                  return;
-                }
-                const artist = artistInfo ? artistInfo.artistData[artistId] : null;
-
-                return (
-                  <PlaylistItemsArtist
-                    id={item.track?.artists[0].id}
-                    name={item.track?.artists[0]?.name}
-                    images={artist?.images}
-                  />
-                );
-              })}
-            </div>
-          </div> */}
+          <p className="py-4 text-textPrimary">Your personal collection of favorites!</p>
+          <h2 className="py-2 text-xl text-textPrimary">Featuring: </h2>
+          <div className="flex flex-col justify-center gap-4 pt-4">
+            {uniqueArtists.uniqueArtists.map(item => (
+              <PlaylistItemsArtist
+                key={item.id}
+                id={item.id}
+                images={item.images}
+                name={item.name}
+              />
+            ))}
+          </div>
         </div>
       </PlaylistItemsGrid>
     </Wrapper>
