@@ -104,7 +104,7 @@ export const LikedSongs = () => {
           <img src={likedSongsImage}></img>
           <p className="py-4 text-textPrimary">Your personal collection of favorites!</p>
           <h2 className="py-2 text-xl text-textPrimary">Featuring: </h2>
-          <div className="flex flex-col justify-center gap-4 pt-4">
+          <div className="flex flex-col gap-4 pt-4">
             {uniqueArtists.uniqueArtists.map(item => (
               <PlaylistItemsArtist
                 key={item.id}
