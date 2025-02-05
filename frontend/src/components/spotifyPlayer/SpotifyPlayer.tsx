@@ -20,6 +20,7 @@ import { isPlaylistTrackObjectArray } from '../../types/typeGuards/isPlaylistTra
 import { isSingleAlbumResponse } from '../../types/typeGuards/isSIngleAlbumResponse';
 import { useDynamicImageBgColorContext } from '../../hooks/context/useDynamicImageBgColorContext';
 import { splitAlbumUri } from '../../functions/splitAlbumUri';
+import { VibeWaveTrackPlaceHolder } from './VibeWaveTrackPlaceHolder';
 
 export const SpotifyPlayer = () => {
   const { player } = useSpotifyPlayerContext();
@@ -296,12 +297,17 @@ export const SpotifyPlayer = () => {
       className="sticky bottom-0 z-[9999] mt-auto grid w-full grid-cols-[25%_50%_25%] items-center rounded-3xl bg-black p-3 text-white"
       style={{ backgroundColor: `${dynamicImageBgColorDark}` }}
     >
-      <TrackInfo
-        name={playerState?.track_window?.current_track?.name}
-        images={playerState?.track_window?.current_track?.album?.images}
-        artists={playerState?.track_window?.current_track?.artists}
-        albumId={splitAlbumUri(playerState?.track_window.current_track.album.uri)}
-      />
+      {!playerState ? (
+        <VibeWaveTrackPlaceHolder image={image} />
+      ) : (
+        <TrackInfo
+          name={playerState?.track_window?.current_track?.name}
+          images={playerState?.track_window?.current_track?.album?.images}
+          artists={playerState?.track_window?.current_track?.artists}
+          albumId={splitAlbumUri(playerState?.track_window.current_track.album.uri)}
+        />
+      )}
+
       <div className="mx-auto flex flex-col items-center gap-4">
         <div className="flex gap-10">
           <ShuffleTracksButton

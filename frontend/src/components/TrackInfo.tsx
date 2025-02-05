@@ -26,7 +26,7 @@ export const TrackInfo = ({
   const image = getImageUrl(images);
 
   return (
-    <div>
+    <>
       <div className={`${shouldAddPadding && 'py-2'} flex items-center gap-2`}>
         <img loading="lazy" className="h-20 w-20 rounded-md object-cover" src={image} />
         <div className="flex flex-col">
@@ -64,6 +64,6 @@ export const TrackInfo = ({
           </span>
         </div>
       </div>
-    </div>
+    </>
   );
 };
