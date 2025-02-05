@@ -118,7 +118,7 @@ export const UserPlaylistItems = () => {
           <PlaylistImage images={playlistDetails?.images} alt={playlistDetails?.name} />
 
           {uniqueArtists.uniqueArtists.length > 0 && (
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 pt-5">
               <h2 className="text-xl text-textPrimary">Featuring: </h2>
               {uniqueArtists.uniqueArtists.map(item => (
                 <PlaylistItemsArtist
