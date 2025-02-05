@@ -35,6 +35,21 @@ export const QueueDisplay = ({ queueSegment, setIsQueueSegmentOpen }: QueueDispl
         borderColor: `${dynamicImageBgColorMuted}`,
       }}
     >
+      {!playerState?.track_window.current_track &&
+        !priorityQueue &&
+        (!playlistQueue ||
+          !isPlaylistTrackObjectArray(playlistQueue) ||
+          playlistQueue.length === 0) &&
+        (!playlistQueue ||
+          !isSingleAlbumResponse(playlistQueue) ||
+          playlistQueue.tracks.items.length === 0) && (
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+            <p className="text-center text-xl text-textPrimary">
+              Queue’s a ghost town, drop some heat
+            </p>
+          </div>
+        )}
+
       <div className="w-full px-2">
         {playerState?.track_window.current_track && (
           <>
