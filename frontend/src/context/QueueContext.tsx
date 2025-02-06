@@ -1,6 +1,7 @@
 import { createContext, ReactNode, useRef, useState } from 'react';
 import { AlbumTrackWithImage } from '../types/AlbumTrackWithImage';
 import { getPriorityQueueSessionStorage } from '../functions/sessionStorage/priorityQueue/getPriorityQueueSessionStorage';
+import { getPlaylistQueueSessionStorage } from '../functions/sessionStorage/playlistQueue/getPlaylistQueueSessionStorage';
 
 type QueueProviderProps = {
   children: ReactNode;
@@ -35,7 +36,7 @@ export const QueueProvider = ({ children }: QueueProviderProps) => {
 
   const [playlistQueue, setPlaylistQueue] = useState<
     SpotifyApi.PlaylistTrackObject[] | SpotifyApi.SingleAlbumResponse | undefined
-  >([]);
+  >(getPlaylistQueueSessionStorage() || []);
   const [playlistQueueIndex, setPlaylistQueueIndex] = useState<number>(0);
 
   const playlistQueueIndexRef = useRef(0);

@@ -7,6 +7,7 @@ import { usePlaySong } from '../hooks/spotifyPlayer/usePlaySong';
 import { useShuffleTracks } from '../hooks/spotifyPlayer/useShuffleTracks';
 import { useSpotifyPlayerContext } from '../hooks/context/useSpotifyPlayerContext';
 import { isPlaylistTrackObjectArray } from '../types/typeGuards/isPlaylistTrackObjectArray';
+import { addToPlaylistQueueSessionStorage } from '../functions/sessionStorage/playlistQueue/addToPlaylistQueueSessionStorage';
 
 type PlaylistDetails = {
   name: string;
@@ -73,6 +74,7 @@ export const PlaylistPagePlayButton = ({
             }
           }
       }
+      addToPlaylistQueueSessionStorage(currentQueue);
       return currentQueue;
     });
   };

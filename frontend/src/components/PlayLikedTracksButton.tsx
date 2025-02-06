@@ -7,6 +7,7 @@ import { useIndexPlaylistQueue } from '../hooks/spotifyPlayer/useIndexPlaylistQu
 import { usePlaySong } from '../hooks/spotifyPlayer/usePlaySong';
 import { useShuffleTracks } from '../hooks/spotifyPlayer/useShuffleTracks';
 import { isPlaylistTrackObjectArray } from '../types/typeGuards/isPlaylistTrackObjectArray';
+import { addToPlaylistQueueSessionStorage } from '../functions/sessionStorage/playlistQueue/addToPlaylistQueueSessionStorage';
 
 type PlayLikedTracksButtonProps = {
   likedTracks: SpotifyApi.SavedTrackObject[] | undefined;
@@ -48,7 +49,7 @@ export const PlayLikedTracksButton = ({ likedTracks }: PlayLikedTracksButtonProp
           'This custom hook is being used in the wrong place. Ensure that this is only being used for playing liked tracks, not playlist tracks or anything else.',
         );
       }
-
+      addToPlaylistQueueSessionStorage(currentQueue);
       return currentQueue;
     });
   };

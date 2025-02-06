@@ -7,6 +7,7 @@ import { usePlaySong } from '../../hooks/spotifyPlayer/usePlaySong';
 import { useShuffleTracks } from '../../hooks/spotifyPlayer/useShuffleTracks';
 import { isPlaylistTrackObjectArray } from '../../types/typeGuards/isPlaylistTrackObjectArray';
 import { isSingleAlbumResponse } from '../../types/typeGuards/isSIngleAlbumResponse';
+import { addToPlaylistQueueSessionStorage } from '../../functions/sessionStorage/playlistQueue/addToPlaylistQueueSessionStorage';
 
 type PlayAlbumTracksButtonProps = {
   album: SpotifyApi.SingleAlbumResponse | undefined;
@@ -62,7 +63,7 @@ export const PlayAlbumTracksPlayButton = ({ album }: PlayAlbumTracksButtonProps)
           console.error('Wrong type is specified');
         }
       }
-
+      addToPlaylistQueueSessionStorage(currentQueue);
       return currentQueue;
     });
   };
