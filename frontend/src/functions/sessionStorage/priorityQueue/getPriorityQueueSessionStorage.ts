@@ -5,7 +5,6 @@ export const getPriorityQueueSessionStorage = () => {
     const storedQueue = sessionStorage.getItem('priorityQueue');
     if (!storedQueue) return null;
 
-    // Parse session storage data
     const parsedQueue: (
       | SpotifyApi.PlaylistTrackObject
       | SpotifyApi.TrackObjectFull
@@ -13,11 +12,10 @@ export const getPriorityQueueSessionStorage = () => {
     )[] = JSON.parse(storedQueue);
 
     return parsedQueue.map(item => {
-      // If the item is a PlaylistTrackObject, extract its track property
       if ('track' in item) {
-        return item.track; // Returns TrackObjectFull from PlaylistTrackObject
+        return item.track;
       }
-      return item; // Otherwise, return the original item (TrackObjectFull or AlbumTrackWithImage)
+      return item;
     });
   } catch (error) {
     console.error('Failed to retrieve priorityQueue:', error);
