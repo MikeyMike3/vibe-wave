@@ -1,5 +1,6 @@
 import { createContext, ReactNode, useRef, useState } from 'react';
 import { AlbumTrackWithImage } from '../types/AlbumTrackWithImage';
+import { getPriorityQueueSessionStorage } from '../functions/sessionStorage/priorityQueue/getPriorityQueueSessionStorage';
 
 type QueueProviderProps = {
   children: ReactNode;
@@ -7,19 +8,22 @@ type QueueProviderProps = {
 
 type QueueContext = {
   priorityQueue: (SpotifyApi.TrackObjectFull | AlbumTrackWithImage)[] | null | undefined;
-  //prettier-ignore
-  setPriorityQueue: React.Dispatch<React.SetStateAction<(SpotifyApi.TrackObjectFull | AlbumTrackWithImage)[] | null | undefined>>;
+  setPriorityQueue: React.Dispatch<
+    React.SetStateAction<(SpotifyApi.TrackObjectFull | AlbumTrackWithImage)[] | null | undefined>
+  >;
 
   playlistQueue: SpotifyApi.PlaylistTrackObject[] | SpotifyApi.SingleAlbumResponse | undefined;
-  //prettier-ignore
-  setPlaylistQueue: React.Dispatch<React.SetStateAction<SpotifyApi.PlaylistTrackObject[] |  SpotifyApi.SingleAlbumResponse | undefined>>;
+  setPlaylistQueue: React.Dispatch<
+    React.SetStateAction<
+      SpotifyApi.PlaylistTrackObject[] | SpotifyApi.SingleAlbumResponse | undefined
+    >
+  >;
   playlistQueueIndex: number;
-  //prettier-ignore
-  setPlaylistQueueIndex: React.Dispatch<React.SetStateAction<number>>
-  //prettier-ignore
+  setPlaylistQueueIndex: React.Dispatch<React.SetStateAction<number>>;
   playlistQueueIndexRef: React.MutableRefObject<number>;
-  //prettier-ignore
-  unShuffledQueueRef: React.MutableRefObject<SpotifyApi.PlaylistTrackObject[] | SpotifyApi.SingleAlbumResponse | undefined>;
+  unShuffledQueueRef: React.MutableRefObject<
+    SpotifyApi.PlaylistTrackObject[] | SpotifyApi.SingleAlbumResponse | undefined
+  >;
 };
 
 const QueueContext = createContext<QueueContext | undefined>(undefined);
@@ -27,7 +31,8 @@ const QueueContext = createContext<QueueContext | undefined>(undefined);
 export const QueueProvider = ({ children }: QueueProviderProps) => {
   const [priorityQueue, setPriorityQueue] = useState<
     (SpotifyApi.TrackObjectFull | AlbumTrackWithImage)[] | null | undefined
-  >(null);
+  >(getPriorityQueueSessionStorage());
+
   const [playlistQueue, setPlaylistQueue] = useState<
     SpotifyApi.PlaylistTrackObject[] | SpotifyApi.SingleAlbumResponse | undefined
   >([]);
@@ -37,7 +42,6 @@ export const QueueProvider = ({ children }: QueueProviderProps) => {
   const unShuffledQueueRef = useRef<
     SpotifyApi.PlaylistTrackObject[] | SpotifyApi.SingleAlbumResponse
   >();
-
   return (
     <QueueContext.Provider
       value={{

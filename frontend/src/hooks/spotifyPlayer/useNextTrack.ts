@@ -1,3 +1,4 @@
+import { removeFirstFromPriorityQueueSessionData } from '../../functions/sessionStorage/priorityQueue/removeFirstFromPriorityQueueSessionData';
 import { isPlaylistTrackObjectArray } from '../../types/typeGuards/isPlaylistTrackObjectArray';
 import { isSingleAlbumResponse } from '../../types/typeGuards/isSIngleAlbumResponse';
 import { usePlaybackContext } from '../context/usePlaybackContext';
@@ -24,6 +25,7 @@ export const useNextTrack = () => {
     if (priorityQueue && priorityQueue.length > 0) {
       setPriorityQueue(prevQueue => {
         if (prevQueue) {
+          removeFirstFromPriorityQueueSessionData();
           return prevQueue.slice(1);
         }
         return [];

@@ -21,6 +21,7 @@ import { isSingleAlbumResponse } from '../../types/typeGuards/isSIngleAlbumRespo
 import { useDynamicImageBgColorContext } from '../../hooks/context/useDynamicImageBgColorContext';
 import { splitAlbumUri } from '../../functions/splitAlbumUri';
 import { VibeWaveTrackPlaceHolder } from './VibeWaveTrackPlaceHolder';
+import { removeFirstFromPriorityQueueSessionData } from '../../functions/sessionStorage/priorityQueue/removeFirstFromPriorityQueueSessionData';
 
 export const SpotifyPlayer = () => {
   const { player } = useSpotifyPlayerContext();
@@ -173,6 +174,7 @@ export const SpotifyPlayer = () => {
                 prevQueue.length > 0 &&
                 state.track_window.current_track?.name === prevQueue[0].name
               ) {
+                removeFirstFromPriorityQueueSessionData();
                 return prevQueue.slice(1);
               }
               return prevQueue;
@@ -182,6 +184,7 @@ export const SpotifyPlayer = () => {
             state.track_window.current_track?.name.includes(prevPriorityTrack[0])
           ) {
             setPriorityQueue(prevQueue => {
+              removeFirstFromPriorityQueueSessionData();
               return prevQueue?.slice(1);
             });
           }

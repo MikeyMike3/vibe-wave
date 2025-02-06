@@ -1,3 +1,4 @@
+import { addToPriorityQueueSessionStorage } from '../functions/sessionStorage/priorityQueue/addToPriorityQueueSessionStorage';
 import { useAddToPriorityQueue } from '../hooks/spotifyPlayer/useAddToPriorityQueue';
 import { AlbumTrackWithImage } from '../types/AlbumTrackWithImage';
 
@@ -16,6 +17,7 @@ export const AddToQueueButton = ({ track, setIsKebabMenuClicked }: AddToQueueBut
       onClick={() => {
         setIsKebabMenuClicked(false);
         addToPriorityQueue(track);
+        addToPriorityQueueSessionStorage(track);
       }}
     >
       Add to Queue
