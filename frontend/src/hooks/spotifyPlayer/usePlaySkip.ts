@@ -1,3 +1,4 @@
+import { addRepeatRefSessionStorage } from '../../functions/sessionStorage/playback/repeat/addRepeatRefToSessionStorage';
 import { AlbumTrackWithImage } from '../../types/AlbumTrackWithImage';
 import { isPlaylistTrackObjectArray } from '../../types/typeGuards/isPlaylistTrackObjectArray';
 import { isSingleAlbumResponse } from '../../types/typeGuards/isSIngleAlbumResponse';
@@ -36,6 +37,7 @@ export const usePlaySkip = () => {
     }
     if (repeatRef.current === 2) {
       repeatRef.current = 1;
+      addRepeatRefSessionStorage(1);
       setRepeat(1);
     }
 

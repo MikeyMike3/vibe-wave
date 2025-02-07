@@ -1,5 +1,6 @@
 import { createContext, ReactNode, useRef, useState } from 'react';
 import { getShuffleTracksRefSessionStorage } from '../functions/sessionStorage/playback/shuffle/getShuffleTracksRefSessionStorage';
+import { getRepeatRefSessionStorage } from '../functions/sessionStorage/playback/repeat/getRepeatRefSessionStorage';
 
 type PlaybackProvider = {
   children: ReactNode;
@@ -46,7 +47,7 @@ type PlaybackContext = {
 const PlaybackContext = createContext<PlaybackContext | undefined>(undefined);
 
 export const PlaybackProvider = ({ children }: PlaybackProvider) => {
-  const [repeat, setRepeat] = useState<number>(0);
+  const [repeat, setRepeat] = useState<number>(getRepeatRefSessionStorage() || 0);
   const [playerState, setPlayerState] = useState<Spotify.PlaybackState>();
   const [playerDuration, setPlayerDuration] = useState<string | number>('0');
   const [playerPosition, setPlayerPosition] = useState<string | number>('0');
@@ -57,7 +58,7 @@ export const PlaybackProvider = ({ children }: PlaybackProvider) => {
   );
   const [volume, setVolume] = useState<number>(10);
 
-  const repeatRef = useRef<number>(0);
+  const repeatRef = useRef<number>(getRepeatRefSessionStorage() || 0);
   const userSkippedTrackRef = useRef<boolean>(false);
   const userPreviousTrackRef = useRef<boolean>(false);
   const shuffleTracksRef = useRef<boolean>(getShuffleTracksRefSessionStorage() || false);

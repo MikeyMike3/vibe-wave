@@ -1,3 +1,4 @@
+import { addRepeatRefSessionStorage } from '../../functions/sessionStorage/playback/repeat/addRepeatRefToSessionStorage';
 import { removeFirstFromPriorityQueueSessionData } from '../../functions/sessionStorage/priorityQueue/removeFirstFromPriorityQueueSessionData';
 import { isPlaylistTrackObjectArray } from '../../types/typeGuards/isPlaylistTrackObjectArray';
 import { isSingleAlbumResponse } from '../../types/typeGuards/isSIngleAlbumResponse';
@@ -19,6 +20,7 @@ export const useNextTrack = () => {
 
     if (repeatRef.current === 2) {
       repeatRef.current = 1;
+      addRepeatRefSessionStorage(1);
       setRepeat(1);
     }
 

@@ -5,6 +5,7 @@ import { useIndexPlaylistQueue } from './useIndexPlaylistQueue';
 import { useSpotifyPlayerContext } from '../context/useSpotifyPlayerContext';
 import { isPlaylistTrackObjectArray } from '../../types/typeGuards/isPlaylistTrackObjectArray';
 import { isSingleAlbumResponse } from '../../types/typeGuards/isSIngleAlbumResponse';
+import { addRepeatRefSessionStorage } from '../../functions/sessionStorage/playback/repeat/addRepeatRefToSessionStorage';
 
 export const usePreviousTrack = () => {
   const { playlistQueue, playlistQueueIndexRef } = useQueueContext();
@@ -22,6 +23,7 @@ export const usePreviousTrack = () => {
 
     if (repeatRef.current === 2) {
       repeatRef.current = 1;
+      addRepeatRefSessionStorage(1);
       setRepeat(1);
     }
 

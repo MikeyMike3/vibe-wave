@@ -4,6 +4,7 @@ import { faRepeat1 } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
 
 import { usePlaybackContext } from '../../hooks/context/usePlaybackContext';
 import { useDynamicImageBgColorContext } from '../../hooks/context/useDynamicImageBgColorContext';
+import { addRepeatRefSessionStorage } from '../../functions/sessionStorage/playback/repeat/addRepeatRefToSessionStorage';
 
 export const RepeatButton = () => {
   const { repeat, setRepeat, repeatRef } = usePlaybackContext();
@@ -11,10 +12,12 @@ export const RepeatButton = () => {
 
   const handleClick = () => {
     setRepeat(repeat => repeat + 1);
+    addRepeatRefSessionStorage(repeatRef.current + 1);
     repeatRef.current++;
 
     if (repeatRef.current === 3) {
       setRepeat(0);
+      addRepeatRefSessionStorage(0);
       repeatRef.current = 0;
     }
   };
