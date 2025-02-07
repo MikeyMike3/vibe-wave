@@ -8,6 +8,7 @@ import { useShuffleTracks } from '../../hooks/spotifyPlayer/useShuffleTracks';
 import { isPlaylistTrackObjectArray } from '../../types/typeGuards/isPlaylistTrackObjectArray';
 import { isSingleAlbumResponse } from '../../types/typeGuards/isSIngleAlbumResponse';
 import { addToPlaylistQueueSessionStorage } from '../../functions/sessionStorage/playlistQueue/addToPlaylistQueueSessionStorage';
+import { addUnShuffledQueueRefSessionStorage } from '../../functions/sessionStorage/playback/shuffle/addUnShuffledQueueRefSessionStorage';
 
 type PlayAlbumTracksButtonProps = {
   album: SpotifyApi.SingleAlbumResponse | undefined;
@@ -35,8 +36,10 @@ export const PlayAlbumTracksPlayButton = ({ album }: PlayAlbumTracksButtonProps)
           if (currentQueue.length > 0) {
             indexPlaylistQueue(0, 'set');
             unShuffledQueueRef.current = currentQueue;
+            addUnShuffledQueueRefSessionStorage(unShuffledQueueRef);
             if (shuffleTracksRef.current) {
               shuffleTracks({ prevQueue: [...currentQueue] });
+              return;
             }
             if (!shuffleTracksRef.current) {
               playSongMutation({
@@ -49,8 +52,10 @@ export const PlayAlbumTracksPlayButton = ({ album }: PlayAlbumTracksButtonProps)
           if (currentQueue.tracks.items.length > 0) {
             indexPlaylistQueue(0, 'set');
             unShuffledQueueRef.current = currentQueue;
+            addUnShuffledQueueRefSessionStorage(unShuffledQueueRef);
             if (shuffleTracksRef.current) {
               shuffleTracks({ prevQueue: currentQueue });
+              return;
             }
             if (!shuffleTracksRef.current) {
               playSongMutation({

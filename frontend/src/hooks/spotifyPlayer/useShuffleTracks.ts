@@ -1,3 +1,5 @@
+import { addShuffleTracksRefSessionStorage } from '../../functions/sessionStorage/playback/shuffle/addShuffleTracksRefSessionStorage';
+import { addToPlaylistQueueSessionStorage } from '../../functions/sessionStorage/playlistQueue/addToPlaylistQueueSessionStorage';
 import { shuffleArray } from '../../functions/shuffleArray';
 import { isPlaylistTrackObjectArray } from '../../types/typeGuards/isPlaylistTrackObjectArray';
 import { isSingleAlbumResponse } from '../../types/typeGuards/isSIngleAlbumResponse';
@@ -22,6 +24,7 @@ export const useShuffleTracks = () => {
     const { prevQueue = [], shouldChangeState = false, dontPlaySong = false } = options;
     if (shouldChangeState) {
       shuffleTracksRef.current = !shuffleTracksRef.current;
+      addShuffleTracksRefSessionStorage(shuffleTracksRef.current);
       setShuffleTracksState(shuffle => !shuffle);
     }
 
@@ -37,10 +40,10 @@ export const useShuffleTracks = () => {
       const toBeShuffledQueue: SpotifyApi.PlaylistTrackObject[] = JSON.parse(
         JSON.stringify(unShuffledQueueRef.current),
       );
-
       const shuffledQueue: SpotifyApi.PlaylistTrackObject[] = shuffleArray(toBeShuffledQueue);
       indexPlaylistQueue(0, 'set');
       setPlaylistQueue(shuffledQueue);
+      addToPlaylistQueueSessionStorage(shuffledQueue);
       if (isPlaylistTrackObjectArray(prevQueue)) {
         if (prevQueue.length > 0 && !dontPlaySong) {
           playSongMutation({ uri: shuffledQueue[0].track?.uri, options: {} });
@@ -68,6 +71,7 @@ export const useShuffleTracks = () => {
 
       indexPlaylistQueue(0, 'set');
       setPlaylistQueue(shuffledQueue);
+      addToPlaylistQueueSessionStorage(shuffledQueue);
       if (isSingleAlbumResponse(prevQueue)) {
         if (prevQueue.tracks.items.length > 0) {
           playSongMutation({ uri: shuffledQueue.tracks.items[0].uri, options: {} });
@@ -80,8 +84,11 @@ export const useShuffleTracks = () => {
         let index = unShuffledQueueRef.current.findIndex(item => item.track?.id === currentTrack);
         index++;
         indexPlaylistQueue(index, 'set');
+        console.log(unShuffledQueueRef.current);
+        console.log(index);
 
         setPlaylistQueue(unShuffledQueueRef.current);
+        addToPlaylistQueueSessionStorage(unShuffledQueueRef.current);
       } else if (isSingleAlbumResponse(unShuffledQueueRef.current)) {
         const currentTrack = playerState?.track_window.current_track.id;
         let index = unShuffledQueueRef.current.tracks.items.findIndex(
@@ -89,7 +96,7 @@ export const useShuffleTracks = () => {
         );
         index++;
         indexPlaylistQueue(index, 'set');
-
+        addToPlaylistQueueSessionStorage(unShuffledQueueRef.current);
         setPlaylistQueue(unShuffledQueueRef.current);
       }
     }

@@ -1,3 +1,4 @@
+import { addToPlaylistQueueSessionStorage } from '../../functions/sessionStorage/playlistQueue/addToPlaylistQueueSessionStorage';
 import { useQueueContext } from '../../hooks/context/useQueueContext';
 import { isPlaylistTrackObjectArray } from '../../types/typeGuards/isPlaylistTrackObjectArray';
 import { isSingleAlbumResponse } from '../../types/typeGuards/isSIngleAlbumResponse';
@@ -34,6 +35,7 @@ export const useRemoveFromQueue = () => {
           }
           if (isPlaylistTrackObjectArray(prevQueue)) {
             const tempQueue = prevQueue?.filter((_, index) => index !== indexToRemove);
+            addToPlaylistQueueSessionStorage(tempQueue);
             return tempQueue;
           }
         });

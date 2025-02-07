@@ -6,6 +6,8 @@ import { usePlaySong } from './spotifyPlayer/usePlaySong';
 import { useIndexPlaylistQueue } from './spotifyPlayer/useIndexPlaylistQueue';
 import { useHeaders } from './apis/useHeaders';
 import { isPlaylistTrackObjectArray } from '../types/typeGuards/isPlaylistTrackObjectArray';
+import { addToPlaylistQueueSessionStorage } from '../functions/sessionStorage/playlistQueue/addToPlaylistQueueSessionStorage';
+import { addUnShuffledQueueRefSessionStorage } from '../functions/sessionStorage/playback/shuffle/addUnShuffledQueueRefSessionStorage';
 
 export const useGetPlaylistItemsAndPlay = (playlistId: string, playlistName: string) => {
   const { setPlaylistName, shuffleTracksRef, repeatRef, setRepeat, setPlaylistId } =
@@ -73,8 +75,10 @@ export const useGetPlaylistItemsAndPlay = (playlistId: string, playlistName: str
         if (currentQueue && isPlaylistTrackObjectArray(currentQueue) && currentQueue.length > 0) {
           indexPlaylistQueue(0, 'set');
           unShuffledQueueRef.current = currentQueue;
+          addUnShuffledQueueRefSessionStorage(unShuffledQueueRef);
           if (shuffleTracksRef.current) {
             shuffleTracks({ prevQueue: [...currentQueue] });
+            return;
           }
           if (!shuffleTracksRef.current) {
             playSongMutation({
@@ -87,7 +91,7 @@ export const useGetPlaylistItemsAndPlay = (playlistId: string, playlistName: str
             'This custom hook is being used in the wrong place. Ensure that this is only being used for getting and playing playlist tracks, not saved tracks or anything else.',
           );
         }
-
+        addToPlaylistQueueSessionStorage(currentQueue);
         return currentQueue;
       });
     }

@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useRef, useState } from 'react';
+import { getShuffleTracksRefSessionStorage } from '../functions/sessionStorage/playback/shuffle/getShuffleTracksRefSessionStorage';
 
 type PlaybackProvider = {
   children: ReactNode;
@@ -51,13 +52,15 @@ export const PlaybackProvider = ({ children }: PlaybackProvider) => {
   const [playerPosition, setPlayerPosition] = useState<string | number>('0');
   const [playlistName, setPlaylistName] = useState<string>('');
   const [playlistId, setPlaylistId] = useState<string>('');
-  const [shuffleTracksState, setShuffleTracksState] = useState<boolean>(false);
+  const [shuffleTracksState, setShuffleTracksState] = useState<boolean>(
+    getShuffleTracksRefSessionStorage() || false,
+  );
   const [volume, setVolume] = useState<number>(10);
 
   const repeatRef = useRef<number>(0);
   const userSkippedTrackRef = useRef<boolean>(false);
   const userPreviousTrackRef = useRef<boolean>(false);
-  const shuffleTracksRef = useRef<boolean>(false);
+  const shuffleTracksRef = useRef<boolean>(getShuffleTracksRefSessionStorage() || false);
   const isPausedRef = useRef<boolean>(false);
 
   return (

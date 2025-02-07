@@ -10,6 +10,8 @@ import { isSingleAlbumResponse } from '../../types/typeGuards/isSIngleAlbumRespo
 import { AlbumItemKebabMenu } from '../kebabMenu/AlbumItemKebabMenu';
 import { AlbumTrackInfo } from './AlbumTrackInfo';
 import { faPlay } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
+import { addToPlaylistQueueSessionStorage } from '../../functions/sessionStorage/playlistQueue/addToPlaylistQueueSessionStorage';
+import { addUnShuffledQueueRefSessionStorage } from '../../functions/sessionStorage/playback/shuffle/addUnShuffledQueueRefSessionStorage';
 
 type AlbumItemsTR = {
   position: number;
@@ -73,8 +75,10 @@ export const AlbumItemsTR = ({
         }
         indexPlaylistQueue(indexValue, 'set');
         unShuffledQueueRef.current = currentQueue;
+        addUnShuffledQueueRefSessionStorage(unShuffledQueueRef);
         if (shuffleTracksRef.current) {
           shuffleTracks({ prevQueue: currentQueue });
+          return;
         }
 
         playSongMutation({
@@ -84,7 +88,7 @@ export const AlbumItemsTR = ({
       } else {
         console.warn('Incorrect Data Type');
       }
-
+      addToPlaylistQueueSessionStorage(currentQueue);
       return currentQueue;
     });
   };

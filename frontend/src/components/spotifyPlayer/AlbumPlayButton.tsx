@@ -20,7 +20,6 @@ export const AlbumPlayButton = ({ albumId, name }: AlbumPlayButtonProps) => {
         onClick={e => {
           e.preventDefault();
           getAlbumItemsAndPlay();
-          //   getPlaylistItemsAndPlay();
         }}
       >
         <FontAwesomeIcon className="text-6xl" icon={faCirclePlay} color="magenta" />

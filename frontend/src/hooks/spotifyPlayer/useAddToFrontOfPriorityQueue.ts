@@ -1,3 +1,4 @@
+import { addToPriorityQueueSessionStorage } from '../../functions/sessionStorage/priorityQueue/addToPriorityQueueSessionStorage';
 import { AlbumTrackWithImage } from '../../types/AlbumTrackWithImage';
 import { useQueueContext } from '../context/useQueueContext';
 
@@ -8,13 +9,15 @@ export const useAddToFrontOfPriorityQueue = () => {
   ) => {
     setPriorityQueue(prevQueue => {
       if (prevQueue === null) {
-        // Handle the case where the queue is initially null
         if ('track' in track && track.track) {
-          return [track.track as SpotifyApi.TrackObjectFull]; // Handle PlaylistTrackObject with a track object
+          addToPriorityQueueSessionStorage(track);
+          return [track.track as SpotifyApi.TrackObjectFull];
         } else if ('album' in track) {
-          return [track as SpotifyApi.TrackObjectFull]; // Handle TrackObjectFull
+          addToPriorityQueueSessionStorage(track);
+          return [track as SpotifyApi.TrackObjectFull];
         } else if ('duration_ms' in track) {
-          return [track as AlbumTrackWithImage]; // Handle AlbumTrackWithImage
+          addToPriorityQueueSessionStorage(track);
+          return [track as AlbumTrackWithImage];
         } else {
           console.warn('Unexpected track type, cannot add to queue.');
           return prevQueue;
@@ -22,20 +25,20 @@ export const useAddToFrontOfPriorityQueue = () => {
       }
 
       if (Array.isArray(prevQueue)) {
-        // Handle the case where the queue is an array of SpotifyApi.TrackObjectFull[]
         if ('track' in track && track.track) {
+          addToPriorityQueueSessionStorage(track);
           return [track.track as SpotifyApi.TrackObjectFull, ...prevQueue];
         } else if ('album' in track) {
+          addToPriorityQueueSessionStorage(track);
           return [track as SpotifyApi.TrackObjectFull, ...prevQueue];
         } else if ('duration_ms' in track) {
+          addToPriorityQueueSessionStorage(track);
           return [track as AlbumTrackWithImage, ...prevQueue];
         } else {
           console.warn('Unexpected track type, cannot add to queue.');
           return prevQueue;
         }
       }
-
-      // Handle the case where the queue is AlbumTrackWithImage (if needed, you could extend this to merge with existing items)
       console.warn('Unexpected queue state, cannot add to queue.');
       return prevQueue;
     });

@@ -16,6 +16,7 @@ export const useAddToPriorityQueue = () => {
 
           return [track.track as SpotifyApi.TrackObjectFull];
         } else if ('album' in track) {
+          addToPriorityQueueSessionStorage(track);
           return [track as SpotifyApi.TrackObjectFull];
         } else if ('duration_ms' in track) {
           addToPriorityQueueSessionStorage(track);
@@ -24,11 +25,13 @@ export const useAddToPriorityQueue = () => {
       } else {
         // If the queue is already an array, add the new track to the end of the array
         if ('track' in track && track.track) {
-          console.log(prevQueue);
+          addToPriorityQueueSessionStorage(track);
           return [...(prevQueue ?? []), track.track as SpotifyApi.TrackObjectFull];
         } else if ('album' in track) {
+          addToPriorityQueueSessionStorage(track);
           return [...(prevQueue ?? []), track as SpotifyApi.TrackObjectFull];
         } else if ('duration_ms' in track) {
+          addToPriorityQueueSessionStorage(track);
           return [...(prevQueue ?? []), track as AlbumTrackWithImage];
         }
       }

@@ -3,6 +3,7 @@ import { AlbumTrackWithImage } from '../types/AlbumTrackWithImage';
 import { getPriorityQueueSessionStorage } from '../functions/sessionStorage/priorityQueue/getPriorityQueueSessionStorage';
 import { getPlaylistQueueSessionStorage } from '../functions/sessionStorage/playlistQueue/getPlaylistQueueSessionStorage';
 import { getPlaylistQueueIndexRefFromSessionStorage } from '../functions/sessionStorage/playlistQueue/getPlaylistQueueIndexRefToSessionStorage';
+import { getUnShuffledQueueRefSessionStorage } from '../functions/sessionStorage/playback/shuffle/getUnShuffledQueueRefSessionStorage';
 
 type QueueProviderProps = {
   children: ReactNode;
@@ -44,8 +45,8 @@ export const QueueProvider = ({ children }: QueueProviderProps) => {
 
   const playlistQueueIndexRef = useRef(getPlaylistQueueIndexRefFromSessionStorage() || 0);
   const unShuffledQueueRef = useRef<
-    SpotifyApi.PlaylistTrackObject[] | SpotifyApi.SingleAlbumResponse
-  >();
+    SpotifyApi.PlaylistTrackObject[] | SpotifyApi.SingleAlbumResponse | undefined
+  >(getUnShuffledQueueRefSessionStorage());
   return (
     <QueueContext.Provider
       value={{

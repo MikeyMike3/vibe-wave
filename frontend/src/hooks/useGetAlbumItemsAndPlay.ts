@@ -5,6 +5,8 @@ import { usePlaybackContext } from './context/usePlaybackContext';
 import { useIndexPlaylistQueue } from './spotifyPlayer/useIndexPlaylistQueue';
 import { usePlaySong } from './spotifyPlayer/usePlaySong';
 import { useShuffleTracks } from './spotifyPlayer/useShuffleTracks';
+import { addToPlaylistQueueSessionStorage } from '../functions/sessionStorage/playlistQueue/addToPlaylistQueueSessionStorage';
+import { addUnShuffledQueueRefSessionStorage } from '../functions/sessionStorage/playback/shuffle/addUnShuffledQueueRefSessionStorage';
 
 export const useGetAlbumItemsAndPlay = (albumId: string, albumName: string) => {
   const { album } = useFetchAlbum(albumId);
@@ -30,8 +32,10 @@ export const useGetAlbumItemsAndPlay = (albumId: string, albumName: string) => {
           if (currentQueue.tracks.items.length > 0) {
             indexPlaylistQueue(0, 'set');
             unShuffledQueueRef.current = currentQueue;
+            addUnShuffledQueueRefSessionStorage(unShuffledQueueRef);
             if (shuffleTracksRef.current) {
               shuffleTracks({ prevQueue: currentQueue });
+              return;
             }
             if (!shuffleTracksRef.current) {
               playSongMutation({
@@ -44,7 +48,8 @@ export const useGetAlbumItemsAndPlay = (albumId: string, albumName: string) => {
           console.error('Wrong type is specified');
         }
       }
-
+      addToPlaylistQueueSessionStorage(currentQueue);
+      addToPlaylistQueueSessionStorage(currentQueue);
       return currentQueue;
     });
   };

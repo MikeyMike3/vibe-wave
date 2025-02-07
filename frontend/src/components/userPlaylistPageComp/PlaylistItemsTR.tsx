@@ -11,6 +11,7 @@ import { usePlaybackContext } from '../../hooks/context/usePlaybackContext';
 import { isPlaylistTrackObjectArray } from '../../types/typeGuards/isPlaylistTrackObjectArray';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
+import { addToPlaylistQueueSessionStorage } from '../../functions/sessionStorage/playlistQueue/addToPlaylistQueueSessionStorage';
 
 type PlaylistItemsTR = {
   position: number;
@@ -86,7 +87,7 @@ export const PlaylistItemsTR = ({
       } else {
         console.warn('Incorrect Data Type');
       }
-
+      addToPlaylistQueueSessionStorage(currentQueue);
       return currentQueue;
     });
   };

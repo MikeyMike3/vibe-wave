@@ -8,6 +8,7 @@ import { usePlaySong } from '../hooks/spotifyPlayer/usePlaySong';
 import { useShuffleTracks } from '../hooks/spotifyPlayer/useShuffleTracks';
 import { isPlaylistTrackObjectArray } from '../types/typeGuards/isPlaylistTrackObjectArray';
 import { addToPlaylistQueueSessionStorage } from '../functions/sessionStorage/playlistQueue/addToPlaylistQueueSessionStorage';
+import { addUnShuffledQueueRefSessionStorage } from '../functions/sessionStorage/playback/shuffle/addUnShuffledQueueRefSessionStorage';
 
 type PlayLikedTracksButtonProps = {
   likedTracks: SpotifyApi.SavedTrackObject[] | undefined;
@@ -35,8 +36,10 @@ export const PlayLikedTracksButton = ({ likedTracks }: PlayLikedTracksButtonProp
       if (currentQueue && isPlaylistTrackObjectArray(currentQueue) && currentQueue.length > 0) {
         indexPlaylistQueue(0, 'set');
         unShuffledQueueRef.current = currentQueue;
+        addUnShuffledQueueRefSessionStorage(unShuffledQueueRef);
         if (shuffleTracksRef.current) {
           shuffleTracks({ prevQueue: [...currentQueue] });
+          return;
         }
         if (!shuffleTracksRef.current) {
           playSongMutation({
