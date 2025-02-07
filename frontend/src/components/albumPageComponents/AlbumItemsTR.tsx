@@ -12,6 +12,7 @@ import { AlbumTrackInfo } from './AlbumTrackInfo';
 import { faPlay } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
 import { addToPlaylistQueueSessionStorage } from '../../functions/sessionStorage/playlistQueue/addToPlaylistQueueSessionStorage';
 import { addUnShuffledQueueRefSessionStorage } from '../../functions/sessionStorage/playback/shuffle/addUnShuffledQueueRefSessionStorage';
+import { addRepeatRefSessionStorage } from '../../functions/sessionStorage/playback/repeat/addRepeatRefToSessionStorage';
 
 type AlbumItemsTR = {
   position: number;
@@ -55,6 +56,7 @@ export const AlbumItemsTR = ({
 
     if (repeatRef.current === 2) {
       setRepeat(1);
+      addRepeatRefSessionStorage(1);
       repeatRef.current = 1;
     }
 

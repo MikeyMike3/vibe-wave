@@ -12,6 +12,7 @@ import { isPlaylistTrackObjectArray } from '../../types/typeGuards/isPlaylistTra
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
 import { addToPlaylistQueueSessionStorage } from '../../functions/sessionStorage/playlistQueue/addToPlaylistQueueSessionStorage';
+import { addRepeatRefSessionStorage } from '../../functions/sessionStorage/playback/repeat/addRepeatRefToSessionStorage';
 
 type PlaylistItemsTR = {
   position: number;
@@ -60,6 +61,7 @@ export const PlaylistItemsTR = ({
 
     if (repeatRef.current === 2) {
       setRepeat(1);
+      addRepeatRefSessionStorage(1);
       repeatRef.current = 1;
     }
 

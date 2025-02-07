@@ -9,6 +9,7 @@ import { isPlaylistTrackObjectArray } from '../../types/typeGuards/isPlaylistTra
 import { isSingleAlbumResponse } from '../../types/typeGuards/isSIngleAlbumResponse';
 import { addToPlaylistQueueSessionStorage } from '../../functions/sessionStorage/playlistQueue/addToPlaylistQueueSessionStorage';
 import { addUnShuffledQueueRefSessionStorage } from '../../functions/sessionStorage/playback/shuffle/addUnShuffledQueueRefSessionStorage';
+import { addRepeatRefSessionStorage } from '../../functions/sessionStorage/playback/repeat/addRepeatRefToSessionStorage';
 
 type PlayAlbumTracksButtonProps = {
   album: SpotifyApi.SingleAlbumResponse | undefined;
@@ -27,6 +28,7 @@ export const PlayAlbumTracksPlayButton = ({ album }: PlayAlbumTracksButtonProps)
 
     if (repeatRef.current === 2) {
       setRepeat(1);
+      addRepeatRefSessionStorage(1);
       repeatRef.current = 1;
     }
 

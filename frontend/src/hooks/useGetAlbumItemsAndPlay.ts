@@ -7,6 +7,7 @@ import { usePlaySong } from './spotifyPlayer/usePlaySong';
 import { useShuffleTracks } from './spotifyPlayer/useShuffleTracks';
 import { addToPlaylistQueueSessionStorage } from '../functions/sessionStorage/playlistQueue/addToPlaylistQueueSessionStorage';
 import { addUnShuffledQueueRefSessionStorage } from '../functions/sessionStorage/playback/shuffle/addUnShuffledQueueRefSessionStorage';
+import { addRepeatRefSessionStorage } from '../functions/sessionStorage/playback/repeat/addRepeatRefToSessionStorage';
 
 export const useGetAlbumItemsAndPlay = (albumId: string, albumName: string) => {
   const { album } = useFetchAlbum(albumId);
@@ -23,6 +24,7 @@ export const useGetAlbumItemsAndPlay = (albumId: string, albumName: string) => {
 
     if (repeatRef.current === 2) {
       setRepeat(1);
+      addRepeatRefSessionStorage(1);
       repeatRef.current = 1;
     }
 

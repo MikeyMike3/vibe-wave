@@ -9,6 +9,7 @@ import { useShuffleTracks } from '../hooks/spotifyPlayer/useShuffleTracks';
 import { isPlaylistTrackObjectArray } from '../types/typeGuards/isPlaylistTrackObjectArray';
 import { addToPlaylistQueueSessionStorage } from '../functions/sessionStorage/playlistQueue/addToPlaylistQueueSessionStorage';
 import { addUnShuffledQueueRefSessionStorage } from '../functions/sessionStorage/playback/shuffle/addUnShuffledQueueRefSessionStorage';
+import { addRepeatRefSessionStorage } from '../functions/sessionStorage/playback/repeat/addRepeatRefToSessionStorage';
 
 type PlayLikedTracksButtonProps = {
   likedTracks: SpotifyApi.SavedTrackObject[] | undefined;
@@ -29,6 +30,7 @@ export const PlayLikedTracksButton = ({ likedTracks }: PlayLikedTracksButtonProp
 
     if (repeatRef.current === 2) {
       setRepeat(1);
+      addRepeatRefSessionStorage(1);
       repeatRef.current = 1;
     }
 

@@ -8,6 +8,7 @@ import { useShuffleTracks } from '../hooks/spotifyPlayer/useShuffleTracks';
 import { useSpotifyPlayerContext } from '../hooks/context/useSpotifyPlayerContext';
 import { isPlaylistTrackObjectArray } from '../types/typeGuards/isPlaylistTrackObjectArray';
 import { addToPlaylistQueueSessionStorage } from '../functions/sessionStorage/playlistQueue/addToPlaylistQueueSessionStorage';
+import { addRepeatRefSessionStorage } from '../functions/sessionStorage/playback/repeat/addRepeatRefToSessionStorage';
 
 type PlaylistDetails = {
   name: string;
@@ -52,6 +53,7 @@ export const PlaylistPagePlayButton = ({
 
     if (repeatRef.current === 2) {
       setRepeat(1);
+      addRepeatRefSessionStorage(1);
       repeatRef.current = 1;
     }
 
