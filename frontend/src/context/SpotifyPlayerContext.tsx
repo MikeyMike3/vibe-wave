@@ -59,19 +59,6 @@ export const SpotifyPlayerProvider = ({ children }: SpotifyProviderProps) => {
           spotifyPlayer.addListener('account_error', ({ message }) => console.error(message));
           spotifyPlayer.addListener('playback_error', ({ message }) => console.error(message));
 
-          // spotifyPlayer.addListener('player_state_changed', state => {
-          //   console.log('Player state changed:', state);
-
-          //   if (
-          //     state.track_window.current_track?.id === state.track_window.previous_tracks[0]?.id
-          //   ) {
-          //     console.log('play next');
-          //     playSong(spotifyPlayer, deviceIdRef.current, 'spotify:track:4XvcHTUfIlWfyJTRG0aqlo');
-          //   }
-
-          //   setPlayerState(state);
-          // });
-
           spotifyPlayer.connect().then(success => {
             if (success) {
               console.log('The Web Playback SDK successfully connected to Spotify!');
