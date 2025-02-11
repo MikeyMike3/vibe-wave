@@ -23,6 +23,7 @@ import { splitAlbumUri } from '../../functions/splitAlbumUri';
 import { VibeWaveTrackPlaceHolder } from './VibeWaveTrackPlaceHolder';
 import { removeFirstFromPriorityQueueSessionData } from '../../functions/sessionStorage/priorityQueue/removeFirstFromPriorityQueueSessionData';
 import { addCurrentlyPlayingTrackSessionStorage } from '../../functions/sessionStorage/playback/currentlyPlayingTrack/addCurrentlyPlayingTrackSessionStorage';
+import { addPlayerPositionSessionStorage } from '../../functions/sessionStorage/playback/playerPosition/addPlayerPositionSessionStorage';
 
 export const SpotifyPlayer = () => {
   const { player } = useSpotifyPlayerContext();
@@ -268,6 +269,7 @@ export const SpotifyPlayer = () => {
         const state = await player?.getCurrentState();
         if (state && !state.paused && state.position < state.duration) {
           setPlayerPosition(state.position);
+          addPlayerPositionSessionStorage(state.position);
         }
       } catch (error) {
         console.error('Error fetching player state:', error);

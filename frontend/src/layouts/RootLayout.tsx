@@ -7,6 +7,7 @@ import { getCurrentlyPlayingTrackSessionStorage } from '../functions/sessionStor
 import { usePlaySong } from '../hooks/spotifyPlayer/usePlaySong';
 import { useState, useEffect } from 'react';
 import { useSpotifyPlayerContext } from '../hooks/context/useSpotifyPlayerContext';
+import { getPlayerPositionSessionStorage } from '../functions/sessionStorage/playback/playerPosition/getPlayerPositionSessionStorage';
 
 export const RootLayout = () => {
   const playSongMutation = usePlaySong();
@@ -54,7 +55,7 @@ export const RootLayout = () => {
               onClick={() => {
                 playSongMutation({
                   uri: getCurrentlyPlayingTrackSessionStorage(),
-                  options: {},
+                  options: { seekTo: getPlayerPositionSessionStorage() },
                 });
                 setShowOverlay(false);
               }}

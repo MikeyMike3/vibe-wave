@@ -12,6 +12,7 @@ type PlaySongOptions = {
   shouldUnpause?: boolean;
   shouldClearQueue?: boolean;
   tempQueue?: SpotifyApi.PlaylistTrackObject[] | SpotifyApi.SingleAlbumResponse | undefined;
+  seekTo?: number;
 };
 
 export const usePlaySong = () => {
@@ -30,7 +31,7 @@ export const usePlaySong = () => {
   // if the song plays then quickly pauses then you need to set shouldUnpause to true
   const playSong = async (params: { uri: string | undefined; options: PlaySongOptions }) => {
     const { uri, options } = params;
-    const { shouldUnpause = false, shouldClearQueue = false, tempQueue = [] } = options;
+    const { shouldUnpause = false, shouldClearQueue = false, tempQueue = [], seekTo = 0 } = options;
 
     if (shouldUnpause) {
       isPausedRef.current = false;
@@ -175,6 +176,11 @@ export const usePlaySong = () => {
         if (response.ok) {
           userSkippedTrackRef.current = false;
           userPreviousTrackRef.current = false;
+          if (seekTo - 1000 > 0) {
+            player.seek(seekTo - 1000);
+          } else {
+            player.seek(0);
+          }
         }
       } catch (error) {
         if (error instanceof Error) {

@@ -3,6 +3,7 @@ import { usePlaybackContext } from '../../hooks/context/usePlaybackContext';
 import { formatTime } from '../../functions/formatTime';
 import { useSpotifyPlayerContext } from '../../hooks/context/useSpotifyPlayerContext';
 import { useDynamicImageBgColorContext } from '../../hooks/context/useDynamicImageBgColorContext';
+import { addPlayerPositionSessionStorage } from '../../functions/sessionStorage/playback/playerPosition/addPlayerPositionSessionStorage';
 
 export const ProgressTracker = () => {
   const { player } = useSpotifyPlayerContext();
@@ -40,6 +41,7 @@ export const ProgressTracker = () => {
   const handleMouseUp = () => {
     currentlySeekingRef.current = false;
     player?.seek(Number(playerPosition));
+    addPlayerPositionSessionStorage(Number(playerPosition));
   };
 
   return (
