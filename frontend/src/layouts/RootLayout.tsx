@@ -3,8 +3,28 @@ import { MobileNav } from '../components/nav/MobileNav';
 import { Outlet } from 'react-router-dom';
 import { SpotifyPlayer } from '../components/spotifyPlayer/SpotifyPlayer';
 import { SearchBar } from '../components/SearchBar';
+import { getCurrentlyPlayingTrackSessionStorage } from '../functions/sessionStorage/playback/currentlyPlayingTrack/getCurrentlyPlayingTrackSessionStorage';
+import { usePlaySong } from '../hooks/spotifyPlayer/usePlaySong';
+import { useState, useEffect } from 'react';
+import { useSpotifyPlayerContext } from '../hooks/context/useSpotifyPlayerContext';
 
 export const RootLayout = () => {
+  const playSongMutation = usePlaySong();
+  const { isPlayerReady } = useSpotifyPlayerContext();
+
+  const [showOverlay, setShowOverlay] = useState(false);
+
+  useEffect(() => {
+    // Detect page refresh
+    const navigationEntries = performance.getEntriesByType(
+      'navigation',
+    ) as PerformanceNavigationTiming[];
+    const isRefresh = navigationEntries.length > 0 && navigationEntries[0].type === 'reload';
+
+    if (isRefresh && getCurrentlyPlayingTrackSessionStorage()) {
+      setShowOverlay(true);
+    }
+  }, []);
   return (
     <>
       <div className="fixed top-0 grid h-screen w-full grid-cols-[300px_1fr] gap-2">
@@ -14,7 +34,6 @@ export const RootLayout = () => {
         </div>
         <div className="flex flex-col">
           <SearchBar />
-          {/* the height is very magic numbery */}
           <div
             className="overflow-y-auto rounded-3xl border-2 border-bgAccent"
             style={{ height: 'calc(100vh - 195px)' }}
@@ -24,6 +43,27 @@ export const RootLayout = () => {
           <SpotifyPlayer />
         </div>
       </div>
+
+      {showOverlay && isPlayerReady && getCurrentlyPlayingTrackSessionStorage() && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="rounded-lg bg-white p-6 text-center shadow-lg">
+            <h2 className="text-xl font-bold">Looks like you refreshed the page!</h2>
+            <p className="mt-2 text-gray-700">Click this button to resume playback.</p>
+            <button
+              className="text-black"
+              onClick={() => {
+                playSongMutation({
+                  uri: getCurrentlyPlayingTrackSessionStorage(),
+                  options: {},
+                });
+                setShowOverlay(false);
+              }}
+            >
+              Click
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 };

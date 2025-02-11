@@ -22,6 +22,7 @@ import { useDynamicImageBgColorContext } from '../../hooks/context/useDynamicIma
 import { splitAlbumUri } from '../../functions/splitAlbumUri';
 import { VibeWaveTrackPlaceHolder } from './VibeWaveTrackPlaceHolder';
 import { removeFirstFromPriorityQueueSessionData } from '../../functions/sessionStorage/priorityQueue/removeFirstFromPriorityQueueSessionData';
+import { addCurrentlyPlayingTrackSessionStorage } from '../../functions/sessionStorage/playback/currentlyPlayingTrack/addCurrentlyPlayingTrackSessionStorage';
 
 export const SpotifyPlayer = () => {
   const { player } = useSpotifyPlayerContext();
@@ -154,6 +155,10 @@ export const SpotifyPlayer = () => {
     const onPlayerStateChanged = (state: Spotify.PlaybackState) => {
       if (state.duration !== playerDuration) {
         setPlayerDuration(state.duration);
+      }
+
+      if (state.track_window.current_track.uri) {
+        addCurrentlyPlayingTrackSessionStorage(state.track_window.current_track.uri);
       }
 
       setPlayerPosition(state.position);
