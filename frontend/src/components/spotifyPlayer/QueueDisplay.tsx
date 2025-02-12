@@ -54,7 +54,7 @@ export const QueueDisplay = ({ queueSegment, setIsQueueSegmentOpen }: QueueDispl
         {playerState?.track_window.current_track && (
           <>
             <div className="flex items-center justify-between">
-              <h2 className="py-2 text-xl text-textPrimary"> Currently Playing</h2>
+              <h2 className="py-2 text-xl text-textPrimary"> Currently Playing:</h2>
               <button className="p-2 text-xl" onClick={() => setIsQueueSegmentOpen(false)}>
                 <FontAwesomeIcon className="p-2 duration-150 hover:text-aqua" icon={faX} />
               </button>
@@ -75,7 +75,7 @@ export const QueueDisplay = ({ queueSegment, setIsQueueSegmentOpen }: QueueDispl
 
         {priorityQueue && priorityQueue?.length > 0 && (
           <>
-            <h2 className="pb-2 text-xl text-textPrimary">Next in Queue</h2>
+            <h2 className="pb-2 text-xl text-textPrimary">Next in Queue:</h2>
             <div className="py-2">
               {priorityQueue.map((item, index) => {
                 const isTrackObjectFull = (
@@ -148,8 +148,8 @@ export const QueueDisplay = ({ queueSegment, setIsQueueSegmentOpen }: QueueDispl
             <>
               <h2 className="pb-2 text-xl text-textPrimary">
                 Next Up from:{' '}
-                <Link className="hover:underline" to={`/album/${playlistQueue.id}`}>
-                  {playlistQueue.name}
+                <Link className="hover:text-aqua hover:underline" to={`/album/${playlistId}`}>
+                  {playlistName}
                 </Link>
               </h2>
 

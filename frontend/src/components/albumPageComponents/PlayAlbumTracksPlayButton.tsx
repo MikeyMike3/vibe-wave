@@ -16,7 +16,8 @@ type PlayAlbumTracksButtonProps = {
 };
 
 export const PlayAlbumTracksPlayButton = ({ album }: PlayAlbumTracksButtonProps) => {
-  const { setPlaylistName, shuffleTracksRef, repeatRef, setRepeat } = usePlaybackContext();
+  const { setPlaylistName, setPlaylistId, shuffleTracksRef, repeatRef, setRepeat } =
+    usePlaybackContext();
   const { setPlaylistQueue, unShuffledQueueRef } = useQueueContext();
   const shuffleTracks = useShuffleTracks();
   const playSongMutation = usePlaySong();
@@ -24,7 +25,10 @@ export const PlayAlbumTracksPlayButton = ({ album }: PlayAlbumTracksButtonProps)
 
   const handleClick = () => {
     setPlaylistQueue(album);
-    setPlaylistName('Liked Songs');
+    if (album) {
+      setPlaylistName(album?.name);
+      setPlaylistId(album.id);
+    }
 
     if (repeatRef.current === 2) {
       setRepeat(1);

@@ -1,6 +1,10 @@
-import { createContext, ReactNode, useRef, useState } from 'react';
+import { createContext, ReactNode, useEffect, useRef, useState } from 'react';
 import { getShuffleTracksRefSessionStorage } from '../functions/sessionStorage/playback/shuffle/getShuffleTracksRefSessionStorage';
 import { getRepeatRefSessionStorage } from '../functions/sessionStorage/playback/repeat/getRepeatRefSessionStorage';
+import { addPlaylistIdSessionStorage } from '../functions/sessionStorage/playback/playlist/playlistId/addPlaylistIdSessionStorage';
+import { addPlaylistNameSessionStorage } from '../functions/sessionStorage/playback/playlist/playlistName/addPlaylistNameSessionStorage';
+import { getPlaylistNameSessionStorage } from '../functions/sessionStorage/playback/playlist/playlistName/getPlaylistNameSessionStorage';
+import { getPlaylistIdSessionStorage } from '../functions/sessionStorage/playback/playlist/playlistId/getPlaylistIdSessionStorage';
 
 type PlaybackProvider = {
   children: ReactNode;
@@ -51,8 +55,8 @@ export const PlaybackProvider = ({ children }: PlaybackProvider) => {
   const [playerState, setPlayerState] = useState<Spotify.PlaybackState>();
   const [playerDuration, setPlayerDuration] = useState<string | number>('0');
   const [playerPosition, setPlayerPosition] = useState<string | number>('0');
-  const [playlistName, setPlaylistName] = useState<string>('');
-  const [playlistId, setPlaylistId] = useState<string>('');
+  const [playlistName, setPlaylistName] = useState<string>(getPlaylistNameSessionStorage() || '');
+  const [playlistId, setPlaylistId] = useState<string>(getPlaylistIdSessionStorage() || '');
   const [shuffleTracksState, setShuffleTracksState] = useState<boolean>(
     getShuffleTracksRefSessionStorage() || false,
   );
@@ -63,6 +67,11 @@ export const PlaybackProvider = ({ children }: PlaybackProvider) => {
   const userPreviousTrackRef = useRef<boolean>(false);
   const shuffleTracksRef = useRef<boolean>(getShuffleTracksRefSessionStorage() || false);
   const isPausedRef = useRef<boolean>(false);
+
+  useEffect(() => {
+    addPlaylistIdSessionStorage(playlistId);
+    addPlaylistNameSessionStorage(playlistName);
+  }, [playlistId, playlistName]);
 
   return (
     <PlaybackContext.Provider
