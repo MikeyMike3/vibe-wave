@@ -1,4 +1,5 @@
 import { addRepeatRefSessionStorage } from '../../functions/sessionStorage/playback/repeat/addRepeatRefToSessionStorage';
+import { setPriorityQueueSessionStorage } from '../../functions/sessionStorage/priorityQueue/setPriorityQueueSessionStorage';
 import { AlbumTrackWithImage } from '../../types/AlbumTrackWithImage';
 import { isPlaylistTrackObjectArray } from '../../types/typeGuards/isPlaylistTrackObjectArray';
 import { isSingleAlbumResponse } from '../../types/typeGuards/isSIngleAlbumResponse';
@@ -56,6 +57,7 @@ export const usePlaySkip = () => {
           return null;
         }
         const tempQueue = prevQueue.filter((_, index) => index !== indexToPlayAndRemove);
+        setPriorityQueueSessionStorage(tempQueue);
         return tempQueue.length > 0 ? tempQueue : null;
       });
     } else if (shouldIndexPlaylistQueue && playlistQueue) {
