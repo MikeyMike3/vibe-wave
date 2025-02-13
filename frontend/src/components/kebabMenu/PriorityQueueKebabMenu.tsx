@@ -81,7 +81,7 @@ export const PriorityQueueKebabMenu = ({ track, queueDisplayRef }: PriorityQueue
       <div
         style={menuStyle}
         ref={dropdownRef}
-        className={`${isKebabMenuClicked ? 'block' : 'hidden'} ' absolute right-11 flex flex-col gap-4 rounded-xl bg-bgPrimary p-4`}
+        className={`${isKebabMenuClicked ? 'block' : 'hidden'} ' absolute right-11 flex w-[230px] flex-col gap-4 rounded-xl bg-bgPrimary p-4`}
       >
         {track && 'uri' in track ? (
           <>

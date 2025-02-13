@@ -82,7 +82,7 @@ export const PlaylistQueueKebabMenu = ({ track, queueDisplayRef }: PlaylistQueue
       <div
         ref={dropdownRef}
         style={menuStyle}
-        className={`${isKebabMenuClicked ? 'block' : 'hidden'} ' absolute right-11 flex flex-col gap-4 rounded-xl bg-bgPrimary p-4`}
+        className={`${isKebabMenuClicked ? 'block' : 'hidden'} ' absolute right-11 flex w-[230px] flex-col gap-4 rounded-xl bg-bgPrimary p-4`}
       >
         <PlaySkipButton
           name={track.track?.name}

@@ -1,5 +1,7 @@
 import { usePlaySkip } from '../../hooks/spotifyPlayer/usePlaySkip';
 import { AlbumTrackWithImage } from '../../types/AlbumTrackWithImage';
+import { faCirclePlay } from '@awesome.me/kit-71c07605c0/icons/sharp/regular';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 type PlaySkipButtonProps = {
   name: string | undefined;
@@ -29,7 +31,7 @@ export const PlaySkipButton = ({
 
   return (
     <button
-      className="text-textPrimary duration-150 hover:text-textHover"
+      className="w-full text-left text-textPrimary duration-150 hover:text-aqua"
       onClick={() => {
         setIsKebabMenuClicked(false);
         if (shouldIndexPriorityQueue) {
@@ -41,7 +43,10 @@ export const PlaySkipButton = ({
         }
       }}
     >
-      PlaySkip
+      <div className="flex items-center gap-2">
+        <FontAwesomeIcon icon={faCirclePlay} className="text-xl" />
+        Play Song
+      </div>
     </button>
   );
 };

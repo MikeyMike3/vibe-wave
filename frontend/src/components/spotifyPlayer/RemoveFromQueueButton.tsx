@@ -1,4 +1,6 @@
 import { useRemoveFromQueue } from '../../hooks/spotifyPlayer/useRemoveFromQueue';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@awesome.me/kit-71c07605c0/icons/sharp/regular';
 
 type RemoveFromQueueButtonProps = {
   name: string | undefined;
@@ -26,7 +28,7 @@ export const RemoveFromQueueButton = ({
 
   return (
     <button
-      className="text-textPrimary duration-150 hover:text-textHover"
+      className="w-full text-left text-textPrimary duration-150 hover:text-aqua"
       onClick={() => {
         setIsKebabMenuClicked(false);
         if (shouldIndexPriorityQueue) {
@@ -36,7 +38,10 @@ export const RemoveFromQueueButton = ({
         }
       }}
     >
-      RemoveFromQueue
+      <div className="flex items-center gap-2">
+        <FontAwesomeIcon icon={faTrash} className="text-xl" />
+        Remove From Queue
+      </div>
     </button>
   );
 };

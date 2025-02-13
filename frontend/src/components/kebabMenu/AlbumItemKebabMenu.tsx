@@ -38,7 +38,7 @@ export const AlbumItemKebabMenu = ({ track }: AlbumItemKebabMenuProps) => {
       </button>
 
       <div
-        className={`${isKebabMenuClicked ? 'block' : 'hidden'} absolute bottom-0 right-11 flex flex-col gap-4 rounded-xl bg-bgPrimary p-4`}
+        className={`${isKebabMenuClicked ? 'block' : 'hidden'} absolute bottom-0 right-11 flex w-[230px] flex-col gap-4 rounded-xl bg-bgPrimary p-4`}
       >
         <PlaySkipButton
           name={track.name}
