@@ -47,11 +47,11 @@ export const RootLayout = () => {
 
       {showOverlay && isPlayerReady && getCurrentlyPlayingTrackSessionStorage() && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="rounded-lg bg-white p-6 text-center shadow-lg">
-            <h2 className="text-xl font-bold">Looks like you refreshed the page!</h2>
-            <p className="mt-2 text-gray-700">Click this button to resume playback.</p>
+          <div className="rounded-lg border-2 border-magenta bg-black p-6 text-center shadow-lg">
+            <h2 className="text-xl font-bold text-aqua">Looks like you refreshed the page!</h2>
+            <p className="mt-2 text-base text-textPrimary">Click this button to resume playback.</p>
             <button
-              className="text-black"
+              className="mt-2 rounded-xl border-[1px] border-textPrimary px-4 py-1 text-base text-textPrimary duration-200 hover:border-aqua hover:text-aqua"
               onClick={() => {
                 playSongMutation({
                   uri: getCurrentlyPlayingTrackSessionStorage(),
@@ -60,7 +60,7 @@ export const RootLayout = () => {
                 setShowOverlay(false);
               }}
             >
-              Click
+              Click Me!
             </button>
           </div>
         </div>
