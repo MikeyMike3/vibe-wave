@@ -1,4 +1,4 @@
-import spotifyImage from '../assets/imgs/Primary_Logo_White_CMYK.svg';
+// import spotifyImage from '../assets/imgs/Primary_Logo_White_CMYK.svg';
 
 type OpenInSpotifyButtonProps = {
   spotifyUrl: string | undefined;
@@ -10,7 +10,8 @@ export const OpenInSpotifyButton = ({ spotifyUrl }: OpenInSpotifyButtonProps) =>
       <a target="_blank" href={spotifyUrl}>
         <button className="w-full text-left text-textPrimary duration-150 hover:text-aqua">
           <div className="flex items-center gap-2">
-            <img src={spotifyImage} className="w-6" />
+            <i className="fa-brands fa-spotify text-xl"></i>
+            {/* <img src={spotifyImage} className="w-6" /> */}
             Open In Spotify
           </div>
         </button>
