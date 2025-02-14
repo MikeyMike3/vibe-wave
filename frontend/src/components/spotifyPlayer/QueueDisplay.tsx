@@ -44,9 +44,7 @@ export const QueueDisplay = ({ queueSegment, setIsQueueSegmentOpen }: QueueDispl
           !isSingleAlbumResponse(playlistQueue) ||
           playlistQueue.tracks.items.length === 0) && (
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-            <p className="text-center text-xl text-textPrimary">
-              Queue’s a ghost town, drop some heat
-            </p>
+            <p className="text-center text-xl text-aqua">Queue’s a ghost town, drop some heat</p>
           </div>
         )}
 
