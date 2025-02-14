@@ -17,6 +17,16 @@ export const Search = () => {
 
   return (
     <Wrapper>
+      {!searchResults.albums && !searchResults.artists && !searchResults.tracks && (
+        <div className="relative" style={{ height: 'calc(100vh - 240px)' }}>
+          <div className="absolute inset-0 flex h-full items-center justify-center bg-black bg-opacity-50">
+            <p className="text-xl text-aqua">
+              Search a song, artist, or an album and set the vibe!
+            </p>
+          </div>
+        </div>
+      )}
+
       {searchResults.albums && searchResults.artists && searchResults.tracks && (
         <>
           <div className="flex gap-4 pb-4 text-white">
