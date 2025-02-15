@@ -9,7 +9,7 @@ export const useFetchHomePageData = () => {
       if (!response.ok) {
         throw new Error('Error fetching new album releases');
       }
-      const data = await response.json();
+      const data: SpotifyApi.ListOfNewReleasesResponse = await response.json();
       return data;
     } catch (error) {
       console.error('Error fetching new album releases', error);

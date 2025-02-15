@@ -13,6 +13,7 @@ type AuthContext = {
   accessToken: string;
   userId: string;
   login: (code: string) => Promise<void>
+  userDisplayName: string;
 };
 
 const AuthContext = createContext<AuthContext | undefined>(undefined);
@@ -27,6 +28,7 @@ export const AuthProvider  = ({ children }: AuthProviderProps) => {
   const [userId, setUserId] = useState(sessionStorage.getItem('userId') || "");
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(sessionStorage.getItem('isUserLoggedIn') === "true" || false)
   const [isUserPremiumMember, setIsUserPremiumMember] = useState(sessionStorage.getItem('isUserPremiumMember') === "true" || false)
+  const [userDisplayName, setUserDisplayName] = useState<string>(sessionStorage.getItem("userDisplayName") ||"")
 
   const minutesToSeconds= (minutes: number):number => {
     return minutes * 60;
@@ -68,6 +70,8 @@ export const AuthProvider  = ({ children }: AuthProviderProps) => {
         const apiHeaders = headers(sessionStorage.getItem('accessToken'))
 
         axios.get('https://api.spotify.com/v1/me',apiHeaders).then( res => {
+
+          console.log(res)
           
           if(res.data.product === "premium"){
             setIsUserPremiumMember(true);
@@ -75,6 +79,8 @@ export const AuthProvider  = ({ children }: AuthProviderProps) => {
           };
 
           setUserId(res.data.id);
+          setUserDisplayName(res.data.display_name);
+          sessionStorage.setItem("userDisplayName", res.data.display_name);
           sessionStorage.setItem("userId", res.data.id);
         
         });
@@ -156,7 +162,7 @@ export const AuthProvider  = ({ children }: AuthProviderProps) => {
     };
   }, [refreshToken, expiresIn, REFRESH_INTERVAL_BUFFER_TIME, refreshAccessToken ,REFRESH_BUFFER_IN_SECONDS]);
 
-  return <AuthContext.Provider value={{ accessToken, login, userId, isUserLoggedIn, isUserPremiumMember }}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ accessToken, login, userId, isUserLoggedIn, isUserPremiumMember, userDisplayName }}>{children}</AuthContext.Provider>;
 };
 
 export { AuthContext };
