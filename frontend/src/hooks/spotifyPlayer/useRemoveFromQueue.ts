@@ -1,4 +1,5 @@
 import { addToPlaylistQueueSessionStorage } from '../../functions/sessionStorage/playlistQueue/addToPlaylistQueueSessionStorage';
+import { setPriorityQueueSessionStorage } from '../../functions/sessionStorage/priorityQueue/setPriorityQueueSessionStorage';
 import { useQueueContext } from '../../hooks/context/useQueueContext';
 import { isPlaylistTrackObjectArray } from '../../types/typeGuards/isPlaylistTrackObjectArray';
 import { isSingleAlbumResponse } from '../../types/typeGuards/isSIngleAlbumResponse';
@@ -22,6 +23,7 @@ export const useRemoveFromQueue = () => {
       const indexToRemove = priorityQueue.findIndex(item => item.name === name);
       setPriorityQueue(prevQueue => {
         const tempQueue = prevQueue?.filter((_, index) => index !== indexToRemove);
+        setPriorityQueueSessionStorage(tempQueue);
         return tempQueue;
       });
     } else if (shouldIndexPlaylistQueue && playlistQueue) {
