@@ -10,9 +10,14 @@ export const addToPriorityQueueSessionStorage = (
       | SpotifyApi.PlaylistTrackObject
       | SpotifyApi.TrackObjectFull
       | AlbumTrackWithImage
-    )[] = storedQueue ? JSON.parse(storedQueue) : [];
-    queue.push(track);
+    )[] = storedQueue ? (JSON.parse(storedQueue) ?? []) : [];
 
+    if (!Array.isArray(queue)) {
+      console.error('priorityQueue is not an array:', queue);
+      return;
+    }
+
+    queue.push(track);
     sessionStorage.setItem('priorityQueue', JSON.stringify(queue));
   } catch (error) {
     console.error('Failed to update priorityQueue:', error);
