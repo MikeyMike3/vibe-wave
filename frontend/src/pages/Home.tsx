@@ -26,10 +26,11 @@ export const Home = () => {
   }
   return (
     <Wrapper>
-      <h1 className="text-white">
-        Vibes start here {getUserFirstName(userDisplayName)}! Just hit play.
+      <h1 className="pb-6 text-5xl font-semibold text-aqua">
+        Vibe starts here <span className="text-magenta">{getUserFirstName(userDisplayName)}</span>,
+        Just hit play.
       </h1>
-      <h2 className="text-white">Some of your top tracks are below!</h2>
+      <h2 className="pb-2 text-2xl text-magenta">Your Top Tracks:</h2>
       <PlaylistItemsTable shouldIncludeAlbum={true}>
         {homePageData?.topTracks.items
           .slice(0, 10)
@@ -47,13 +48,13 @@ export const Home = () => {
             />
           ))}
       </PlaylistItemsTable>
-      <h2>Some of your top artists!</h2>
+      <h2 className="pb-2 pt-4 text-2xl text-magenta">Your Top Artists:</h2>
       <div className="flex gap-7 overflow-x-scroll pb-4" style={{ width: 'calc(100vw - 360px)' }}>
         {homePageData?.topArtists?.items.map(item => (
           <SearchResultArtistItem key={item.id} artist={item} />
         ))}
       </div>
-      <h2> Upcoming Albums!</h2>
+      <h2 className="pb-2 pt-4 text-2xl text-magenta"> Recently Released Albums:</h2>
       <div className="flex gap-7 overflow-x-scroll pb-4" style={{ width: 'calc(100vw - 360px)' }}>
         {homePageData?.newAlbumReleases?.albums?.items.map(item => (
           <SearchResultAlbumItem key={item.id} album={item} />
