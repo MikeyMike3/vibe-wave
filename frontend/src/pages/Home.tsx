@@ -30,7 +30,7 @@ export const Home = () => {
         Vibe starts here <span className="text-magenta">{getUserFirstName(userDisplayName)}</span>,
         Just hit play.
       </h1>
-      <h2 className="pb-2 text-2xl text-magenta">Your Top Tracks:</h2>
+      <h2 className="pb-2 text-2xl text-textPrimary">Your Top Tracks:</h2>
       <PlaylistItemsTable shouldIncludeAlbum={true}>
         {homePageData?.topTracks.items
           .slice(0, 10)
@@ -48,13 +48,13 @@ export const Home = () => {
             />
           ))}
       </PlaylistItemsTable>
-      <h2 className="pb-2 pt-4 text-2xl text-magenta">Your Top Artists:</h2>
+      <h2 className="pb-2 pt-4 text-2xl text-textPrimary">Your Top Artists:</h2>
       <div className="flex gap-7 overflow-x-scroll pb-4" style={{ width: 'calc(100vw - 360px)' }}>
         {homePageData?.topArtists?.items.map(item => (
           <SearchResultArtistItem key={item.id} artist={item} />
         ))}
       </div>
-      <h2 className="pb-2 pt-4 text-2xl text-magenta"> Recently Released Albums:</h2>
+      <h2 className="pb-2 pt-4 text-2xl text-textPrimary"> Recently Released Albums:</h2>
       <div className="flex gap-7 overflow-x-scroll pb-4" style={{ width: 'calc(100vw - 360px)' }}>
         {homePageData?.newAlbumReleases?.albums?.items.map(item => (
           <SearchResultAlbumItem key={item.id} album={item} />
