@@ -10,12 +10,12 @@ import { ShuffleTracksButton } from '../components/spotifyPlayer/ShuffleTracksBu
 import { PlaylistItemsButtonsFlexContainer } from '../components/userPlaylistPageComp/PlaylistItemsButtonsFlexContainer';
 import { PlaylistItemsTable } from '../components/userPlaylistPageComp/PlaylistItemsTable';
 import { AlbumItemsTR } from '../components/albumPageComponents/AlbumItemsTR';
-import { getImageUrl } from '../functions/getImageUrl';
 import { PlaylistImage } from '../components/PlaylistImage';
 import { PlayAlbumTracksPlayButton } from '../components/albumPageComponents/PlayAlbumTracksPlayButton';
 import { useState } from 'react';
 import { UserItemsSearchBar } from '../components/UserItemsSearchBar';
 import { OpenInSpotifyButton } from '../components/OpenInSpotifyButton';
+import { AlbumTrackWithImage } from '../types/AlbumTrackWithImage';
 
 export const Album = () => {
   const { albumId } = useParams();
@@ -25,8 +25,6 @@ export const Album = () => {
     SpotifyApi.TrackObjectSimplified[] | undefined
   >();
   const [input, setInput] = useState('');
-
-  const image = getImageUrl(album?.images);
 
   const handleInputOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value;
@@ -88,11 +86,11 @@ export const Album = () => {
               <AlbumItemsTR
                 key={item.id || index} // Ensure a unique key
                 position={index + 1}
-                image={image}
+                images={(item as AlbumTrackWithImage).images}
                 trackName={item.name}
                 artists={item.artists}
                 trackLength={item.duration_ms}
-                track={item}
+                track={item as AlbumTrackWithImage}
                 trackId={item.id}
                 album={album}
                 filteredAlbumItemsArray={filteredAlbumItemsArray}

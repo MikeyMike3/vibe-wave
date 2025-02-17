@@ -11,7 +11,20 @@ export const useFetchAlbum = (albumId: string | undefined) => {
         throw new Error('error fetching albums');
       }
 
-      const data: SpotifyApi.SingleAlbumResponse = await response.json();
+      const album: SpotifyApi.SingleAlbumResponse = await response.json();
+
+      const data: SpotifyApi.SingleAlbumResponse = {
+        ...album,
+        tracks: {
+          ...album.tracks,
+          items: album.tracks.items.map(track => ({
+            ...track,
+            albumId: album.id,
+            images: album.images,
+          })),
+        },
+      };
+
       return data;
     } catch (error) {
       console.error('Error when fetching albums', error);

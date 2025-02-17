@@ -1,3 +1,4 @@
 export type AlbumTrackWithImage = SpotifyApi.TrackObjectSimplified & {
-  image: string;
+  images: Spotify.Image[];
+  albumId: string | undefined;
 };

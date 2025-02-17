@@ -6,16 +6,38 @@ import { AddToQueueButton } from '../AddToQueueButton';
 import { AddToFrontOfPriorityQueueButton } from '../AddToFrontOfPriorityQueueButton';
 import { RemoveFromQueueButton } from '../spotifyPlayer/RemoveFromQueueButton';
 import { OpenInSpotifyButton } from '../OpenInSpotifyButton';
+import { AlbumTrackWithImage } from '../../types/AlbumTrackWithImage';
 
 type PlaylistQueueKebabMenuProps = {
-  track: SpotifyApi.PlaylistTrackObject;
+  track: SpotifyApi.PlaylistTrackObject | AlbumTrackWithImage;
   //prettier-ignore
   queueDisplayRef: React.RefObject<HTMLDivElement>;
 };
 
+const isPlaylistTrack = (
+  track: SpotifyApi.PlaylistTrackObject | AlbumTrackWithImage,
+): track is SpotifyApi.PlaylistTrackObject =>
+  !!track &&
+  typeof track === 'object' &&
+  'track' in track &&
+  track.track !== null &&
+  typeof track.track === 'object' &&
+  'name' in track.track;
+
+const isAlbumTrackWithImage = (
+  track: SpotifyApi.PlaylistTrackObject | AlbumTrackWithImage,
+): track is AlbumTrackWithImage =>
+  !!track &&
+  typeof track === 'object' &&
+  'name' in track &&
+  'images' in track &&
+  Array.isArray(track.images) &&
+  'albumId' in track;
+
 export const PlaylistQueueKebabMenu = ({ track, queueDisplayRef }: PlaylistQueueKebabMenuProps) => {
   const [isKebabMenuClicked, setIsKebabMenuClicked] = useState<boolean>(false);
   const [menuStyle, setMenuStyle] = useState<React.CSSProperties>({});
+  const [tempKebabState, setTempKebabState] = useState(false);
   const menuRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -24,6 +46,7 @@ export const PlaylistQueueKebabMenu = ({ track, queueDisplayRef }: PlaylistQueue
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setIsKebabMenuClicked(false);
+        setTempKebabState(false);
       }
     };
 
@@ -34,7 +57,7 @@ export const PlaylistQueueKebabMenu = ({ track, queueDisplayRef }: PlaylistQueue
   }, [menuRef]);
 
   useEffect(() => {
-    if (isKebabMenuClicked && menuRef.current && dropdownRef.current && queueDisplayRef.current) {
+    if (tempKebabState && menuRef.current && dropdownRef.current && queueDisplayRef.current) {
       const menuRect = menuRef.current.getBoundingClientRect(); // Get kebab button position
       const dropdownHeight = dropdownRef.current.offsetHeight; // Get dropdown height
       const queueDisplayRect = queueDisplayRef.current.getBoundingClientRect(); // Get scrollable queueDisplay dimensions
@@ -65,14 +88,21 @@ export const PlaylistQueueKebabMenu = ({ track, queueDisplayRef }: PlaylistQueue
           bottom: 'auto',
         };
       }
-
+      setIsKebabMenuClicked(true);
       setMenuStyle(newStyle);
     }
-  }, [isKebabMenuClicked, queueDisplayRef]);
+  }, [tempKebabState, isKebabMenuClicked, queueDisplayRef]);
+
+  const handleClick = () => {
+    setTempKebabState(!tempKebabState);
+    if (tempKebabState) {
+      setIsKebabMenuClicked(false);
+    }
+  };
 
   return (
     <div className="relative">
-      <button ref={menuRef} onClick={() => setIsKebabMenuClicked(!isKebabMenuClicked)}>
+      <button ref={menuRef} onClick={handleClick}>
         <FontAwesomeIcon
           className="rounded-full p-2 px-4 text-xl text-textPrimary duration-150 hover:bg-bgAccentHover group-hover:text-aqua"
           icon={faEllipsisVerticalSolid}
@@ -85,9 +115,17 @@ export const PlaylistQueueKebabMenu = ({ track, queueDisplayRef }: PlaylistQueue
         className={`${isKebabMenuClicked ? 'block' : 'hidden'} ' absolute right-11 flex w-[230px] flex-col gap-4 rounded-xl bg-bgPrimary p-4`}
       >
         <PlaySkipButton
-          name={track.track?.name}
+          name={
+            isPlaylistTrack(track) && track.track
+              ? track.track.name
+              : isAlbumTrackWithImage(track)
+                ? track.name
+                : undefined
+          }
+          shouldPlaySong={true}
           shouldIndexPlaylistQueue={true}
           setIsKebabMenuClicked={setIsKebabMenuClicked}
+          track={track}
         />
         <div className="h-[2px] w-full bg-bgAccent" />
 
@@ -100,12 +138,27 @@ export const PlaylistQueueKebabMenu = ({ track, queueDisplayRef }: PlaylistQueue
         />
         <div className="h-[2px] w-full bg-bgAccent" />
         <RemoveFromQueueButton
-          name={track.track?.name}
+          name={
+            isPlaylistTrack(track) && track.track
+              ? track.track.name
+              : isAlbumTrackWithImage(track)
+                ? track.name
+                : undefined
+          }
           shouldIndexPlaylistQueue={true}
           setIsKebabMenuClicked={setIsKebabMenuClicked}
         />
+
         <div className="h-[2px] w-full bg-bgAccent" />
-        <OpenInSpotifyButton spotifyUrl={track.track?.external_urls.spotify} />
+        <OpenInSpotifyButton
+          spotifyUrl={
+            isPlaylistTrack(track) && track.track
+              ? track.track.external_urls?.spotify
+              : isAlbumTrackWithImage(track)
+                ? track.external_urls?.spotify
+                : undefined
+          }
+        />
       </div>
     </div>
   );

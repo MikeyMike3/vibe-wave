@@ -15,6 +15,7 @@ type PriorityQueueKebabMenuProps = {
 
 export const PriorityQueueKebabMenu = ({ track, queueDisplayRef }: PriorityQueueKebabMenuProps) => {
   const [isKebabMenuClicked, setIsKebabMenuClicked] = useState<boolean>(false);
+  const [tempKebabState, setTempKebabState] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const [menuStyle, setMenuStyle] = useState<React.CSSProperties>({});
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -24,6 +25,7 @@ export const PriorityQueueKebabMenu = ({ track, queueDisplayRef }: PriorityQueue
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setIsKebabMenuClicked(false);
+        setTempKebabState(false);
       }
     };
 
@@ -34,7 +36,7 @@ export const PriorityQueueKebabMenu = ({ track, queueDisplayRef }: PriorityQueue
   }, [menuRef]);
 
   useEffect(() => {
-    if (isKebabMenuClicked && menuRef.current && dropdownRef.current && queueDisplayRef.current) {
+    if (tempKebabState && menuRef.current && dropdownRef.current && queueDisplayRef.current) {
       const menuRect = menuRef.current.getBoundingClientRect(); // Get kebab button position
       const dropdownHeight = dropdownRef.current.offsetHeight; // Get dropdown height
       const queueDisplayRect = queueDisplayRef.current.getBoundingClientRect(); // Get scrollable queueDisplay dimensions
@@ -65,13 +67,20 @@ export const PriorityQueueKebabMenu = ({ track, queueDisplayRef }: PriorityQueue
           bottom: 'auto',
         };
       }
-
+      setIsKebabMenuClicked(true);
       setMenuStyle(newStyle);
     }
-  }, [isKebabMenuClicked, queueDisplayRef]);
+  }, [tempKebabState, isKebabMenuClicked, queueDisplayRef]);
+
+  const handleClick = () => {
+    setTempKebabState(!tempKebabState);
+    if (tempKebabState) {
+      setIsKebabMenuClicked(false);
+    }
+  };
   return (
     <div className="relative" ref={menuRef}>
-      <button onClick={() => setIsKebabMenuClicked(!isKebabMenuClicked)}>
+      <button onClick={handleClick}>
         <FontAwesomeIcon
           className="rounded-full p-2 px-4 text-xl text-aqua duration-150 hover:bg-bgAccentHover"
           icon={faEllipsisVerticalSolid}

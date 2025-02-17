@@ -3,16 +3,22 @@ import { Link } from 'react-router-dom';
 type AlbumTrackInfoProps = {
   name: string | undefined;
   artists: SpotifyApi.ArtistObjectSimplified[];
+  albumId?: string;
   image?: string | undefined;
 };
 
-export const AlbumTrackInfo = ({ name, artists, image }: AlbumTrackInfoProps) => {
+export const AlbumTrackInfo = ({ name, artists, image, albumId }: AlbumTrackInfoProps) => {
   return (
     <div className="flex items-center gap-2">
       {image && <img loading="lazy" className="h-20 w-20 rounded-md object-cover" src={image} />}
 
       <div className="flex flex-col">
-        <p className="text-smTitle text-textPrimary group-hover:text-aqua">{name}</p>
+        <Link
+          to={`/album/${albumId}`}
+          className="text-smTitle text-textPrimary hover:underline group-hover:text-aqua"
+        >
+          {name}
+        </Link>
 
         <span className="text-textAccent">
           {artists?.map((item, index) => {

@@ -13,15 +13,16 @@ import { faPlay } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
 import { addToPlaylistQueueSessionStorage } from '../../functions/sessionStorage/playlistQueue/addToPlaylistQueueSessionStorage';
 import { addUnShuffledQueueRefSessionStorage } from '../../functions/sessionStorage/playback/shuffle/addUnShuffledQueueRefSessionStorage';
 import { addRepeatRefSessionStorage } from '../../functions/sessionStorage/playback/repeat/addRepeatRefToSessionStorage';
+import { getImageUrl } from '../../functions/getImageUrl';
 
 type AlbumItemsTR = {
   position: number;
   trackName: string | undefined;
   artists: SpotifyApi.ArtistObjectSimplified[];
   trackLength: number | undefined;
-  track: SpotifyApi.TrackObjectSimplified;
+  track: AlbumTrackWithImage;
   trackId: string | undefined;
-  image: string;
+  images: Spotify.Image[];
   album: SpotifyApi.SingleAlbumResponse | undefined;
   filteredAlbumItemsArray: SpotifyApi.TrackObjectSimplified[] | undefined;
 };
@@ -33,7 +34,7 @@ export const AlbumItemsTR = ({
   trackLength,
   track,
   trackId,
-  image,
+  images,
   album,
   filteredAlbumItemsArray,
 }: AlbumItemsTR) => {
@@ -43,6 +44,8 @@ export const AlbumItemsTR = ({
   const shuffleTracks = useShuffleTracks();
   const playSongMutation = usePlaySong();
   const indexPlaylistQueue = useIndexPlaylistQueue();
+
+  const image = getImageUrl(images);
 
   const handleClick = () => {
     if (!album) {
@@ -94,10 +97,7 @@ export const AlbumItemsTR = ({
       return currentQueue;
     });
   };
-  const albumTrackWithImage: AlbumTrackWithImage = {
-    ...track, // Spread the original track properties
-    image: image, // Add the image property
-  };
+
   return (
     <tr key={trackId} className="group">
       <td className="p-2 group-hover:text-aqua">
@@ -108,11 +108,11 @@ export const AlbumItemsTR = ({
         </button>
       </td>
       <td className="p-2">
-        <AlbumTrackInfo name={trackName} artists={artists} />
+        <AlbumTrackInfo name={trackName} artists={artists} image={image} />
       </td>
       <td className="p-2 group-hover:text-aqua">{formatTime(trackLength)}</td>
       <td className="opacity-0 group-hover:opacity-100">
-        <AlbumItemKebabMenu track={albumTrackWithImage} />
+        <AlbumItemKebabMenu track={track} />
       </td>
     </tr>
   );
