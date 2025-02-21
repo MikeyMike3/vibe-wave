@@ -25,6 +25,7 @@ import { SavedAlbums } from './pages/SavedAlbums';
 
 import { UserPlaylistItems } from './pages/UserPlaylistItems';
 import { DynamicImageBgColorProvider } from './context/DynamicImageBgColorContext';
+import { MainDisplayRefProvider } from './context/MainDisplayRefContext';
 
 const queryClient = new QueryClient();
 
@@ -58,7 +59,9 @@ function App() {
             <PlaybackProvider>
               <SearchProvider>
                 <DynamicImageBgColorProvider>
-                  <RouterProvider router={router} />
+                  <MainDisplayRefProvider>
+                    <RouterProvider router={router} />
+                  </MainDisplayRefProvider>
                 </DynamicImageBgColorProvider>
               </SearchProvider>
             </PlaybackProvider>

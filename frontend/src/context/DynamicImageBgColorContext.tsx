@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useEffect, useRef, useState } from 'react';
+import { createContext, ReactNode, useEffect, useRef, useState, RefObject } from 'react';
 import { modifyDynamicBgColor } from '../functions/modifyDynamicBgColor';
 import { getLuminance } from '../functions/getLuminance';
 
@@ -19,6 +19,8 @@ type DynamicImageBgColorContext = {
   setDynamicImageBgColorMedium: React.Dispatch<React.SetStateAction<string>>;
 
   defaultColorRef: React.MutableRefObject<string>;
+
+  mainDisplayRef: RefObject<HTMLDivElement>;
 };
 
 const DynamicImageBgColorContext = createContext<DynamicImageBgColorContext | undefined>(undefined);
@@ -29,6 +31,8 @@ export const DynamicImageBgColorProvider = ({ children }: DynamicImageBgColorPro
   const [dynamicImageBgColorMuted, setDynamicImageBgColorMuted] = useState('');
   const [dynamicImageBgColorLighter, setDynamicImageBgColorLighter] = useState('');
   const [dynamicImageBgColorMedium, setDynamicImageBgColorMedium] = useState('');
+
+  const mainDisplayRef = useRef<HTMLDivElement | null>(null);
 
   const defaultColorRef = useRef<string>('rgba(255, 255, 255, 1)');
 
@@ -107,6 +111,7 @@ export const DynamicImageBgColorProvider = ({ children }: DynamicImageBgColorPro
         defaultColorRef,
         dynamicImageBgColorMedium,
         setDynamicImageBgColorMedium,
+        mainDisplayRef,
       }}
     >
       {children}

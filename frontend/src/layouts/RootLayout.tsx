@@ -8,10 +8,13 @@ import { usePlaySong } from '../hooks/spotifyPlayer/usePlaySong';
 import { useState, useEffect } from 'react';
 import { useSpotifyPlayerContext } from '../hooks/context/useSpotifyPlayerContext';
 import { getPlayerPositionSessionStorage } from '../functions/sessionStorage/playback/playerPosition/getPlayerPositionSessionStorage';
+import { useMainDisplayRefContext } from '../hooks/context/useMainDisplayRefContext';
 
 export const RootLayout = () => {
   const playSongMutation = usePlaySong();
   const { isPlayerReady } = useSpotifyPlayerContext();
+
+  const { mainDisplayRef } = useMainDisplayRefContext();
 
   const [showOverlay, setShowOverlay] = useState(false);
 
@@ -38,6 +41,7 @@ export const RootLayout = () => {
           <div
             className="overflow-y-auto rounded-3xl border-2 border-bgAccent"
             style={{ height: 'calc(100vh - 185px)' }}
+            ref={mainDisplayRef}
           >
             <Outlet />
           </div>

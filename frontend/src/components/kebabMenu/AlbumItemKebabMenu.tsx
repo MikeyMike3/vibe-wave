@@ -6,31 +6,81 @@ import { AddToQueueButton } from '../AddToQueueButton';
 import { PlaySkipButton } from '../spotifyPlayer/PlaySkipButton';
 import { AlbumTrackWithImage } from '../../types/AlbumTrackWithImage';
 import { OpenInSpotifyButton } from '../OpenInSpotifyButton';
+import { useMainDisplayRefContext } from '../../hooks/context/useMainDisplayRefContext';
 
 type AlbumItemKebabMenuProps = {
   track: AlbumTrackWithImage;
 };
 
 export const AlbumItemKebabMenu = ({ track }: AlbumItemKebabMenuProps) => {
+  const { mainDisplayRef } = useMainDisplayRefContext();
+
   const [isKebabMenuClicked, setIsKebabMenuClicked] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const [menuStyle, setMenuStyle] = useState<React.CSSProperties>({});
+  const [tempKebabState, setTempKebabState] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Detect clicks outside of the menu
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setIsKebabMenuClicked(false);
+        setTempKebabState(false);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('click', handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('click', handleClickOutside);
     };
   }, [menuRef]);
+
+  useEffect(() => {
+    if (tempKebabState && menuRef.current && dropdownRef.current && mainDisplayRef.current) {
+      const menuRect = menuRef.current.getBoundingClientRect();
+      const dropdownHeight = dropdownRef.current.offsetHeight;
+      const queueDisplayRect = mainDisplayRef.current.getBoundingClientRect();
+
+      // Calculate available space below the kebab button within the scrollable queueDisplay
+      const spaceAbove = menuRect.top - queueDisplayRect.top;
+      const spaceBelow = queueDisplayRect.bottom - menuRect.bottom;
+
+      let newStyle: React.CSSProperties = {};
+
+      // Check if there's enough space below for the dropdown within the queueDisplay
+      if (spaceBelow < dropdownHeight && spaceAbove < dropdownHeight) {
+        // If neither space above nor below is enough, set a fallback (e.g., within the container with scrolling)
+        newStyle = {
+          top: `-70px`,
+          bottom: 'auto',
+        };
+      } else if (spaceBelow < dropdownHeight) {
+        // If not enough space below, position the dropdown above the button
+        newStyle = {
+          top: 'auto',
+          bottom: `${queueDisplayRect.bottom / menuRect.top}px`,
+        };
+      } else {
+        // If enough space, position the dropdown below the button within the queueDisplay
+        newStyle = {
+          top: `0px`,
+          bottom: 'auto',
+        };
+      }
+      setIsKebabMenuClicked(true);
+      setMenuStyle(newStyle);
+    }
+  }, [tempKebabState, isKebabMenuClicked, mainDisplayRef]);
+
+  const handleClick = () => {
+    setTempKebabState(!tempKebabState);
+    if (tempKebabState) {
+      setIsKebabMenuClicked(false);
+    }
+  };
   return (
     <div className="relative" ref={menuRef}>
-      <button onClick={() => setIsKebabMenuClicked(!isKebabMenuClicked)}>
+      <button onClick={handleClick}>
         <FontAwesomeIcon
           className="rounded-full p-2 px-4 text-xl duration-150 hover:bg-bgAccentHover group-hover:text-aqua"
           icon={faEllipsisVerticalSolid}
@@ -38,6 +88,8 @@ export const AlbumItemKebabMenu = ({ track }: AlbumItemKebabMenuProps) => {
       </button>
 
       <div
+        ref={dropdownRef}
+        style={menuStyle}
         className={`${isKebabMenuClicked ? 'block' : 'hidden'} absolute bottom-0 right-11 flex w-[230px] flex-col gap-4 rounded-xl bg-bgPrimary p-4`}
       >
         <PlaySkipButton
