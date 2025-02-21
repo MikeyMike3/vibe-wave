@@ -7,11 +7,13 @@ type AddToFrontOfQueueProps = {
   track: SpotifyApi.TrackObjectFull | SpotifyApi.PlaylistTrackObject | AlbumTrackWithImage;
   // prettier-ignore
   setIsKebabMenuClicked: React.Dispatch<React.SetStateAction<boolean>>
+  setTempKebabState?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const AddToFrontOfPriorityQueueButton = ({
   track,
   setIsKebabMenuClicked,
+  setTempKebabState,
 }: AddToFrontOfQueueProps) => {
   const addToFrontOfPriorityQueue = useAddToFrontOfPriorityQueue();
 
@@ -20,6 +22,9 @@ export const AddToFrontOfPriorityQueueButton = ({
       className="w-full text-left text-textPrimary duration-150 hover:text-aqua"
       onClick={() => {
         setIsKebabMenuClicked(false);
+        if (setTempKebabState) {
+          setTempKebabState(false);
+        }
         addToFrontOfPriorityQueue(track);
       }}
     >

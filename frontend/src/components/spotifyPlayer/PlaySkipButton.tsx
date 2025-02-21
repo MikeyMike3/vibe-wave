@@ -11,6 +11,7 @@ type PlaySkipButtonProps = {
   track?: SpotifyApi.TrackObjectFull | SpotifyApi.PlaylistTrackObject | AlbumTrackWithImage;
   // prettier-ignore
   setIsKebabMenuClicked: React.Dispatch<React.SetStateAction<boolean>>
+  setTempKebabState?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const PlaySkipButton = ({
@@ -20,6 +21,7 @@ export const PlaySkipButton = ({
   shouldPlaySong,
   track,
   setIsKebabMenuClicked,
+  setTempKebabState,
 }: PlaySkipButtonProps) => {
   const playSkip = usePlaySkip();
   if (!shouldIndexPlaylistQueue && !shouldIndexPriorityQueue && !shouldPlaySong) {
@@ -34,6 +36,10 @@ export const PlaySkipButton = ({
       className="w-full text-left text-textPrimary duration-150 hover:text-aqua"
       onClick={() => {
         setIsKebabMenuClicked(false);
+        if (setTempKebabState) {
+          setTempKebabState(false);
+        }
+
         if (shouldIndexPriorityQueue) {
           playSkip(name, { shouldIndexPriorityQueue: true });
         } else if (shouldIndexPlaylistQueue) {
