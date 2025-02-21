@@ -10,7 +10,7 @@ type AlbumTrackInfoProps = {
 export const AlbumTrackInfo = ({ name, artists, image, albumId }: AlbumTrackInfoProps) => {
   return (
     <div className="flex items-center gap-2">
-      {image && <img loading="lazy" className="h-20 w-20 rounded-md object-cover" src={image} />}
+      {image && <img loading="lazy" className="h-16 w-16 rounded-md object-cover" src={image} />}
 
       <div className="flex flex-col">
         <Link

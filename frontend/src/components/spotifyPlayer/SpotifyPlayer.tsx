@@ -318,7 +318,7 @@ export const SpotifyPlayer = () => {
         />
       )}
 
-      <div className="mx-auto flex flex-col items-center gap-4">
+      <div className="mx-auto flex flex-col items-center gap-2">
         <div className="flex gap-10">
           <ShuffleTracksButton
             activeButtonColor={dynamicImageBgColorLighter}

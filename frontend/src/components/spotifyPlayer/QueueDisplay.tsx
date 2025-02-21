@@ -29,7 +29,7 @@ export const QueueDisplay = ({ queueSegment, setIsQueueSegmentOpen }: QueueDispl
   return (
     <div
       ref={queueDisplayRef}
-      className="absolute bottom-[112px] right-6 h-[500px] w-[500px] overflow-y-scroll rounded-2xl border-2"
+      className="absolute bottom-[102px] right-6 h-[500px] w-[500px] overflow-y-scroll rounded-2xl border-2"
       style={{
         backgroundColor: `${dynamicImageBgColorDark}`,
         borderColor: `${dynamicImageBgColorMuted}`,

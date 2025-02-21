@@ -37,7 +37,7 @@ export const RootLayout = () => {
           <SearchBar />
           <div
             className="overflow-y-auto rounded-3xl border-2 border-bgAccent"
-            style={{ height: 'calc(100vh - 195px)' }}
+            style={{ height: 'calc(100vh - 185px)' }}
           >
             <Outlet />
           </div>
