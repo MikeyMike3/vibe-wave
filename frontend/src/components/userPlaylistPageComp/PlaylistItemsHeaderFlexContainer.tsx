@@ -5,5 +5,5 @@ type PlaylistItemsHeaderFlexContainerProps = {
 export const PlaylistItemsHeaderFlexContainer = ({
   children,
 }: PlaylistItemsHeaderFlexContainerProps) => {
-  return <div className="flex flex-col gap-5">{children} </div>;
+  return <div className="flex flex-col gap-4">{children} </div>;
 };

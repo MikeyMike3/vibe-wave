@@ -53,8 +53,7 @@ export const Album = () => {
         <div className="flex">
           {/* @ts-expect-error the images below works as intended*/}
           <PlaylistImage images={album?.images} alt={album?.name} />
-          <div className="flex flex-col justify-end gap-3 pl-4">
-            <OpenInSpotifyButton spotifyUrl={album?.external_urls.spotify} />
+          <div className="flex flex-col justify-end gap-4 pl-4">
             <PlaylistItemsHeader
               playlistName={album?.name}
               playlistOwnerName={album?.artists[0].name}
@@ -63,6 +62,7 @@ export const Album = () => {
               artistId={album?.artists[0].id}
               albumReleaseDate={album?.release_date}
             />
+            <OpenInSpotifyButton spotifyUrl={album?.external_urls.spotify} />
             <UserItemsSearchBar
               handleInputChangeFunction={handleInputOnChange}
               placeholder="Search Album Tracks"

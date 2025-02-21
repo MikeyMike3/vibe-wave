@@ -67,19 +67,22 @@ export const Artist = () => {
             src={image}
             alt={`${artistDetails?.info.name}`}
           />
-          <div className="mt-auto flex flex-col gap-3">
+          <div className="mt-auto flex flex-col gap-2">
             <h1 className="text-3xl">{artistDetails?.info.name}</h1>
             <p>{formatNumber(artistDetails?.info.followers.total)} followers</p>
-            <div className="flex gap-4">
-              {artistDetails?.info.genres.map(item => (
-                <p
-                  key={item}
-                  className="rounded-3xl border-2 border-textPrimary px-4 py-2 text-textPrimary"
-                >
-                  {capitalizeFirstLetterOfEachWord(item)}
-                </p>
-              ))}
-            </div>
+            {artistDetails?.info.genres.length !== 0 && (
+              <div className="flex gap-4">
+                {artistDetails?.info.genres.map(item => (
+                  <p
+                    key={item}
+                    className="rounded-3xl border-2 border-textPrimary px-4 py-2 text-textPrimary"
+                  >
+                    {capitalizeFirstLetterOfEachWord(item)}
+                  </p>
+                ))}
+              </div>
+            )}
+
             <OpenInSpotifyButton spotifyUrl={artistDetails?.info.external_urls.spotify} />
           </div>
         </div>
