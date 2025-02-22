@@ -62,7 +62,7 @@ export const Album = () => {
               artistId={album?.artists[0].id}
               albumReleaseDate={album?.release_date}
             />
-            <OpenInSpotifyButton spotifyUrl={album?.external_urls.spotify} />
+            <OpenInSpotifyButton spotifyUrl={album?.external_urls.spotify} isNotFullWidth={true} />
             <UserItemsSearchBar
               handleInputChangeFunction={handleInputOnChange}
               placeholder="Search Album Tracks"

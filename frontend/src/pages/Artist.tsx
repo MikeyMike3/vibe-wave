@@ -83,7 +83,10 @@ export const Artist = () => {
               </div>
             )}
 
-            <OpenInSpotifyButton spotifyUrl={artistDetails?.info.external_urls.spotify} />
+            <OpenInSpotifyButton
+              spotifyUrl={artistDetails?.info.external_urls.spotify}
+              isNotFullWidth={true}
+            />
           </div>
         </div>
         <div className="mt-3">

@@ -73,7 +73,10 @@ export const UserPlaylistItems = () => {
                 placeholder="Search Playlist Songs"
                 handleInputChangeFunction={handleInputChange}
               />
-              <OpenInSpotifyButton spotifyUrl={playlistDetails?.external_urls.spotify} />
+              <OpenInSpotifyButton
+                spotifyUrl={playlistDetails?.external_urls.spotify}
+                isNotFullWidth={true}
+              />
             </PlaylistItemsHeaderFlexContainer>
 
             <PlaylistItemsButtonsFlexContainer>
