@@ -85,11 +85,11 @@ export const UserPlaylistItems = () => {
               <ShuffleTracksButton />
             </PlaylistItemsButtonsFlexContainer>
 
-            <PlaylistItemsTable shouldIncludeAlbum={true}>
-              {input.length > 0 && filteredPlaylistItems?.length === 0 ? (
-                <p>No Results Found.</p>
-              ) : (
-                (filteredPlaylistItems && filteredPlaylistItems?.length > 0
+            {input.length > 0 && filteredPlaylistItems?.length === 0 ? (
+              <p>No Results Found.</p>
+            ) : (
+              <PlaylistItemsTable shouldIncludeAlbum={true}>
+                {(filteredPlaylistItems && filteredPlaylistItems.length > 0
                   ? filteredPlaylistItems
                   : playlistItems?.items
                 )?.map((item, index) => (
@@ -109,9 +109,9 @@ export const UserPlaylistItems = () => {
                     playlistId={playlistId}
                     filteredPlaylist={filteredPlaylistItems}
                   />
-                ))
-              )}
-            </PlaylistItemsTable>
+                ))}
+              </PlaylistItemsTable>
+            )}
           </PlaylistTableColumnFlexContainer>
         </div>
         <div className="sticky top-5 overflow-y-auto" style={{ height: 'calc(100vh - 250px)' }}>
