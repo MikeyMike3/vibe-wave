@@ -31,7 +31,7 @@ export const RootLayout = () => {
   }, []);
   return (
     <>
-      <div className="fixed top-0 grid h-screen w-full grid-cols-[300px_1fr] gap-2">
+      <div className="fixed top-0 grid h-screen w-full grid-cols-[225px_1fr] gap-2">
         <div className="bg-black">
           <PCNav />
           <MobileNav />
