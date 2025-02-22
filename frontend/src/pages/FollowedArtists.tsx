@@ -23,7 +23,7 @@ export const FollowedArtists = () => {
     const lowerCaseInput = input.toLowerCase();
 
     const filtered = followedArtists?.artists.items.filter(item =>
-      item.name.includes(lowerCaseInput),
+      item.name.toLowerCase().includes(lowerCaseInput),
     );
     setFilteredFollowedArtists(filtered);
   };
