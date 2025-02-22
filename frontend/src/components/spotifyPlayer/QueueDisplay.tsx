@@ -36,18 +36,17 @@ export const QueueDisplay = ({ queueSegment, setIsQueueSegmentOpen }: QueueDispl
       }}
     >
       {/* this just checks to see if there are any tacks that are queued up or are currently playing. If not then it displays the empty Queue message */}
-      {((!playerState?.track_window.current_track && priorityQueue?.length === 0) ||
-        (priorityQueue?.length === 0 &&
-          (!playlistQueue ||
-            !isPlaylistTrackObjectArray(playlistQueue) ||
-            playlistQueue.length === 0) &&
-          (!playlistQueue ||
-            !isSingleAlbumResponse(playlistQueue) ||
-            playlistQueue.tracks.items.length === 0))) && (
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-          <p className="text-center text-xl text-aqua">Queue’s a ghost town, drop some heat</p>
-        </div>
-      )}
+      {!playerState?.track_window.current_track &&
+        (!playlistQueue ||
+          !isPlaylistTrackObjectArray(playlistQueue) ||
+          playlistQueue.length === 0) &&
+        (!playlistQueue ||
+          !isSingleAlbumResponse(playlistQueue) ||
+          playlistQueue.tracks.items.length === 0) && (
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+            <p className="text-center text-xl text-aqua">Queue’s a ghost town, drop some heat</p>
+          </div>
+        )}
 
       <div className="w-full px-2">
         {playerState?.track_window.current_track && (
