@@ -110,16 +110,22 @@ export const SearchedTrackKebabMenu = ({ track }: SearchedTrackKebabMenuProps) =
           name={track.name}
           shouldPlaySong={true}
           setIsKebabMenuClicked={setIsKebabMenuClicked}
+          setTempKebabState={setTempKebabState}
           track={track}
         />
         <div className="h-[2px] w-full bg-bgAccent" />
 
-        <AddToQueueButton track={track} setIsKebabMenuClicked={setIsKebabMenuClicked} />
+        <AddToQueueButton
+          track={track}
+          setIsKebabMenuClicked={setIsKebabMenuClicked}
+          setTempKebabState={setTempKebabState}
+        />
         <div className="h-[2px] w-full bg-bgAccent" />
 
         <AddToFrontOfPriorityQueueButton
           track={track}
           setIsKebabMenuClicked={setIsKebabMenuClicked}
+          setTempKebabState={setTempKebabState}
         />
 
         <div className="h-[2px] w-full bg-bgAccent" />
