@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+
+const plugin = require('tailwindcss/plugin');
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
@@ -25,16 +27,17 @@ export default {
   },
 
   plugins: [
-    function ({ addUtilities }) {
+    require('@tailwindcss/line-clamp'), // Add Tailwind's line-clamp plugin
+    plugin(function ({ addUtilities }) {
       const newUtilities = {
         '.rounded-custom-border-left': {
           'border-top-left-radius': '50px 25px',
           'border-bottom-left-radius': '50px 25px',
         },
-        // Add more custom utilities here if needed
+        // Add more custom utilities if needed
       };
 
       addUtilities(newUtilities);
-    },
+    }),
   ],
 };

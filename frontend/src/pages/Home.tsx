@@ -1,8 +1,10 @@
+import { SwiperSlide } from 'swiper/react';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { MainLoading } from '../components/MainLoading';
 import { SearchResultAlbumItem } from '../components/SearchResultAlbumItem';
 import { SearchResultArtistItem } from '../components/SearchResultArtistItem';
 import { Wrapper } from '../components/styledComponents/Wrapper';
+import { GeneralSwiper } from '../components/swiper/GeneralSwiper';
 import { PlaylistItemsTable } from '../components/userPlaylistPageComp/PlaylistItemsTable';
 import { UserTopTracksTR } from '../components/usersTopItemsComponents/UserTopTracksTR';
 import { useFetchHomePageData } from '../hooks/apis/useFetchHomePageData';
@@ -30,7 +32,7 @@ export const Home = () => {
         Vibe starts here <span className="text-magenta">{getUserFirstName(userDisplayName)}</span>,
         Just hit play.
       </h1>
-      <h2 className="pb-2 text-2xl text-textPrimary">Your Top Tracks:</h2>
+      <h2 className="pb-4 text-3xl text-textPrimary">Your Top Tracks:</h2>
       <PlaylistItemsTable shouldIncludeAlbum={true}>
         {homePageData?.topTracks.items
           .slice(0, 10)
@@ -48,18 +50,22 @@ export const Home = () => {
             />
           ))}
       </PlaylistItemsTable>
-      <h2 className="pb-2 pt-4 text-2xl text-textPrimary">Your Top Artists:</h2>
-      <div className="flex gap-7 overflow-x-scroll pb-4" style={{ width: 'calc(100vw - 360px)' }}>
+      <h2 className="pb-4 pt-4 text-3xl text-textPrimary">Your Top Artists:</h2>
+      <GeneralSwiper>
         {homePageData?.topArtists?.items.map(item => (
-          <SearchResultArtistItem key={item.id} artist={item} />
+          <SwiperSlide className="w-[250px]">
+            <SearchResultArtistItem key={item.id} artist={item} />
+          </SwiperSlide>
         ))}
-      </div>
-      <h2 className="pb-2 pt-4 text-2xl text-textPrimary"> Recently Released Albums:</h2>
-      <div className="flex gap-7 overflow-x-scroll pb-4" style={{ width: 'calc(100vw - 360px)' }}>
+      </GeneralSwiper>
+      <h2 className="pb-4 pt-4 text-3xl text-textPrimary"> Recently Released Albums:</h2>
+      <GeneralSwiper>
         {homePageData?.newAlbumReleases?.albums?.items.map(item => (
-          <SearchResultAlbumItem key={item.id} album={item} />
+          <SwiperSlide className="w-[250px]">
+            <SearchResultAlbumItem key={item.id} album={item} />
+          </SwiperSlide>
         ))}
-      </div>
+      </GeneralSwiper>
     </Wrapper>
   );
 };

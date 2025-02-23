@@ -28,7 +28,7 @@ export const SearchResultAlbumItem = ({ album }: SearchResultAlbumItemProps) => 
   return (
     <Link
       to={`/album/${album.id}`}
-      className="group relative z-50 w-64 flex-shrink-0 rounded-xl p-4 duration-150 hover:bg-bgAccent"
+      className="group relative z-50 inline-block flex-shrink-0 rounded-xl p-4 duration-150 hover:bg-bgAccent"
     >
       <div
         className="absolute left-[12%] top-2 -z-[1] mx-auto h-4 w-3/4 rounded-md"
@@ -40,8 +40,8 @@ export const SearchResultAlbumItem = ({ album }: SearchResultAlbumItemProps) => 
         <AlbumPlayButton albumId={album.id} name={album.name} />
       </div>
 
-      <p className="py-3 text-textPrimary group-hover:text-aqua">{album?.name}</p>
-      <p className="text-textAccent group-hover:text-[#00CCCC]">
+      <p className="my-2 line-clamp-1 text-textPrimary group-hover:text-aqua">{album?.name}</p>
+      <p className="line-clamp-1 text-textAccent group-hover:text-[#00CCCC]">
         {albumReleaseDate} &#8226; {album.artists[0].name}
       </p>
     </Link>

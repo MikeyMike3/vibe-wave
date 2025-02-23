@@ -1,6 +1,8 @@
+import { SwiperSlide } from 'swiper/react';
 import { ArtistTracksTR } from './artistPageComponents/ArtistTracksTR';
 import { SearchResultAlbumItem } from './SearchResultAlbumItem';
 import { SearchResultArtistItem } from './SearchResultArtistItem';
+import { GeneralSwiper } from './swiper/GeneralSwiper';
 import { PlaylistItemsTable } from './userPlaylistPageComp/PlaylistItemsTable';
 
 type AllSearchResultsProps = {
@@ -40,11 +42,15 @@ export const AllSearchResults = ({ tracks, artists, albums }: AllSearchResultsPr
       <section>
         <h2 className="py-4 text-3xl text-textPrimary">Artists</h2>
         {(artists?.items?.length ?? 0) > 0 ? (
-          <div
-            className="flex gap-7 overflow-x-scroll pb-4"
-            style={{ width: 'calc(100vw - 360px)' }}
-          >
-            {artists?.items.map(item => <SearchResultArtistItem key={item.id} artist={item} />)}
+          <div className="pb-4">
+            <GeneralSwiper>
+              {artists?.items.map(item => (
+                <SwiperSlide className="w-[250px]">
+                  {' '}
+                  <SearchResultArtistItem key={item.id} artist={item} />{' '}
+                </SwiperSlide>
+              ))}
+            </GeneralSwiper>
           </div>
         ) : (
           <p className="text-textAccent">No artists found.</p>
@@ -53,11 +59,15 @@ export const AllSearchResults = ({ tracks, artists, albums }: AllSearchResultsPr
       <section>
         <h2 className="py-4 text-3xl text-textPrimary">Albums</h2>
         {(albums?.items?.length ?? 0) > 0 ? (
-          <div
-            className="flex gap-7 overflow-x-scroll pb-4"
-            style={{ width: 'calc(100vw - 360px)' }}
-          >
-            {albums?.items.map(item => <SearchResultAlbumItem key={item.id} album={item} />)}
+          <div className="pb-4">
+            <GeneralSwiper>
+              {albums?.items.map(item => (
+                <SwiperSlide className="w-[250px]">
+                  {' '}
+                  <SearchResultAlbumItem key={item.id} album={item} />{' '}
+                </SwiperSlide>
+              ))}
+            </GeneralSwiper>
           </div>
         ) : (
           <p className="text-textAccent">No albums found.</p>

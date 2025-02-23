@@ -12,6 +12,8 @@ import { SearchResultAlbumItem } from '../components/SearchResultAlbumItem';
 import { PlaylistItemsTable } from '../components/userPlaylistPageComp/PlaylistItemsTable';
 import { ArtistTracksTR } from '../components/artistPageComponents/ArtistTracksTR';
 import { OpenInSpotifyButton } from '../components/OpenInSpotifyButton';
+import { GeneralSwiper } from '../components/swiper/GeneralSwiper';
+import { SwiperSlide } from 'swiper/react';
 
 export const Artist = () => {
   const { artistId } = useParams();
@@ -111,15 +113,17 @@ export const Artist = () => {
               ))}
           </PlaylistItemsTable>
         </div>
-        <div className="mt-3 gap-7 overflow-x-auto pb-4" style={{ width: 'calc(100vw - 360px)' }}>
+        <div className="mt-3 gap-7 pb-4">
           {artistDetails && artistDetails?.albums.items.length > 0 && (
             <>
               <h2 className="mb-2 text-xl text-white">Albums: </h2>
-              <div className="flex">
+              <GeneralSwiper>
                 {artistDetails?.albums.items.map(item => (
-                  <SearchResultAlbumItem key={item.id} album={item} />
+                  <SwiperSlide className="w-[250px]">
+                    <SearchResultAlbumItem key={item.id} album={item} />
+                  </SwiperSlide>
                 ))}
-              </div>
+              </GeneralSwiper>
             </>
           )}
         </div>
