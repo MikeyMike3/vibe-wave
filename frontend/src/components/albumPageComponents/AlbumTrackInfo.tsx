@@ -15,7 +15,7 @@ export const AlbumTrackInfo = ({ name, artists, image, albumId }: AlbumTrackInfo
       <div className="flex flex-col">
         <Link
           to={`/album/${albumId}`}
-          className="text-smTitle text-textPrimary hover:underline group-hover:text-aqua"
+          className="line-clamp-1 text-smTitle text-textPrimary hover:underline group-hover:text-aqua"
         >
           {name}
         </Link>

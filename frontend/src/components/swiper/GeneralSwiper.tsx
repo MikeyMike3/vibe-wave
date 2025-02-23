@@ -13,7 +13,6 @@ export const GeneralSwiper = ({ children }: GeneralSwiperProps) => {
     <Swiper
       style={{ width: 'calc(100vw - 285px)' }}
       grabCursor={true}
-      spaceBetween={5}
       slidesPerView={'auto'}
       direction="horizontal"
       modules={[FreeMode]}

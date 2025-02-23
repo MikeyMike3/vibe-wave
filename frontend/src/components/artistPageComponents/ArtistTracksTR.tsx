@@ -45,7 +45,7 @@ export const ArtistTracksTR = ({
         <TrackInfo images={images} name={trackName} artists={artists} albumId={album?.id} />
       </td>
       <td className="p-2 group-hover:text-aqua">
-        <Link className="hover:underline" to={`/album/${album?.id}`}>
+        <Link className="line-clamp-1 hover:underline" to={`/album/${album?.id}`}>
           {album?.name}
         </Link>
       </td>

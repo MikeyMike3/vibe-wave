@@ -28,7 +28,7 @@ export const SearchResultAlbumItem = ({ album }: SearchResultAlbumItemProps) => 
   return (
     <Link
       to={`/album/${album.id}`}
-      className="group relative z-50 inline-block flex-shrink-0 rounded-xl p-4 duration-150 hover:bg-bgAccent"
+      className="group relative z-50 inline-block flex-shrink-0 rounded-xl p-4 duration-150 hover:cursor-grab hover:bg-bgAccent"
     >
       <div
         className="absolute left-[12%] top-2 -z-[1] mx-auto h-4 w-3/4 rounded-md"
