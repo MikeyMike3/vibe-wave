@@ -27,14 +27,13 @@ export default {
   },
 
   plugins: [
-    require('@tailwindcss/line-clamp'), // Add Tailwind's line-clamp plugin
+    require('@tailwindcss/line-clamp'),
     plugin(function ({ addUtilities }) {
       const newUtilities = {
         '.rounded-custom-border-left': {
           'border-top-left-radius': '50px 25px',
           'border-bottom-left-radius': '50px 25px',
         },
-        // Add more custom utilities if needed
       };
 
       addUtilities(newUtilities);
