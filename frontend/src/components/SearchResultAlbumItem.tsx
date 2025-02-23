@@ -36,7 +36,7 @@ export const SearchResultAlbumItem = ({ album }: SearchResultAlbumItemProps) => 
       />
 
       <div className="relative">
-        <img className="w-64 rounded-xl object-cover" src={image} />
+        <img className="w-full rounded-xl object-cover" src={image} />
         <AlbumPlayButton albumId={album.id} name={album.name} />
       </div>
 
