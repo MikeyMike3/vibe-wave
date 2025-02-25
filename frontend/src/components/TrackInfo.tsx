@@ -37,7 +37,7 @@ export const TrackInfo = ({
             {name}
           </Link>
 
-          <span className="text-textAccent">
+          <div className="line-clamp-1 text-textAccent">
             {artists?.map((item, index) => {
               let artistId;
 
@@ -61,7 +61,7 @@ export const TrackInfo = ({
                 </span>
               );
             })}
-          </span>
+          </div>
         </div>
       </div>
     </>

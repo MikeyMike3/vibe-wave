@@ -20,7 +20,7 @@ export const AlbumTrackInfo = ({ name, artists, image, albumId }: AlbumTrackInfo
           {name}
         </Link>
 
-        <span className="text-textAccent">
+        <div className="line-clamp-1 text-textAccent">
           {artists?.map((item, index) => {
             return (
               <span key={item.id}>
@@ -35,7 +35,7 @@ export const AlbumTrackInfo = ({ name, artists, image, albumId }: AlbumTrackInfo
               </span>
             );
           })}
-        </span>
+        </div>
       </div>
     </div>
   );

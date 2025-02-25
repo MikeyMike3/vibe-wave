@@ -54,43 +54,46 @@ export const Artist = () => {
   }
 
   return (
-    <div
-      className="h-full"
-      style={{
-        backgroundImage: `linear-gradient(0deg, rgba(0,0,0,1) 10%, ${backgroundColor} 100%)`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      <Wrapper>
-        <div className="flex gap-5 text-white">
-          <img
-            className="h-96 w-96 rounded-lg object-cover"
-            src={image}
-            alt={`${artistDetails?.info.name}`}
-          />
-          <div className="mt-auto flex flex-col gap-2">
-            <h1 className="text-3xl">{artistDetails?.info.name}</h1>
-            <p>{formatNumber(artistDetails?.info.followers.total)} followers</p>
-            {artistDetails?.info.genres.length !== 0 && (
-              <div className="flex gap-4">
-                {artistDetails?.info.genres.map(item => (
-                  <p
-                    key={item}
-                    className="rounded-3xl border-2 border-textPrimary px-4 py-2 text-textPrimary"
-                  >
-                    {capitalizeFirstLetterOfEachWord(item)}
-                  </p>
-                ))}
-              </div>
-            )}
-
-            <OpenInSpotifyButton
-              spotifyUrl={artistDetails?.info.external_urls.spotify}
-              isNotFullWidth={true}
+    <>
+      <div
+        style={{
+          backgroundImage: `linear-gradient(0deg, rgba(0,0,0,1) 10%, ${backgroundColor} 130%)`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        <Wrapper>
+          <div className="flex gap-5 text-white">
+            <img
+              className="h-96 w-96 rounded-lg object-cover"
+              src={image}
+              alt={`${artistDetails?.info.name}`}
             />
+            <div className="mt-auto flex flex-col gap-2">
+              <h1 className="text-3xl">{artistDetails?.info.name}</h1>
+              <p>{formatNumber(artistDetails?.info.followers.total)} followers</p>
+              {artistDetails?.info.genres.length !== 0 && (
+                <div className="flex gap-4">
+                  {artistDetails?.info.genres.map(item => (
+                    <p
+                      key={item}
+                      className="rounded-3xl border-2 border-textPrimary px-4 py-2 text-textPrimary"
+                    >
+                      {capitalizeFirstLetterOfEachWord(item)}
+                    </p>
+                  ))}
+                </div>
+              )}
+
+              <OpenInSpotifyButton
+                spotifyUrl={artistDetails?.info.external_urls.spotify}
+                isNotFullWidth={true}
+              />
+            </div>
           </div>
-        </div>
+        </Wrapper>
+      </div>
+      <Wrapper>
         <div className="mt-3">
           <h2 className="mb-2 text-xl text-white">Popular Tracks:</h2>
           <PlaylistItemsTable shouldIncludeAlbum={true}>
@@ -128,6 +131,6 @@ export const Artist = () => {
           )}
         </div>
       </Wrapper>
-    </div>
+    </>
   );
 };
