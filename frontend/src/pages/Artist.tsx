@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useFetchArtistDetails } from '../hooks/apis/useFetchArtistDetails';
 import { MainLoading } from '../components/MainLoading';
 import { ErrorMessage } from '../components/ErrorMessage';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { getImageUrl } from '../functions/getImageUrl';
 import { capitalizeFirstLetterOfEachWord } from '../functions/capitalizeFirstLetterOfEachWord';
 import { Wrapper } from '../components/styledComponents/Wrapper';
@@ -13,13 +13,18 @@ import { PlaylistItemsTable } from '../components/userPlaylistPageComp/PlaylistI
 import { ArtistTracksTR } from '../components/artistPageComponents/ArtistTracksTR';
 import { OpenInSpotifyButton } from '../components/OpenInSpotifyButton';
 import { GeneralSwiper } from '../components/swiper/GeneralSwiper';
-import { SwiperSlide } from 'swiper/react';
+import { SwiperRef, SwiperSlide } from 'swiper/react';
+import { SwiperSlideButtons } from '../components/swiper/SwiperSlideButtons';
+import { SwiperButtonsAndTitleFlex } from '../components/swiper/SwiperButtonsAndTitleFlex';
+import { PageSubHeading } from '../components/styledComponents/PageSubHeading';
 
 export const Artist = () => {
   const { artistId } = useParams();
   const { artistDetails, isLoading, isError } = useFetchArtistDetails(artistId);
   const getBackgroundImageColor = useGetBackgroundImageColor();
   const [backgroundColor, setBackgroundColor] = useState<string>('');
+
+  const swiperRef = useRef<SwiperRef>(null);
 
   const image = getImageUrl(artistDetails?.info.images);
 
@@ -95,7 +100,7 @@ export const Artist = () => {
       </div>
       <Wrapper>
         <div className="mt-3">
-          <h2 className="mb-2 text-xl text-white">Popular Tracks:</h2>
+          <PageSubHeading text="Popular Tracks" />
           <PlaylistItemsTable shouldIncludeAlbum={true}>
             {artistDetails?.topTracks.tracks
               .sort((a, b) => {
@@ -119,10 +124,13 @@ export const Artist = () => {
         <div className="mt-3 gap-7 pb-4">
           {artistDetails && artistDetails?.albums.items.length > 0 && (
             <>
-              <h2 className="mb-2 text-xl text-white">Albums: </h2>
-              <GeneralSwiper>
+              <SwiperButtonsAndTitleFlex>
+                <PageSubHeading text="Albums" />
+                <SwiperSlideButtons swiperRef={swiperRef} />
+              </SwiperButtonsAndTitleFlex>
+              <GeneralSwiper swiperRef={swiperRef}>
                 {artistDetails?.albums.items.map(item => (
-                  <SwiperSlide className="w-[250px]">
+                  <SwiperSlide className="w-[250px]" key={item.id}>
                     <SearchResultAlbumItem key={item.id} album={item} />
                   </SwiperSlide>
                 ))}

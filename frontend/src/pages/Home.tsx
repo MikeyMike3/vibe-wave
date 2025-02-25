@@ -1,4 +1,4 @@
-import { SwiperSlide } from 'swiper/react';
+import { SwiperRef, SwiperSlide } from 'swiper/react';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { MainLoading } from '../components/MainLoading';
 import { SearchResultAlbumItem } from '../components/SearchResultAlbumItem';
@@ -9,10 +9,17 @@ import { PlaylistItemsTable } from '../components/userPlaylistPageComp/PlaylistI
 import { UserTopTracksTR } from '../components/usersTopItemsComponents/UserTopTracksTR';
 import { useFetchHomePageData } from '../hooks/apis/useFetchHomePageData';
 import { UseAuthContext } from '../hooks/context/useAuthContext';
+import { PageSubHeading } from '../components/styledComponents/PageSubHeading';
+import { useRef } from 'react';
+import { SwiperSlideButtons } from '../components/swiper/SwiperSlideButtons';
+import { SwiperButtonsAndTitleFlex } from '../components/swiper/SwiperButtonsAndTitleFlex';
 
 export const Home = () => {
   const { homePageData, isLoading, isError } = useFetchHomePageData();
   const { userDisplayName } = UseAuthContext();
+
+  const artistSwiper = useRef<SwiperRef>(null);
+  const albumSwiper = useRef<SwiperRef>(null);
 
   const getUserFirstName = (userName: string) => {
     const nameArray = userName.split(' ');
@@ -28,11 +35,11 @@ export const Home = () => {
   }
   return (
     <Wrapper>
-      <h1 className="pb-6 text-5xl font-semibold text-aqua">
+      <h1 className="pb-1 text-5xl font-semibold text-aqua">
         Vibe starts here <span className="text-magenta">{getUserFirstName(userDisplayName)}</span>,
         Just hit play.
       </h1>
-      <h2 className="pb-4 text-3xl text-textPrimary">Your Top Tracks:</h2>
+      <PageSubHeading text="Your Top Tracks" />
       <PlaylistItemsTable shouldIncludeAlbum={true}>
         {homePageData?.topTracks.items
           .slice(0, 10)
@@ -50,16 +57,23 @@ export const Home = () => {
             />
           ))}
       </PlaylistItemsTable>
-      <h2 className="pb-4 pt-4 text-3xl text-textPrimary">Your Top Artists:</h2>
-      <GeneralSwiper>
+      <SwiperButtonsAndTitleFlex>
+        <PageSubHeading text="Your Top Artists" />
+
+        <SwiperSlideButtons swiperRef={artistSwiper} />
+      </SwiperButtonsAndTitleFlex>
+      <GeneralSwiper swiperRef={artistSwiper}>
         {homePageData?.topArtists?.items.map(item => (
           <SwiperSlide className="w-[250px]">
             <SearchResultArtistItem key={item.id} artist={item} />
           </SwiperSlide>
         ))}
       </GeneralSwiper>
-      <h2 className="pb-4 pt-4 text-3xl text-textPrimary"> Recently Released Albums:</h2>
-      <GeneralSwiper>
+      <SwiperButtonsAndTitleFlex>
+        <PageSubHeading text="Recently Released Albums" />
+        <SwiperSlideButtons swiperRef={albumSwiper} />
+      </SwiperButtonsAndTitleFlex>
+      <GeneralSwiper swiperRef={albumSwiper}>
         {homePageData?.newAlbumReleases?.albums?.items.map(item => (
           <SwiperSlide className="w-[250px]">
             <SearchResultAlbumItem key={item.id} album={item} />

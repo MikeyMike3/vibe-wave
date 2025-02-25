@@ -1,9 +1,13 @@
-import { SwiperSlide } from 'swiper/react';
+import { SwiperRef, SwiperSlide } from 'swiper/react';
 import { ArtistTracksTR } from './artistPageComponents/ArtistTracksTR';
 import { SearchResultAlbumItem } from './SearchResultAlbumItem';
 import { SearchResultArtistItem } from './SearchResultArtistItem';
 import { GeneralSwiper } from './swiper/GeneralSwiper';
 import { PlaylistItemsTable } from './userPlaylistPageComp/PlaylistItemsTable';
+import { SwiperButtonsAndTitleFlex } from './swiper/SwiperButtonsAndTitleFlex';
+import { PageSubHeading } from './styledComponents/PageSubHeading';
+import { SwiperSlideButtons } from './swiper/SwiperSlideButtons';
+import { useRef } from 'react';
 
 type AllSearchResultsProps = {
   //prettier-ignore
@@ -15,10 +19,12 @@ type AllSearchResultsProps = {
 };
 
 export const AllSearchResults = ({ tracks, artists, albums }: AllSearchResultsProps) => {
+  const artistSwiper = useRef<SwiperRef>(null);
+  const albumSwiper = useRef<SwiperRef>(null);
   return (
     <>
       <section>
-        <h2 className="pb-4 text-3xl text-textPrimary">Tracks</h2>
+        <PageSubHeading text="Tracks" />
         <PlaylistItemsTable shouldIncludeAlbum={true}>
           {(tracks?.items?.length ?? 0) > 0 ? (
             tracks?.items.slice(0, 5).map((item, index) => (
@@ -40,10 +46,13 @@ export const AllSearchResults = ({ tracks, artists, albums }: AllSearchResultsPr
         </PlaylistItemsTable>
       </section>
       <section>
-        <h2 className="py-4 text-3xl text-textPrimary">Artists</h2>
+        <SwiperButtonsAndTitleFlex>
+          <PageSubHeading text="Artists" />
+          <SwiperSlideButtons swiperRef={artistSwiper} />
+        </SwiperButtonsAndTitleFlex>
         {(artists?.items?.length ?? 0) > 0 ? (
           <div className="pb-4">
-            <GeneralSwiper>
+            <GeneralSwiper swiperRef={artistSwiper}>
               {artists?.items.map(item => (
                 <SwiperSlide className="w-[250px]">
                   {' '}
@@ -57,10 +66,13 @@ export const AllSearchResults = ({ tracks, artists, albums }: AllSearchResultsPr
         )}
       </section>
       <section>
-        <h2 className="py-4 text-3xl text-textPrimary">Albums</h2>
+        <SwiperButtonsAndTitleFlex>
+          <PageSubHeading text="Albums" />
+          <SwiperSlideButtons swiperRef={albumSwiper} />
+        </SwiperButtonsAndTitleFlex>
         {(albums?.items?.length ?? 0) > 0 ? (
           <div className="pb-4">
-            <GeneralSwiper>
+            <GeneralSwiper swiperRef={albumSwiper}>
               {albums?.items.map(item => (
                 <SwiperSlide className="w-[250px]">
                   {' '}

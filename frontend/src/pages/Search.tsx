@@ -7,6 +7,7 @@ import { GridContainer } from '../components/styledComponents/GridContainer';
 import { Wrapper } from '../components/styledComponents/Wrapper';
 import { PlaylistItemsTable } from '../components/userPlaylistPageComp/PlaylistItemsTable';
 import { ArtistTracksTR } from '../components/artistPageComponents/ArtistTracksTR';
+import { PageSubHeading } from '../components/styledComponents/PageSubHeading';
 
 export const Search = () => {
   const { searchResults } = useSearchContext();
@@ -86,7 +87,7 @@ export const Search = () => {
 
           {isTracksClicked && (
             <>
-              <h2 className="pb-4 text-3xl text-textPrimary">Tracks</h2>
+              <PageSubHeading text="Tracks" />
               <PlaylistItemsTable shouldIncludeAlbum={true}>
                 {(searchResults?.tracks?.items?.length ?? 0) > 0 ? (
                   searchResults?.tracks?.items.map((item, index) => (
@@ -111,7 +112,7 @@ export const Search = () => {
 
           {isArtistsClicked && (
             <>
-              <h2 className="pb-4 text-3xl text-textPrimary">Artists</h2>
+              <PageSubHeading text="Artists" />
 
               {(searchResults?.artists?.items?.length ?? 0) > 0 ? (
                 <GridContainer>
@@ -127,7 +128,7 @@ export const Search = () => {
 
           {isAlbumsClicked && (
             <>
-              <h2 className="pb-4 text-3xl text-textPrimary">Albums</h2>
+              <PageSubHeading text="Albums" />
               {(searchResults?.albums?.items?.length ?? 0) > 0 ? (
                 <GridContainer>
                   {searchResults?.albums?.items.map(item => (
