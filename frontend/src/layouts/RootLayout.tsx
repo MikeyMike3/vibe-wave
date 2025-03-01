@@ -36,7 +36,7 @@ export const RootLayout = () => {
           <PCNav />
           <MobileNav />
         </div>
-        <div className="flex flex-col">
+        <div className="flex w-full flex-col">
           <SearchBar />
           <div
             className="overflow-y-auto rounded-3xl border-2 border-bgAccent"
