@@ -304,7 +304,7 @@ export const SpotifyPlayer = () => {
 
   return (
     <footer
-      className="sticky bottom-0 z-[9999] mt-auto grid w-full grid-cols-[25%_50%_25%] items-center rounded-3xl bg-black p-3 text-white"
+      className="sticky bottom-0 z-[9999] mt-auto grid w-full grid-cols-[25%_50%_25%] items-center gap-3 rounded-3xl bg-black p-3 text-white"
       style={{ backgroundColor: `${dynamicImageBgColorDark}` }}
     >
       {!playerState ? (
@@ -318,7 +318,7 @@ export const SpotifyPlayer = () => {
         />
       )}
 
-      <div className="mx-auto flex flex-col items-center gap-2">
+      <div className="mx-auto flex w-full flex-col items-center gap-2 2xl:w-[590px]">
         <div className="flex gap-10">
           <ShuffleTracksButton
             activeButtonColor={dynamicImageBgColorLighter}

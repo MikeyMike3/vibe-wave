@@ -45,7 +45,7 @@ export const ProgressTracker = () => {
   };
 
   return (
-    <div className="flex w-[590px] items-center gap-3">
+    <div className="flex w-full items-center gap-3">
       <p className="cursor-default text-textPrimary">{displayPosition}</p>
       <input
         ref={sliderRef}

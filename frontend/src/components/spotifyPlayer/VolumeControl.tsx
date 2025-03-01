@@ -89,6 +89,7 @@ export const VolumeControl = () => {
       </button>
 
       <input
+        className="mr-6"
         ref={volumeRef}
         type="range"
         min="0"
