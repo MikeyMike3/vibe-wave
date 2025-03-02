@@ -308,7 +308,10 @@ export const SpotifyPlayer = () => {
       className="sticky bottom-0 z-[9999] mt-auto w-full rounded-3xl bg-black p-3 text-white"
       style={{ backgroundColor: `${dynamicImageBgColorDark}` }}
     >
-      <div className="grid grid-cols-[25%_50%_25%] items-center gap-3">
+      <div className="lg:hidden">
+        <ProgressTracker />
+      </div>
+      <div className="grid grid-cols-[65%_35%] items-center gap-3 md:grid-cols-[37.5%_25%_37.5%] lg:grid-cols-[25%_50%_25%]">
         {!playerState ? (
           <VibeWaveTrackPlaceHolder image={image} />
         ) : (
@@ -321,20 +324,27 @@ export const SpotifyPlayer = () => {
         )}
 
         <div className="mx-auto flex w-full flex-col items-center gap-2 2xl:w-[590px]">
-          <div className="flex gap-10">
-            <ShuffleTracksButton
-              activeButtonColor={dynamicImageBgColorLighter}
-              notActiveButtonColor={dynamicImageBgColorMuted}
-            />
+          <div className="flex gap-2 lg:gap-10 [@media(min-width:600px)]:gap-5">
+            <div className="hidden [@media(min-width:600px)]:flex">
+              <ShuffleTracksButton
+                activeButtonColor={dynamicImageBgColorLighter}
+                notActiveButtonColor={dynamicImageBgColorMuted}
+              />
+            </div>
             <PreviousTrackButton />
             {playerState?.paused ? <TogglePlayButton /> : <TogglePauseButton />}
             <NextTrackButton />
-            <RepeatButton />
+            <div className="hidden [@media(min-width:600px)]:flex">
+              <RepeatButton />
+            </div>
           </div>
-          <ProgressTracker />
+          <div className="hidden lg:block lg:w-full">
+            <ProgressTracker />
+          </div>
         </div>
-        <div className="ml-auto flex items-center gap-4">
+        <div className="ml-auto hidden items-center gap-4 md:flex">
           <Queue />
+
           <VolumeControl />
         </div>
       </div>
