@@ -111,7 +111,7 @@ export const AlbumItemsTR = ({
         <AlbumTrackInfo name={trackName} artists={artists} image={image} />
       </td>
       <td className="p-2 group-hover:text-aqua">{formatTime(trackLength)}</td>
-      <td className="opacity-0 group-hover:opacity-100">
+      <td className="opacity-100 group-hover:opacity-100 lg:opacity-0">
         <AlbumItemKebabMenu track={track} />
       </td>
     </tr>

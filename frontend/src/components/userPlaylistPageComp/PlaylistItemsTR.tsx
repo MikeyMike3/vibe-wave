@@ -115,7 +115,7 @@ export const PlaylistItemsTR = ({
         </Link>
       </td>
       <td className="p-2 group-hover:text-aqua">{formatTime(trackLength)}</td>
-      <td className="opacity-0 group-hover:opacity-100">
+      <td className="opacity-100 group-hover:opacity-100 lg:opacity-0">
         {'added_by' in track ? (
           <PlaylistItemKebabMenu track={track} />
         ) : (

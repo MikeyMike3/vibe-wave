@@ -125,7 +125,7 @@ export const UserPlaylistItems = () => {
 
           {uniqueArtists.uniqueArtists.length > 0 && (
             <>
-              <h2 className="py-1 pt-2 text-textPrimary lg:py-2 lg:text-xl">Featuring: </h2>
+              <h2 className="py-1 text-textPrimary lg:py-2 lg:text-xl">Featuring: </h2>
               <div className="flex flex-col gap-4 lg:pt-4">
                 {uniqueArtists.uniqueArtists.map(item => (
                   <PlaylistItemsArtist
