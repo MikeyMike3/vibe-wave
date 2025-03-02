@@ -5,7 +5,7 @@ import { ErrorMessage } from '../components/ErrorMessage';
 import { useFetchPlaylistDetails } from '../hooks/apis/useFetchPlaylistDetails';
 import { ShuffleTracksButton } from '../components/spotifyPlayer/ShuffleTracksButton';
 import { Wrapper } from '../components/styledComponents/Wrapper';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PlaylistPagePlayButton } from '../components/PlaylistPagePlayButton';
 import { PlaylistItemsTable } from '../components/userPlaylistPageComp/PlaylistItemsTable';
 import { PlaylistItemsHeader } from '../components/userPlaylistPageComp/PlaylistItemsHeader';
@@ -48,6 +48,24 @@ export const UserPlaylistItems = () => {
       setInput('');
     }
   };
+
+  const [height, setHeight] = useState(
+    typeof window !== 'undefined' && window.innerWidth < 1024
+      ? 'calc(100vh - 400px)'
+      : 'calc(100vh - 250px)',
+  );
+
+  useEffect(() => {
+    const updateHeight = () => {
+      setHeight(window.innerWidth < 1024 ? 'calc(100vh - 400px)' : 'calc(100vh - 250px)');
+    };
+
+    // Listen for window resize events
+    window.addEventListener('resize', updateHeight);
+
+    // Cleanup event listener on unmount
+    return () => window.removeEventListener('resize', updateHeight);
+  }, []);
 
   if (isLoading) {
     return <MainLoading />;
@@ -117,10 +135,7 @@ export const UserPlaylistItems = () => {
             )}
           </PlaylistTableColumnFlexContainer>
         </div>
-        <div
-          className="sticky top-5 hidden overflow-y-auto md:block"
-          style={{ height: 'calc(100vh - 250px)' }}
-        >
+        <div className="sticky top-5 hidden overflow-y-auto md:block" style={{ height }}>
           <PlaylistImage images={playlistDetails?.images} alt={playlistDetails?.name} />
 
           {uniqueArtists.uniqueArtists.length > 0 && (

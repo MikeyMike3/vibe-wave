@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { MainLoading } from '../components/MainLoading';
 import { PlayLikedTracksButton } from '../components/PlayLikedTracksButton';
@@ -41,6 +41,24 @@ export const LikedSongs = () => {
       setInput('');
     }
   };
+
+  const [height, setHeight] = useState(
+    typeof window !== 'undefined' && window.innerWidth < 1024
+      ? 'calc(100vh - 400px)'
+      : 'calc(100vh - 250px)',
+  );
+
+  useEffect(() => {
+    const updateHeight = () => {
+      setHeight(window.innerWidth < 1024 ? 'calc(100vh - 400px)' : 'calc(100vh - 250px)');
+    };
+
+    // Listen for window resize events
+    window.addEventListener('resize', updateHeight);
+
+    // Cleanup event listener on unmount
+    return () => window.removeEventListener('resize', updateHeight);
+  }, []);
 
   if (isLoading) {
     return <MainLoading />;
@@ -102,7 +120,9 @@ export const LikedSongs = () => {
         </div>
         <div
           className="sticky top-5 hidden overflow-y-auto md:block"
-          style={{ height: 'calc(100vh - 250px)' }}
+          style={{
+            height,
+          }}
         >
           <img src={likedSongsImage}></img>
           <p className="py-2 text-textPrimary lg:py-4">Your personal collection of favorites!</p>

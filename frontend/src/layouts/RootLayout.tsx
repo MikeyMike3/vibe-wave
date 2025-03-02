@@ -28,6 +28,23 @@ export const RootLayout = () => {
       setShowOverlay(true);
     }
   }, []);
+  const [height, setHeight] = useState(
+    typeof window !== 'undefined' && window.innerWidth < 1024
+      ? 'calc(100vh - 290px)'
+      : 'calc(100vh - 195px)',
+  );
+
+  useEffect(() => {
+    const updateHeight = () => {
+      setHeight(window.innerWidth < 1024 ? 'calc(100vh - 275px)' : 'calc(100vh - 185px)');
+    };
+
+    // Listen for window resize events
+    window.addEventListener('resize', updateHeight);
+
+    // Cleanup event listener on unmount
+    return () => window.removeEventListener('resize', updateHeight);
+  }, []);
   return (
     <>
       <div className="fixed top-0 grid h-screen w-full lg:grid-cols-[225px_1fr] lg:gap-2">
@@ -41,10 +58,7 @@ export const RootLayout = () => {
             className="overflow-y-auto rounded-3xl border-2 border-bgAccent"
             ref={mainDisplayRef}
             style={{
-              height:
-                typeof window !== 'undefined' && window.innerWidth < 1024
-                  ? 'calc(100vh - 275px)'
-                  : 'calc(100vh - 185px)',
+              height,
             }}
           >
             <Outlet />
