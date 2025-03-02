@@ -10,7 +10,7 @@ import { faMusic as faMusicSolid } from '@awesome.me/kit-71c07605c0/icons/sharp/
 
 export const MobileNav = () => {
   return (
-    <div className="flex justify-evenly lg:hidden">
+    <div className="mt-1 flex justify-evenly lg:hidden">
       <div className="flex gap-3">
         <MobileLink
           activeIcon={faMusicSolid}
