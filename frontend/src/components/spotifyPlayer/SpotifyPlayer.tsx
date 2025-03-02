@@ -311,7 +311,7 @@ export const SpotifyPlayer = () => {
       <div className="lg:hidden">
         <ProgressTracker />
       </div>
-      <div className="grid grid-cols-[65%_45%] items-center gap-3 md:grid-cols-[37.5%_25%_37.5%] lg:grid-cols-[25%_50%_25%] [@media(max-width:768px)]:grid-cols-[55%_45%]">
+      <div className="grid grid-cols-[65%_45%] items-center gap-3 md:grid-cols-[37.5%_25%_37.5%] lg:grid-cols-[25%_50%_25%] [@media(max-width:767px)]:grid-cols-[55%_45%]">
         {!playerState ? (
           <VibeWaveTrackPlaceHolder image={image} />
         ) : (
@@ -324,7 +324,7 @@ export const SpotifyPlayer = () => {
         )}
 
         <div className="mx-auto w-full flex-col items-center gap-2 2xl:w-[590px] [@media(min-width:600px)]:flex">
-          <div className="mr-4 flex justify-end gap-2 lg:gap-10 [@media(min-width:600px)]:gap-5">
+          <div className="mr-4 flex justify-end gap-2 lg:gap-10 [@media(min-width:600px)]:mr-0 [@media(min-width:600px)]:gap-5">
             <div className="hidden [@media(min-width:600px)]:flex">
               <ShuffleTracksButton
                 activeButtonColor={dynamicImageBgColorLighter}

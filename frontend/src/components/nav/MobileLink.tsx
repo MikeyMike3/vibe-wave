@@ -16,8 +16,8 @@ export const MobileLink = ({ activeIcon, notActiveIcon, linkName, linkTo }: Mobi
       className={({ isActive }) =>
         `${
           isActive
-            ? 'flex flex-col items-center gap-2 p-2 text-sm text-magenta'
-            : 'flex flex-col items-center gap-2 p-2 text-sm text-textPrimary duration-150 hover:text-magentaLight'
+            ? 'flex flex-col items-center gap-1 p-1 text-sm text-magenta'
+            : 'flex flex-col items-center gap-1 p-1 text-sm text-textPrimary duration-150 hover:text-magentaLight'
         }`
       }
     >

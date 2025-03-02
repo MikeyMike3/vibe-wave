@@ -1,6 +1,5 @@
 import { PCNav } from '../components/nav/PCNav';
-
-import { Link, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { SpotifyPlayer } from '../components/spotifyPlayer/SpotifyPlayer';
 import { SearchBar } from '../components/SearchBar';
 import { getCurrentlyPlayingTrackSessionStorage } from '../functions/sessionStorage/playback/currentlyPlayingTrack/getCurrentlyPlayingTrackSessionStorage';
@@ -36,15 +35,8 @@ export const RootLayout = () => {
           <PCNav />
         </div>
         <div className="relative flex w-full flex-col">
-          <div className="w-full">
-            <div className="absolute left-5 top-6 z-[9999] lg:hidden">
-              <Link className="text-2xl font-semibold" to={'/'}>
-                <span className="text-aqua">Vibe</span>
-                <span className="text-magenta">Wave</span>
-              </Link>
-            </div>
-            <SearchBar />
-          </div>
+          <SearchBar />
+
           <div
             className="overflow-y-auto rounded-3xl border-2 border-bgAccent"
             style={{ height: 'calc(100vh - 185px)' }}
