@@ -102,11 +102,11 @@ export const LikedSongs = () => {
         </div>
         <div className="sticky top-5 overflow-y-auto" style={{ height: 'calc(100vh - 250px)' }}>
           <img src={likedSongsImage}></img>
-          <p className="py-4 text-textPrimary">Your personal collection of favorites!</p>
+          <p className="py-2 text-textPrimary lg:py-4">Your personal collection of favorites!</p>
           {uniqueArtists.uniqueArtists.length > 0 && (
             <>
-              <h2 className="py-2 text-xl text-textPrimary">Featuring: </h2>
-              <div className="flex flex-col gap-4 pt-4">
+              <h2 className="py-1 text-textPrimary lg:py-2 lg:text-xl">Featuring: </h2>
+              <div className="flex flex-col gap-4 lg:pt-4">
                 {uniqueArtists.uniqueArtists.map(item => (
                   <PlaylistItemsArtist
                     key={item.id}

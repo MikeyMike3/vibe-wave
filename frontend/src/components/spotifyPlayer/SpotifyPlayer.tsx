@@ -308,7 +308,7 @@ export const SpotifyPlayer = () => {
       className="sticky bottom-0 z-[9999] mt-auto w-full rounded-3xl bg-black p-3 text-white"
       style={{ backgroundColor: `${dynamicImageBgColorDark}` }}
     >
-      <div className="lg:hidden">
+      <div className="mb-2 lg:hidden">
         <ProgressTracker />
       </div>
       <div className="grid grid-cols-[65%_45%] items-center gap-3 md:grid-cols-[37.5%_25%_37.5%] lg:grid-cols-[25%_50%_25%] [@media(max-width:767px)]:grid-cols-[55%_45%]">
@@ -345,7 +345,7 @@ export const SpotifyPlayer = () => {
             <ProgressTracker />
           </div>
         </div>
-        <div className="ml-auto hidden items-center gap-4 md:flex">
+        <div className="ml-auto hidden items-center md:flex [@media(min-width:600px)]:gap-2">
           <Queue />
 
           <VolumeControl />

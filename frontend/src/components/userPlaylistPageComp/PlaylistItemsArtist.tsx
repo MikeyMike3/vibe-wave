@@ -11,7 +11,7 @@ export const PlaylistItemsArtist = ({ id, images, name }: PlaylistItemsArtist) =
   const image = getImageUrl(images);
   return (
     <Link to={`/artist/${id}`} key={id} className="group flex items-center gap-3">
-      <img className="h-16 w-16 rounded-full" src={image} alt={name} />
+      <img className="h-12 w-12 rounded-full lg:h-16 lg:w-16" src={image} alt={name} />
 
       <p className="group-hover:text-aqua group-hover:underline">{name}</p>
     </Link>
