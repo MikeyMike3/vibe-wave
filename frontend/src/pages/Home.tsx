@@ -64,7 +64,7 @@ export const Home = () => {
       </SwiperButtonsAndTitleFlex>
       <GeneralSwiper swiperRef={artistSwiper}>
         {homePageData?.topArtists?.items.map(item => (
-          <SwiperSlide className="w-[250px]">
+          <SwiperSlide className="w-[150px] lg:w-[250px]">
             <SearchResultArtistItem key={item.id} artist={item} setHeight64={true} />
           </SwiperSlide>
         ))}
@@ -75,7 +75,7 @@ export const Home = () => {
       </SwiperButtonsAndTitleFlex>
       <GeneralSwiper swiperRef={albumSwiper}>
         {homePageData?.newAlbumReleases?.albums?.items.map(item => (
-          <SwiperSlide className="w-[250px]">
+          <SwiperSlide className="w-[150px] lg:w-[250px]">
             <SearchResultAlbumItem key={item.id} album={item} />
           </SwiperSlide>
         ))}

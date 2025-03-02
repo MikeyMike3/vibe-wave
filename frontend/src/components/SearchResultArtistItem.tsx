@@ -15,7 +15,7 @@ export const SearchResultArtistItem = ({ artist, setHeight64 }: SearchResultArti
       className="group inline-block flex-shrink-0 rounded-xl px-2 py-4 duration-150 hover:cursor-grab hover:bg-bgAccent"
     >
       {setHeight64 ? (
-        <img src={image} className="mx-auto h-64 w-full rounded-full" />
+        <img src={image} className="mx-auto h-32 w-full rounded-full lg:h-64" />
       ) : (
         <div
           className="relative w-full rounded-full bg-cover bg-center pt-[100%]"

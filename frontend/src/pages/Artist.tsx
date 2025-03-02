@@ -4,7 +4,7 @@ import { MainLoading } from '../components/MainLoading';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { useEffect, useRef, useState } from 'react';
 import { getImageUrl } from '../functions/getImageUrl';
-import { capitalizeFirstLetterOfEachWord } from '../functions/capitalizeFirstLetterOfEachWord';
+// import { capitalizeFirstLetterOfEachWord } from '../functions/capitalizeFirstLetterOfEachWord';
 import { Wrapper } from '../components/styledComponents/Wrapper';
 import { useGetBackgroundImageColor } from '../hooks/useGetBackgroundImageColor';
 import { modifyDynamicBgColor } from '../functions/modifyDynamicBgColor';
@@ -77,7 +77,7 @@ export const Artist = () => {
             <div className="mt-auto flex flex-col gap-2">
               <h1 className="text-3xl">{artistDetails?.info.name}</h1>
               <p>{formatNumber(artistDetails?.info.followers.total)} followers</p>
-              {artistDetails?.info.genres.length !== 0 && (
+              {/* {artistDetails?.info.genres.length !== 0 && (
                 <div className="flex gap-4">
                   {artistDetails?.info.genres.map(item => (
                     <p
@@ -88,7 +88,7 @@ export const Artist = () => {
                     </p>
                   ))}
                 </div>
-              )}
+              )} */}
 
               <OpenInSpotifyButton
                 spotifyUrl={artistDetails?.info.external_urls.spotify}
@@ -130,7 +130,7 @@ export const Artist = () => {
               </SwiperButtonsAndTitleFlex>
               <GeneralSwiper swiperRef={swiperRef}>
                 {artistDetails?.albums.items.map(item => (
-                  <SwiperSlide className="w-[250px]" key={item.id}>
+                  <SwiperSlide className="w-[150px] lg:w-[250px]" key={item.id}>
                     <SearchResultAlbumItem key={item.id} album={item} />
                   </SwiperSlide>
                 ))}

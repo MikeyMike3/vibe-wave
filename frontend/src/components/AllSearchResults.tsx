@@ -54,8 +54,7 @@ export const AllSearchResults = ({ tracks, artists, albums }: AllSearchResultsPr
           <div className="pb-4">
             <GeneralSwiper swiperRef={artistSwiper}>
               {artists?.items.map(item => (
-                <SwiperSlide className="w-[250px]">
-                  {' '}
+                <SwiperSlide className="w-[150px] lg:w-[250px]">
                   <SearchResultArtistItem key={item.id} artist={item} setHeight64={true} />{' '}
                 </SwiperSlide>
               ))}
@@ -74,7 +73,7 @@ export const AllSearchResults = ({ tracks, artists, albums }: AllSearchResultsPr
           <div className="pb-4">
             <GeneralSwiper swiperRef={albumSwiper}>
               {albums?.items.map(item => (
-                <SwiperSlide className="w-[250px]">
+                <SwiperSlide className="w-[150px] lg:w-[250px]">
                   {' '}
                   <SearchResultAlbumItem key={item.id} album={item} />{' '}
                 </SwiperSlide>
