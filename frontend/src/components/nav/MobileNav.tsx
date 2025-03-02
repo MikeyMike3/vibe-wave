@@ -1,4 +1,6 @@
 import { MobileLink } from './MobileLink';
+import { faHouse as faHouseRegular } from '@awesome.me/kit-71c07605c0/icons/sharp/regular';
+import { faHouse as faHouseSolid } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
 import { faUserMusic as faUserMusicRegular } from '@awesome.me/kit-71c07605c0/icons/sharp/regular';
 import { faUserMusic as faUserMusicSolid } from '@awesome.me/kit-71c07605c0/icons/sharp/solid';
 import { faSquareHeart as faSquareHeartRegular } from '@awesome.me/kit-71c07605c0/icons/sharp/regular';
@@ -12,6 +14,12 @@ export const MobileNav = () => {
   return (
     <div className="mt-1 flex justify-evenly lg:hidden">
       <div className="flex gap-3">
+        <MobileLink
+          activeIcon={faHouseSolid}
+          notActiveIcon={faHouseRegular}
+          linkName="Home"
+          linkTo="/"
+        />
         <MobileLink
           activeIcon={faMusicSolid}
           notActiveIcon={faMusicRegular}
