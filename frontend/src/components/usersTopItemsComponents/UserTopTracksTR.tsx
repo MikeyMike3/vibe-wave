@@ -31,7 +31,7 @@ export const UserTopTracksTR = ({
 
   return (
     <tr key={trackId} className="group">
-      <td className="p-2 group-hover:text-textPrimary">
+      <td className="hidden p-2 group-hover:text-textPrimary sm:table-cell">
         <span className="w-4 group-hover:hidden">{position}</span>
 
         <button
@@ -44,13 +44,16 @@ export const UserTopTracksTR = ({
       <td className="p-2">
         <TrackInfo images={images} name={trackName} artists={artists} albumId={album?.id} />
       </td>
-      <td className="p-2 group-hover:text-aqua">
-        <Link className="line-clamp-1 hover:underline" to={`/album/${album?.id}`}>
+      <td className="hidden p-2 group-hover:text-aqua xl:table-cell">
+        <Link
+          className="line-clamp-1 hidden hover:underline xl:inline-block"
+          to={`/album/${album?.id}`}
+        >
           {album?.name}
         </Link>
       </td>
       <td className="p-2 group-hover:text-aqua">{formatTime(trackLength)}</td>
-      <td className="opacity-0 group-hover:opacity-100">
+      <td className="opacity-100 group-hover:opacity-100 lg:opacity-0">
         <SearchedTrackKebabMenu track={track} />
       </td>
     </tr>
