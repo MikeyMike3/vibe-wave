@@ -47,7 +47,8 @@ export const SearchBar = () => {
           <input
             style={{
               width: 'calc(100vw - 850px)',
-              maxWidth: '590px', // Example: Min width of 400px at screen width <= 1024px
+              maxWidth: '590px',
+              minWidth: '250px',
             }}
             className="rounded-xl bg-bgAccent p-2 text-white outline-none placeholder:text-textAccent"
             ref={inputRef}

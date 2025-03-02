@@ -65,7 +65,7 @@ export const Home = () => {
       <GeneralSwiper swiperRef={artistSwiper}>
         {homePageData?.topArtists?.items.map(item => (
           <SwiperSlide className="w-[250px]">
-            <SearchResultArtistItem key={item.id} artist={item} />
+            <SearchResultArtistItem key={item.id} artist={item} setHeight64={true} />
           </SwiperSlide>
         ))}
       </GeneralSwiper>

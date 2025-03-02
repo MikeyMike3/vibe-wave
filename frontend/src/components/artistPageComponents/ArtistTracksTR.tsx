@@ -31,7 +31,7 @@ export const ArtistTracksTR = ({
 
   return (
     <tr key={trackId} className="group">
-      <td className="p-2 group-hover:text-textPrimary">
+      <td className="w-4 p-2 group-hover:text-textPrimary">
         <span className="w-4 group-hover:hidden">{position}</span>
 
         <button
@@ -44,8 +44,11 @@ export const ArtistTracksTR = ({
       <td className="p-2">
         <TrackInfo images={images} name={trackName} artists={artists} albumId={album?.id} />
       </td>
-      <td className="p-2 group-hover:text-aqua">
-        <Link className="line-clamp-1 hover:underline" to={`/album/${album?.id}`}>
+      <td className="hidden p-2 group-hover:text-aqua xl:table-cell">
+        <Link
+          className="line-clamp-1 hidden hover:underline xl:inline-block"
+          to={`/album/${album?.id}`}
+        >
           {album?.name}
         </Link>
       </td>

@@ -95,8 +95,8 @@ export const PlaylistItemsTR = ({
   };
 
   return (
-    <tr key={trackId} className="group">
-      <td className="p-2 group-hover:text-textPrimary">
+    <tr key={trackId} className="h-f group">
+      <td className="w-4 p-2 group-hover:text-textPrimary">
         <span className="w-4 group-hover:hidden">{position}</span>
 
         <button className="hidden w-4 group-hover:block" onClick={onClick}>
@@ -106,8 +106,11 @@ export const PlaylistItemsTR = ({
       <td className="p-2">
         <TrackInfo images={images} name={trackName} artists={artists} albumId={albumId} />
       </td>
-      <td className="p-2 group-hover:text-aqua">
-        <Link className="line-clamp-1 hover:underline" to={`/album/${albumId}`}>
+      <td className="hidden p-2 group-hover:text-aqua xl:table-cell">
+        <Link
+          className="line-clamp-1 hidden hover:underline xl:inline-block"
+          to={`/album/${albumId}`}
+        >
           {albumName}
         </Link>
       </td>
