@@ -67,10 +67,10 @@ export const Artist = () => {
           backgroundPosition: 'center',
         }}
       >
-        <Wrapper>
-          <div className="flex gap-5 text-white">
+        <Wrapper shouldNotIncludePadding={true}>
+          <div className="flex flex-col gap-5 pt-5 text-white sm:flex-row">
             <img
-              className="h-96 w-96 rounded-lg object-cover"
+              className="h-48 w-48 sm:mx-0 md:h-80 md:w-80"
               src={image}
               alt={`${artistDetails?.info.name}`}
             />
@@ -98,8 +98,8 @@ export const Artist = () => {
           </div>
         </Wrapper>
       </div>
-      <Wrapper>
-        <div className="mt-3">
+      <Wrapper shouldNotIncludePadding={true}>
+        <div>
           <PageSubHeading text="Popular Tracks" />
           <PlaylistItemsTable shouldIncludeAlbum={true}>
             {artistDetails?.topTracks.tracks

@@ -9,11 +9,18 @@ type PlaylistImageProps = {
       }[]
     | undefined;
   imageUrl?: string;
+  responsiveImage?: boolean;
   alt: string | undefined;
 };
 
-export const PlaylistImage = ({ images, alt }: PlaylistImageProps) => {
+export const PlaylistImage = ({ images, alt, responsiveImage }: PlaylistImageProps) => {
   const image = getImageUrl(images);
 
-  return <img className="w-full object-cover" src={image} alt={`${alt} album cover image.`} />;
+  return (
+    <img
+      className={`${responsiveImage ? 'h-48 w-48 sm:mx-0 md:h-80 md:w-80' : 'w-full object-cover'}`}
+      src={image}
+      alt={`${alt} album cover image.`}
+    />
+  );
 };

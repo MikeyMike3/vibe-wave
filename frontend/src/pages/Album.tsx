@@ -50,10 +50,10 @@ export const Album = () => {
   return (
     <Wrapper>
       <PlaylistTableColumnFlexContainer>
-        <div className="flex">
+        <div className="flex flex-col gap-2 text-white sm:flex-row md:flex-row md:gap-0">
           {/* @ts-expect-error the images below works as intended*/}
-          <PlaylistImage images={album?.images} alt={album?.name} />
-          <div className="flex flex-col justify-end gap-4 pl-4">
+          <PlaylistImage images={album?.images} alt={album?.name} responsiveImage={true} />
+          <div className="flex flex-col justify-end gap-4 md:pl-4">
             <PlaylistItemsHeader
               playlistName={album?.name}
               playlistOwnerName={album?.artists[0].name}
