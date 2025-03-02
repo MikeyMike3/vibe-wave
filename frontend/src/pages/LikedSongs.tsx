@@ -100,7 +100,10 @@ export const LikedSongs = () => {
             )}
           </PlaylistTableColumnFlexContainer>
         </div>
-        <div className="sticky top-5 overflow-y-auto" style={{ height: 'calc(100vh - 250px)' }}>
+        <div
+          className="sticky top-5 hidden overflow-y-auto md:block"
+          style={{ height: 'calc(100vh - 250px)' }}
+        >
           <img src={likedSongsImage}></img>
           <p className="py-2 text-textPrimary lg:py-4">Your personal collection of favorites!</p>
           {uniqueArtists.uniqueArtists.length > 0 && (
