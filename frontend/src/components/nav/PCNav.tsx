@@ -13,7 +13,7 @@ import { faMusic as faMusicSolid } from '@awesome.me/kit-71c07605c0/icons/sharp/
 
 export const PCNav = () => {
   return (
-    <>
+    <div className="hidden lg:block">
       <div className="w-full py-[26px] text-center">
         <Link className="text-2xl font-semibold" to={'/'}>
           <span className="text-aqua">Vibe</span>
@@ -52,6 +52,6 @@ export const PCNav = () => {
           linkTo="followed-artists"
         />
       </div>
-    </>
+    </div>
   );
 };

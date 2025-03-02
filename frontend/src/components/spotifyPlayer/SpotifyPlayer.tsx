@@ -24,6 +24,7 @@ import { VibeWaveTrackPlaceHolder } from './VibeWaveTrackPlaceHolder';
 import { removeFirstFromPriorityQueueSessionData } from '../../functions/sessionStorage/priorityQueue/removeFirstFromPriorityQueueSessionData';
 import { addCurrentlyPlayingTrackSessionStorage } from '../../functions/sessionStorage/playback/currentlyPlayingTrack/addCurrentlyPlayingTrackSessionStorage';
 import { addPlayerPositionSessionStorage } from '../../functions/sessionStorage/playback/playerPosition/addPlayerPositionSessionStorage';
+import { MobileNav } from '../nav/MobileNav';
 
 export const SpotifyPlayer = () => {
   const { player } = useSpotifyPlayerContext();
@@ -304,37 +305,40 @@ export const SpotifyPlayer = () => {
 
   return (
     <footer
-      className="sticky bottom-0 z-[9999] mt-auto grid w-full grid-cols-[25%_50%_25%] items-center gap-3 rounded-3xl bg-black p-3 text-white"
+      className="sticky bottom-0 z-[9999] mt-auto w-full rounded-3xl bg-black p-3 text-white"
       style={{ backgroundColor: `${dynamicImageBgColorDark}` }}
     >
-      {!playerState ? (
-        <VibeWaveTrackPlaceHolder image={image} />
-      ) : (
-        <TrackInfo
-          name={playerState?.track_window?.current_track?.name}
-          images={playerState?.track_window?.current_track?.album?.images}
-          artists={playerState?.track_window?.current_track?.artists}
-          albumId={splitAlbumUri(playerState?.track_window.current_track.album.uri)}
-        />
-      )}
-
-      <div className="mx-auto flex w-full flex-col items-center gap-2 2xl:w-[590px]">
-        <div className="flex gap-10">
-          <ShuffleTracksButton
-            activeButtonColor={dynamicImageBgColorLighter}
-            notActiveButtonColor={dynamicImageBgColorMuted}
+      <div className="grid grid-cols-[25%_50%_25%] items-center gap-3">
+        {!playerState ? (
+          <VibeWaveTrackPlaceHolder image={image} />
+        ) : (
+          <TrackInfo
+            name={playerState?.track_window?.current_track?.name}
+            images={playerState?.track_window?.current_track?.album?.images}
+            artists={playerState?.track_window?.current_track?.artists}
+            albumId={splitAlbumUri(playerState?.track_window.current_track.album.uri)}
           />
-          <PreviousTrackButton />
-          {playerState?.paused ? <TogglePlayButton /> : <TogglePauseButton />}
-          <NextTrackButton />
-          <RepeatButton />
+        )}
+
+        <div className="mx-auto flex w-full flex-col items-center gap-2 2xl:w-[590px]">
+          <div className="flex gap-10">
+            <ShuffleTracksButton
+              activeButtonColor={dynamicImageBgColorLighter}
+              notActiveButtonColor={dynamicImageBgColorMuted}
+            />
+            <PreviousTrackButton />
+            {playerState?.paused ? <TogglePlayButton /> : <TogglePauseButton />}
+            <NextTrackButton />
+            <RepeatButton />
+          </div>
+          <ProgressTracker />
         </div>
-        <ProgressTracker />
+        <div className="ml-auto flex items-center gap-4">
+          <Queue />
+          <VolumeControl />
+        </div>
       </div>
-      <div className="ml-auto flex items-center gap-4">
-        <Queue />
-        <VolumeControl />
-      </div>
+      <MobileNav />
     </footer>
   );
 };

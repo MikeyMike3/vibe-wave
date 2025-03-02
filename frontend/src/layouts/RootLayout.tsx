@@ -1,6 +1,6 @@
 import { PCNav } from '../components/nav/PCNav';
-import { MobileNav } from '../components/nav/MobileNav';
-import { Outlet } from 'react-router-dom';
+
+import { Link, Outlet } from 'react-router-dom';
 import { SpotifyPlayer } from '../components/spotifyPlayer/SpotifyPlayer';
 import { SearchBar } from '../components/SearchBar';
 import { getCurrentlyPlayingTrackSessionStorage } from '../functions/sessionStorage/playback/currentlyPlayingTrack/getCurrentlyPlayingTrackSessionStorage';
@@ -31,13 +31,20 @@ export const RootLayout = () => {
   }, []);
   return (
     <>
-      <div className="fixed top-0 grid h-screen w-full grid-cols-[225px_1fr] gap-2">
+      <div className="fixed top-0 grid h-screen w-full lg:grid-cols-[225px_1fr] lg:gap-2">
         <div className="bg-black">
           <PCNav />
-          <MobileNav />
         </div>
-        <div className="flex w-full flex-col">
-          <SearchBar />
+        <div className="relative flex w-full flex-col">
+          <div className="w-full">
+            <div className="absolute left-5 top-6 z-[9999]">
+              <Link className="text-2xl font-semibold" to={'/'}>
+                <span className="text-aqua">Vibe</span>
+                <span className="text-magenta">Wave</span>
+              </Link>
+            </div>
+            <SearchBar />
+          </div>
           <div
             className="overflow-y-auto rounded-3xl border-2 border-bgAccent"
             style={{ height: 'calc(100vh - 185px)' }}
@@ -45,6 +52,7 @@ export const RootLayout = () => {
           >
             <Outlet />
           </div>
+
           <SpotifyPlayer />
         </div>
       </div>

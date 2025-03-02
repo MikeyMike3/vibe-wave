@@ -35,13 +35,13 @@ export const SearchBar = () => {
   };
 
   return (
-    <div className="sticky top-0 z-[9999] flex w-full justify-center bg-black">
+    <div className="sticky top-0 z-[9998] flex w-full justify-center bg-black">
       <form onSubmit={e => e.preventDefault()} onClick={() => navigate('/search')} className="py-3">
         <div
-          className={`flex items-center gap-2 rounded-full border-2 bg-bgAccent px-6 py-2 transition duration-150 ${location.pathname.includes('/search') ? 'border-2 border-magenta' : 'border-transparent'}`}
+          className={`flex items-center gap-2 rounded-full border-2 bg-bgAccent px-3 py-2 transition duration-150 lg:px-6 ${location.pathname.includes('/search') ? 'border-2 border-magenta' : 'border-transparent'}`}
         >
           <FontAwesomeIcon
-            className="text-3xl text-textAccent duration-150 hover:cursor-pointer hover:text-textPrimary"
+            className="text-xl text-textAccent duration-150 hover:cursor-pointer hover:text-textPrimary lg:text-3xl"
             icon={faMagnifyingGlass}
           />
           <input
@@ -50,7 +50,7 @@ export const SearchBar = () => {
               maxWidth: '590px',
               minWidth: '250px',
             }}
-            className="rounded-xl bg-bgAccent p-2 text-white outline-none placeholder:text-textAccent"
+            className="rounded-xl bg-bgAccent p-1 text-white outline-none placeholder:text-textAccent lg:p-2"
             ref={inputRef}
             onChange={handleChange}
             placeholder="Search"
