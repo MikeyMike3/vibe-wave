@@ -37,7 +37,7 @@ export const RootLayout = () => {
         </div>
         <div className="relative flex w-full flex-col">
           <div className="w-full">
-            <div className="absolute left-5 top-6 z-[9999]">
+            <div className="absolute left-5 top-6 z-[9999] lg:hidden">
               <Link className="text-2xl font-semibold" to={'/'}>
                 <span className="text-aqua">Vibe</span>
                 <span className="text-magenta">Wave</span>
