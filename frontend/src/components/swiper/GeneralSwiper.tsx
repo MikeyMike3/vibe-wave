@@ -12,12 +12,12 @@ export const GeneralSwiper = ({ children, swiperRef }: GeneralSwiperProps) => {
   const [width, setWidth] = useState(
     typeof window !== 'undefined' && window.innerWidth < 1024
       ? 'calc(100vw - 35px)'
-      : 'calc(100vw - 270px)', // Adjust as needed for larger screens
+      : 'calc(100vw - 280px)', // Adjust as needed for larger screens
   );
 
   useEffect(() => {
     const updateWidth = () => {
-      setWidth(window.innerWidth < 1024 ? 'calc(100vw - 35px)' : 'calc(100vw - 270px)');
+      setWidth(window.innerWidth < 1024 ? 'calc(100vw - 35px)' : 'calc(100vw - 280px)');
     };
 
     // Listen for window resize events
