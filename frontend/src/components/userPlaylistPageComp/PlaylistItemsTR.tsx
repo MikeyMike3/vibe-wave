@@ -96,7 +96,7 @@ export const PlaylistItemsTR = ({
 
   return (
     <tr key={trackId} className="h-f group">
-      <td className="w-4 p-2 group-hover:text-textPrimary">
+      <td className="hidden w-4 p-2 group-hover:text-textPrimary sm:table-cell">
         <span className="w-4 group-hover:hidden">{position}</span>
 
         <button className="hidden w-4 group-hover:block" onClick={onClick}>

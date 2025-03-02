@@ -31,7 +31,7 @@ export const ArtistTracksTR = ({
 
   return (
     <tr key={trackId} className="group">
-      <td className="w-4 p-2 group-hover:text-textPrimary">
+      <td className="hidden w-4 p-2 group-hover:text-textPrimary sm:table-cell">
         <span className="w-4 group-hover:hidden">{position}</span>
 
         <button

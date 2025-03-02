@@ -117,21 +117,26 @@ export const UserPlaylistItems = () => {
             )}
           </PlaylistTableColumnFlexContainer>
         </div>
-        <div className="sticky top-5 overflow-y-auto" style={{ height: 'calc(100vh - 250px)' }}>
+        <div
+          className="sticky top-5 hidden overflow-y-auto md:block"
+          style={{ height: 'calc(100vh - 250px)' }}
+        >
           <PlaylistImage images={playlistDetails?.images} alt={playlistDetails?.name} />
 
           {uniqueArtists.uniqueArtists.length > 0 && (
-            <div className="flex flex-col gap-4 pt-5">
-              <h2 className="text-xl text-textPrimary">Featuring: </h2>
-              {uniqueArtists.uniqueArtists.map(item => (
-                <PlaylistItemsArtist
-                  key={item.id}
-                  id={item.id}
-                  images={item.images}
-                  name={item.name}
-                />
-              ))}
-            </div>
+            <>
+              <h2 className="py-1 pt-2 text-textPrimary lg:py-2 lg:text-xl">Featuring: </h2>
+              <div className="flex flex-col gap-4 lg:pt-4">
+                {uniqueArtists.uniqueArtists.map(item => (
+                  <PlaylistItemsArtist
+                    key={item.id}
+                    id={item.id}
+                    images={item.images}
+                    name={item.name}
+                  />
+                ))}
+              </div>
+            </>
           )}
         </div>
       </PlaylistItemsGrid>
