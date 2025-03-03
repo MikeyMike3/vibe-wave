@@ -311,7 +311,7 @@ export const SpotifyPlayer = () => {
       <div className="mb-2 lg:hidden">
         <ProgressTracker />
       </div>
-      <div className="grid grid-cols-[65%_45%] items-center gap-3 md:grid-cols-[37.5%_25%_37.5%] lg:grid-cols-[25%_50%_25%] [@media(max-width:767px)]:grid-cols-[55%_45%]">
+      <div className="grid items-center gap-3 md:grid-cols-[37.5%_25%_37.5%] lg:grid-cols-[25%_50%_25%] [@media(max-width:767px)]:grid-cols-[55%_45%]">
         {!playerState ? (
           <VibeWaveTrackPlaceHolder image={image} />
         ) : (
