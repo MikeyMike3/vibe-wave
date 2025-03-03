@@ -5,19 +5,19 @@ import { RefObject, useEffect, useState } from 'react';
 
 type GeneralSwiperProps = {
   children: React.ReactNode;
-  swiperRef: RefObject<SwiperRef>;
+  swiperRef?: RefObject<SwiperRef>;
 };
 
 export const GeneralSwiper = ({ children, swiperRef }: GeneralSwiperProps) => {
   const [width, setWidth] = useState(
     typeof window !== 'undefined' && window.innerWidth < 1024
-      ? 'calc(100vw - 35px)'
+      ? 'calc(100vw - 45px)'
       : 'calc(100vw - 280px)', // Adjust as needed for larger screens
   );
 
   useEffect(() => {
     const updateWidth = () => {
-      setWidth(window.innerWidth < 1024 ? 'calc(100vw - 35px)' : 'calc(100vw - 280px)');
+      setWidth(window.innerWidth < 1024 ? 'calc(100vw - 45px)' : 'calc(100vw - 280px)');
     };
 
     // Listen for window resize events

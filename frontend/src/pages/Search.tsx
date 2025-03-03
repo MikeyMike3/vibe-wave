@@ -8,6 +8,8 @@ import { Wrapper } from '../components/styledComponents/Wrapper';
 import { PlaylistItemsTable } from '../components/userPlaylistPageComp/PlaylistItemsTable';
 import { ArtistTracksTR } from '../components/artistPageComponents/ArtistTracksTR';
 import { PageSubHeading } from '../components/styledComponents/PageSubHeading';
+import { GeneralSwiper } from '../components/swiper/GeneralSwiper';
+import { SwiperSlide } from 'swiper/react';
 
 export const Search = () => {
   const { searchResults } = useSearchContext();
@@ -49,50 +51,60 @@ export const Search = () => {
       {searchResults.albums && searchResults.artists && searchResults.tracks && (
         <>
           <div className="flex gap-4 pb-4 text-white">
-            <button
-              className={`${isAllClicked ? 'bg-white text-black' : 'hover:bg-bgAccentHover'} rounded-xl bg-bgAccent p-2 px-4 duration-150 ${isAllClicked && 'hover:bg-white'}`}
-              onClick={() => {
-                setIsAllClicked(true);
-                setIsTracksClicked(false);
-                setIsArtistsClicked(false);
-                setIsAlbumsClicked(false);
-              }}
-            >
-              All
-            </button>
-            <button
-              className={`${isTracksClicked ? 'bg-white text-black' : 'hover:bg-bgAccentHover'} rounded-xl bg-bgAccent p-2 px-4 duration-150 ${isTracksClicked && 'hover:bg-white'}`}
-              onClick={() => {
-                setIsAllClicked(false);
-                setIsTracksClicked(true);
-                setIsArtistsClicked(false);
-                setIsAlbumsClicked(false);
-              }}
-            >
-              Tracks
-            </button>
-            <button
-              className={`${isArtistsClicked ? 'bg-white text-black' : 'hover:bg-bgAccentHover'} rounded-xl bg-bgAccent p-2 px-4 duration-150 ${isArtistsClicked && 'hover:bg-white'}`}
-              onClick={() => {
-                setIsAllClicked(false);
-                setIsTracksClicked(false);
-                setIsArtistsClicked(true);
-                setIsAlbumsClicked(false);
-              }}
-            >
-              Artists
-            </button>
-            <button
-              className={`${isAlbumsClicked ? 'bg-white text-black' : 'hover:bg-bgAccentHover'} rounded-xl bg-bgAccent p-2 px-4 duration-150 ${isAlbumsClicked && 'hover:bg-white'}`}
-              onClick={() => {
-                setIsAllClicked(false);
-                setIsTracksClicked(false);
-                setIsArtistsClicked(false);
-                setIsAlbumsClicked(true);
-              }}
-            >
-              Albums
-            </button>
+            <GeneralSwiper>
+              <SwiperSlide className="mr-3 w-[50px]">
+                <button
+                  className={`${isAllClicked ? 'bg-white text-black' : 'hover:bg-bgAccentHover'} rounded-xl bg-bgAccent p-2 px-4 duration-150 ${isAllClicked && 'hover:bg-white'}`}
+                  onClick={() => {
+                    setIsAllClicked(true);
+                    setIsTracksClicked(false);
+                    setIsArtistsClicked(false);
+                    setIsAlbumsClicked(false);
+                  }}
+                >
+                  All
+                </button>
+              </SwiperSlide>
+              <SwiperSlide className="mr-3 w-[75px]">
+                <button
+                  className={`${isTracksClicked ? 'bg-white text-black' : 'hover:bg-bgAccentHover'} rounded-xl bg-bgAccent p-2 px-4 duration-150 ${isTracksClicked && 'hover:bg-white'}`}
+                  onClick={() => {
+                    setIsAllClicked(false);
+                    setIsTracksClicked(true);
+                    setIsArtistsClicked(false);
+                    setIsAlbumsClicked(false);
+                  }}
+                >
+                  Tracks
+                </button>
+              </SwiperSlide>
+              <SwiperSlide className="mr-3 w-[75px]">
+                <button
+                  className={`${isArtistsClicked ? 'bg-white text-black' : 'hover:bg-bgAccentHover'} rounded-xl bg-bgAccent p-2 px-4 duration-150 ${isArtistsClicked && 'hover:bg-white'}`}
+                  onClick={() => {
+                    setIsAllClicked(false);
+                    setIsTracksClicked(false);
+                    setIsArtistsClicked(true);
+                    setIsAlbumsClicked(false);
+                  }}
+                >
+                  Artists
+                </button>
+              </SwiperSlide>
+              <SwiperSlide className="mr-3 w-[75px]">
+                <button
+                  className={`${isAlbumsClicked ? 'bg-white text-black' : 'hover:bg-bgAccentHover'} rounded-xl bg-bgAccent p-2 px-4 duration-150 ${isAlbumsClicked && 'hover:bg-white'}`}
+                  onClick={() => {
+                    setIsAllClicked(false);
+                    setIsTracksClicked(false);
+                    setIsArtistsClicked(false);
+                    setIsAlbumsClicked(true);
+                  }}
+                >
+                  Albums
+                </button>
+              </SwiperSlide>
+            </GeneralSwiper>
           </div>
 
           {isAllClicked && (
