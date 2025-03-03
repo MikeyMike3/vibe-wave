@@ -35,7 +35,7 @@ export const Home = () => {
   }
   return (
     <Wrapper>
-      <h1 className="pb-1 text-5xl font-semibold text-aqua">
+      <h1 className="pb-1 text-3xl font-semibold text-aqua lg:text-5xl">
         Vibe starts here <span className="text-magenta">{getUserFirstName(userDisplayName)}</span>,
         Just hit play.
       </h1>

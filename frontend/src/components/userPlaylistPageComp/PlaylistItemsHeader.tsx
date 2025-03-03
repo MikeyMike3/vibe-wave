@@ -20,7 +20,7 @@ export const PlaylistItemsHeader = ({
 }: PlaylistItemsHeaderProps) => {
   return (
     <>
-      <h1 className="text-5xl font-semibold text-aqua">
+      <h1 className="text-3xl font-semibold text-aqua lg:text-5xl">
         {playlistName}
         {albumReleaseDate && ` • ${findAlbumReleaseDate(albumReleaseDate)}`}
       </h1>

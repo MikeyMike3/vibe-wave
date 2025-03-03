@@ -3,5 +3,5 @@ type PageTitleProps = {
 };
 
 export const PageTitle = ({ title }: PageTitleProps) => {
-  return <h1 className="pb-6 text-5xl font-semibold text-aqua">{title}</h1>;
+  return <h1 className="pb-6 text-3xl font-semibold text-aqua lg:text-5xl">{title}</h1>;
 };

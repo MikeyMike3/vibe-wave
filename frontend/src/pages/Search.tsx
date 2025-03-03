@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchContext } from '../hooks/context/useSearchContext';
 import { SearchResultArtistItem } from '../components/SearchResultArtistItem';
 import { SearchResultAlbumItem } from '../components/SearchResultAlbumItem';
@@ -16,10 +16,28 @@ export const Search = () => {
   const [isArtistsClicked, setIsArtistsClicked] = useState(false);
   const [isAlbumsClicked, setIsAlbumsClicked] = useState(false);
 
+  const [height, setHeight] = useState(
+    typeof window !== 'undefined' && window.innerWidth < 1024
+      ? 'calc(100vh - 290px)'
+      : 'calc(100vh - 195px)',
+  );
+
+  useEffect(() => {
+    const updateHeight = () => {
+      setHeight(window.innerWidth < 1024 ? 'calc(100vh - 275px)' : 'calc(100vh - 185px)');
+    };
+
+    // Listen for window resize events
+    window.addEventListener('resize', updateHeight);
+
+    // Cleanup event listener on unmount
+    return () => window.removeEventListener('resize', updateHeight);
+  }, []);
+
   return (
     <Wrapper>
       {!searchResults.albums && !searchResults.artists && !searchResults.tracks && (
-        <div className="relative" style={{ height: 'calc(100vh - 240px)' }}>
+        <div className="relative" style={{ height }}>
           <div className="absolute inset-0 flex h-full items-center justify-center bg-black bg-opacity-50">
             <p className="text-xl text-aqua">
               Search a song, artist, or an album and set the vibe!
