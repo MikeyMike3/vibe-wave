@@ -12,7 +12,9 @@ export const PlaylistItemsTable = ({ children, shouldIncludeAlbum }: PlaylistIte
           <th className={`${shouldIncludeAlbum ? 'w-full p-2 xl:w-1/2' : 'w-full p-2'}`}>Title</th>
           {shouldIncludeAlbum && <th className="hidden w-full p-2 xl:block">Album</th>}
 
-          <th className="w-[3%] p-2">Duration</th>
+          <th className="w-[3%] p-2 text-center">
+            <i className="fa-sharp fa-solid fa-clock"></i>
+          </th>
         </tr>
       </thead>
       <tbody>{children}</tbody>
