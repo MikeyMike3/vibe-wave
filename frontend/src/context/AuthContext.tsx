@@ -1,7 +1,7 @@
 import { ReactNode, createContext, useState, useEffect, useMemo, useCallback } from 'react';
 import axios from 'axios';
 import { headers } from '../functions/headers';
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const API_BASE_SERVER_URL = import.meta.env.VITE_API_BASE_SERVER_URL;
 
 type AuthProviderProps = {
   children: ReactNode;
@@ -52,7 +52,7 @@ export const AuthProvider  = ({ children }: AuthProviderProps) => {
   const login = (code: string) => {
     return (
     axios
-      .post(`${API_BASE_URL}/login`, { code })
+      .post(`${API_BASE_SERVER_URL}/login`, { code })
       .then(res => {
        
         sessionStorage.setItem('accessToken', res.data.accessToken);
@@ -100,7 +100,7 @@ export const AuthProvider  = ({ children }: AuthProviderProps) => {
   
     for (let i = 0; i < retryCount; i++) {
       try {
-        const response = await axios.post(`${API_BASE_URL}/refresh`, { refreshToken });
+        const response = await axios.post(`${API_BASE_SERVER_URL}/refresh`, { refreshToken });
   
         if (response.status === 200) {
 
