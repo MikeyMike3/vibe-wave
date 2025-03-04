@@ -47,7 +47,7 @@ export const RootLayout = () => {
   }, []);
   return (
     <>
-      <div className="fixed top-0 grid h-screen w-full lg:grid-cols-[225px_1fr] lg:gap-2">
+      <div className="fixed top-0 h-screen w-full lg:grid lg:grid-cols-[225px_1fr] lg:gap-2">
         <div className="bg-black">
           <PCNav />
         </div>
