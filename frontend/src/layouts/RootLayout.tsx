@@ -30,7 +30,7 @@ export const RootLayout = () => {
   }, []);
   const [height, setHeight] = useState(
     typeof window !== 'undefined' && window.innerWidth < 1024
-      ? 'calc(100dvh - 400px)'
+      ? 'calc(100dvh - 290px)'
       : 'calc(100dvh - 195px)',
   );
 
