@@ -3,8 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { UseAuthContext } from '../hooks/context/useAuthContext';
 const VITE_API_BASE_LOGIN_URL = import.meta.env.VITE_API_BASE_LOGIN_URL;
 
-console.log(VITE_API_BASE_LOGIN_URL);
-
 const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=7e8eea6f397341778fa5b6167d418e34&response_type=code&redirect_uri=${VITE_API_BASE_LOGIN_URL}/login&scope=streaming%20user-read-email%20user-read-private%20playlist-read-collaborative%20user-library-read%20playlist-read-private%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20user-follow-read%20user-top-read`;
 
 export const Login = () => {
