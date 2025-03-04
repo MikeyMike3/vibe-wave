@@ -7,6 +7,10 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+app.get("/", (req, res) => {
+	res.send("Server is working!");
+});
+
 app.post("/login", (req, res) => {
 	const code = req.body.code;
 	const spotifyApi = new SpotifyWebApi({
