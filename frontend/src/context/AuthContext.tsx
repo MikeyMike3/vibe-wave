@@ -144,7 +144,8 @@ export const AuthProvider  = ({ children }: AuthProviderProps) => {
       initialIntervalTime = 0;
     }
 
-    let secondInterval: number;
+    let secondInterval: ReturnType<typeof setInterval>;
+
 
     // refresh the access token based on initialIntervalTime. This allows the access token to be refreshed accurately even after page refreshes
     const interval = setInterval(() => {
