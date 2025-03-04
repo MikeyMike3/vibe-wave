@@ -56,6 +56,7 @@ export const ProgressTracker = () => {
         value={playerPosition}
         onChange={handleChange}
         onMouseUp={handleMouseUp}
+        onTouchEnd={handleMouseUp}
         style={{
           WebkitAppearance: 'none',
           appearance: 'none',
