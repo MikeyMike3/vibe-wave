@@ -51,7 +51,7 @@ export const RootLayout = () => {
         <div className="bg-black">
           <PCNav />
         </div>
-        <div className="relative flex w-full flex-col">
+        <div className="flex w-full flex-col">
           <SearchBar />
 
           <div
