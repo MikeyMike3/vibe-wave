@@ -20,13 +20,13 @@ export const Search = () => {
 
   const [height, setHeight] = useState(
     typeof window !== 'undefined' && window.innerWidth < 1024
-      ? 'calc(100vh - 290px)'
-      : 'calc(100vh - 195px)',
+      ? 'calc(100dvh - 290px)'
+      : 'calc(100dvh - 195px)',
   );
 
   useEffect(() => {
     const updateHeight = () => {
-      setHeight(window.innerWidth < 1024 ? 'calc(100vh - 275px)' : 'calc(100vh - 185px)');
+      setHeight(window.innerWidth < 1024 ? 'calc(100dvh - 275px)' : 'calc(100dvh - 185px)');
     };
 
     // Listen for window resize events
