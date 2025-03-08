@@ -311,7 +311,7 @@ export const SpotifyPlayer = () => {
       <div className="mb-2 lg:hidden">
         <ProgressTracker />
       </div>
-      <div className="grid items-center gap-3 md:grid-cols-[37.5%_25%_37.5%] lg:grid-cols-[25%_50%_25%] [@media(max-width:767px)]:grid-cols-[55%_45%]">
+      <div className="grid items-center gap-3 md:grid-cols-[37.5%_25%_37.5%] lg:grid-cols-[25%_50%_25%] [@media(max-width:1023px)]:grid-cols-[55%_45%]">
         {!playerState ? (
           <VibeWaveTrackPlaceHolder image={image} />
         ) : (
@@ -337,7 +337,7 @@ export const SpotifyPlayer = () => {
             <div className="hidden [@media(min-width:600px)]:flex">
               <RepeatButton />
             </div>
-            <div className="hidden [@media(min-width:600px)]:flex [@media(min-width:768px)]:hidden">
+            <div className="hidden md:flex lg:hidden">
               <Queue />
             </div>
           </div>
@@ -345,7 +345,7 @@ export const SpotifyPlayer = () => {
             <ProgressTracker />
           </div>
         </div>
-        <div className="ml-auto hidden items-center md:flex [@media(min-width:600px)]:gap-2">
+        <div className="ml-auto hidden items-center lg:flex [@media(min-width:600px)]:gap-2">
           <Queue />
 
           <VolumeControl />

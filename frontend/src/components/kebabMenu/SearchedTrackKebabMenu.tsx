@@ -96,7 +96,7 @@ export const SearchedTrackKebabMenu = ({ track }: SearchedTrackKebabMenuProps) =
     <div className="relative" ref={menuRef}>
       <button onClick={handleClick}>
         <FontAwesomeIcon
-          className="rounded-full p-2 px-4 text-xl text-textAccent duration-150 hover:bg-bgAccentHover group-hover:text-aqua"
+          className="rounded-full p-2 px-4 text-xl text-textAccent duration-150 hover:bg-bgAccentHover lg:group-hover:text-aqua"
           icon={faEllipsisVerticalSolid}
         />
       </button>

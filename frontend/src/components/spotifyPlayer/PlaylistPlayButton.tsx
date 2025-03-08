@@ -14,7 +14,7 @@ export const PlaylistPlayButton = ({ playlistId, name }: PlaylistPlayButtonProps
   return (
     isPlayerReady && (
       <button
-        className="absolute bottom-2 right-2 rounded-full bg-black opacity-0 duration-300 hover:scale-105 group-hover:opacity-100"
+        className="absolute bottom-2 right-2 hidden rounded-full bg-black opacity-0 duration-300 hover:scale-105 group-hover:opacity-100 lg:block"
         onClick={e => {
           e.preventDefault();
           getPlaylistItemsAndPlay();

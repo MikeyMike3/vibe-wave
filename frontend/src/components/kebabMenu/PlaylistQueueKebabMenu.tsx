@@ -104,7 +104,7 @@ export const PlaylistQueueKebabMenu = ({ track, queueDisplayRef }: PlaylistQueue
     <div className="relative">
       <button ref={menuRef} onClick={handleClick}>
         <FontAwesomeIcon
-          className="rounded-full p-2 px-4 text-xl text-textPrimary duration-150 hover:bg-bgAccentHover group-hover:text-aqua"
+          className="rounded-full p-2 px-4 text-xl text-textPrimary duration-150 hover:bg-bgAccentHover lg:group-hover:text-aqua"
           icon={faEllipsisVerticalSolid}
         />
       </button>

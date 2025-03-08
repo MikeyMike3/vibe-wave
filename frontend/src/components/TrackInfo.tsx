@@ -32,7 +32,7 @@ export const TrackInfo = ({
         <div className="flex flex-col">
           <Link
             to={`/album/${albumId}`}
-            className="line-clamp-1 text-smTitle text-textPrimary hover:text-aqua hover:underline group-hover:text-aqua"
+            className="line-clamp-1 text-smTitle text-textPrimary hover:underline lg:hover:text-aqua lg:group-hover:text-aqua"
           >
             {name}
           </Link>
@@ -51,7 +51,7 @@ export const TrackInfo = ({
               return (
                 <span key={artistId}>
                   <Link
-                    className="text-textAccent hover:text-[#00CCCC] hover:underline group-hover:text-[#00CCCC]"
+                    className="text-textAccent hover:underline lg:hover:text-[#00CCCC] lg:group-hover:text-[#00CCCC]"
                     to={`/artist/${artistId}`}
                   >
                     {item.name}

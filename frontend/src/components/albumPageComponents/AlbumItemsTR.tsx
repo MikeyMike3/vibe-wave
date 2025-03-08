@@ -100,7 +100,7 @@ export const AlbumItemsTR = ({
 
   return (
     <tr key={trackId} className="group">
-      <td className="hidden w-4 p-2 group-hover:text-aqua sm:table-cell">
+      <td className="hidden w-4 p-2 sm:table-cell lg:group-hover:text-aqua">
         <span className="w-4 group-hover:hidden">{position}</span>
 
         <button className="hidden w-4 group-hover:block" onClick={handleClick}>
@@ -110,7 +110,7 @@ export const AlbumItemsTR = ({
       <td className="p-2">
         <AlbumTrackInfo name={trackName} artists={artists} image={image} />
       </td>
-      <td className="p-2 group-hover:text-aqua">{formatTime(trackLength)}</td>
+      <td className="p-2 lg:group-hover:text-aqua">{formatTime(trackLength)}</td>
       <td className="opacity-100 group-hover:opacity-100 lg:opacity-0">
         <AlbumItemKebabMenu track={track} />
       </td>

@@ -44,7 +44,7 @@ export const ArtistTracksTR = ({
       <td className="p-2">
         <TrackInfo images={images} name={trackName} artists={artists} albumId={album?.id} />
       </td>
-      <td className="hidden p-2 group-hover:text-aqua xl:table-cell">
+      <td className="hidden p-2 lg:group-hover:text-aqua xl:table-cell">
         <Link
           className="line-clamp-1 hidden hover:underline xl:inline-block"
           to={`/album/${album?.id}`}
@@ -52,7 +52,7 @@ export const ArtistTracksTR = ({
           {album?.name}
         </Link>
       </td>
-      <td className="p-2 group-hover:text-aqua">{formatTime(trackLength)}</td>
+      <td className="p-2 lg:group-hover:text-aqua">{formatTime(trackLength)}</td>
       <td className="opacity-100 group-hover:opacity-100 lg:opacity-0">
         <SearchedTrackKebabMenu track={track} />
       </td>
