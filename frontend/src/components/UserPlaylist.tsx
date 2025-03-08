@@ -17,7 +17,7 @@ export const UserPlaylist = ({ name, images, owner, type, playlistId }: UserPlay
 
   return (
     <Link to={`${playlistId}`}>
-      <div className="group flex h-full w-full flex-col gap-2 rounded-xl p-2 duration-300 hover:bg-bgAccent">
+      <div className="group flex h-full w-full flex-col gap-2 rounded-xl p-2 duration-300 lg:hover:bg-bgAccent">
         <div
           className="relative w-full rounded-xl bg-cover bg-center pt-[100%]"
           style={{
@@ -28,8 +28,10 @@ export const UserPlaylist = ({ name, images, owner, type, playlistId }: UserPlay
         </div>
 
         <div className="flex flex-col py-2 text-textAccent">
-          <p className="line-clamp-1 text-smTitle text-textPrimary group-hover:text-aqua">{name}</p>
-          <p className="line-clamp-1 text-base group-hover:text-[#00CCCC]">
+          <p className="line-clamp-1 text-smTitle text-textPrimary lg:group-hover:text-aqua">
+            {name}
+          </p>
+          <p className="line-clamp-1 text-base lg:group-hover:text-[#00CCCC]">
             {uppercaseType} &#8226; {owner}
           </p>
         </div>
