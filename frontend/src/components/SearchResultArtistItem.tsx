@@ -12,7 +12,7 @@ export const SearchResultArtistItem = ({ artist, setHeight64 }: SearchResultArti
   return (
     <Link
       to={`/artist/${artist.id}`}
-      className="group inline-block flex-shrink-0 rounded-xl px-2 py-4 duration-150 hover:cursor-grab hover:bg-bgAccent"
+      className="group inline-block flex-shrink-0 rounded-xl px-2 py-4 duration-150 hover:cursor-grab lg:hover:bg-bgAccent"
     >
       {setHeight64 ? (
         <img src={image} className="mx-auto h-32 w-full rounded-full lg:h-64" />
@@ -25,7 +25,7 @@ export const SearchResultArtistItem = ({ artist, setHeight64 }: SearchResultArti
         ></div>
       )}
 
-      <p className="line-clamp-1 pt-3 text-center text-textPrimary group-hover:text-aqua">
+      <p className="line-clamp-1 pt-3 text-center text-textPrimary lg:group-hover:text-aqua">
         {artist.name}
       </p>
     </Link>
