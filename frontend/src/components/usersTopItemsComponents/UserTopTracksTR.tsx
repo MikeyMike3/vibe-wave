@@ -31,7 +31,7 @@ export const UserTopTracksTR = ({
 
   return (
     <tr key={trackId} className="group">
-      <td className="hidden p-2 group-hover:text-textPrimary sm:table-cell">
+      <td className="hidden w-4 p-2 group-hover:text-textPrimary sm:table-cell">
         <span className="w-4 group-hover:hidden">{position}</span>
 
         <button
