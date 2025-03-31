@@ -21,12 +21,31 @@ export const Login = () => {
   });
 
   return (
-    <div>
-      <a href={AUTH_URL}>
-        <button className="rounded-xl bg-green-500 p-4 text-white">Login With Spotify</button>
-      </a>
+    <div className="flex h-screen items-center justify-center">
+      <div className="w-[98%] rounded-2xl border-2 border-solid border-magenta p-5 text-center md:w-[600px]">
+        <h1 className="text-3xl">
+          <span className="text-aqua">Vibe</span>
+          <span className="text-magenta">Wave</span>
+        </h1>
+        <p className="pt-2 text-red-600">
+          VibeWave is currently under mandatory review by Spotify to ensure that it follows
+          Spotify's terms and conditions. If you are a future employer please email me with your
+          username and email so I can manually whitelist you.
+        </p>
+        <a href={AUTH_URL}>
+          <button className="mt-3 rounded-xl bg-aqua p-4 font-semibold text-black">
+            Login With Spotify
+          </button>
+        </a>
 
-      {isUserLoggedIn && !isUserPremiumMember && <p>You must be a Spotify Premium member.</p>}
+        {isUserLoggedIn && !isUserPremiumMember && (
+          <p>
+            You must be a Spotify Premium member. If you are a Spotify Premium member and a
+            potential future employer then you must email me with your username and email so I can
+            manually whitelist you.
+          </p>
+        )}
+      </div>
     </div>
   );
 };
