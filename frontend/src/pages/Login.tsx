@@ -29,8 +29,8 @@ export const Login = () => {
         </h1>
         <p className="pt-2 text-red-600">
           VibeWave is currently undergoing a mandatory review by Spotify to ensure compliance with
-          their terms and conditions. If you are a prospective employer, please feel free to reach
-          out with your Spotify username and email address so I can manually grant you access. You
+          their terms and conditions. If you are a prospective employer, please feel free to email
+          me with your Spotify username and email address so I can manually grant you access. You
           can find my email at the top of my resume.
         </p>
         <a href={AUTH_URL}>
