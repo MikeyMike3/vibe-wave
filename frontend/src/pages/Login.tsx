@@ -28,9 +28,10 @@ export const Login = () => {
           <span className="text-magenta">Wave</span>
         </h1>
         <p className="pt-2 text-red-600">
-          VibeWave is currently under mandatory review by Spotify to ensure that it follows
-          Spotify's terms and conditions. If you are a future employer please email me with your
-          username and email so I can manually whitelist you.
+          VibeWave is currently undergoing a mandatory review by Spotify to ensure compliance with
+          their terms and conditions. If you are a prospective employer, please feel free to reach
+          out with your Spotify username and email address so I can manually grant you access. You
+          can find my email at the top of my resume.
         </p>
         <a href={AUTH_URL}>
           <button className="mt-3 rounded-xl bg-aqua p-4 font-semibold text-black">
@@ -39,11 +40,14 @@ export const Login = () => {
         </a>
 
         {isUserLoggedIn && !isUserPremiumMember && (
-          <p>
-            You must be a Spotify Premium member. If you are a Spotify Premium member and a
-            potential future employer then you must email me with your username and email so I can
-            manually whitelist you.
-          </p>
+          <>
+            <p className="text-red-600">Spotify Premium is required to use VibeWave.</p>
+            <p className="text-red-600">
+              If you’re a Premium user and a potential future employer, feel free to email me your
+              Spotify username and email address so I can manually whitelist you for access. You can
+              find my email at the top of my resume.
+            </p>
+          </>
         )}
       </div>
     </div>
