@@ -40,14 +40,14 @@ export const Login = () => {
         </a>
 
         {isUserLoggedIn && !isUserPremiumMember && (
-          <>
-            <p className="text-red-600">Spotify Premium is required to use VibeWave.</p>
-            <p className="text-red-600">
+          <div className="text-center text-red-600">
+            <p>Spotify Premium is required to use VibeWave.</p>
+            <p>
               If you’re a Premium user and a potential future employer, feel free to email me your
               Spotify username and email address so I can manually whitelist you for access. You can
               find my email at the top of my resume.
             </p>
-          </>
+          </div>
         )}
       </div>
     </div>
